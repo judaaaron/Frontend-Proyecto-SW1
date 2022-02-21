@@ -51,7 +51,7 @@ function runTiming(clock, value, dest) {
         state.position
     ]);
 }
-class DrofamiApp extends Component {
+class DrofamiAppLogin extends Component {
     constructor() {
         super();
 
@@ -194,7 +194,7 @@ class DrofamiApp extends Component {
         );
     }
 }
-export default DrofamiApp;
+export default DrofamiAppLogin;
 
 const styles = StyleSheet.create({
     container: {

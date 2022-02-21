@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 // import ButtonGradient from './components/ButtontGradiente';
 import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
-import DrofamiApp from './app/index';
+import DrofamiAppLogin from './components/login';
 
 function cacheImages(images) {
   return images.map(image => {
@@ -40,7 +40,7 @@ export default class App extends React.Component {
         />
       );
     }
-    return <DrofamiApp/>
+    return <DrofamiAppLogin/>
   }
 }
 
