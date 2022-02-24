@@ -1,30 +1,102 @@
-import react from "react";
+import React from "react";
 import { useState } from "react";
 import { Button, Modal, Text } from "react-native-paper";
-
+import { StatusBar } from "expo-status-bar";
+import { Formik } from "formik";
+import { View } from "react-native";
+import { Octicons, Ionicons } from "@expo/vector-icons";
 import {
     StyledContainer,
     InnerContainer,
     PageLog,
-    PageTitle
-} from '../components/styles';
+    PageTitle,
+    Subtitle,
+    StyledFormArea,
+    LeftIcon,
+    RightIcon,
+    StyledInputLabel,
+    StyledTextInput,
+    ButtonText,
+    StyledButton,
+    Colors,
+} from "../components/styles";
 
-export const Login = ()=>{
-    const [openModal, setOpenModal] = useState(false);
-    return(
+const { brand, darkLight } = Colors;
+
+const Login = () => {
+    const [hidePassword, setHidePassword] = useState(true)
+    return (
         <StyledContainer>
+            <StatusBar style="dark" />
             <InnerContainer>
-                <PageLog  resizeMode = "cover" source ={require('../assets/drofamilogo1.jpg')}/>
-                <PageTitle>Drogueria y Farmacia Centroámerica Milenio</PageTitle>
+                <PageLog
+                    resizeMode="cover"
+                    source={require("../assets/drofamilogo1.jpg")}
+                />
+                <PageTitle>Drogueria y Farmacia</PageTitle>
+                <PageTitle>Centroámerica Milenio</PageTitle>
+                <Subtitle>Inicio de Sesión</Subtitle>
+                <Formik
+                    initialValues={{ usuario: "", token: "" }}
+                    onSubmit={(values) => {
+                        console.log(values);
+                    }}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
+                        <MyTextInput
+                            label={"Usuario"}
+                            icon={"mail"}
+                            placeholder={"usuario@ejemplo.com"}
+                            placeholderTextColor={darkLight}
+                            onChangeText={handleChange("usuario")}
+                            onBlur={handleBlur("usuario")}
+                            values={values.usuario}
+                            keyboardType={"email-address"}
+                        />
+                        <MyTextInput
+                            label={"Token"}
+                            icon={"lock"}
+                            placeholder={"*************"}
+                            placeholderTextColor={darkLight}
+                            onChangeText={handleChange("token")}
+                            onBlur={handleBlur("token")}
+                            values={values.token}
+                            secureTextEntry={hidePassword}
+                            isPassword={true}
+                            hidePassword={hidePassword}
+                            setHidePassword={setHidePassword}
+                        />
+                    </StyledFormArea>)}
+                </Formik>
             </InnerContainer>
-        <Button onPress={() => setOpenModal(!openModal)}>
-            <Text>Holaa</Text>
-        </Button>
-        <Modal visible={openModal} onDismiss={() => setOpenModal(false)}>
-            <Text>Hola Hola Holaaaa</Text>
-        </Modal>
         </StyledContainer>
     );
-}
+};
+
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
+    return (
+        <View>
+            <LeftIcon>
+                <Octicons name={icon} size={30} color={brand} />
+            </LeftIcon>
+            <StyledInputLabel>{label}</StyledInputLabel>
+            <StyledTextInput {...props} />
+            {isPassword && (
+                <RightIcon>
+                    <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight} />
+                </RightIcon>
+            )}
+        </View>
+    );
+};
 
 export default Login;
+
+{
+    /* <Button onPress={() => setOpenModal(!openModal)}>
+              <Text>Holaa</Text>
+          </Button>
+          <Modal visible={openModal} onDismiss={() => setOpenModal(false)}>
+              <Text>Hola Hola Holaaaa</Text>
+          </Modal> */
+}
