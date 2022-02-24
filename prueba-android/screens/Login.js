@@ -19,6 +19,11 @@ import {
     ButtonText,
     StyledButton,
     Colors,
+    ExtraView,
+    ExtraText,
+    TextLinkContent,
+    TextLink
+
 } from "../components/styles";
 
 const { brand, darkLight } = Colors;
@@ -26,7 +31,7 @@ const { brand, darkLight } = Colors;
 const Login = () => {
     const [hidePassword, setHidePassword] = useState(true)
     return (
-        <StyledContainer>
+        <View>
             <StatusBar style="dark" />
             <InnerContainer>
                 <PageLog
@@ -44,9 +49,9 @@ const Login = () => {
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
                         <MyTextInput
-                            label={"Usuario"}
-                            icon={"mail"}
-                            placeholder={"usuario@ejemplo.com"}
+                            label={"Username"}
+                            icon={"person"}
+                            placeholder={"drofamiClient"}
                             placeholderTextColor={darkLight}
                             onChangeText={handleChange("usuario")}
                             onBlur={handleBlur("usuario")}
@@ -71,10 +76,18 @@ const Login = () => {
                                 Iniciar Sesión
                             </ButtonText>
                         </StyledButton>
+
+                        <ExtraView>
+                            <ExtraText>¿No tienes cuenta? </ExtraText>
+                            <TextLink>
+                                <TextLinkContent>Registrate</TextLinkContent>
+                            </TextLink>
+                        </ExtraView>
+                        
                     </StyledFormArea>)}
                 </Formik>
             </InnerContainer>
-        </StyledContainer>
+       </View>
     );
 };
 
