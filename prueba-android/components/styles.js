@@ -19,12 +19,14 @@ const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
 export const StyledContainer = styled.View `
   flex: 1;
   background-color: ${primary};
+  padding: 25px
 `;
 
 export const InnerContainer = styled.View `
-  flex: 1;
+  
   width: 100%;
   align-items: center;
+  
 `;
 
 export const PageLog = styled.Image `
