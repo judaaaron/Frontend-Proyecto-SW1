@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View } from "react-native";
+import { View, ScrollView} from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import {
     StyledContainer,
@@ -28,16 +28,18 @@ import {
 
 const { brand, darkLight } = Colors;
 
-const Signup = () => {
+const Signup = (navigation) => {
     const [hidePassword, setHidePassword] = useState(true)
     return (
+        <ScrollView>
         <StyledContainer>
             <StatusBar style="dark" />
             <InnerContainer>
                 <PageTitle>Drofami</PageTitle>
                 <Subtitle>Registro</Subtitle>
+             
                 <Formik
-                    initialValues={{ usuario: "", token: "" }}
+                    initialValues={{ usuario: "", correo: "", phone: "", password: "", confirmPassword: "",  direccion: "" , rtn: ""}}
                     onSubmit={(values) => {
                         console.log(values);
                     }}
@@ -51,7 +53,7 @@ const Signup = () => {
                             onChangeText={handleChange("usuario")}
                             onBlur={handleBlur("usuario")}
                             values={values.usuario}
-                            keyboardType={"username"}
+                            
                         />
                          <MyTextInput
                             label={"Correo"}
@@ -66,7 +68,7 @@ const Signup = () => {
 
                          <MyTextInput
                             label={"Teléfono"}
-                            icon={"phone"}
+                            icon={"megaphone"}
                             placeholder={"5555-5555"}
                             placeholderTextColor={darkLight}
                             onChangeText={handleChange("phone")}
@@ -112,8 +114,8 @@ const Signup = () => {
 
                           <MyTextInput
                             label={"RTN"}
-                            icon={"rocket"}
-                            placeholder={"RTN"}
+                            icon={""}
+                            placeholder={"123456789"}
                             placeholderTextColor={darkLight}
                             onChangeText={handleChange("rtn")}
                             onBlur={handleBlur("rtn")}
@@ -126,17 +128,19 @@ const Signup = () => {
                             </ButtonText>
                         </StyledButton>
 
-                        <ExtraView>
+                        {/* <ExtraView>
                             <ExtraText>¿Ya tienes cuenta? </ExtraText>
-                            <TextLink>
+                            <TextLink onPress={()=> navigation.navigate('Login')}>
                                 <TextLinkContent>Login</TextLinkContent>
                             </TextLink>
-                        </ExtraView>
+                        </ExtraView> */}
                         
                     </StyledFormArea>)}
+                    
                 </Formik>
             </InnerContainer>
        </StyledContainer>
+       </ScrollView>
     );
 };
 
