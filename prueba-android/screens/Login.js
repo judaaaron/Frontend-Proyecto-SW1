@@ -4,8 +4,9 @@ import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View } from "react-native";
-import {login} from "../src/login_registerAPI";
+import { login } from "../src/login_registerAPI";
 import { Octicons, Ionicons } from "@expo/vector-icons";
+import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
     StyledContainer,
     InnerContainer,
@@ -29,7 +30,7 @@ import {
 
 const { brand, darkLight } = Colors;
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [loginResponse, setLoginResponse] = useState('');
@@ -43,64 +44,67 @@ const Login = ({navigation}) => {
     }, [loginResponse])
 
     return (
-        <View>
-            <StatusBar style="dark" />
-           <InnerContainer>
-                <PageLog
-                    resizeMode="cover"
-                    source={require("../assets/drofamilogo1.jpg")}
-                />
-                <PageTitle>Drogueria y Farmacia</PageTitle>
-                <PageTitle>Centroámerica Milenio</PageTitle>
-                <Subtitle>Inicio de Sesión</Subtitle>
-                <Formik
-                    initialValues={{ usuario: "", token: "" }}
-                    onSubmit={(values) => {
-                        (login(setLoading, values.usuario, values.token, setLoginResponse));
-                        //  navigation.navigate('Home'); dependiendo del response :)
-                    }}
-                >
-                    {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
-                        <MyTextInput
-                            label={"Username"}
-                            icon={"person"}
-                            placeholder={"drofamiClient"}
-                            placeholderTextColor={darkLight}
-                            onChangeText={handleChange("usuario")}
-                            onBlur={handleBlur("usuario")}
-                            values={values.usuario}
-                            keyboardType={"email-address"}
-                        />
-                        <MyTextInput
-                            label={"Token"}
-                            icon={"lock"}
-                            placeholder={"*************"}
-                            placeholderTextColor={darkLight}
-                            onChangeText={handleChange("token")}
-                            onBlur={handleBlur("token")}
-                            values={values.token}
-                            secureTextEntry={hidePassword}
-                            isPassword={true}
-                            hidePassword={hidePassword}
-                            setHidePassword={setHidePassword}
-                        />
-                        <StyledButton onPress={handleSubmit}>
-                            <ButtonText>
-                                Iniciar Sesión
-                            </ButtonText>
-                        </StyledButton>
+        <KeyboardAvoidingWrapper id="1">
+            <View>
+                <StatusBar style="dark" />
+                <InnerContainer>
+                    <PageLog
+                        resizeMode="cover"
+                        source={require("../assets/drofamilogo1.jpg")}
+                    />
+                    <PageTitle>Drogueria y Farmacia</PageTitle>
+                    <PageTitle>Centroámerica Milenio</PageTitle>
+                    <Subtitle>Inicio de Sesión</Subtitle>
+                    <Formik
+                        initialValues={{ usuario: "", token: "" }}
+                        onSubmit={(values) => {
+                            (login(setLoading, values.usuario, values.token, setLoginResponse));
+                            navigation.navigate('Home');
+                        }}
+                    >
+                        {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
+                            <MyTextInput
+                                label={"Username"}
+                                icon={"person"}
+                                placeholder={"drofamiClient"}
+                                placeholderTextColor={darkLight}
+                                onChangeText={handleChange("usuario")}
+                                onBlur={handleBlur("usuario")}
+                                values={values.usuario}
+                                keyboardType={"email-address"}
+                            />
+                            <MyTextInput
+                                label={"Token"}
+                                icon={"lock"}
+                                placeholder={"*************"}
+                                placeholderTextColor={darkLight}
+                                onChangeText={handleChange("token")}
+                                onBlur={handleBlur("token")}
+                                values={values.token}
+                                secureTextEntry={hidePassword}
+                                isPassword={true}
+                                hidePassword={hidePassword}
+                                setHidePassword={setHidePassword}
+                            />
+                            <StyledButton onPress={handleSubmit}>
+                                <ButtonText>
+                                    Iniciar Sesión
+                                </ButtonText>
+                            </StyledButton>
 
-                        <ExtraView>
-                            <ExtraText>¿No tienes cuenta? </ExtraText>
-                            <TextLink onPress={()=> navigation.navigate('Signup')}>
-                                <TextLinkContent>Registrate</TextLinkContent>
-                            </TextLink>
-                        </ExtraView>
-                        
-                    </StyledFormArea>)}
-                </Formik>
-            </InnerContainer>
-       </View>
+                            <ExtraView>
+                                <ExtraText>¿No tienes cuenta? </ExtraText>
+                                <TextLink onPress={() => navigation.navigate('Signup')}>
+                                    <TextLinkContent>Registrate</TextLinkContent>
+                                </TextLink>
+                            </ExtraView>
+
+                        </StyledFormArea>)}
+                    </Formik>
+                </InnerContainer>
+            </View>
+        </KeyboardAvoidingWrapper>
+
     );
 };
 
@@ -113,13 +117,15 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />
             {isPassword && (
-                <RightIcon onPress={()=>setHidePassword(!hidePassword)}>
+                <RightIcon onPress={() => setHidePassword(!hidePassword)}>
                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight} />
                 </RightIcon>
             )}
         </View>
     );
 };
+
+
 
 export default Login;
 

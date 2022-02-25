@@ -21,7 +21,7 @@ import {
     WelcomeContainer,
     WelcomeImage,
     Avatar
-} from "./../components/styles";
+} from "../components/styles";
 
 
 const Home = () => {

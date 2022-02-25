@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, ScrollView} from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
+import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
     StyledContainer,
     InnerContainer,
@@ -31,7 +32,7 @@ const { brand, darkLight } = Colors;
 const Signup = (navigation) => {
     const [hidePassword, setHidePassword] = useState(true)
     return (
-        <ScrollView>
+        <KeyboardAvoidingWrapper>
         <StyledContainer>
             <StatusBar style="dark" />
             <InnerContainer>
@@ -140,7 +141,8 @@ const Signup = (navigation) => {
                 </Formik>
             </InnerContainer>
        </StyledContainer>
-       </ScrollView>
+       
+       </KeyboardAvoidingWrapper>
     );
 };
 
