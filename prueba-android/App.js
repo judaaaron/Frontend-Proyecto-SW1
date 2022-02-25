@@ -4,8 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 //import { Colors } from '../prueba-android/components/styles'
 //const { primary, tertiary } = Colors;
 import Login from './screens/Login'
-import Signup from './screens/Signup'
-//import Home from './screens/Home'
+import Signup from './screens/signUp'
+import Home from './screens/home'
 
 
 const Stack = createStackNavigator();
