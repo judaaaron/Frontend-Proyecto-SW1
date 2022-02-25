@@ -37,7 +37,7 @@ export async function signUp(username, correo, telefono, Contraseña, direccion,
             body: JSON.stringify({
                 'username': username,
                 'password': password,
-                '': 
+                '': ""
             }),
             headers: {
                 Accept: 'application/json',
