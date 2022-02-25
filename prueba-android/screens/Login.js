@@ -4,6 +4,7 @@ import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View } from "react-native";
+import {login} from "../src/login_registerAPI";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import {
     StyledContainer,
@@ -30,6 +31,17 @@ const { brand, darkLight } = Colors;
 
 const Login = ({navigation}) => {
     const [hidePassword, setHidePassword] = useState(true)
+    const [isLoading, setLoading] = useState(false)
+    const [loginResponse, setLoginResponse] = useState('');
+
+    React.useEffect(() => {
+        console.log(loginResponse);
+        if (!loginResponse) {
+            return;
+        }
+        console.log(loginResponse);
+    }, [loginResponse])
+
     return (
         <View>
             <StatusBar style="dark" />
@@ -44,8 +56,8 @@ const Login = ({navigation}) => {
                 <Formik
                     initialValues={{ usuario: "", token: "" }}
                     onSubmit={(values) => {
-                        console.log(values);
-                      //  navigation.navigate('Home');
+                        (login(setLoading, values.usuario, values.token, setLoginResponse));
+                        //  navigation.navigate('Home'); dependiendo del response :)
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
