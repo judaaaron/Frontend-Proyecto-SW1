@@ -47,16 +47,22 @@ const Login = ({ navigation }) => {
     return (
         <>
         <ActivityIndicator animating={isLoading} size={87}/>
-        <KeyboardAvoidingWrapper id="1">
+        
+
+        <KeyboardAvoidingWrapper>
+
             <View>
                 <StatusBar style="dark" />
                 <InnerContainer>
                     <PageLog
-                        resizeMode="cover"
                         source={require("../assets/drofamilogo1.jpg")}
+                        resizeMode="cover"
+
                     />
-                    <PageTitle>Drogueria y Farmacia</PageTitle>
-                    <PageTitle>Centroámerica Milenio</PageTitle>
+                    <PageTitle>Drogueria y Farmacia
+                    Centroámerica Milenio
+                    </PageTitle>
+                    <PageTitle></PageTitle>
                     <Subtitle>Inicio de Sesión</Subtitle>
                     <Formik
                         initialValues={{ usuario: "", token: "" }}
@@ -66,6 +72,8 @@ const Login = ({ navigation }) => {
                         }}
                     >
                         {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
+                           
+                            
                             <MyTextInput
                                 label={"Username"}
                                 icon={"person"}

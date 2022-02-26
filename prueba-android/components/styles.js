@@ -20,25 +20,32 @@ export const StyledContainer = styled.View `
   flex: 1;
   background-color: ${primary};
   padding: 25px
+  justify-content: center;
 `;
 
 export const InnerContainer = styled.View `
   
   width: 100%;
   align-items: center;
+  background-color: ${primary};
   
 `;
 
 export const PageLog = styled.Image `
-  width: 250px;
-  height: 200px;
+  margin-bottom: 55px;
+  width: 360px;
+  height: 100px;
+  background-color: ${primary};
 `;
 
 export const PageTitle = styled.Text `
+
   font-size: 30px;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 10px;
   color: ${brand};
+  background-color: ${primary};
 
   ${(props)=> props.welcome &&`
     font-size :35px;
@@ -47,10 +54,11 @@ export const PageTitle = styled.Text `
 
 export const Subtitle = styled.Text `
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   letter-spacing: 1px;
   font-weight: bold;
   color: ${tertiary};
+  background-color: ${primary};
 
   ${(props)=> props.welcome &&`
   margin-bottom: 5px
@@ -60,6 +68,7 @@ export const Subtitle = styled.Text `
 
 export const StyledFormArea = styled.View `
   width: 90%;
+  background-color: ${primary};
 `;
 
 export const StyledTextInput = styled.TextInput `
@@ -67,11 +76,12 @@ export const StyledTextInput = styled.TextInput `
   padding: 15px;
   padding-left: 55px;
   padding-right: 55px;
-  border-radius: 5px;
+  border-radius: 35px;
   font-size: 16px;
   height: 60px;
   margin-vertical: 3px;
   margin-bottom: 10px;
+  font-weight: bold;
   color: ${tertiary};
 `;
 
@@ -79,6 +89,8 @@ export const StyledInputLabel = styled.Text `
   color: ${tertiary};
   font-size: 13px;
   text-align: left;
+  font-weight: bold;
+  background-color: ${primary};
 `;
 export const LeftIcon = styled.View `
   left: 15px;
@@ -98,14 +110,16 @@ export const StyledButton = styled.TouchableOpacity `
   background-color: ${brand};
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
-  margin-vertical: 5px;
+  border-radius: 35px;
+  margin-vertical: 20px;
   height: 60px;
+  font-weight: bold;
 `;
 
 export const ButtonText = styled.Text `
   color: ${primary};
   font-size: 16px;
+  
 `;
 
 export const ExtraView = styled.View`
@@ -113,6 +127,7 @@ export const ExtraView = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 10px;
+  background-color: ${primary};
   `;
 
   export const ExtraText = styled.Text`
@@ -120,16 +135,19 @@ export const ExtraView = styled.View`
   align-content: center;
   color: ${tertiary};
   font-size: 15px;
+  background-color: ${primary};
   `;
 
   export const TextLink = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
+  background-color: ${primary};
   `;
 
   export const TextLinkContent = styled.Text`
   color: ${brand};
   font-size: 15px;
+  background-color: ${primary};
   `;
 
 

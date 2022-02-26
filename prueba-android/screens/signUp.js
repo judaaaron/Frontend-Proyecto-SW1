@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, ScrollView} from "react-native";
+import { View, ScrollView } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
@@ -42,15 +42,15 @@ const Signup = (navigation) => {
     }, [response])
 
     return (
-        <KeyboardAvoidingWrapper>
         <StyledContainer>
             <StatusBar style="dark" />
+
             <InnerContainer>
                 <PageTitle>Drofami</PageTitle>
                 <Subtitle>Registro</Subtitle>
-             
+
                 <Formik
-                    initialValues={{ usuario: "", correo: "", phone: "", password: "", confirmPassword: "",  direccion: "" , rtn: ""}}
+                    initialValues={{ usuario: "",nombre:"", apellido:"", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: "" }}
                     onSubmit={(values) => {
                         signUp(values.usuario, values.correo, values.phone, values.password,
                             values.confirmPassword, "first", "lastnames", values.direccion,
@@ -59,6 +59,28 @@ const Signup = (navigation) => {
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
                         <MyTextInput
+                            label={"Primer Nombre"}
+                            icon={"person"}
+                            placeholder={"Mauricio"}
+                            placeholderTextColor={darkLight}
+                            onChangeText={handleChange("nombre")}
+                            onBlur={handleBlur("nombre")}
+                            values={values.nombre}
+
+                        />
+
+                        <MyTextInput
+                            label={"Primer Apellido"}
+                            icon={"person"}
+                            placeholder={"Ordoñez"}
+                            placeholderTextColor={darkLight}
+                            onChangeText={handleChange("apellido")}
+                            onBlur={handleBlur("apellido")}
+                            values={values.apellido}
+
+                        />
+
+                        <MyTextInput
                             label={"Username"}
                             icon={"person"}
                             placeholder={"drofamiClient"}
@@ -66,9 +88,9 @@ const Signup = (navigation) => {
                             onChangeText={handleChange("usuario")}
                             onBlur={handleBlur("usuario")}
                             values={values.usuario}
-                            
+
                         />
-                         <MyTextInput
+                        <MyTextInput
                             label={"Correo"}
                             icon={"mail"}
                             placeholder={"drofamiClient@ejemplo.com"}
@@ -79,7 +101,7 @@ const Signup = (navigation) => {
                             keyboardType={"email-address"}
                         />
 
-                         <MyTextInput
+                        <MyTextInput
                             label={"Teléfono"}
                             icon={"megaphone"}
                             placeholder={"5555-5555"}
@@ -87,7 +109,7 @@ const Signup = (navigation) => {
                             onChangeText={handleChange("phone")}
                             onBlur={handleBlur("phone")}
                             values={values.phone}
-                            
+
                         />
                         <MyTextInput
                             label={"Contraseña"}
@@ -102,6 +124,8 @@ const Signup = (navigation) => {
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
                         />
+
+
                         <MyTextInput
                             label={"Confirmar Constraña"}
                             icon={"lock"}
@@ -115,7 +139,7 @@ const Signup = (navigation) => {
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
                         />
-                         <MyTextInput
+                        <MyTextInput
                             label={"Direccion"}
                             icon={"location"}
                             placeholder={"Direecion de entrega"}
@@ -125,7 +149,7 @@ const Signup = (navigation) => {
                             values={values.direccion}
                         />
 
-                          <MyTextInput
+                        <MyTextInput
                             label={"RTN"}
                             icon={""}
                             placeholder={"123456789"}
@@ -134,7 +158,7 @@ const Signup = (navigation) => {
                             onBlur={handleBlur("rtn")}
                             values={values.rtn}
                         />
-                        
+
                         <StyledButton onPress={handleSubmit}>
                             <ButtonText>
                                 Registrate
@@ -147,14 +171,17 @@ const Signup = (navigation) => {
                                 <TextLinkContent>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView> */}
-                        
+
+
                     </StyledFormArea>)}
-                    
+
                 </Formik>
+
             </InnerContainer>
-       </StyledContainer>
-       
-       </KeyboardAvoidingWrapper>
+
+        </StyledContainer>
+
+
     );
 };
 
@@ -167,7 +194,7 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />
             {isPassword && (
-                <RightIcon onPress={()=>setHidePassword(!hidePassword)}>
+                <RightIcon onPress={() => setHidePassword(!hidePassword)}>
                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight} />
                 </RightIcon>
             )}
