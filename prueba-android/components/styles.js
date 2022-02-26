@@ -18,34 +18,37 @@ export const Colors = {
 const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
 export const StyledContainer = styled.View `
   flex: 1;
+  padding: 25px;
+  margin-bottom: 30px;
   background-color: ${primary};
-  padding: 25px
-  justify-content: center;
 `;
 
 export const InnerContainer = styled.View `
-  
+
   width: 100%;
+  height:100%;
   align-items: center;
+  top: -0px;
+  
   background-color: ${primary};
   
 `;
 
 export const PageLog = styled.Image `
-  margin-bottom: 55px;
+  
   width: 360px;
   height: 100px;
-  background-color: ${primary};
+  
 `;
 
 export const PageTitle = styled.Text `
 
   font-size: 30px;
   text-align: center;
-  font-weight: bold;
-  margin-bottom: 10px;
+  
+  margin-bottom: 5px;
   color: ${brand};
-  background-color: ${primary};
+  
 
   ${(props)=> props.welcome &&`
     font-size :35px;
@@ -54,7 +57,7 @@ export const PageTitle = styled.Text `
 
 export const Subtitle = styled.Text `
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 45px;
   letter-spacing: 1px;
   font-weight: bold;
   color: ${tertiary};
@@ -67,7 +70,7 @@ export const Subtitle = styled.Text `
 `;
 
 export const StyledFormArea = styled.View `
-  width: 90%;
+  width: 95%;
   background-color: ${primary};
 `;
 
@@ -80,7 +83,7 @@ export const StyledTextInput = styled.TextInput `
   font-size: 16px;
   height: 60px;
   margin-vertical: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-weight: bold;
   color: ${tertiary};
 `;

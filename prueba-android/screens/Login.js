@@ -45,12 +45,9 @@ const Login = ({ navigation }) => {
     }, [loginResponse])
 
     return (
-        <>
-        <ActivityIndicator animating={isLoading} size={87}/>
-        
-
+      //  <>
+     //   <ActivityIndicator animating={isLoading} size={87}/>
         <KeyboardAvoidingWrapper>
-
             <View>
                 <StatusBar style="dark" />
                 <InnerContainer>
@@ -59,10 +56,11 @@ const Login = ({ navigation }) => {
                         resizeMode="cover"
 
                     />
-                    <PageTitle>Drogueria y Farmacia
+                    <PageTitle>Droguería y Farmacia
                     Centroámerica Milenio
                     </PageTitle>
                     <PageTitle></PageTitle>
+                    
                     <Subtitle>Inicio de Sesión</Subtitle>
                     <Formik
                         initialValues={{ usuario: "", token: "" }}
@@ -115,7 +113,7 @@ const Login = ({ navigation }) => {
                 </InnerContainer>
             </View>
         </KeyboardAvoidingWrapper>
-        </>
+      //  </>
     );
 };
 
