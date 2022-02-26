@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, ScrollView} from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
+import { signUp } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import {
     StyledContainer,
@@ -31,6 +32,15 @@ const { brand, darkLight } = Colors;
 
 const Signup = (navigation) => {
     const [hidePassword, setHidePassword] = useState(true)
+    const [isLoading, setLoading] = useState(false)
+    const [response, setResponse] = useState('')
+
+    
+
+    React.useEffect(() => {
+        console.log(response)
+    }, [response])
+
     return (
         <KeyboardAvoidingWrapper>
         <StyledContainer>
@@ -42,7 +52,9 @@ const Signup = (navigation) => {
                 <Formik
                     initialValues={{ usuario: "", correo: "", phone: "", password: "", confirmPassword: "",  direccion: "" , rtn: ""}}
                     onSubmit={(values) => {
-                        console.log(values);
+                        signUp(values.usuario, values.correo, values.phone, values.password,
+                            values.confirmPassword, "first", "lastnames", values.direccion,
+                            values.rtn, setLoading, setResponse);
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>

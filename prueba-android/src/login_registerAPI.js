@@ -16,7 +16,7 @@ export async function login(setLoading, username, password, setLoginResponse) {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
               },
-        }).then((response) => response.json())
+        }).then((response) => response.json())//el status conseguir
         .then(data => {
             resp['status'] = response.status;
             resp['data'] = data;
@@ -29,30 +29,38 @@ export async function login(setLoading, username, password, setLoginResponse) {
     }
 }
 
-export async function signUp(username, correo, telefono, Contraseña, direccion, rtn, setLoading, setResponse) {
+export async function signUp(username, email, phoneNumber, password, password2,
+    first_name, last_name, address, rtn, setLoading, setResponse) {
     let response = {}
     try {
-        response = await fetch(API_URL + 'token-auth/', {
+        response = await fetch(API_URL + 'auth/register', {
             method: 'POST',
             body: JSON.stringify({
                 'username': username,
                 'password': password,
-                '': ""
+                'password2': password2,
+                'email': email,
+                'first_name': first_name,
+                'last_name': last_name,
+                'phone_number': phoneNumber,
+                'cliente': {
+                    'rtn': rtn,
+                    'address': address
+                }
             }),
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
               },
-        }).then((response) => {
-            const statusCode = response.status
-            response.json()
-        })
+        }).then((response) => 
+            response.json())
         .then(data => {
+            console.log(data)
             data.status = statusCode
-            setLoginResponse(data)
+            setResponse(data)
         })
-    } catch {
-        
+    } catch (e){
+        console.log(e)
     } finally {
         setLoading(false)
     }

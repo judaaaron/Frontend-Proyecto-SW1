@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Modal, Text } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View } from "react-native";
@@ -44,6 +45,8 @@ const Login = ({ navigation }) => {
     }, [loginResponse])
 
     return (
+        <>
+        <ActivityIndicator animating={isLoading} size={87}/>
         <KeyboardAvoidingWrapper id="1">
             <View>
                 <StatusBar style="dark" />
@@ -104,7 +107,7 @@ const Login = ({ navigation }) => {
                 </InnerContainer>
             </View>
         </KeyboardAvoidingWrapper>
-
+        </>
     );
 };
 
