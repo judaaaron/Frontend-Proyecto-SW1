@@ -42,13 +42,18 @@ const Signup = (navigation) => {
     }, [response])
 
     return (
-        <ScrollView>
+        <KeyboardAvoidingWrapper>
+
             <StyledContainer>
                 <StatusBar style="dark" />
 
                 <InnerContainer>
-                    <PageTitle>DROFAMI Registro</PageTitle>
+                    <PageLog
+                        source={require("../assets/drofamilogo1.jpg")}
+                        resizeMode="cover"
 
+                    />
+                    <Subtitle>Registro</Subtitle>
                     <Formik
                         initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: "" }}
                         onSubmit={(values) => {
@@ -103,7 +108,7 @@ const Signup = (navigation) => {
 
                             <MyTextInput
                                 label={"Teléfono"}
-                                icon={"megaphone"}
+                                icon={"device-mobile"}
                                 placeholder={"5555-5555"}
                                 placeholderTextColor={darkLight}
                                 onChangeText={handleChange("phone")}
@@ -142,7 +147,7 @@ const Signup = (navigation) => {
                             <MyTextInput
                                 label={"Direccion"}
                                 icon={"location"}
-                                placeholder={"Direecion de entrega"}
+                                placeholder={"Dirección de entrega"}
                                 placeholderTextColor={darkLight}
                                 onChangeText={handleChange("direccion")}
                                 onBlur={handleBlur("direccion")}
@@ -151,7 +156,7 @@ const Signup = (navigation) => {
 
                             <MyTextInput
                                 label={"RTN"}
-                                icon={""}
+                                icon={"credit-card"}
                                 placeholder={"123456789"}
                                 placeholderTextColor={darkLight}
                                 onChangeText={handleChange("rtn")}
@@ -180,7 +185,7 @@ const Signup = (navigation) => {
                 </InnerContainer>
 
             </StyledContainer>
-        </ScrollView>
+        </KeyboardAvoidingWrapper>
 
 
     );

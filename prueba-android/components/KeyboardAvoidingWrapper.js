@@ -4,17 +4,19 @@ import React from "react";
 import { KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
+const offset = (Platform.OS === 'android') ? -500 : 64;
 
-const KeyboardAvoidingWrapper = ({children}) =>{
+const KeyboardAvoidingWrapper = ({ children }) => {
     return (
-        <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
-            <ScrollView >
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    {children}
-                </TouchableWithoutFeedback>
-            </ScrollView>
-        </KeyboardAvoidingView>
+        
+            <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={offset}>
+                <ScrollView >
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        {children}
+                    </TouchableWithoutFeedback>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        
     );
 }
 

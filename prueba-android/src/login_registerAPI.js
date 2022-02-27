@@ -1,6 +1,7 @@
 const API_URL = 'https://drofami-app.herokuapp.com/api/'
 
 export async function login(setLoading, username, password, setLoginResponse) {
+    setLoading(true);
     const resp = {};
     console.log(username)
     console.log(password)
@@ -25,7 +26,7 @@ export async function login(setLoading, username, password, setLoginResponse) {
     } catch {
         
     } finally {
-        setLoading(false)
+       setLoading(false)
     }
 }
 

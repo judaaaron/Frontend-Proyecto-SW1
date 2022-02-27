@@ -4,10 +4,12 @@ import { Button, Modal, Text } from "react-native-paper";
 import { ActivityIndicator } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { login } from "../src/login_registerAPI";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
+import AppLoader from "../components/AppLoader";
+import AnimatedLottieView from 'lottie-react-native';
 import {
     StyledContainer,
     InnerContainer,
@@ -45,75 +47,93 @@ const Login = ({ navigation }) => {
     }, [loginResponse])
 
     return (
-      //  <>
-     //   <ActivityIndicator animating={isLoading} size={87}/>
-        <KeyboardAvoidingWrapper>
-            <View>
-                <StatusBar style="dark" />
-                <InnerContainer>
-                    <PageLog
-                        source={require("../assets/drofamilogo1.jpg")}
-                        resizeMode="cover"
+        <>
 
-                    />
-                    <PageTitle>Droguería y Farmacia
-                    Centroámerica Milenio
-                    </PageTitle>
-                    <PageTitle></PageTitle>
-                    
-                    <Subtitle>Inicio de Sesión</Subtitle>
-                    <Formik
-                        initialValues={{ usuario: "", token: "" }}
-                        onSubmit={(values) => {
-                            (login(setLoading, values.usuario, values.token, setLoginResponse));
-                            navigation.navigate('Home');
-                        }}
-                    >
-                        {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
-                           
-                            
-                            <MyTextInput
-                                label={"Username"}
-                                icon={"person"}
-                                placeholder={"drofamiClient"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("usuario")}
-                                onBlur={handleBlur("usuario")}
-                                values={values.usuario}
-                                keyboardType={"email-address"}
+            <KeyboardAvoidingWrapper>
+                <View style={estilos.view2}>
+                    <StyledContainer>
+                        <StatusBar style="dark" />
+                        <InnerContainer>
+                            <PageLog
+                                source={require("../assets/drofamilogo1.jpg")}
+                                resizeMode="cover"
+
                             />
-                            <MyTextInput
-                                label={"Token"}
-                                icon={"lock"}
-                                placeholder={"*************"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("token")}
-                                onBlur={handleBlur("token")}
-                                values={values.token}
-                                secureTextEntry={hidePassword}
-                                isPassword={true}
-                                hidePassword={hidePassword}
-                                setHidePassword={setHidePassword}
-                            />
-                            <StyledButton onPress={handleSubmit}>
-                                <ButtonText>
-                                    Iniciar Sesión
-                                </ButtonText>
-                            </StyledButton>
+                            <PageTitle>Droguería y Farmacia
+                                Centroámerica Milenio
+                            </PageTitle>
+                            <PageTitle></PageTitle>
 
-                            <ExtraView>
-                                <ExtraText>¿No tienes cuenta? </ExtraText>
-                                <TextLink onPress={() => navigation.navigate('Signup')}>
-                                    <TextLinkContent>Registrate</TextLinkContent>
-                                </TextLink>
-                            </ExtraView>
+                            <Subtitle>Inicio de Sesión</Subtitle>
+                            <Formik
+                                initialValues={{ usuario: "", token: "" }}
+                                onSubmit={(values) => {
+                                    (login(setLoading, values.usuario, values.token, setLoginResponse));
+                                    //  navigation.navigate('Home');
+                                }}
+                            >
+                                {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
 
-                        </StyledFormArea>)}
-                    </Formik>
-                </InnerContainer>
+
+                                    <MyTextInput
+                                        label={"Username"}
+                                        icon={"person"}
+                                        placeholder={"drofamiClient"}
+                                        placeholderTextColor={darkLight}
+                                        onChangeText={handleChange("usuario")}
+                                        onBlur={handleBlur("usuario")}
+                                        values={values.usuario}
+                                        keyboardType={"email-address"}
+                                    />
+                                    <MyTextInput
+                                        label={"Token"}
+                                        icon={"lock"}
+                                        placeholder={"*************"}
+                                        placeholderTextColor={darkLight}
+                                        onChangeText={handleChange("token")}
+                                        onBlur={handleBlur("token")}
+                                        values={values.token}
+                                        secureTextEntry={hidePassword}
+                                        isPassword={true}
+                                        hidePassword={hidePassword}
+                                        setHidePassword={setHidePassword}
+                                    />
+
+                                    <StyledButton onPress={handleSubmit}>
+                                        <ButtonText>
+                                            Iniciar Sesión
+                                        </ButtonText>
+                                    </StyledButton>
+
+
+                                    <ExtraView>
+                                        <ExtraText>¿No tienes cuenta? </ExtraText>
+                                        <TextLink onPress={() => navigation.navigate('Signup')}>
+                                            <TextLinkContent>Registrate</TextLinkContent>
+                                        </TextLink>
+                                    </ExtraView>
+
+                                </StyledFormArea>)}
+                            </Formik>
+                        </InnerContainer>
+                    </StyledContainer>
+                </View>
+            </KeyboardAvoidingWrapper>
+
+            {isLoading && <View style={[StyleSheet.absoluteFillObject, estilos.spinnercontent]}>
+                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
+                    <ActivityIndicator size={100} color={'blue'}/>
+                    <Text>
+                        Cargando...
+                    </Text>
             </View>
-        </KeyboardAvoidingWrapper>
-      //  </>
+        
+            }
+
+
+
+        </>
+
     );
 };
 
@@ -137,6 +157,19 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
 
 
 export default Login;
+
+
+const estilos = StyleSheet.create({
+    spinnercontent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        zIndex: 1,
+    },
+    view2:{
+        backgroundColor: 'white',
+    }
+})
 
 {
     /* <Button onPress={() => setOpenModal(!openModal)}>

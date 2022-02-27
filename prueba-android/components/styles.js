@@ -18,7 +18,7 @@ export const Colors = {
 const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
 export const StyledContainer = styled.View `
   flex: 1;
-  padding: 25px;
+  padding: 10px;
   margin-bottom: 30px;
   background-color: ${primary};
 `;
@@ -57,7 +57,7 @@ export const PageTitle = styled.Text `
 
 export const Subtitle = styled.Text `
   font-size: 18px;
-  margin-bottom: 45px;
+  margin-bottom: 20px;
   letter-spacing: 1px;
   font-weight: bold;
   color: ${tertiary};
@@ -81,7 +81,7 @@ export const StyledTextInput = styled.TextInput `
   padding-right: 55px;
   border-radius: 35px;
   font-size: 16px;
-  height: 60px;
+  height: 52px;
   margin-vertical: 3px;
   margin-bottom: 20px;
   font-weight: bold;
@@ -97,13 +97,13 @@ export const StyledInputLabel = styled.Text `
 `;
 export const LeftIcon = styled.View `
   left: 15px;
-  top: 38px;
+  top: 28px;
   position: absolute;
   z-index: 1;
 `;
 export const RightIcon = styled.TouchableOpacity `
   right: 15px;
-  top: 38px;
+  top: 29px;
   position: absolute;
   z-index: 1;
 `;
@@ -175,4 +175,16 @@ export const Avatar = styled.Image`
     height: 50%
     min-width: 100%
     `;
+
+   export const spinner = styled.View`
+   background-color: ${primary};
+   position: 'absolute';
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   alignItems: 'center';
+   justifyContent: 'center;
+   
+   `;
 
