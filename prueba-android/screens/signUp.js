@@ -30,9 +30,10 @@ import {
 } from "../components/styles";
 
 const { brand, darkLight } = Colors;
-const regularNameLastName = /^[aA-zZ\s]+$/
-const regularPhone = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
-const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+const regularNameLastName = /^[aA-zZ\s]+$/  //solo acepta letras
+const regularPhone = /^[0-9]+(?:-[0-9]+)$/// solo acepta numeros y guion en el centro
+const regularRTN = /^[0-9-]+$/
+const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
         .required('Nombre es obligatorio').matches(regularNameLastName,
@@ -48,16 +49,19 @@ let SingUpValidationSchema = yup.object().shape({
         .required('Contraseña es obligatoria').matches(regularPassword,
             "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial"
         ),
-    phone: yup.string().min(8, ({ min }) => `Número teléfonico debe tener ${min} números`).max(8, ({ max }) => `Número teléfonico debe tener ${max} números`)
+    phone: yup.string().min(9, ({ min }) => `Número teléfonico debe tener 8 números y un guión`).max(9, ({ max }) => `Número teléfonico debe tener 8 números y un guión`)
         .required('Número teléfonico es obligatorio').matches(regularPhone,
-            "Número teléfonico inválido"
+            "Número teléfonico inválido",
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
     direccion: yup.string().required('Dirección obligatoria'),
-    rtn: yup.string().min(14, ({ min }) => `RTN debe tener ${min} números`).max(14, ({ max }) => `RTN debe tener ${max} números`)
-    .required('Número de RTN es obligatorio').matches(regularPhone,
-        "RTN inválido"
-    ),
+    rtn: yup.string().min(16, ({ min }) => `RTN debe tener 14 números`).max(16, ({ max }) => `RTN debe tener 14 números`)
+        .required('Número de RTN es obligatorio').matches(regularRTN,
+            "RTN inválido"
+        ),
+
+         
+
 });
 
 const Signup = (navigation) => {
@@ -83,12 +87,13 @@ const Signup = (navigation) => {
                     />
                     <Subtitle>Registro</Subtitle>
                     <Formik
-                        initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: "" }}
+                        initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: ""}}
                         validateOnMount={true}
                         onSubmit={(values) => {
                             signUp(values.usuario, values.correo, values.phone, values.password,
                                 values.confirmPassword, "first", "lastnames", values.direccion,
-                                values.rtn, setLoading, setResponse);
+                                values.rtn, setLoading, setResponse
+                            );
                         }}
                         validationSchema={SingUpValidationSchema}
                     >
@@ -162,13 +167,14 @@ const Signup = (navigation) => {
                             <MyTextInput
                                 label={"Teléfono"}
                                 icon={"device-mobile"}
-                                placeholder={"12345678"}
+                                placeholder={"1234-5678"}
                                 placeholderTextColor={darkLight}
                                 onChangeText={handleChange("phone")}
                                 onBlur={handleBlur("phone")}
                                 values={values.phone}
                             />
 
+                          
                             {(errors.phone && touched.phone) &&
                                 <Text style={styles.errores}>
                                     {errors.phone}
@@ -232,7 +238,7 @@ const Signup = (navigation) => {
                             <MyTextInput
                                 label={"RTN"}
                                 icon={"credit-card"}
-                                placeholder={"123456789"}
+                                placeholder={"1234-5678-987415"}
                                 placeholderTextColor={darkLight}
                                 onChangeText={handleChange("rtn")}
                                 onBlur={handleBlur("rtn")}
@@ -245,7 +251,7 @@ const Signup = (navigation) => {
                                 </Text>
                             }
 
-                            <StyledButton onPress={handleSubmit}>
+                            <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{backgroundColor: isValid ? '#6D28D9': '#9CA3AF'}}>
                                 <ButtonText>
                                     Registrate
                                 </ButtonText>

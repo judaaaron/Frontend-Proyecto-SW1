@@ -6,24 +6,24 @@ import Constants from "expo-constants";
 const StatusBarHeight = Constants.StatusBarHeight;
 // para colores
 export const Colors = {
-    primary: "#ffffff",
-    secondary: "#E5E7EB",
-    tertiary: "#1F2937",
-    darkLight: "#9CA3AF",
-    brand: "#6D28D9",
-    green: "#10B981",
-    red: "#EF4444",
+  primary: "#ffffff",
+  secondary: "#E5E7EB",
+  tertiary: "#1F2937",
+  darkLight: "#9CA3AF",
+  brand: "#6D28D9",
+  green: "#10B981",
+  red: "#EF4444",
 };
 
 const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
-export const StyledContainer = styled.View `
+export const StyledContainer = styled.View`
   flex: 1;
   padding: 10px;
   margin-bottom: 30px;
   background-color: ${primary};
 `;
 
-export const InnerContainer = styled.View `
+export const InnerContainer = styled.View`
 
   width: 100%;
   height:100%;
@@ -34,14 +34,14 @@ export const InnerContainer = styled.View `
   
 `;
 
-export const PageLog = styled.Image `
+export const PageLog = styled.Image`
   
   width: 360px;
   height: 100px;
   
 `;
 
-export const PageTitle = styled.Text `
+export const PageTitle = styled.Text`
 
   font-size: 30px;
   text-align: center;
@@ -50,12 +50,12 @@ export const PageTitle = styled.Text `
   color: ${brand};
   
 
-  ${(props)=> props.welcome &&`
+  ${(props) => props.welcome && `
     font-size :35px;
   `}
 `;
 
-export const Subtitle = styled.Text `
+export const Subtitle = styled.Text`
   font-size: 18px;
   margin-bottom: 20px;
   letter-spacing: 1px;
@@ -63,18 +63,18 @@ export const Subtitle = styled.Text `
   color: ${tertiary};
   background-color: ${primary};
 
-  ${(props)=> props.welcome &&`
+  ${(props) => props.welcome && `
   margin-bottom: 5px
   font-weight:normal;  
 `}
 `;
 
-export const StyledFormArea = styled.View `
+export const StyledFormArea = styled.View`
   width: 95%;
   background-color: ${primary};
 `;
 
-export const StyledTextInput = styled.TextInput `
+export const StyledTextInput = styled.TextInput`
   background: ${secondary};
   padding: 15px;
   padding-left: 55px;
@@ -88,27 +88,27 @@ export const StyledTextInput = styled.TextInput `
   color: ${tertiary};
 `;
 
-export const StyledInputLabel = styled.Text `
+export const StyledInputLabel = styled.Text`
   color: ${tertiary};
   font-size: 13px;
   text-align: left;
   font-weight: bold;
   background-color: ${primary};
 `;
-export const LeftIcon = styled.View `
+export const LeftIcon = styled.View`
   left: 15px;
   top: 28px;
   position: absolute;
   z-index: 1;
 `;
-export const RightIcon = styled.TouchableOpacity `
+export const RightIcon = styled.TouchableOpacity`
   right: 15px;
   top: 29px;
   position: absolute;
   z-index: 1;
 `;
 
-export const StyledButton = styled.TouchableOpacity `
+export const StyledButton = styled.TouchableOpacity`
   padding: 15px;
   background-color: ${brand};
   align-items: center;
@@ -117,9 +117,12 @@ export const StyledButton = styled.TouchableOpacity `
   margin-vertical: 20px;
   height: 60px;
   font-weight: bold;
+  shadowOpacity: 0.8;
+  shadowRadius: 15px;
+ 
 `;
 
-export const ButtonText = styled.Text `
+export const ButtonText = styled.Text`
   color: ${primary};
   font-size: 16px;
   
@@ -133,7 +136,7 @@ export const ExtraView = styled.View`
   background-color: ${primary};
   `;
 
-  export const ExtraText = styled.Text`
+export const ExtraText = styled.Text`
   justify-content: center;
   align-content: center;
   color: ${tertiary};
@@ -141,20 +144,20 @@ export const ExtraView = styled.View`
   background-color: ${primary};
   `;
 
-  export const TextLink = styled.TouchableOpacity`
+export const TextLink = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   background-color: ${primary};
   `;
 
-  export const TextLinkContent = styled.Text`
+export const TextLinkContent = styled.Text`
   color: ${brand};
   font-size: 15px;
   background-color: ${primary};
   `;
 
 
-  export const WelcomeContainer = styled(InnerContainer)`
+export const WelcomeContainer = styled(InnerContainer)`
   padding; 25px;
   padding-top: 10px;
   justify-content: center;
@@ -171,12 +174,12 @@ export const Avatar = styled.Image`
   margin-top: 10px;
   `;
 
-  export const WelcomeImage= styled.Image`
+export const WelcomeImage = styled.Image`
     height: 50%
     min-width: 100%
     `;
 
-   export const spinner = styled.View`
+export const spinner = styled.View`
    background-color: ${primary};
    position: 'absolute';
    left: 0;
