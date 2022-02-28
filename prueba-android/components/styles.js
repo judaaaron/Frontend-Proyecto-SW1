@@ -118,7 +118,7 @@ export const StyledButton = styled.TouchableOpacity`
   height: 60px;
   font-weight: bold;
   shadowOpacity: 0.8;
-  shadowRadius: 15px;
+  shadowRadius: 8px;
  
 `;
 
