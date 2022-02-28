@@ -10,6 +10,7 @@ import { Octicons, Ionicons } from "@expo/vector-icons";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import AppLoader from "../components/AppLoader";
 import AnimatedLottieView from 'lottie-react-native';
+import * as SecureStore from 'expo-secure-store';
 import {
     StyledContainer,
     InnerContainer,
@@ -46,6 +47,41 @@ const Login = ({ navigation }) => {
         console.log(loginResponse);
     }, [loginResponse])
 
+    async function storeCredentials(usuario, sToken) {
+        try {
+            await SecureStore.setItemAsync(
+                "user_session",
+                JSON.stringify({
+                    user: usuario,
+                    token: sToken
+                })
+            );
+            console.log("Se almaceno");
+        } catch (error) {
+            alert("Hubo un error en el almacenamiento de las credenciales.");
+            console.log(error);
+        }
+    };
+
+    React.useEffect(() => {
+        async function getCredentials() {
+            try {
+                console.log("oli");
+                const session = await SecureStore.getItemAsync("user_session");
+                console.log(session);
+                if (session == undefined) {
+                    console.log("olvidese");
+                } else {
+                    navigation.navigate('Home')
+                }
+            } catch (error) {
+                alert("Hubo un error en la lectura de las credenciales.");
+                console.log(error);
+            }
+        }
+        getCredentials();
+    }, []);
+
     return (
         <>
 
@@ -69,7 +105,9 @@ const Login = ({ navigation }) => {
                                 initialValues={{ usuario: "", token: "" }}
                                 onSubmit={(values) => {
                                     (login(setLoading, values.usuario, values.token, setLoginResponse));
-                                    //  navigation.navigate('Home');
+                                    storeCredentials(values.usuario,values.token);
+                                    navigation.navigate('Home');
+
                                 }}
                             >
                                 {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
@@ -121,13 +159,13 @@ const Login = ({ navigation }) => {
             </KeyboardAvoidingWrapper>
 
             {isLoading && <View style={[StyleSheet.absoluteFillObject, estilos.spinnercontent]}>
-                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
-                    <ActivityIndicator size={100} color={'blue'}/>
-                    <Text>
-                        Cargando...
-                    </Text>
+                {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
+                <ActivityIndicator size={100} color={'blue'} />
+                <Text>
+                    Cargando...
+                </Text>
             </View>
-        
+
             }
 
 
@@ -166,7 +204,7 @@ const estilos = StyleSheet.create({
         backgroundColor: 'white',
         zIndex: 1,
     },
-    view2:{
+    view2: {
         backgroundColor: 'white',
     }
 })
