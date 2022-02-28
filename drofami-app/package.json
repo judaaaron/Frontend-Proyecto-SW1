@@ -12,10 +12,12 @@
   "dependencies": {
     "@mui/icons-material": "^5.4.2",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
     "expo": "~44.0.0",
     "expo-constants": "~13.0.1",
+    "expo-secure-store": "~11.1.0",
     "expo-status-bar": "~1.2.0",
     "formik": "^2.2.9",
     "lottie-ios": "^3.2.3",
@@ -33,8 +35,7 @@
     "react-native-svg-icon": "^0.10.0",
     "react-native-web": "0.17.1",
     "styled-components": "^5.3.3",
-    "yup": "^0.32.11",
-    "expo-secure-store": "~11.1.0"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
