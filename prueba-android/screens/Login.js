@@ -44,6 +44,10 @@ const Login = ({ navigation }) => {
         if (!loginResponse) {
             return;
         }
+        if(loginResponse.status == "success")
+            navigation.navigate('Home');
+        else if(loginResponse.status)
+            alert("Usuario y/o contraseña incorrecta");
         console.log(loginResponse);
     }, [loginResponse])
 
@@ -69,11 +73,11 @@ const Login = ({ navigation }) => {
                 console.log("oli");
                 const session = await SecureStore.getItemAsync("user_session");
                 console.log(session);
-                if (session == undefined) {
+                /*if (session == undefined) {
                     console.log("olvidese");
                 } else {
                     navigation.navigate('Home')
-                }
+                }*/
             } catch (error) {
                 alert("Hubo un error en la lectura de las credenciales.");
                 console.log(error);
@@ -106,8 +110,6 @@ const Login = ({ navigation }) => {
                                 onSubmit={(values) => {
                                     (login(setLoading, values.usuario, values.token, setLoginResponse));
                                     storeCredentials(values.usuario,values.token);
-                                    navigation.navigate('Home');
-
                                 }}
                             >
                                 {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>

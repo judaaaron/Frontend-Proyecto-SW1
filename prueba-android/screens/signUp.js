@@ -72,6 +72,11 @@ const Signup = (navigation) => {
 
     React.useEffect(() => {
         console.log(response)
+        if(response.status == "success"){
+            alert("Registrado correctamente");
+            navigation.navigate('Home');
+        }else if(response.status)
+            alert("Ha ocurrido un error");
     }, [response])
 
     return (
