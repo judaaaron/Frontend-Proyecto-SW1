@@ -74,7 +74,7 @@ const Signup = (navigation) => {
         console.log(response)
         if(response.status == "success"){
             alert("Registrado correctamente");
-            navigation.navigate('Home');
+            navigation.navigate('Login');
         }else if(response.status)
             alert("Ha ocurrido un error");
     }, [response])
