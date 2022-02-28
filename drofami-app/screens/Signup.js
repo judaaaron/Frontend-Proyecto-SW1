@@ -34,7 +34,7 @@ const { brand, darkLight } = Colors;
 const regularNameLastName = /^[aA-zZ\s]+$/  //solo acepta letras
 const regularPhone = /^[0-9]{4}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
 const regularRTN = /^[0-9]{4}-[0-9]{4}-[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
-const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
+const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
         .required('Nombre es obligatorio').matches(regularNameLastName,
