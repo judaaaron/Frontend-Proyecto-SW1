@@ -8,7 +8,9 @@ import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
+import { ActivityIndicator } from "react-native-paper";
 import MaskInput from 'react-native-mask-input';
+
 import {
     StyledContainer,
     InnerContainer,
@@ -29,6 +31,7 @@ import {
     TextLink
 
 } from "../components/styles";
+import Login from "./Login";
 
 const { brand, darkLight } = Colors;
 const regularNameLastName = /^[aA-zZ\s]+$/  //solo acepta letras
@@ -61,11 +64,11 @@ let SingUpValidationSchema = yup.object().shape({
             "RTN inválido"
         ),
 
-         
+
 
 });
 
-const Signup = (navigation) => {
+const Signup = ({ navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
@@ -75,10 +78,10 @@ const Signup = (navigation) => {
         if (!response) {
             return;
         }
-        if(response['status'] == "success"){
+        if (response['status'] == "success") {
             alert("Registrado correctamente");
             navigation.navigate('Login');
-        }else if(response['status']) {
+        } else if (response['status']) {
             alert("Ha ocurrido un error");
         } else {
             let errors = '';
@@ -93,197 +96,209 @@ const Signup = (navigation) => {
     }, [response])
 
     return (
-        <KeyboardAvoidingWrapper>
+        <>
+            <KeyboardAvoidingWrapper>
 
-            <StyledContainer>
-                <StatusBar style="dark" />
+                <StyledContainer>
+                    <StatusBar style="dark" />
 
-                <InnerContainer>
-                    <PageLog
-                        source={require("../assets/drofamilogo1.jpg")}
-                        resizeMode="cover"
+                    <InnerContainer>
+                        <PageLog
+                            source={require("../assets/drofamilogo1.jpg")}
+                            resizeMode="cover"
 
-                    />
-                    <Subtitle>Registro</Subtitle>
-                    <Formik
-                        initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: ""}}
-                        validateOnMount={true}
-                        onSubmit={(values) => {
-                            signUp(values.usuario, values.correo, values.phone, values.password,
-                                values.confirmPassword, values.nombre, values.apellido, values.direccion,
-                                values.rtn, setLoading, setResponse
-                            );
-                        }}
-                        validationSchema={SingUpValidationSchema}
-                    >
-                        {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
-                            <MyTextInput
-                                label={"Primer Nombre"}
-                                icon={"person"}
-                                placeholder={"Mauricio"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("nombre")}
-                                onBlur={handleBlur("nombre")}
-                                values={values.nombre}
+                        />
+                        <Subtitle>Registro</Subtitle>
+                        <Formik
+                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: "" }}
+                            validateOnMount={true}
+                            onSubmit={(values) => {
+                                signUp(values.usuario, values.correo, values.phone, values.password,
+                                    values.confirmPassword, values.nombre, values.apellido, values.direccion,
+                                    values.rtn, setLoading, setResponse
+                                );
+                            }}
+                            validationSchema={SingUpValidationSchema}
+                        >
+                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
+                                <MyTextInput
+                                    label={"Primer Nombre"}
+                                    icon={"person"}
+                                    placeholder={"Mauricio"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("nombre")}
+                                    onBlur={handleBlur("nombre")}
+                                    values={values.nombre}
 
-                            />
+                                />
 
-                            {(errors.nombre && touched.nombre) &&
-                                <Text style={styles.errores}>
-                                    {errors.nombre}
-                                </Text>
-                            }
+                                {(errors.nombre && touched.nombre) &&
+                                    <Text style={styles.errores}>
+                                        {errors.nombre}
+                                    </Text>
+                                }
 
-                            <MyTextInput
-                                label={"Primer Apellido"}
-                                icon={"person"}
-                                placeholder={"Ordoñez"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("apellido")}
-                                onBlur={handleBlur("apellido")}
-                                values={values.apellido}
-                            />
+                                <MyTextInput
+                                    label={"Primer Apellido"}
+                                    icon={"person"}
+                                    placeholder={"Silva"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("apellido")}
+                                    onBlur={handleBlur("apellido")}
+                                    values={values.apellido}
+                                />
 
-                            {(errors.apellido && touched.apellido) &&
-                                <Text style={styles.errores}>
-                                    {errors.apellido}
-                                </Text>
-                            }
+                                {(errors.apellido && touched.apellido) &&
+                                    <Text style={styles.errores}>
+                                        {errors.apellido}
+                                    </Text>
+                                }
 
-                            <MyTextInput
-                                label={"Username"}
-                                icon={"person"}
-                                placeholder={"drofamiClient"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("usuario")}
-                                onBlur={handleBlur("usuario")}
-                                values={values.usuario}
+                                <MyTextInput
+                                    label={"Username"}
+                                    icon={"person"}
+                                    placeholder={"drofamiClient"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("usuario")}
+                                    onBlur={handleBlur("usuario")}
+                                    values={values.usuario}
 
-                            />
+                                />
 
-                            {(errors.usuario && touched.usuario) &&
-                                <Text style={styles.errores}>
-                                    {errors.usuario}
-                                </Text>
-                            }
-                            <MyTextInput
-                                label={"Correo"}
-                                icon={"mail"}
-                                placeholder={"drofamiClient@ejemplo.com"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("correo")}
-                                onBlur={handleBlur("correo")}
-                                values={values.correo}
-                                keyboardType={"email-address"}
-                            />
+                                {(errors.usuario && touched.usuario) &&
+                                    <Text style={styles.errores}>
+                                        {errors.usuario}
+                                    </Text>
+                                }
+                                <MyTextInput
+                                    label={"Correo"}
+                                    icon={"mail"}
+                                    placeholder={"drofamiClient@ejemplo.com"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("correo")}
+                                    onBlur={handleBlur("correo")}
+                                    values={values.correo}
+                                    keyboardType={"email-address"}
+                                />
 
-                            {(errors.correo && touched.correo) &&
-                                <Text style={styles.errores}>
-                                    {errors.correo}
-                                </Text>
-                            }
+                                {(errors.correo && touched.correo) &&
+                                    <Text style={styles.errores}>
+                                        {errors.correo}
+                                    </Text>
+                                }
 
-                            <MyTextInput
-                                label={"Teléfono"}
-                                icon={"device-mobile"}
-                                placeholder={"1234-5678"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("phone")}
-                                onBlur={handleBlur("phone")}
-                                values={values.phone}
-                            />
-
-                          
-                            {(errors.phone && touched.phone) &&
-                                <Text style={styles.errores}>
-                                    {errors.phone}
-                                </Text>
-                            }
-                            <MyTextInput
-                                label={"Contraseña"}
-                                icon={"lock"}
-                                placeholder={"*************"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("password")}
-                                onBlur={handleBlur("password")}
-                                values={values.password}
-                                secureTextEntry={hidePassword}
-                                isPassword={true}
-                                hidePassword={hidePassword}
-                                setHidePassword={setHidePassword}
-                            />
-                            {(errors.password && touched.password) &&
-                                <Text style={styles.errores}>
-                                    {errors.password}
-                                </Text>
-                            }
+                                <MyTextInput
+                                    label={"Teléfono"}
+                                    icon={"device-mobile"}
+                                    placeholder={"1234-5678"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("phone")}
+                                    onBlur={handleBlur("phone")}
+                                    values={values.phone}
+                                />
 
 
-                            <MyTextInput
-                                label={"Confirmar Constraña"}
-                                icon={"lock"}
-                                placeholder={"*************"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("confirmPassword")}
-                                onBlur={handleBlur("confirmPassword")}
-                                values={values.confirmPassword}
-                                secureTextEntry={hidePassword}
-                                isPassword={true}
-                                hidePassword={hidePassword}
-                                setHidePassword={setHidePassword}
-                            />
+                                {(errors.phone && touched.phone) &&
+                                    <Text style={styles.errores}>
+                                        {errors.phone}
+                                    </Text>
+                                }
+                                <MyTextInput
+                                    label={"Contraseña"}
+                                    icon={"lock"}
+                                    placeholder={"*************"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("password")}
+                                    onBlur={handleBlur("password")}
+                                    values={values.password}
+                                    secureTextEntry={hidePassword}
+                                    isPassword={true}
+                                    hidePassword={hidePassword}
+                                    setHidePassword={setHidePassword}
+                                />
+                                {(errors.password && touched.password) &&
+                                    <Text style={styles.errores}>
+                                        {errors.password}
+                                    </Text>
+                                }
 
-                            {(errors.confirmPassword && touched.confirmPassword) &&
-                                <Text style={styles.errores}>
-                                    {errors.confirmPassword}
-                                </Text>
-                            }
-                            <MyTextInput
-                                label={"Direccion"}
-                                icon={"location"}
-                                placeholder={"Dirección de entrega"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("direccion")}
-                                onBlur={handleBlur("direccion")}
-                                values={values.direccion}
-                            />
 
-                            {(errors.direccion && touched.direccion) &&
-                                <Text style={styles.errores}>
-                                    {errors.direccion}
-                                </Text>
-                            }
+                                <MyTextInput
+                                    label={"Confirmar Contraseña"}
+                                    icon={"lock"}
+                                    placeholder={"*************"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("confirmPassword")}
+                                    onBlur={handleBlur("confirmPassword")}
+                                    values={values.confirmPassword}
+                                    secureTextEntry={hidePassword}
+                                    isPassword={true}
+                                    hidePassword={hidePassword}
+                                    setHidePassword={setHidePassword}
+                                />
 
-                            <MyTextInput
-                                label={"RTN"}
-                                icon={"credit-card"}
-                                placeholder={"1234-5678-987415"}
-                                placeholderTextColor={darkLight}
-                                onChangeText={handleChange("rtn")}
-                                onBlur={handleBlur("rtn")}
-                                values={values.rtn}
-                            />
+                                {(errors.confirmPassword && touched.confirmPassword) &&
+                                    <Text style={styles.errores}>
+                                        {errors.confirmPassword}
+                                    </Text>
+                                }
+                                <MyTextInput
+                                    label={"Direccion"}
+                                    icon={"location"}
+                                    placeholder={"Dirección de entrega"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("direccion")}
+                                    onBlur={handleBlur("direccion")}
+                                    values={values.direccion}
+                                />
 
-                            {(errors.rtn && touched.rtn) &&
-                                <Text style={styles.errores}>
-                                    {errors.rtn}
-                                </Text>
-                            }
+                                {(errors.direccion && touched.direccion) &&
+                                    <Text style={styles.errores}>
+                                        {errors.direccion}
+                                    </Text>
+                                }
 
-                            <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{backgroundColor: isValid ? '#6D28D9': '#9CA3AF'}}>
-                                <ButtonText >
-                                    Registrate
-                                </ButtonText>
-                            </StyledButton>
+                                <MyTextInput
+                                    label={"RTN"}
+                                    icon={"credit-card"}
+                                    placeholder={"1234-5678-987415"}
+                                    placeholderTextColor={darkLight}
+                                    onChangeText={handleChange("rtn")}
+                                    onBlur={handleBlur("rtn")}
+                                    values={values.rtn}
+                                />
 
-                        </StyledFormArea>)}
+                                {(errors.rtn && touched.rtn) &&
+                                    <Text style={styles.errores}>
+                                        {errors.rtn}
+                                    </Text>
+                                }
 
-                    </Formik>
+                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? '#6D28D9' : '#9CA3AF' }}>
+                                    <ButtonText >
+                                        Registrate
+                                    </ButtonText>
+                                </StyledButton>
 
-                </InnerContainer>
+                            </StyledFormArea>)}
 
-            </StyledContainer>
-        </KeyboardAvoidingWrapper>
+                        </Formik>
+
+                    </InnerContainer>
+
+                </StyledContainer>
+            </KeyboardAvoidingWrapper>
+            {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
+                {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
+                <ActivityIndicator size={100} color={'blue'} />
+                <Text>
+                    Creando cuenta...
+                </Text>
+            </View>
+
+            }
+
+        </>
 
 
     );
@@ -313,6 +328,16 @@ const styles = StyleSheet.create({
         fontSize: 10,
         color: 'red',
         top: -10,
+    },
+    spinnercontent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        zIndex: 1,
+    },
+    view2: {
+        backgroundColor: 'white',
     }
 })
+
 
