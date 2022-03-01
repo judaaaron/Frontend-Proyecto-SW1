@@ -263,14 +263,6 @@ const Signup = (navigation) => {
                                 </ButtonText>
                             </StyledButton>
 
-                            {/* <ExtraView>
-                            <ExtraText>¿Ya tienes cuenta? </ExtraText>
-                            <TextLink onPress={()=> navigation.navigate('Login')}>
-                                <TextLinkContent>Login</TextLinkContent>
-                            </TextLink>
-                        </ExtraView> */}
-
-
                         </StyledFormArea>)}
 
                     </Formik>
@@ -311,11 +303,3 @@ const styles = StyleSheet.create({
     }
 })
 
-{
-    /* <Button onPress={() => setOpenModal(!openModal)}>
-              <Text>Holaa</Text>
-          </Button>
-          <Modal visible={openModal} onDismiss={() => setOpenModal(false)}>
-              <Text>Hola Hola Holaaaa</Text>
-          </Modal> */
-}
