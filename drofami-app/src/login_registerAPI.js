@@ -34,7 +34,7 @@ export async function signUp(username, email, phoneNumber, password, password2,
     first_name, last_name, address, rtn, setLoading, setResponse) {
     let response = {}
     try {
-        response = await fetch(API_URL + 'auth/register', {
+        response = await fetch(API_URL + 'auth/register/', {
             method: 'POST',
             body: JSON.stringify({
                 'username': username,

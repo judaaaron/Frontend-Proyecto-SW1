@@ -97,7 +97,7 @@ const Signup = (navigation) => {
                         validateOnMount={true}
                         onSubmit={(values) => {
                             signUp(values.usuario, values.correo, values.phone, values.password,
-                                values.confirmPassword, "first", "lastnames", values.direccion,
+                                values.confirmPassword, values.nombre, values.apellido, values.direccion,
                                 values.rtn, setLoading, setResponse
                             );
                         }}
