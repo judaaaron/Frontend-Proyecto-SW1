@@ -9,9 +9,9 @@ import SettingsHome from './SettingsHome';
 import MainHome from './MainHome';
 
 //Screen names
-const homeName = "Home";
-const detailsName = "Details";
-const settingsName = "Settings";
+const homeName = "Inicio";
+const detailsName = "Productos";
+const settingsName = "Configuración";
 
 export const Colors = {
     primary: "#ffffff",
@@ -56,7 +56,7 @@ function Home() {
             tabBarOptions={{
                 activeTintColor: '#6D28D9',
                 inactiveTintColor: 'grey',
-                labelStyle: { paddingBottom: 10, fontSize: 10 },
+                labelStyle: { paddingBottom: 4, fontSize: 10 },
                 style: { padding: 10, height: 70, top: 10 }
             }}>
                 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet,ScrollView } from 'react-native';
 import {
     StyledContainer,
     InnerContainer,
@@ -22,37 +22,60 @@ import {
     WelcomeImage,
     Avatar
 } from "../components/styles"
+import CarouselCards from './CarouselCards'
+import CarouselCards2 from './CarouselCards2'
 
 import { StatusBar } from "expo-status-bar";
 
 export default function MainHome({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          
-            <>
-                <View style={{ backgroundColor: 'white' }} top={8}>
-                    <StyledContainer>
-                        <StatusBar style="dark" />
-                        <InnerContainer>
-                            <PageLog
-                                source={require("../assets/drofamilogo1.jpg")}
-                                resizeMode="cover"
-                            />
 
-                            <PageTitle>Productos</PageTitle>
-                            <Subtitle>Ancalmo</Subtitle>
-                            <Avatar resizeMode="cover" source={require("../assets/azul.png")} />
-                            <Subtitle>Hessel</Subtitle>
-                            <Avatar resizeMode="cover" source={require("../assets/hessel1.png")} />
+        <>
+            <ScrollView>
+                <StyledContainer style={{top:10}}>
+                    <StatusBar style="dark" />
+                    <InnerContainer>
+                        <PageLog
+                            source={require("../assets/drofamilogo1.jpg")}
+                            resizeMode="cover"
+                        />
+
+                        <PageTitle >Productos en Oferta</PageTitle>
 
 
-                        </InnerContainer>
-                    </StyledContainer>
-                </View>
-            </>
-        </View>
+                        <Subtitle style={{top:10}}>Ancalmo</Subtitle>
+                        <SafeAreaView style={styles.container} style={{top:10}}>
+                            <CarouselCards />
+                        </SafeAreaView>
+                    </InnerContainer>
+                </StyledContainer>
+
+
+                <StyledContainer>
+                    <InnerContainer>
+                        <Subtitle>Hessel</Subtitle>
+                        <SafeAreaView style={styles.container}>
+                            <CarouselCards2 />
+                        </SafeAreaView>
+                    </InnerContainer>
+                </StyledContainer>
+            </ScrollView>
+        </>
+        /*<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home!!</Text>
+        </View>*/
 
 
 
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 50
+    },
+  });
+  
