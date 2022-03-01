@@ -5,7 +5,7 @@ import { ActivityIndicator } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, StyleSheet } from "react-native";
-import { login } from "../src/login_registerAPI";
+import { login, checkToken } from "../src/login_registerAPI";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import AppLoader from "../components/AppLoader";
@@ -44,9 +44,12 @@ const Login = ({ navigation }) => {
         if (!loginResponse) {
             return;
         }
-        if(loginResponse.status == "success")
+        if(loginResponse.status == "success") { 
+            if(loginResponse['token']) {
+                storeCredentials(loginResponse['user'], loginResponse['token']);
+            }
             navigation.navigate('Home');
-        else if(loginResponse.status)
+        } else if(loginResponse.status)
             alert("Usuario y/o contraseña incorrecta");
         console.log(loginResponse);
     }, [loginResponse])
@@ -73,6 +76,8 @@ const Login = ({ navigation }) => {
                 console.log("oli");
                 const session = await SecureStore.getItemAsync("user_session");
                 console.log(session);
+                checkToken(setLoading, JSON.parse(session)['token'], setLoginResponse)
+
                 /*if (session == undefined) {
                     console.log("olvidese");
                 } else {
@@ -109,7 +114,6 @@ const Login = ({ navigation }) => {
                                 initialValues={{ usuario: "", token: "" }}
                                 onSubmit={(values) => {
                                     (login(setLoading, values.usuario, values.token, setLoginResponse));
-                                    storeCredentials(values.usuario,values.token);
                                 }}
                             >
                                 {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>

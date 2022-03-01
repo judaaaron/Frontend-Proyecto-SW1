@@ -32,7 +32,9 @@ export async function login(setLoading, username, password, setLoginResponse) {
 
 export async function signUp(username, email, phoneNumber, password, password2,
     first_name, last_name, address, rtn, setLoading, setResponse) {
-    let response = {}
+    let response = {};
+    const rtnNew = rtn.replace(/-/g, '');
+    setLoading(true);
     try {
         response = await fetch(API_URL + 'auth/register/', {
             method: 'POST',
@@ -45,7 +47,7 @@ export async function signUp(username, email, phoneNumber, password, password2,
                 'last_name': last_name,
                 'phone_number': phoneNumber,
                 'cliente': {
-                    'rtn': rtn,
+                    'rtn': rtnNew,
                     'address': address
                 }
             }),
@@ -56,8 +58,6 @@ export async function signUp(username, email, phoneNumber, password, password2,
         }).then((response) => 
             response.json())
         .then(data => {
-            console.log(data)
-            data.status = statusCode
             setResponse(data)
         })
     } catch (e){
@@ -66,3 +66,27 @@ export async function signUp(username, email, phoneNumber, password, password2,
         setLoading(false)
     }
 }
+
+export async function checkToken(setLoading, token, setLoginResponse) {
+    setLoading(true);
+    const resp = {};
+    let response = {}
+    try {
+        response = await fetch(API_URL + 'auth/checklogin/', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+        }).then((response) => response.json())//el status conseguir
+        .then(data => {
+            resp['data'] = data;
+            setLoginResponse(data)
+        })
+    } catch {
+        
+    } finally {
+       setLoading(false)
+    }
+}   

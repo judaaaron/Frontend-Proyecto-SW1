@@ -72,11 +72,24 @@ const Signup = (navigation) => {
 
     React.useEffect(() => {
         console.log(response)
-        if(response.status == "success"){
+        if (!response) {
+            return;
+        }
+        if(response['status'] == "success"){
             alert("Registrado correctamente");
             navigation.navigate('Login');
-        }else if(response.status)
+        }else if(response['status']) {
             alert("Ha ocurrido un error");
+        } else {
+            let errors = '';
+            for (const [key, value] of Object.entries(response)) {
+                errors = key + ':\n';
+                for (let i = 0; i < value.length; i++) {
+                    errors += value[i] + '\n';
+                }
+            }
+            alert(errors);
+        }
     }, [response])
 
     return (
