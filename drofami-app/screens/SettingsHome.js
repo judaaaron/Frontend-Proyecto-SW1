@@ -6,7 +6,7 @@ export default function SettingsHome({ navigation }) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text
                 onPress={() => navigation.navigate('Home')}
-                style={{ fontSize: 26, fontWeight: 'bold' }}>Settings Home</Text>
+                style={{ fontSize: 26, fontWeight: 'bold' }}>Configuración</Text>
         </View>
     );
 }
