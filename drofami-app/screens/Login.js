@@ -49,8 +49,10 @@ const Login = ({ navigation }) => {
                 storeCredentials(loginResponse['user'], loginResponse['token']);
             }
             navigation.navigate('Home');
-        } else if(loginResponse.status)
-            alert("Usuario y/o contraseña incorrecta");
+        } else if(loginResponse.status && loginResponse.message)
+            alert(loginResponse.message);
+            else if(loginResponse.status)
+            alert('Usuario y/o contraseña incorrectos')
         console.log(loginResponse);
     }, [loginResponse])
 
