@@ -34,9 +34,9 @@ import {
 import Login from "./Login";
 
 const { brand, darkLight } = Colors;
-const regularNameLastName = /^[aA-zZ\s]+$/  //solo acepta letras
+const regularNameLastName = /^[aA-zZ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
-const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}-[0-9]{4}-[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
+const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}-([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{2})-[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
@@ -58,7 +58,7 @@ let SingUpValidationSchema = yup.object().shape({
             "Número teléfonico inválido",
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
-    direccion: yup.string().required('Dirección obligatoria'),
+    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio'),
     rtn: yup.string().min(16, ({ min }) => `RTN debe tener 14 números`).max(16, ({ max }) => `RTN debe tener 14 números`)
         .required('Número de RTN es obligatorio').matches(regularRTN,
             "RTN inválido"
@@ -242,7 +242,8 @@ const Signup = ({ navigation }) => {
                                         {errors.confirmPassword}
                                     </Text>
                                 }
-                                <MyTextInput
+                                <MyTextInput 
+                                    flex={3}
                                     label={"Direccion"}
                                     icon={"location"}
                                     placeholder={"Dirección de entrega"}
@@ -304,7 +305,7 @@ const Signup = ({ navigation }) => {
     );
 };
 
-const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
     return (
         <View>
             <LeftIcon>
