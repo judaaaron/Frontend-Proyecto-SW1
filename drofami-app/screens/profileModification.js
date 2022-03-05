@@ -10,7 +10,7 @@ import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import MaskInput from 'react-native-mask-input';
-
+import * as SecureStore from 'expo-secure-store';
 import {
     StyledContainer,
     InnerContainer,
@@ -73,22 +73,28 @@ const Signup = ({ navigation }) => {
     const [response, setResponse] = useState('');
     const [formData, setFormData] = useState({ 'usuario': "", 'nombre': "", 'apellido': "", 'phone': "", 'direccion': ""});
     const [formResponse, setFormResponse] = useState({});
+    const [phone, setPhone] = useState('');
 
     React.useEffect(() => {
-        token = getUserData();
-        if (token == -1) {
-            navigation.navigate('Login')
+        async function token() {
+            const session = await SecureStore.getItemAsync("user_session");
+            token = JSON.parse(session)['token']
+            console.log("token ", token)
+            getUserData(setLoading, token, setFormResponse);
         }
-        getUserData(setLoading, token, setFormResponse);
+        token();
     }, []);
 
     React.useEffect(() => {
+        console.log(formResponse)
         if (!formResponse) {
             //handle error
             return;
         }
+        console.log(formResponse)
         if (formResponse['status'] == 'success') {
             const cliente = formResponse['cliente'];
+            console.log(cliente)
             const user = cliente['user']
             const obj = {}
             obj['usuario'] = user['username']
@@ -97,6 +103,7 @@ const Signup = ({ navigation }) => {
             obj['phone'] = user['phone_number']
             obj['direccion'] = cliente['address']
             setFormData(obj)
+            setPhone(obj['phone'])
         }
     }, [formResponse])
 
@@ -137,8 +144,9 @@ const Signup = ({ navigation }) => {
                         />
                         <Subtitle>Modificacion</Subtitle>
                         <Formik
+                            enableReinitialize 
                             initialValues={{ usuario: formData['usuario'], nombre: formData['nombre'],
-                            apellido: formData['apellido'], phone: formData['phone'], direccion: formData['direccion'] }}
+                            apellido: formData['apellido'], phone: phone, direccion: formData['direccion'] }}
                             validateOnMount={true}
                             onSubmit={(values) => {
                                 modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token);

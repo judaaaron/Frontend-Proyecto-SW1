@@ -129,7 +129,7 @@ export async function getUserData(setLoading, token, setResponse) {
     const resp = {};
     let response = {}
     try {
-        response = await fetch(API_URL + 'auth/checklogin/', {
+        response = await fetch(API_URL + 'auth/modify/', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
