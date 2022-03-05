@@ -67,6 +67,39 @@ export async function signUp(username, email, phoneNumber, password, password2,
     }
 }
 
+export async function modification(username, phoneNumber,
+    first_name, last_name, address, setLoading, setResponse, token) {
+    let response = {};
+    setLoading(true);
+    try {
+        response = await fetch(API_URL + 'auth/register/', {
+            method: 'PUT',
+            body: JSON.stringify({
+                'username': username,
+                'first_name': first_name,
+                'last_name': last_name,
+                'phone_number': phoneNumber,
+                'cliente': {
+                    'address': address
+                }
+            }),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+        }).then((response) => 
+            response.json())
+        .then(data => {
+            setResponse(data)
+        })
+    } catch (e){
+        console.log(e)
+    } finally {
+        setLoading(false)
+    }
+}
+
 export async function checkToken(setLoading, token, setLoginResponse) {
     setLoading(true);
     const resp = {};
@@ -83,6 +116,30 @@ export async function checkToken(setLoading, token, setLoginResponse) {
         .then(data => {
             resp['data'] = data;
             setLoginResponse(data)
+        })
+    } catch {
+        
+    } finally {
+       setLoading(false)
+    }
+}   
+
+export async function getUserData(setLoading, token, setResponse) {
+    setLoading(true);
+    const resp = {};
+    let response = {}
+    try {
+        response = await fetch(API_URL + 'auth/checklogin/', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+        }).then((response) => response.json())//el status conseguir
+        .then(data => {
+            resp['data'] = data;
+            setResponse(data)
         })
     } catch {
         

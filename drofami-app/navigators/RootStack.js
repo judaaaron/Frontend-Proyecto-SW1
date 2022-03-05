@@ -8,6 +8,7 @@ import Login from '../screens/Login'
 import Signup from '../screens/Signup'
 import Home from '../screens/Home'
 import profileModification from '../screens/profileModification'
+import cambiarContrasena from '../screens/cambiarContrasena'
 
 
 const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ const RootStack = () => {
                 <Stack.Screen name="Signup" component={Signup}/>
                 <Stack.Screen name="Home" component={Home} options={{header: () => null}} />
                 <Stack.Screen name="profileModification" component={profileModification}/>
+                
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import { signUp } from "../src/login_registerAPI";
+import { modification, getUserData } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
@@ -69,9 +69,13 @@ let SingUpValidationSchema = yup.object().shape({
 });
 
 const Signup = ({ navigation }) => {
-    const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
+    const [formData, setFormData] = useState({})
+
+    React.useEffect(() => {
+        getUserData(setLoading, token, setFormData)
+    }, []);
 
     React.useEffect(() => {
         console.log(response)
@@ -108,15 +112,12 @@ const Signup = ({ navigation }) => {
                             resizeMode="cover"
 
                         />
-                        <Subtitle>Registro</Subtitle>
+                        <Subtitle>Modificacion</Subtitle>
                         <Formik
                             initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: "" }}
                             validateOnMount={true}
                             onSubmit={(values) => {
-                                signUp(values.usuario, values.correo, values.phone, values.password,
-                                    values.confirmPassword, values.nombre, values.apellido, values.direccion,
-                                    values.rtn, setLoading, setResponse
-                                );
+                                modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token);
                             }}
                             validationSchema={SingUpValidationSchema}
                         >
@@ -171,23 +172,6 @@ const Signup = ({ navigation }) => {
                                     </Text>
                                 }
                                 <MyTextInput
-                                    label={"Correo"}
-                                    icon={"mail"}
-                                    placeholder={"drofamiClient@ejemplo.com"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("correo")}
-                                    onBlur={handleBlur("correo")}
-                                    values={values.correo}
-                                    keyboardType={"email-address"}
-                                />
-
-                                {(errors.correo && touched.correo) &&
-                                    <Text style={styles.errores}>
-                                        {errors.correo}
-                                    </Text>
-                                }
-
-                                <MyTextInput
                                     label={"Teléfono"}
                                     icon={"device-mobile"}
                                     placeholder={"1234-5678"}
@@ -203,45 +187,7 @@ const Signup = ({ navigation }) => {
                                         {errors.phone}
                                     </Text>
                                 }
-                                <MyTextInput
-                                    label={"Contraseña"}
-                                    icon={"lock"}
-                                    placeholder={"*************"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("password")}
-                                    onBlur={handleBlur("password")}
-                                    values={values.password}
-                                    secureTextEntry={hidePassword}
-                                    isPassword={true}
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
-                                {(errors.password && touched.password) &&
-                                    <Text style={styles.errores}>
-                                        {errors.password}
-                                    </Text>
-                                }
-
-
-                                <MyTextInput
-                                    label={"Confirmar Contraseña"}
-                                    icon={"lock"}
-                                    placeholder={"*************"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("confirmPassword")}
-                                    onBlur={handleBlur("confirmPassword")}
-                                    values={values.confirmPassword}
-                                    secureTextEntry={hidePassword}
-                                    isPassword={true}
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
-
-                                {(errors.confirmPassword && touched.confirmPassword) &&
-                                    <Text style={styles.errores}>
-                                        {errors.confirmPassword}
-                                    </Text>
-                                }
+                                
                                 <MyTextInput
                                     label={"Direccion"}
                                     icon={"location"}
@@ -258,25 +204,9 @@ const Signup = ({ navigation }) => {
                                     </Text>
                                 }
 
-                                <MyTextInput
-                                    label={"RTN"}
-                                    icon={"credit-card"}
-                                    placeholder={"1234-5678-987415"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("rtn")}
-                                    onBlur={handleBlur("rtn")}
-                                    values={values.rtn}
-                                />
-
-                                {(errors.rtn && touched.rtn) &&
-                                    <Text style={styles.errores}>
-                                        {errors.rtn}
-                                    </Text>
-                                }
-
                                 <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? '#6D28D9' : '#9CA3AF' }}>
                                     <ButtonText >
-                                        Registrate
+                                        Modificar datos
                                     </ButtonText>
                                 </StyledButton>
 
