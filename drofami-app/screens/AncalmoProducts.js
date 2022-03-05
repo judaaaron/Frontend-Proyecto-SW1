@@ -13,5 +13,10 @@ export default data = [
     title: "Calamina Rosada",
     body: "Antiséptica y suavizante",
     imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/calamina-rosada-1.jpg"
+  },
+  {
+    title: "Bacaoliver",
+    body: "Sabor Naranja",
+    imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/bacaoliver-web.png"
   }
 ]

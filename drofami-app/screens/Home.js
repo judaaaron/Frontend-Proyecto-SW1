@@ -4,13 +4,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Octicons, Ionicons } from "@expo/vector-icons";
 
 
-import DetailsHome from './DetailsHome';
+import AncalmoScreen from './AncalmoScreen';
 import SettingsHome from './SettingsHome';
 import MainHome from './MainHome';
+import HesselScreen from './HesselScreen';
 
 //Screen names
 const homeName = "Inicio";
-const detailsName = "Productos";
+const Ancalmo = "Ancalmo";
+const Hessel = "Hessel";
 const settingsName = "Configuración";
 
 export const Colors = {
@@ -41,7 +43,10 @@ function Home() {
                     if (rn === homeName) {
                         iconName = focused ? 'home' : 'home-outline';
 
-                    } else if (rn === detailsName) {
+                    } else if (rn === Ancalmo) {
+                        iconName = focused ? 'list' : 'list-outline';
+
+                    } else if (rn === Hessel) {
                         iconName = focused ? 'list' : 'list-outline';
 
                     } else if (rn === settingsName) {
@@ -62,7 +67,8 @@ function Home() {
                 
 
             <Tab.Screen name={homeName} component={MainHome} options={{header: () => null}} />
-            <Tab.Screen name={detailsName} component={DetailsHome} options={{header: () => null}}/>
+            <Tab.Screen name={Ancalmo} component={AncalmoScreen} options={{header: () => null}}/>
+            <Tab.Screen name={Hessel} component={HesselScreen} options={{header: () => null}} />
             <Tab.Screen name={settingsName} component={SettingsHome} options={{header: () => null}} />
 
         </Tab.Navigator>

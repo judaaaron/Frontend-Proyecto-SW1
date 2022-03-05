@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from "react-native"
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from './CarouselCardItem'
-import data from './Data'
+import AncalmoProducts from './AncalmoProducts'
 
 
 const CarouselCards = () => {
@@ -16,7 +16,7 @@ const CarouselCards = () => {
         layout="stack"
         layoutCardOffset={19}
         ref={isCarousel}
-        data={data}
+        data={AncalmoProducts}
         renderItem={CarouselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
@@ -24,7 +24,7 @@ const CarouselCards = () => {
         useScrollView={true}
       />
       <Pagination
-        dotsLength={data.length}
+        dotsLength={AncalmoProducts.length}
         activeDotIndex={index}
         carouselRef={isCarousel}
         dotStyle={{

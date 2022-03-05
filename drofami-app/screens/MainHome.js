@@ -32,7 +32,7 @@ export default function MainHome({ navigation }) {
 
         <>
             <ScrollView>
-                <StyledContainer style={{top:10}}>
+                <StyledContainer style={{top:45}}>
                     <StatusBar style="dark" />
                     <InnerContainer>
                         <PageLog
@@ -44,7 +44,7 @@ export default function MainHome({ navigation }) {
 
 
                         <Subtitle style={{top:10}}>Ancalmo</Subtitle>
-                        <SafeAreaView style={styles.container} style={{top:10}}>
+                        <SafeAreaView style={styles.container}>
                             <CarouselCards />
                         </SafeAreaView>
                     </InnerContainer>
@@ -53,8 +53,8 @@ export default function MainHome({ navigation }) {
 
                 <StyledContainer>
                     <InnerContainer>
-                        <Subtitle>Hessel</Subtitle>
-                        <SafeAreaView style={styles.container}>
+                        <Subtitle style={{top:-70}}>Hessel</Subtitle>
+                        <SafeAreaView style={[styles.container, {top:-70}]}>
                             <CarouselCards2 />
                         </SafeAreaView>
                     </InnerContainer>
