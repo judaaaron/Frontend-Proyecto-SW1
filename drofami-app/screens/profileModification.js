@@ -69,13 +69,36 @@ let SingUpValidationSchema = yup.object().shape({
 });
 
 const Signup = ({ navigation }) => {
-    const [isLoading, setLoading] = useState(false)
-    const [response, setResponse] = useState('')
-    const [formData, setFormData] = useState({})
+    const [isLoading, setLoading] = useState(false);
+    const [response, setResponse] = useState('');
+    const [formData, setFormData] = useState({ 'usuario': "", 'nombre': "", 'apellido': "", 'phone': "", 'direccion': ""});
+    const [formResponse, setFormResponse] = useState({});
 
     React.useEffect(() => {
-        getUserData(setLoading, token, setFormData)
+        token = getUserData();
+        if (token == -1) {
+            navigation.navigate('Login')
+        }
+        getUserData(setLoading, token, setFormResponse);
     }, []);
+
+    React.useEffect(() => {
+        if (!formResponse) {
+            //handle error
+            return;
+        }
+        if (formResponse['status'] == 'success') {
+            const cliente = formResponse['cliente'];
+            const user = cliente['user']
+            const obj = {}
+            obj['usuario'] = user['username']
+            obj['nombre'] = user['first_name']
+            obj['apellido'] = user['last_name']
+            obj['phone'] = user['phone_number']
+            obj['direccion'] = cliente['address']
+            setFormData(obj)
+        }
+    }, [formResponse])
 
     React.useEffect(() => {
         console.log(response)
@@ -114,7 +137,8 @@ const Signup = ({ navigation }) => {
                         />
                         <Subtitle>Modificacion</Subtitle>
                         <Formik
-                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: "" }}
+                            initialValues={{ usuario: formData['usuario'], nombre: formData['nombre'],
+                            apellido: formData['apellido'], phone: formData['phone'], direccion: formData['direccion'] }}
                             validateOnMount={true}
                             onSubmit={(values) => {
                                 modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token);
