@@ -39,6 +39,8 @@ export default function SettingsHome({ navigation }) {
                             navigation.navigate('profileModification', {formResponse})
                         })
                     }}>
+
+                        
                     <ButtonText>
                         Editar Perfil
                     </ButtonText>
