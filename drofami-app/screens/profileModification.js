@@ -68,12 +68,10 @@ let SingUpValidationSchema = yup.object().shape({
 
 });
 
-const Signup = ({ navigation }) => {
+const Signup = ({route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
+    const {usuario, apellido, nombre, direccion, phone} = route.params
     const [response, setResponse] = useState('');
-    const [formData, setFormData] = useState({ 'usuario': "", 'nombre': "", 'apellido': "", 'phone': "", 'direccion': ""});
-    const [formResponse, setFormResponse] = useState({});
-    const [phone, setPhone] = useState('');
 
     React.useEffect(() => {
         async function token() {
@@ -83,50 +81,15 @@ const Signup = ({ navigation }) => {
             getUserData(setLoading, token, setFormResponse);
         }
         token();
+        
     }, []);
-
-    React.useEffect(() => {
-        console.log(formResponse)
-        if (!formResponse) {
-            //handle error
-            return;
-        }
-        console.log(formResponse)
-        if (formResponse['status'] == 'success') {
-            const cliente = formResponse['cliente'];
-            console.log(cliente)
-            const user = cliente['user']
-            const obj = {}
-            obj['usuario'] = user['username']
-            obj['nombre'] = user['first_name']
-            obj['apellido'] = user['last_name']
-            obj['phone'] = user['phone_number']
-            obj['direccion'] = cliente['address']
-            setFormData(obj)
-            setPhone(obj['phone'])
-        }
-    }, [formResponse])
 
     React.useEffect(() => {
         console.log(response)
         if (!response) {
             return;
         }
-        if (response['status'] == "success") {
-            alert("Registrado correctamente");
-            navigation.navigate('Login');
-        } else if (response['status']) {
-            alert("Ha ocurrido un error");
-        } else {
-            let errors = '';
-            for (const [key, value] of Object.entries(response)) {
-                errors = key + ':\n';
-                for (let i = 0; i < value.length; i++) {
-                    errors += value[i] + '\n';
-                }
-            }
-            alert(errors);
-        }
+        
     }, [response])
 
     return (
@@ -145,8 +108,8 @@ const Signup = ({ navigation }) => {
                         <Subtitle>Modificacion</Subtitle>
                         <Formik
                             enableReinitialize 
-                            initialValues={{ usuario: formData['usuario'], nombre: formData['nombre'],
-                            apellido: formData['apellido'], phone: phone, direccion: formData['direccion'] }}
+                            initialValues={{ usuario: 'usuario', nombre: nombre,
+                            apellido: apellido, phone: phone, direccion: direccion }}
                             validateOnMount={true}
                             onSubmit={(values) => {
                                 modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token);
@@ -162,6 +125,7 @@ const Signup = ({ navigation }) => {
                                     onChangeText={handleChange("nombre")}
                                     onBlur={handleBlur("nombre")}
                                     values={values.nombre}
+                                    name="usuario"
 
                                 />
 

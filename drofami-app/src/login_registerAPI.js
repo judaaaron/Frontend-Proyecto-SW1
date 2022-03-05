@@ -126,6 +126,7 @@ export async function checkToken(setLoading, token, setLoginResponse) {
 
 export async function getUserData(setLoading, token, setResponse) {
     setLoading(true);
+    console.log('holaaa')
     const resp = {};
     let response = {}
     try {
@@ -139,10 +140,11 @@ export async function getUserData(setLoading, token, setResponse) {
         }).then((response) => response.json())//el status conseguir
         .then(data => {
             resp['data'] = data;
+            console.log('holaaa')
             setResponse(data)
         })
-    } catch {
-        
+    } catch (e){
+        console.log(e)
     } finally {
        setLoading(false)
     }

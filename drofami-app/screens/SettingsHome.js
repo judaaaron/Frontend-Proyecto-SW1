@@ -23,6 +23,28 @@ export default function SettingsHome({ navigation }) {
         }
         token();
     }, [])
+
+    React.useEffect(() => {
+        console.log('response ->', formResponse)
+        if (!formResponse) {
+            return;
+        }
+        if (!formResponse['status'] || formResponse['status'] == 'failed') {
+            //handle error
+            return;
+        }
+        const cliente = formResponse['cliente'];
+        const user = cliente['user']
+        navigation.navigate('profileModification', 
+        {
+            usuario: user['username'],
+            apellido: user['last_name'],
+            nombre: user['first_name'],
+            direccion: cliente['address'],
+            phone: user['phone_number'],
+        })
+    }, [formResponse])
+
     return (
         <>
             <ScrollView>
@@ -35,9 +57,7 @@ export default function SettingsHome({ navigation }) {
                     
                 </View>
                 <StyledButton style={{top:30}} onPress={() => {
-                        getUserData(setLoading, token, setFormResponse).then(() => {
-                            navigation.navigate('profileModification', {formResponse})
-                        })
+                        getUserData(setLoading, token, setFormResponse)
                     }}>
 
                         
