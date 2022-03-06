@@ -81,8 +81,11 @@ export default function AncalmoScreen({ navigation }) {
                             justifyContent: 'space-between',
                             marginTop: 5,
                         }}>
-                        <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
+                        {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
+                        </Text> */}
+                        <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
+                            {dato.currency}{dato.price}
                         </Text>
                         <View
                             style={{

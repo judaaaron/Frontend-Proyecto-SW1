@@ -2,12 +2,14 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Octicons, Ionicons } from "@expo/vector-icons";
+//import RNMaterialLetterIcon from '@react-native-material-letter-icon';
 
 
 import AncalmoScreen from './AncalmoScreen';
 import SettingsHome from './SettingsHome';
 import MainHome from './MainHome';
 import HesselScreen from './HesselScreen';
+import LogoAncalmo from '../assets/LogoAncalmo.json'
 
 //Screen names
 const homeName = "Inicio";
@@ -44,7 +46,7 @@ function Home() {
                         iconName = focused ? 'home' : 'home-outline';
 
                     } else if (rn === Ancalmo) {
-                        iconName = focused ? 'list' : 'list-outline';
+                        iconName = focused ? 'list' : 'card-outline';
 
                     } else if (rn === Hessel) {
                         iconName = focused ? 'list' : 'list-outline';

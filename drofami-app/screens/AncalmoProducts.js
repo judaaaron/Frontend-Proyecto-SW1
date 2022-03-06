@@ -2,9 +2,11 @@ const datos = [
   {
     id: 1,
     name: 'Calamina Antialérgica',
-    price: 'L. 39.99',
+    currency: 'L. ',
+    price: 20.95,
    // like: true,
     img: require('../assets/bacaoliver-web.png'),
+  
     about:
       'Succulent Plantis one of the most popular and beautiful species that will produce clumpms. The storage of water often gives succulent plants a more swollen or fleshy appearance than other plants, a characteristic known as succulence.',
   },
@@ -12,7 +14,8 @@ const datos = [
   {
     id: 2,
     name: 'Calamina Mentolada',
-    price: 'L. 29.99',
+    currency: 'L. ',
+    price: 20.95,
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
@@ -22,7 +25,8 @@ const datos = [
   {
     id: 3,
     name: 'Calamina Rosada',
-    price: 'L. 25.99',
+    currency: 'L. ',
+    price: 20.95,
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
@@ -32,7 +36,8 @@ const datos = [
   {
     id: 4,
     name: 'Bacaoliver',
-    price: 'L. 25.99',
+    currency: 'L. ',
+    price: 20.95,
    // like: true,
     img: require('../assets/bacaoliver-web.png'),
     about:
@@ -41,7 +46,8 @@ const datos = [
   {
     id: 5,
     name: 'Dormaben',
-    price: 'L. 50.99',
+    currency: 'L. ',
+    price: 20.95,
     //like: true,
     img: require('../assets/bacaoliver-web.png'),
     about:
@@ -50,7 +56,8 @@ const datos = [
   {
     id: 6,
     name: 'Dragon Plant',
-    price: 'L.50.99',
+    currency: 'L. ',
+    price: 20.95,
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
