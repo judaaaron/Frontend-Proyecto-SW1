@@ -136,7 +136,7 @@ const Login = ({ navigation }) => {
                                     />
                                     <MyTextInput
                                         label={"Token"}
-                                        icon={"lock"}
+                                        icon={"lock"} 
                                         placeholder={"*************"}
                                         placeholderTextColor={darkLight}
                                         onChangeText={handleChange("token")}
