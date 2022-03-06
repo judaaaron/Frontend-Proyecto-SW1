@@ -13,7 +13,7 @@ import HesselScreen from './HesselScreen';
 const homeName = "Inicio";
 const Ancalmo = "Ancalmo";
 const Hessel = "Hessel";
-const settingsName = "Configuración";
+const settingsName = "Mi cuenta";
 
 export const Colors = {
     primary: "#ffffff",
