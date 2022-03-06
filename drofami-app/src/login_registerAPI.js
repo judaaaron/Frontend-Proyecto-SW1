@@ -79,9 +79,7 @@ export async function modification(username, phoneNumber,
                 'first_name': first_name,
                 'last_name': last_name,
                 'phone_number': phoneNumber,
-                'cliente': {
-                    'address': address
-                }
+                'address': address,
             }),
             headers: {
                 Accept: 'application/json',

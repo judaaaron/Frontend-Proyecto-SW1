@@ -48,39 +48,27 @@ let SingUpValidationSchema = yup.object().shape({
             "Apellido inválido"
         ),
     usuario: yup.string().required('Nombre de usuario es obligatorio'),
-    correo: yup.string().email('Ingrese un correo válido').required('Dirección de correo es obligatoria'),
-    password: yup.string().min(8, ({ min }) => `La contraseña debe de tener al menos ${min} caracteres`)
-        .required('Contraseña es obligatoria').matches(regularPassword,
-            "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial"
-        ),
     phone: yup.string().min(9, ({ min }) => `Número teléfonico debe tener 8 números y un guión`).max(9, ({ max }) => `Número teléfonico debe tener 8 números y un guión`)
         .required('Número teléfonico es obligatorio').matches(regularPhone,
             "Número teléfonico inválido",
         ),
-    confirmPassword: yup.string().required('Campo obligatorio'),
     direccion: yup.string().required('Dirección obligatoria'),
-    rtn: yup.string().min(16, ({ min }) => `RTN debe tener 14 números`).max(16, ({ max }) => `RTN debe tener 14 números`)
-        .required('Número de RTN es obligatorio').matches(regularRTN,
-            "RTN inválido"
-        ),
-
-
-
 });
 
 const Signup = ({route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
     const {usuario, apellido, nombre, direccion, phone} = route.params
     const [response, setResponse] = useState('');
+    const token = React.useRef('');
 
     React.useEffect(() => {
-        async function token() {
+        async function getToken() {
             const session = await SecureStore.getItemAsync("user_session");
-            token = JSON.parse(session)['token']
+            token.current = JSON.parse(session)['token']
             console.log("token ", token)
-            getUserData(setLoading, token, setFormResponse);
+            getUserData(setLoading, token.current, setFormResponse);
         }
-        token();
+        getToken();
         
     }, []);
 
@@ -91,6 +79,10 @@ const Signup = ({route, navigation }) => {
         }
         
     }, [response])
+
+    function uploadChanges() {
+        
+    }
 
     return (
         <>
@@ -108,15 +100,15 @@ const Signup = ({route, navigation }) => {
                         <Subtitle>Modificacion</Subtitle>
                         <Formik
                             enableReinitialize 
-                            initialValues={{ usuario: 'usuario', nombre: nombre,
+                            initialValues={{ usuario: usuario, nombre: nombre,
                             apellido: apellido, phone: phone, direccion: direccion }}
                             validateOnMount={true}
                             onSubmit={(values) => {
-                                modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token);
+                                modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token.current);
                             }}
                             validationSchema={SingUpValidationSchema}
                         >
-                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
+                            {({values, handleBlur, handleChange, handleSubmit, touched, errors, isValid})=> (<StyledFormArea>
                                 <MyTextInput
                                     label={"Primer Nombre"}
                                     icon={"person"}
@@ -124,9 +116,7 @@ const Signup = ({route, navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("nombre")}
                                     onBlur={handleBlur("nombre")}
-                                    values={values.nombre}
-                                    name="usuario"
-
+                                    value={values.nombre}
                                 />
 
                                 {(errors.nombre && touched.nombre) &&
@@ -142,7 +132,7 @@ const Signup = ({route, navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("apellido")}
                                     onBlur={handleBlur("apellido")}
-                                    values={values.apellido}
+                                    value={values.apellido}
                                 />
 
                                 {(errors.apellido && touched.apellido) &&
@@ -158,7 +148,7 @@ const Signup = ({route, navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("usuario")}
                                     onBlur={handleBlur("usuario")}
-                                    values={values.usuario}
+                                    value={values.usuario}
 
                                 />
 
@@ -174,7 +164,7 @@ const Signup = ({route, navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("phone")}
                                     onBlur={handleBlur("phone")}
-                                    values={values.phone}
+                                    value={values.phone}
                                 />
 
 
@@ -191,7 +181,7 @@ const Signup = ({route, navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("direccion")}
                                     onBlur={handleBlur("direccion")}
-                                    values={values.direccion}
+                                    value={values.direccion}
                                 />
 
                                 {(errors.direccion && touched.direccion) &&
