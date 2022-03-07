@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -27,6 +28,7 @@ import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo';
 
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
@@ -34,11 +36,12 @@ const width = Dimensions.get('window').width / 2 - 30;
 
 
 export default function AncalmoScreen({ navigation }) {
+ 
     const Card = ({dato}) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('Details', dato)}>
+                onPress={() => navigation.navigate('DetalleProductsAncalmo', dato)}>
                 <View style={styles.card}>
                     <View style={{ alignItems: 'flex-end' }}>
                         {/* <View
@@ -117,9 +120,14 @@ export default function AncalmoScreen({ navigation }) {
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.brand }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.brand, alignItems:'center' }}>
                         Productos ANCALMO
                     </Text>
+                    {/* <PageLog
+                            source={require("../assets/logoAncalmo.png")}
+                            style={{width: 100, height: 100}}
+                            resizeMode="cover"
+                        /> */}
                 </View>
                 <Icon name="shopping-cart" size={30} color={'#6D28D9'} />
             </View>

@@ -1,19 +1,19 @@
 const datos = [
   {
     id: 1,
-    name: 'Calamina Antialérgica',
+    name: 'ANTIGRIPAL ANCALMO',
     currency: 'L. ',
     price: 20.95,
    // like: true,
     img: require('../assets/bacaoliver-web.png'),
   
     about:
-      'Succulent Plantis one of the most popular and beautiful species that will produce clumpms. The storage of water often gives succulent plants a more swollen or fleshy appearance than other plants, a characteristic known as succulence.',
+      '.',
   },
 
   {
     id: 2,
-    name: 'Calamina Mentolada',
+    name: 'BACAOLIVER EMULSION',
     currency: 'L. ',
     price: 20.95,
     //like: false,
@@ -24,7 +24,7 @@ const datos = [
 
   {
     id: 3,
-    name: 'Calamina Rosada',
+    name: 'CALAMINA ANTIALERGICA',
     currency: 'L. ',
     price: 20.95,
     //like: false,
@@ -35,7 +35,7 @@ const datos = [
 
   {
     id: 4,
-    name: 'Bacaoliver',
+    name: 'CALAMINA MENTOLADA',
     currency: 'L. ',
     price: 20.95,
    // like: true,
@@ -45,7 +45,7 @@ const datos = [
   },
   {
     id: 5,
-    name: 'Dormaben',
+    name: 'DOLO MARATON',
     currency: 'L. ',
     price: 20.95,
     //like: true,
@@ -53,9 +53,196 @@ const datos = [
     about:
       '.',
   },
+
   {
     id: 6,
-    name: 'Dragon Plant',
+    name: 'DORMABEN',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  
+  {
+    id: 7,
+    name: 'ENTEROGUANIL ADULTO',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  
+  {
+    id: 8,
+    name: 'ENTEROGUANIL ADULTO',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  
+  {
+    id: 9,
+    name: 'LOMBRINIÑOS GRANULADO',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  
+  {
+    id: 10,
+    name: 'NERVOTIAMINA',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  
+  {
+    id: 11,
+    name: 'OIDOL GOTAS ÓPTICAS',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  
+  {
+    id: 12,
+    name: 'ORAN-C MASTICABLE',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 13,
+    name: 'RAPIDOL 500 MG',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 14,
+    name: 'SUERO ORAL COCO',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 15,
+    name: 'SUERO ORAL FRESA GRANULADO',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 16,
+    name: 'SUERO ORAL NARANJA GRANULADO',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 17,
+    name: 'SUERO ORAL VITAMINADO ',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 18,
+    name: 'TIAMINA 300',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 19,
+    name: 'VINO TRES TOROS',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 20,
+    name: 'ZORRITONE ANTIGRIPAL',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 21,
+    name: 'ZORRITONE BALSAMO',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 22,
+    name: 'ZORRITONE BARRA CEREZA',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 23,
+    name: 'ZORRITONE BARRA MIEL LIMON',
+    currency: 'L. ',
+    price: 20.95,
+    //like: false,
+    img: require('../assets/bacaoliver-web.png'),
+    about:
+      '.',
+  },
+  {
+    id: 24,
+    name: 'ZORRITONE CARAMELO BARRA',
     currency: 'L. ',
     price: 20.95,
     //like: false,
