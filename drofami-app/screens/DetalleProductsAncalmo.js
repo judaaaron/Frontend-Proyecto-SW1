@@ -63,7 +63,7 @@ const DetalleProductsAncalmo = ({navigation, route}) =>{
               <Text
                 style={{
                   marginLeft: 15,
-                  color: COLORS.white,
+                  color: Colors.primary,
                   fontWeight: 'bold',
                   fontSize: 16,
                 }}>
