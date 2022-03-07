@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
     React.useEffect(() => {
         async function getCredentials() {
             try {
-                //console.log("oli");
+                console.log("oli");
                 const session = await SecureStore.getItemAsync("user_session");
                 console.log(session);
                 checkToken(setLoading, JSON.parse(session)['token'], setLoginResponse)
