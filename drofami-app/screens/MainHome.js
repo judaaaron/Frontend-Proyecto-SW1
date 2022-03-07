@@ -32,9 +32,9 @@ export default function MainHome({ navigation }) {
 
         <>
             <ScrollView>
-                <StyledContainer style={{top:45}}>
+                <StyledContainer style={{top:1}}>
                     <StatusBar style="dark" />
-                    <InnerContainer>
+                    <InnerContainer style={{top:30}}>
                         <PageLog
                             source={require("../assets/drofamilogo1.jpg")}
                             resizeMode="cover"
@@ -53,8 +53,8 @@ export default function MainHome({ navigation }) {
 
                 <StyledContainer>
                     <InnerContainer>
-                        <Subtitle style={{top:-70}}>Hessel</Subtitle>
-                        <SafeAreaView style={[styles.container, {top:-70}]}>
+                        <Subtitle style={{top:-40}}>Hessel</Subtitle>
+                        <SafeAreaView style={[styles.container, {top:-30}]}>
                             <CarouselCards2 />
                         </SafeAreaView>
                     </InnerContainer>

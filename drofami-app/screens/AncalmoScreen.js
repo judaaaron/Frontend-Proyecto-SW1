@@ -36,7 +36,6 @@ const width = Dimensions.get('window').width / 2 - 30;
 
 
 export default function AncalmoScreen({ navigation }) {
- 
     const Card = ({dato}) => {
         return (
             <TouchableOpacity
@@ -113,9 +112,10 @@ export default function AncalmoScreen({ navigation }) {
         <SafeAreaView
             style={{
                 flex: 1,
+                top: 25,
                 paddingHorizontal: 20,
                 backgroundColor: Colors.primary,
-                top: 35
+
             }}>
             <View style={styles.header}>
                 <View>
