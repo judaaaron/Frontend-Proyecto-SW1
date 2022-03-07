@@ -72,7 +72,7 @@ export async function modification(username, phoneNumber,
     let response = {};
     setLoading(true);
     try {
-        response = await fetch(API_URL + 'auth/register/', {
+        response = await fetch(API_URL + 'auth/modify/', {
             method: 'PUT',
             body: JSON.stringify({
                 'username': username,

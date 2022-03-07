@@ -73,7 +73,7 @@ const Signup = ({route, navigation }) => {
     }, []);
 
     React.useEffect(() => {
-        console.log(response)
+        console.log("response ", response)
         if (!response) {
             return;
         }
