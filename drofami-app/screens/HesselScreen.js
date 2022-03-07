@@ -37,14 +37,14 @@ import { StatusBar } from "expo-status-bar";
 const width = Dimensions.get('window').width / 2 - 30;
 
 
-export default function HesselScreen({ navigation }) {
+export default function HesselScreen({ navigation}) {
     const Card = ({datoh}) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => navigation.navigate('DetalleProductsHessel', datoh)}>
                 <View style={styles.card}>
-                    <View style={{ alignItems: 'flex-end' }}>
+                    <View style={{ alignItems: 'flex-end'}}>
                         {/* <View
                             style={{
                                 width: 30,
@@ -123,7 +123,7 @@ export default function HesselScreen({ navigation }) {
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
                     <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.brand, alignItems:'center' }}>
-                        Productos  HESSEL
+                        Productos HESSEL
                     </Text>
                     {/* <PageLog
                             source={require("../assets/logoAncalmo.png")}
