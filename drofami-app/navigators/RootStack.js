@@ -9,6 +9,7 @@ import Signup from '../screens/Signup'
 import Home from '../screens/Home'
 import profileModification from '../screens/profileModification'
 import ChangePasswordScreen from '../screens/ChangePasswordScreen'
+import ChangeEmailScreen from '../screens/ChangeEmailScreen'
 
 
 const Stack = createStackNavigator();
@@ -26,7 +27,8 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home} options={{header: () => null}} />
                 <Stack.Screen name="profileModification" component={profileModification}/>
                 <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen}/>
-                
+                <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen}/>
+
             </Stack.Navigator>
         </NavigationContainer>
     )

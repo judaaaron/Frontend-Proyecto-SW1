@@ -70,6 +70,11 @@ export default function SettingsHome({ navigation }) {
                         Cambiar contraseña
                     </ButtonText>
                 </StyledButton>
+                <StyledButton onPress={() => navigation.navigate('ChangeEmailScreen')}>
+                    <ButtonText>
+                        Cambiar Correo Electronico
+                    </ButtonText>
+                </StyledButton>
 
                 
 
