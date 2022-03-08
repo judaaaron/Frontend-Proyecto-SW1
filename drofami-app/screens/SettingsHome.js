@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Colors, ButtonText, StyledButton } from "../components/styles";
+import { Colors, ButtonText, StyledButton, StyledButtonMod } from "../components/styles";
 import { getUserData } from '../src/login_registerAPI';
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from 'expo-secure-store';
@@ -61,16 +61,15 @@ export default function SettingsHome({ navigation }) {
               Configuración
             </Text>
           </View>
-          <StyledButton
-            style={{ top: 30, backgroundColor: Colors.blue }}
+          <StyledButtonMod
+            style={{ top: 30}}
             onPress={() => {
               getUserData(setLoading, token, setFormResponse);
             }}
           >
             <ButtonText>Editar Perfil</ButtonText>
-          </StyledButton>
+          </StyledButtonMod>
           <StyledButton
-            style={{ backgroundColor: Colors.blue }}
             onPress={() => navigation.navigate("profileModification")}
           >
             <ButtonText>Cambiar contraseña</ButtonText>

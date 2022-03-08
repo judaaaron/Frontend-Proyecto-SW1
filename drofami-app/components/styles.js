@@ -15,10 +15,11 @@ export const Colors = {
   red: "#EF4444",
   light: "#FAF9F9",
   blue: '#002AA2',
-  lightblue: '#0E84E0'
+  lightblue: '#0E84E0',
+  white: '#FFFFFF'
 };
 
-const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue } = Colors;
+const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue, white } = Colors;
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 10px;
@@ -124,6 +125,18 @@ export const StyledButton = styled.TouchableOpacity`
   shadowOpacity: 0.8;
   shadowRadius: 8px;
  
+`;
+
+export const StyledButtonMod = styled.TouchableOpacity`
+  padding: 15px;
+  background-color: ${lightblue};
+  align-items: center;
+  justify-content: center;
+  border-radius: 35px;
+  margin-vertical: 20px;
+  height: 60px;
+  font-weight: bold;
+  shadowRadius: 8px;
 `;
 
 export const ButtonText = styled.Text`
