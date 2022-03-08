@@ -122,7 +122,7 @@ export default function HesselScreen({ navigation}) {
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
                     <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems:'center' }}>
-                        Productos HESSEL
+                        Productos  HESSEL
                     </Text>
                     {/* <PageLog
                             source={require("../assets/logoAncalmo.png")}

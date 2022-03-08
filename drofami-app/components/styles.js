@@ -22,7 +22,6 @@ const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightb
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 10px;
-  marginTop:10;
   margin-bottom: 30px;
   background-color: ${primary};
 `;

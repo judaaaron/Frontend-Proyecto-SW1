@@ -29,7 +29,7 @@ const HomeTabs = () => {
     return (
         <Tab.Navigator
             tabBarOptions={{
-                activeTintColor: '#6D28D9',
+                activeTintColor: Colors.blue,
                 inactiveTintColor: 'grey',
                 labelStyle: { paddingBottom: 4, fontSize: 10 },
                 style: { padding: 10, height: 70, top: 10 }
@@ -75,7 +75,7 @@ const RootStack = () => {
 
 const RootStackScreens = () => (
     <Stack.Navigator initialRouteName={Login}>
-        <Stack.Screen name="Login" component={Login} options={{ header: () => null }}  />
+        <Stack.Screen name="Login" component={Login}  />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Home" component={HomeTabs} options={{ header: () => null }} />
         <Stack.Screen name="profileModification" component={profileModification} />

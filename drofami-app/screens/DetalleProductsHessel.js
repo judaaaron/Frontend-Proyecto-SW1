@@ -180,7 +180,7 @@ const style = StyleSheet.create({
       width: 80,
       height: 40,
       justifyContent: 'center',
-      borderTopLeftRadius: 25,
+      borderTopLeftRadius: 20,
       borderBottomLeftRadius: 25,
     },
   });
