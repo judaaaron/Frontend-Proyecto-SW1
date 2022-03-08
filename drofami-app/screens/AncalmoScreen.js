@@ -34,13 +34,17 @@ import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
 
-
-export default function AncalmoScreen({ navigation }) {
-    const Card = ({dato}) => {
+const AncalmoScreen = ({ navigation }) => {
+    const Card = ({ dato }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('DetalleProductsAncalmo', dato)}>
+                // useEffect(() => {
+                //     const unsubscribe = navigation.addListener('onPress', () => {
+                //       navigation.setParams({ screen: DetalleProductsAncalmo, params: producto })
+                //     return unsubscribe
+                //   }, [navigation]),
+                onPress={ () => navigation.setParams({ screen: DetalleProductsAncalmo, params: dato })}>
                 <View style={styles.card}>
                     <View style={{ alignItems: 'flex-end' }}>
                         {/* <View
@@ -54,7 +58,7 @@ export default function AncalmoScreen({ navigation }) {
                                     ? 'rgba(245, 42, 42,0.2)'
                                     : 'rgba(0,0,0,0.2) ',
                             }}> */}
-                            {/* <Icon
+                        {/* <Icon
                                 name="favorite"
                                 size={18}
                                 color={dato.like ? Colors.red : Colors.primary}
@@ -70,7 +74,7 @@ export default function AncalmoScreen({ navigation }) {
                         <Image
                             style={{ flex: 1, resizeMode: 'contain' }}
                             source={dato.img}
-                           
+
                         />
                     </View>
 
@@ -99,7 +103,7 @@ export default function AncalmoScreen({ navigation }) {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.brand, fontWeight: 'bold' , top:-4}}>
+                                style={{ fontSize: 22, color: Colors.brand, fontWeight: 'bold', top: -4 }}>
                                 +
                             </Text>
                         </View>
@@ -120,7 +124,7 @@ export default function AncalmoScreen({ navigation }) {
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.brand, alignItems:'center' }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.brand, alignItems: 'center' }}>
                         Productos ANCALMO
                     </Text>
                     {/* <PageLog
@@ -177,7 +181,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 30,
-        top:-10
+        top: -10
     },
 
     input: {
@@ -194,7 +198,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.brand,
         justifyContent: 'center',
         alignItems: 'center',
-        top:-10
+        top: -10
     },
     card: {
         height: 225,
@@ -206,3 +210,5 @@ const styles = StyleSheet.create({
         padding: 15,
     },
 });
+
+export default AncalmoScreen;

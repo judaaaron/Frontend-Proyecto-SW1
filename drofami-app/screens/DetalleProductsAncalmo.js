@@ -23,6 +23,7 @@ import {
     WelcomeImage,
     Avatar
 } from "../components/styles"
+import AncalmoScreen from './AncalmoScreen';
 
 const DetalleProductsAncalmo = ({navigation, route}) =>{
     const producto = route.params;

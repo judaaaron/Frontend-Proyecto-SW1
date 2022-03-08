@@ -6,7 +6,7 @@ const datos = [
     price: 20.95,
    // like: true,
     img: require('../assets/bacaoliver-web.png'),
-  
+
     about:
       '.',
   },
