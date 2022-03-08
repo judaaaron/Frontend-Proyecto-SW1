@@ -13,7 +13,9 @@ export const Colors = {
   brand: "#6D28D9",
   green: "#10B981",
   red: "#EF4444",
-  light: "#FAF9F9"
+  light: "#FAF9F9",
+  blue: '#002AA2',
+  lightblue: '#0E84E0'
 };
 
 const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;

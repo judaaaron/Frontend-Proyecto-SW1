@@ -32,7 +32,7 @@ const DetalleProductsAncalmo = ({navigation, route}) =>{
         <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: Colors.primary,
+          backgroundColor: Colors.lightblue,
         }}>
         <View style={style.header} top={20}>
           <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
@@ -171,14 +171,14 @@ const style = StyleSheet.create({
     buyBtn: {
       width: 130,
       height: 50,
-      backgroundColor: Colors.brand,
+      backgroundColor: Colors.blue,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 30,
     },
     priceTag: {
-      backgroundColor: Colors.brand,
-      width: 80,
+      backgroundColor: Colors.blue,
+      width: 100,
       height: 40,
       justifyContent: 'center',
       borderTopLeftRadius: 25,
