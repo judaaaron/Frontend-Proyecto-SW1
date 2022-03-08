@@ -8,7 +8,7 @@ const datos = [
     img: require('../assets/bacaoliver-web.png'),
 
     about:
-      'Dile adios a la gripe',
+      'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
   },
 
   {
