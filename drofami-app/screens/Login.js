@@ -113,18 +113,15 @@ const Login = ({ navigation }) => {
 
                             <Subtitle>Inicio de Sesión</Subtitle>
                             <Formik
-                                initialValues={{ usuario: 'male', token: "" }}
+                                initialValues={{ usuario: "", token: "" }}
                                 onSubmit={(values) => {
                                     (login(setLoading, values.usuario, values.token, setLoginResponse));
                                 }}
                             >
-                                
-                                
                                 {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
 
 
                                     <MyTextInput
-                                        
                                         label={"Username"}
                                         icon={"person"}
                                         placeholder={"drofamiClient"}
