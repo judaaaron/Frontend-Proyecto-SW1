@@ -9,7 +9,7 @@ import { signUp } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
-
+import { changePassword } from "../src/login_registerAPI";
 import {
     StyledContainer,
     InnerContainer,
@@ -37,10 +37,11 @@ let SingUpValidationSchema = yup.object().shape({
     confirmPassword: yup.string().required('Campo obligatorio'),
 });
 
-const ChangePassword = ({ navigation }) => {
+const ChangePass = ({route, navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
+    const {token} = route.params
 
     React.useEffect(() => {
         console.log(response)
@@ -49,9 +50,9 @@ const ChangePassword = ({ navigation }) => {
         }
         if (response['status'] == "success") {
             alert("Cambio de contraseña realizado correctamente");
-            navigation.navigate('Login');
-        } else if (response['status']) {
-            alert("Ha ocurrido un error");
+            //navigation.navigate('Settings'); no estoy seguro esto existe
+        } else if (response['status'] && response['message']) {
+            alert(response['message']);
         } else {
             let errors = '';
             for (const [key, value] of Object.entries(response)) {
@@ -82,7 +83,10 @@ const ChangePassword = ({ navigation }) => {
                             initialValues={{newPassword: "", confirmPassword: ""}}
                             validateOnMount={true}
                             onSubmit={(values) => {
-                                signUp(values.actualPassword, values.newPassword, values.confirmPassword, setLoading, setResponse);
+                                console.log(values.actualPassword);
+                                console.log(values.newPassword);
+                                console.log(values.confirmPassword);
+                                changePassword(setLoading, values.actualPassword, values.newPassword, values.confirmPassword, token,setResponse);
                             }}
                             validationSchema={SingUpValidationSchema}
                         >
@@ -95,7 +99,7 @@ const ChangePassword = ({ navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("actualPassword")}
                                     onBlur={handleBlur("actualPassword")}
-                                    values={values.actualPassword}
+                                    value={values.actualPassword}
                                     secureTextEntry={hidePassword}
                                     isPassword={true}
                                     hidePassword={hidePassword}
@@ -114,7 +118,7 @@ const ChangePassword = ({ navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("newPassword")}
                                     onBlur={handleBlur("newPassword")}
-                                    values={values.newPassword}
+                                    value={values.newPassword}
                                     secureTextEntry={hidePassword}
                                     isPassword={true}
                                     hidePassword={hidePassword}
@@ -134,7 +138,7 @@ const ChangePassword = ({ navigation }) => {
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("confirmPassword")}
                                     onBlur={handleBlur("confirmPassword")}
-                                    values={values.confirmPassword}
+                                    value={values.confirmPassword}
                                     secureTextEntry={hidePassword}
                                     isPassword={true}
                                     hidePassword={hidePassword}
@@ -195,7 +199,7 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,fl
     );
 };
 
-export default ChangePassword;
+export default ChangePass;
 
 const styles = StyleSheet.create({
     errores: {

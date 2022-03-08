@@ -72,7 +72,7 @@ export async function modification(username, phoneNumber,
     let response = {};
     setLoading(true);
     try {
-        response = await fetch(API_URL + 'auth/modify/', {
+        response = await fetch(API_URL + 'auth/register/', {
             method: 'PUT',
             body: JSON.stringify({
                 'username': username,
@@ -124,7 +124,6 @@ export async function checkToken(setLoading, token, setLoginResponse) {
 
 export async function getUserData(setLoading, token, setResponse) {
     setLoading(true);
-    console.log('holaaa')
     const resp = {};
     let response = {}
     try {
@@ -136,6 +135,65 @@ export async function getUserData(setLoading, token, setResponse) {
                 'Authorization': 'Token ' + token,
               },
         }).then((response) => response.json())//el status conseguir
+        .then(data => {
+            resp['data'] = data;
+            console.log('holaaa')
+            setResponse(data)
+        })
+    } catch (e){
+        console.log(e)
+    } finally {
+       setLoading(false)
+    }
+}   
+
+export async function changeEmail(setLoading, email, token, setResponse) {
+    setLoading(true);
+    const resp = {};
+    let response = {}
+    try {
+        response = await fetch(API_URL + 'auth/modify/email/', {
+            method: 'PUT',
+            body: JSON.stringify({
+                'email': email,
+            }),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+        }).then((response) => response.json())
+        .then(data => {
+            resp['data'] = data;
+            console.log('holaaa')
+            setResponse(data)
+        })
+    } catch (e){
+        console.log(e)
+    } finally {
+       setLoading(false)
+    }
+}   
+
+export async function changePassword(setLoading, password, newPassword, confirmPassword, token, setResponse) {
+    setLoading(true);
+    const resp = {};
+    let response = {}
+    try {
+        response = await fetch(API_URL + 'auth/modify/password/', {
+            method: 'PUT',
+            body: JSON.stringify({
+                'password': password,
+                'newPassword': newPassword,
+                'confirmPassword': confirmPassword,
+            }),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+        }).then((response) => 
+            response.json())
         .then(data => {
             resp['data'] = data;
             console.log('holaaa')
