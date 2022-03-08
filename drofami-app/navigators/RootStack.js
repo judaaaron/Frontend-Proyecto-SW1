@@ -15,6 +15,7 @@ import profileModification from '../screens/profileModification'
 import cambiarContrasena from '../screens/cambiarContrasena'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
+import ChangePasswordScreen from '../screens/ChangePasswordScreen'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -75,6 +76,7 @@ const HomeTabs = () => {
                 <Stack.Screen name="Home" component={Home} options={{header: () => null}} />
                 <Stack.Screen name= "DetallesAncalmo" component={DetalleProductsAncalmo} options={{header: () => null}} />
                 <Stack.Screen name="profileModification" component={profileModification}/>
+                <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen}/>
                 
             </Stack.Navigator>
         </NavigationContainer> */}
