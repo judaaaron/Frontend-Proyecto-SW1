@@ -8,7 +8,10 @@ const datosH = [
       img: require('../assets/Aciclo120.png'),
     
       about:
-        '.',
+        'Infecciones herpéticas de todo tipo:'+
+        'Herpes simple 1 y 2'+
+        'Herpes Zoster'+
+        'Varicela',
     },
   
     {

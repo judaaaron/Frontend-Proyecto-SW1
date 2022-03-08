@@ -18,10 +18,11 @@ export const Colors = {
   lightblue: '#0E84E0'
 };
 
-const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
+const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue } = Colors;
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 10px;
+  marginTop:10;
   margin-bottom: 30px;
   background-color: ${primary};
 `;
@@ -50,7 +51,7 @@ export const PageTitle = styled.Text`
   text-align: center;
   
   margin-bottom: 5px;
-  color: ${brand};
+  color: ${blue};
   
 
   ${(props) => props.welcome && `
@@ -113,7 +114,7 @@ export const RightIcon = styled.TouchableOpacity`
 
 export const StyledButton = styled.TouchableOpacity`
   padding: 15px;
-  background-color: ${brand};
+  background-color: ${blue};
   align-items: center;
   justify-content: center;
   border-radius: 35px;
@@ -154,7 +155,7 @@ export const TextLink = styled.TouchableOpacity`
   `;
 
 export const TextLinkContent = styled.Text`
-  color: ${brand};
+  color: ${blue};
   font-size: 15px;
   background-color: ${primary};
   `;

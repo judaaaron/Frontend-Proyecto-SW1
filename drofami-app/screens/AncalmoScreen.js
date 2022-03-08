@@ -98,7 +98,7 @@ const AncalmoScreen = ({ navigation }) => {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.brand, fontWeight: 'bold', top: -4 }}>
+                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4 }}>
                                 +
                             </Text>
                         </View>
@@ -119,7 +119,7 @@ const AncalmoScreen = ({ navigation }) => {
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.brand, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
                         Productos ANCALMO
                     </Text>
                     {/* <PageLog
@@ -128,7 +128,7 @@ const AncalmoScreen = ({ navigation }) => {
                             resizeMode="cover"
                         /> */}
                 </View>
-                <Icon name="shopping-cart" size={30} color={'#6D28D9'} />
+                <Icon name="shopping-cart" size={30} color={Colors.blue} />
             </View>
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
                 <View style={styles.searchContainer}>
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50,
         borderRadius: 10,
-        backgroundColor: Colors.brand,
+        backgroundColor: Colors.blue,
         justifyContent: 'center',
         alignItems: 'center',
         top: -10

@@ -97,10 +97,10 @@ const Login = ({ navigation }) => {
         <>
 
             <KeyboardAvoidingWrapper>
-                <View style={estilos.view2}>
-                    <StyledContainer>
+                <View style={estilos.view2} top={50} marginTop={-50}>
+                    <StyledContainer marginTop={-50}>
                         <StatusBar style="dark" />
-                        <InnerContainer>
+                        <InnerContainer marginTop={20}>
                             <PageLog
                                 source={require("../assets/drofamilogo1.jpg")}
                                 resizeMode="cover"
@@ -190,13 +190,13 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
     return (
         <View>
             <LeftIcon>
-                <Octicons name={icon} size={30} color={brand} />
+                <Octicons name={icon} size={30} color={Colors.blue} />
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />
             {isPassword && (
                 <RightIcon onPress={() => setHidePassword(!hidePassword)}>
-                    <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight} />
+                    <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={Colors.blue} />
                 </RightIcon>
             )}
         </View>

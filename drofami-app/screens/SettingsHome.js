@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import {
-    ButtonText,
-    StyledButton
-} from "../components/styles";
+import { Colors, ButtonText, StyledButton } from "../components/styles";
 import { getUserData } from '../src/login_registerAPI';
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from 'expo-secure-store';
@@ -46,37 +43,39 @@ export default function SettingsHome({ navigation }) {
     }, [formResponse])
 
     return (
-        <>
-            <ScrollView>
-                <StatusBar style="dark" />
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , top:20}}>
-                    <Text
-                        onPress={() => navigation.navigate('Home')}
-                        style={{ fontSize: 26, fontWeight: 'bold' }}>Configuración</Text>
-
-                    
-                </View>
-                <StyledButton style={{top:30}} onPress={() => {
-                        getUserData(setLoading, token, setFormResponse)
-                    }}>
-
-                        
-                    <ButtonText>
-                        Editar Perfil
-                    </ButtonText>
-                </StyledButton>
-                <StyledButton onPress={() => navigation.navigate('profileModification')}>
-                    <ButtonText>
-                        Cambiar contraseña
-                    </ButtonText>
-                </StyledButton>
-
-                
-
-
-                
-            </ScrollView>
-        </>
-
+      <>
+        <ScrollView>
+          <StatusBar style="dark" />
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              top: 20,
+            }}
+          >
+            <Text
+              onPress={() => navigation.navigate("Home")}
+              style={{ fontSize: 26, fontWeight: "bold" }}
+            >
+              Configuración
+            </Text>
+          </View>
+          <StyledButton
+            style={{ top: 30, backgroundColor: Colors.blue }}
+            onPress={() => {
+              getUserData(setLoading, token, setFormResponse);
+            }}
+          >
+            <ButtonText>Editar Perfil</ButtonText>
+          </StyledButton>
+          <StyledButton
+            style={{ backgroundColor: Colors.blue }}
+            onPress={() => navigation.navigate("profileModification")}
+          >
+            <ButtonText>Cambiar contraseña</ButtonText>
+          </StyledButton>
+        </ScrollView>
+      </>
     );
 }

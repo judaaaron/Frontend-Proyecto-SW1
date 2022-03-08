@@ -23,15 +23,15 @@ import {
     WelcomeImage,
     Avatar
 } from "../components/styles"
+import HesselScreen from './HesselScreen';
 
 const DetalleProductsHessel = ({navigation, route}) =>{
     const producto = route.params;
-    console.log(producto)
     return(
         <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: Colors.primary,
+          backgroundColor: Colors.lightblue,
         }}>
         <View style={style.header}>
           <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
@@ -47,8 +47,7 @@ const DetalleProductsHessel = ({navigation, route}) =>{
               flexDirection: 'row',
               alignItems: 'flex-end',
             }}>
-            <View style={style.line} />
-            <Text style={{fontSize: 18, fontWeight: 'bold'}}>Best choice</Text>
+            <Text style={{fontSize: 18, fontWeight: 'bold'}}>DROFAMI</Text>
           </View>
           <View
             style={{
@@ -67,12 +66,12 @@ const DetalleProductsHessel = ({navigation, route}) =>{
                   fontWeight: 'bold',
                   fontSize: 16,
                 }}>
-                ${producto.price}
+                L. {producto.price}
               </Text>
             </View>
           </View>
           <View style={{paddingHorizontal: 20, marginTop: 10}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>About</Text>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Descripción</Text>
             <Text
               style={{
                 color: 'grey',
@@ -112,7 +111,7 @@ const DetalleProductsHessel = ({navigation, route}) =>{
               <View style={style.buyBtn}>
                 <Text
                   style={{color: Colors.primary, fontSize: 18, fontWeight: 'bold'}}>
-                  Buy
+                  Ordenar
                 </Text>
               </View>
             </View>
@@ -171,13 +170,13 @@ const style = StyleSheet.create({
     buyBtn: {
       width: 130,
       height: 50,
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.blue,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 30,
     },
     priceTag: {
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.blue,
       width: 80,
       height: 40,
       justifyContent: 'center',
