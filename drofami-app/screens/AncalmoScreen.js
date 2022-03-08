@@ -39,12 +39,7 @@ const AncalmoScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
-                // useEffect(() => {
-                //     const unsubscribe = navigation.addListener('onPress', () => {
-                //       navigation.setParams({ screen: DetalleProductsAncalmo, params: producto })
-                //     return unsubscribe
-                //   }, [navigation]),
-                onPress={ () => navigation.setParams({ screen: DetalleProductsAncalmo, params: dato })}>
+                onPress={() => navigation.navigate('DetalleProductsAncalmo', dato)}>
                 <View style={styles.card}>
                     <View style={{ alignItems: 'flex-end' }}>
                         {/* <View

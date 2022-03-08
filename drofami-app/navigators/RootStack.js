@@ -12,6 +12,7 @@ import MainHome from '../screens/MainHome';
 import HesselScreen from '../screens/HesselScreen';
 import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo'
 import profileModification from '../screens/profileModification'
+import DetalleProductsHessel from "../screens/DetalleProductsHessel";
 import cambiarContrasena from '../screens/cambiarContrasena'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
@@ -24,7 +25,7 @@ const Hessel = "Hessel";
 const settingsName = "Mi cuenta";
 
 const Tab = createBottomTabNavigator();
-const HomeTabs = ({navigation}) => {
+const HomeTabs = () => {
     return (
         <Tab.Navigator
             tabBarOptions={{
@@ -78,7 +79,8 @@ const RootStackScreens = () => (
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Home" component={HomeTabs} options={{ header: () => null }} />
         <Stack.Screen name="profileModification" component={profileModification} />
-        <Stack.Screen name="DetalleAncalmo" component={DetalleProductsAncalmo} options={{ header: () => null }} />
+        <Stack.Screen name="DetalleProductsAncalmo" component={DetalleProductsAncalmo} options={{ header: () => null }} />
+        <Stack.Screen name="DetalleProductsHessel" component={DetalleProductsHessel} options={{ header: () => null }} />
     </Stack.Navigator>
 );
 export default RootStack;

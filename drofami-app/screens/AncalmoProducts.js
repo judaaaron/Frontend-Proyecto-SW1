@@ -8,7 +8,7 @@ const datos = [
     img: require('../assets/bacaoliver-web.png'),
 
     about:
-      '.',
+      'Dile adios a la gripe',
   },
 
   {

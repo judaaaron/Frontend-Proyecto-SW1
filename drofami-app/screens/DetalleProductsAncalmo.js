@@ -26,7 +26,7 @@ import {
 import AncalmoScreen from './AncalmoScreen';
 
 const DetalleProductsAncalmo = ({navigation, route}) =>{
-    const producto = route.params;
+    const producto = route.params;  
     
     return(
         <SafeAreaView
@@ -68,7 +68,7 @@ const DetalleProductsAncalmo = ({navigation, route}) =>{
                   fontWeight: 'bold',
                   fontSize: 16,
                 }}>
-                ${plant.price}
+                ${producto.price}
               </Text>
             </View>
           </View>
