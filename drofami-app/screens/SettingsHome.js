@@ -65,7 +65,7 @@ export default function SettingsHome({ navigation }) {
                         Editar Perfil
                     </ButtonText>
                 </StyledButton>
-                <StyledButton onPress={() => navigation.navigate('ChangePasswordScreen')}>
+                <StyledButton onPress={() => {navigation.navigate('ChangePasswordScreen', {token: token}), console.log(token)}}>
                     <ButtonText>
                         Cambiar contraseña
                     </ButtonText>
