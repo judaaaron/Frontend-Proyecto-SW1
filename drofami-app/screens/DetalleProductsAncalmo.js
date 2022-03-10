@@ -39,7 +39,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
         <Icon name="shopping-cart" size={28} />
       </View>
       <View style={style.imageContainer}>
-          <Image source={producto.img} style={{resizeMode: 'contain', flex: 1}} top={-50} />
+        <Image source={producto.img} style={{ resizeMode: 'contain', flex: 1 }} top={-50} />
       </View>
       <View style={style.detailsContainer} top={-60} marginTop={30}>
         <View
@@ -47,7 +47,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
             marginLeft: 20,
             flexDirection: 'row',
             alignItems: 'flex-end',
-            marginTop:-100,
+            marginTop: -100,
           }}>
         </View>
         <View
@@ -81,6 +81,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
               marginTop: 10,
             }}>
             {producto.about}
+
           </Text>
           <View
             style={{
@@ -88,6 +89,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
+              
             <View
               style={{
                 flexDirection: 'row',
@@ -107,6 +109,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
               <View style={style.borderBtn}>
                 <Text style={style.borderBtnText}>+</Text>
               </View>
+             
             </View>
 
             <View style={style.buyBtn}>

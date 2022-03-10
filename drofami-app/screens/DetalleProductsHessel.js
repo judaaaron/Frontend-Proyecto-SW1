@@ -23,7 +23,7 @@ import {
     WelcomeImage,
     Avatar
 } from "../components/styles"
-import HesselScreen from './HesselScreen';
+import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from './CarouselCardItem'
 
 const DetalleProductsHessel = ({navigation, route}) =>{
     const producto = route.params;
@@ -81,6 +81,7 @@ const DetalleProductsHessel = ({navigation, route}) =>{
               }}>
               {producto.about}
             </Text>
+    
             <View
               style={{
                 marginTop: 20,

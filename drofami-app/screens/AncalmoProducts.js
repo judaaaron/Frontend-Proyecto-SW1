@@ -9,6 +9,10 @@ const datos = [
 
     about:
       'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+    formula: 
+      '500 mg bla bla bla',
+    dosis: 
+        ' 2 tabletas al dia',
   },
 
   {
@@ -19,7 +23,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+    formula: 
+    '500 mg bla bla bla',
+    dosis: 
+      ' 2 tabletas al dia',
   },
 
   {
@@ -30,7 +38,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+    formula: 
+    '500 mg bla bla bla',
+    dosis: 
+      ' 2 tabletas al dia',
   },
 
   {
@@ -41,7 +53,11 @@ const datos = [
    // like: true,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 5,
@@ -51,7 +67,11 @@ const datos = [
     //like: true,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
 
   {
@@ -62,7 +82,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   
   {
@@ -73,7 +97,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   
   {
@@ -84,7 +112,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   
   {
@@ -95,7 +127,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   
   {
@@ -106,7 +142,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   
   {
@@ -117,7 +157,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   
   {
@@ -128,7 +172,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 13,
@@ -138,7 +186,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 14,
@@ -148,7 +200,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 15,
@@ -158,7 +214,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 16,
@@ -168,7 +228,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 17,
@@ -178,7 +242,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 18,
@@ -188,7 +256,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 19,
@@ -198,7 +270,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 20,
@@ -208,7 +284,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 21,
@@ -218,7 +298,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 22,
@@ -228,7 +312,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 23,
@@ -238,7 +326,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   {
     id: 24,
@@ -248,7 +340,11 @@ const datos = [
     //like: false,
     img: require('../assets/bacaoliver-web.png'),
     about:
-      '.',
+    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+  formula: 
+    '500 mg bla bla bla',
+  dosis: 
+      ' 2 tabletas al dia',
   },
   
 ];

@@ -28,12 +28,10 @@ import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo';
 
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
-
 const AncalmoScreen = ({ navigation }) => {
     const Card = ({ dato }) => {
         return (
@@ -69,7 +67,6 @@ const AncalmoScreen = ({ navigation }) => {
                         <Image
                             style={{ flex: 1, resizeMode: 'contain' }}
                             source={dato.img}
-
                         />
                     </View>
 
@@ -82,6 +79,7 @@ const AncalmoScreen = ({ navigation }) => {
                             justifyContent: 'space-between',
                             marginTop: 5,
                         }}>
+
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
