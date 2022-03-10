@@ -1,26 +1,11 @@
 import * as React from 'react';
-import { Text, View, SafeAreaView, StyleSheet,ScrollView } from 'react-native';
+import {SafeAreaView, StyleSheet,ScrollView } from 'react-native';
 import {
     StyledContainer,
     InnerContainer,
     PageLog,
     PageTitle,
-    Subtitle,
-    StyledFormArea,
-    LeftIcon,
-    RightIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    ButtonText,
-    StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink,
-    WelcomeContainer,
-    WelcomeImage,
-    Avatar
+    Subtitle
 } from "../components/styles"
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'

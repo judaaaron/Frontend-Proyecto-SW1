@@ -1,34 +1,16 @@
 import React from 'react';
-import { View, SafeAreaView, Image, Text, StyleSheet } from 'react-native';
+import { View, SafeAreaView, Image, Text, StyleSheet,ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
-  StyledContainer,
-  InnerContainer,
-  PageLog,
-  PageTitle,
-  Subtitle,
-  StyledFormArea,
-  LeftIcon,
-  RightIcon,
-  StyledInputLabel,
-  StyledTextInput,
-  ButtonText,
-  StyledButton,
-  Colors,
-  ExtraView,
-  ExtraText,
-  TextLinkContent,
-  TextLink,
-  WelcomeContainer,
-  WelcomeImage,
-  Avatar
+  Colors
 } from "../components/styles"
-import AncalmoScreen from './AncalmoScreen';
+import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
 
   return (
+    <ScrollView>
     <SafeAreaView
       style={{
         flex: 1,
@@ -41,7 +23,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       <View style={style.imageContainer}>
         <Image source={producto.img} style={{ resizeMode: 'contain', flex: 1 }} top={-50} />
       </View>
-      <View style={style.detailsContainer} top={-60} marginTop={30}>
+      <View style={style.detailsContainer} top={-60} marginTop={30} >
         <View
           style={{
             marginLeft: 20,
@@ -71,31 +53,29 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
             </Text>
           </View>
         </View>
+        <View style={{marginLeft:-50, top:20}}>
+              <CarouselDescripcionAncalmo/>
+        </View>
+        
         <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Descripción</Text>
-          <Text
-            style={{
-              color: 'grey',
-              fontSize: 16,
-              lineHeight: 22,
-              marginTop: 10,
-            }}>
-            {producto.about}
-
-          </Text>
+          {/* <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Descripción</Text> */}
+          
+          
           <View
             style={{
-              marginTop: 20,
+              marginTop: 10,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              marginBottom: 15
             }}>
               
             <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                
               }}>
-              <View style={style.borderBtn}>
+              <View style={style.borderBtn} >
                 <Text style={style.borderBtnText}>-</Text>
               </View>
               <Text
@@ -122,7 +102,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
         </View>
       </View>
     </SafeAreaView>
-
+    </ScrollView>
 
   );
 

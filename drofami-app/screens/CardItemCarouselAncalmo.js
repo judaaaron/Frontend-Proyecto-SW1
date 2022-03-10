@@ -7,9 +7,9 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 const CardItemCarouselAncalmo = ({ item, index }) => {
   return (
     <View style={styles.container} key={index}>
-      <Text style={styles.header}>{item.title}</Text>
+      <Text style={styles.header}>{item.name}</Text>
       <Text style={styles.body}>{item.body}</Text>
-    </View>
+    </View> 
   )
 }
 const styles = StyleSheet.create({
@@ -26,10 +26,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     elevation: 7,
-  },
-  image: {
-    width: ITEM_WIDTH,
-    height: 200,
   },
   header: {
     color: "#222",
