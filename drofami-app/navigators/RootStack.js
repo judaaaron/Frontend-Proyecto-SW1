@@ -1,28 +1,28 @@
-
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Colors } from '../components/styles'
-const { primary, tertiary } = Colors;
 import Login from '../screens/Login'
 import Signup from '../screens/Signup'
-import Home from '../screens/Home'
+import AncalmoScreen from '../screens/AncalmoScreen';
+import SettingsHome from '../screens/SettingsHome';
+import MainHome from '../screens/MainHome';
+import HesselScreen from '../screens/HesselScreen';
+import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo'
 import profileModification from '../screens/profileModification'
 import DetalleProductsHessel from "../screens/DetalleProductsHessel";
-import cambiarContrasena from '../screens/cambiarContrasena'
+import ChangePasswordScreen from '../screens/ChangePasswordScreen'
+import ChangeEmailScreen from '../screens/ChangeEmailScreen'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
 
+const Stack = createStackNavigator();
 
 const homeName = "Inicio";
 const Ancalmo = "Ancalmo";
 const Hessel = "Hessel";
 const settingsName = "Mi cuenta";
-import ChangePasswordScreen from '../screens/ChangePasswordScreen'
-import ChangeEmailScreen from '../screens/ChangeEmailScreen'
-
-
-const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 const HomeTabs = () => {
@@ -86,23 +86,3 @@ const RootStackScreens = () => (
     </Stack.Navigator>
 );
 export default RootStack;
-
-
-
-
-
-
-
-
-{/* <NavigationContainer>
-            <Stack.Navigator 
-            initialRouteName={Login}
-            >
-                <Stack.Screen name="Login" component={Login}/>
-                <Stack.Screen name="Signup" component={Signup}/>
-                <Stack.Screen name="Home" component={Home} options={{header: () => null}} />
-                <Stack.Screen name= "DetallesAncalmo" component={DetalleProductsAncalmo} options={{header: () => null}} />
-                <Stack.Screen name="profileModification" component={profileModification}/>
-                
-            </Stack.Navigator>
-        </NavigationContainer> */}
