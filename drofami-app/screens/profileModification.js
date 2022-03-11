@@ -73,11 +73,24 @@ const Signup = ({route, navigation }) => {
     }, []);
 
     React.useEffect(() => {
-        console.log(response)
         if (!response) {
             return;
         }
-        
+        if (response['status'] == "success") {
+            alert(response['message']);
+            //navigation.navigate('Settings'); no estoy seguro esto existe
+        } else if (response['status'] && response['message']) {
+            alert(response['message']);
+        } else {
+            let errors = '';
+            for (const [key, value] of Object.entries(response)) {
+                errors = key + ':\n';
+                for (let i = 0; i < value.length; i++) {
+                    errors += value[i] + '\n';
+                }
+            }
+            alert(errors);
+        }
     }, [response])
 
     function uploadChanges() {

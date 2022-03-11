@@ -36,9 +36,8 @@ import Login from "./Login";
 const { brand, darkLight } = Colors;
 const regularNameLastName = /^[aA-zZ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
-const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{2})[0-9]{6}$/  // solo acepta numeros, año validado en rango 1900-2022s
+const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{2})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
-const regularDireccion = /^(\s*[a-zA-Z])+(\s*[a-zA-Z]*)*[a-zA-Z]+$/
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
         .required('Nombre es obligatorio').matches(regularNameLastName,
@@ -59,8 +58,8 @@ let SingUpValidationSchema = yup.object().shape({
             "Número teléfonico inválido",
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
-    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio').matches(regularDireccion,'Dirección inválida'),
-    rtn: yup.string().min(14, ({ min }) => `RTN debe tener ${min} números`).max(14, ({ max }) => `RTN debe tener ${max} números`)
+    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio'),
+    rtn: yup.string().min(14, ({ min }) => `RTN debe tener 14 números`).max(14, ({ max }) => `RTN debe tener 14 números`)
         .required('Número de RTN es obligatorio').matches(regularRTN,
             "RTN inválido"
         ),
@@ -191,7 +190,7 @@ const Signup = ({ navigation }) => {
                                 <MyTextInput
                                     label={"Teléfono"}
                                     icon={"device-mobile"}
-                                    placeholder={"9577-5678"}
+                                    placeholder={"1234-5678"}
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("phone")}
                                     onBlur={handleBlur("phone")}

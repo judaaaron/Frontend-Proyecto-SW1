@@ -43,38 +43,42 @@ export default function SettingsHome({ navigation }) {
     }, [formResponse])
 
     return (
-      <>
-        <ScrollView>
-          <StatusBar style="dark" />
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              top: 20,
-            }}
-          >
-            <Text
-              onPress={() => navigation.navigate("Home")}
-              style={{ fontSize: 26, fontWeight: "bold" }}
-            >
-              Configuración
-            </Text>
-          </View>
-          <StyledButtonMod
-            style={{ top: 30}}
-            onPress={() => {
-              getUserData(setLoading, token, setFormResponse);
-            }}
-          >
-            <ButtonText>Editar Perfil</ButtonText>
-          </StyledButtonMod>
-          <StyledButton
-            onPress={() => navigation.navigate("profileModification")}
-          >
-            <ButtonText>Cambiar contraseña</ButtonText>
-          </StyledButton>
-        </ScrollView>
-      </>
+        <>
+            <ScrollView>
+                <StatusBar style="dark" />
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , top:20}}>
+                    <Text
+                        onPress={() => navigation.navigate('Home')}
+                        style={{ fontSize: 26, fontWeight: 'bold' }}>Configuración</Text>
+
+                    
+                </View>
+                <StyledButton style={{top:30}} onPress={() => {
+                        getUserData(setLoading, token, setFormResponse)
+                    }}>
+
+                        
+                    <ButtonText>
+                        Editar Perfil
+                    </ButtonText>
+                </StyledButton>
+                <StyledButton onPress={() => {navigation.navigate('ChangePasswordScreen', {token: token}), console.log(token)}}>
+                    <ButtonText>
+                        Cambiar contraseña
+                    </ButtonText>
+                </StyledButton>
+                <StyledButton onPress={() => navigation.navigate('ChangeEmailScreen')}>
+                    <ButtonText>
+                        Cambiar Correo Electronico
+                    </ButtonText>
+                </StyledButton>
+
+                
+
+
+                
+            </ScrollView>
+        </>
+
     );
 }
