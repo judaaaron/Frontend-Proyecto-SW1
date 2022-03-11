@@ -190,7 +190,7 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
     return (
         <View>
             <LeftIcon>
-                <Octicons name={icon} size={30} color={brand} />
+                <Octicons name={icon} size={30} color={Colors.blue} />
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />

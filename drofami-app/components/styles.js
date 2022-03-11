@@ -13,10 +13,13 @@ export const Colors = {
   brand: "#6D28D9",
   green: "#10B981",
   red: "#EF4444",
-  light: "#FAF9F9"
+  light: "#FAF9F9",
+  blue: '#002AA2',
+  lightblue: '#0E84E0',
+  white: '#FFFFFF'
 };
 
-const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
+const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue, white } = Colors;
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 10px;
@@ -48,7 +51,7 @@ export const PageTitle = styled.Text`
   text-align: center;
   
   margin-bottom: 5px;
-  color: ${brand};
+  color: ${blue};
   
 
   ${(props) => props.welcome && `
@@ -111,7 +114,7 @@ export const RightIcon = styled.TouchableOpacity`
 
 export const StyledButton = styled.TouchableOpacity`
   padding: 15px;
-  background-color: ${brand};
+  background-color: ${blue};
   align-items: center;
   justify-content: center;
   border-radius: 35px;
@@ -121,6 +124,18 @@ export const StyledButton = styled.TouchableOpacity`
   shadowOpacity: 0.8;
   shadowRadius: 8px;
  
+`;
+
+export const StyledButtonMod = styled.TouchableOpacity`
+  padding: 15px;
+  background-color: ${lightblue};
+  align-items: center;
+  justify-content: center;
+  border-radius: 35px;
+  margin-vertical: 20px;
+  height: 60px;
+  font-weight: bold;
+  shadowRadius: 8px;
 `;
 
 export const ButtonText = styled.Text`
@@ -152,7 +167,7 @@ export const TextLink = styled.TouchableOpacity`
   `;
 
 export const TextLinkContent = styled.Text`
-  color: ${brand};
+  color: ${blue};
   font-size: 15px;
   background-color: ${primary};
   `;

@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import {
-    ButtonText,
-    StyledButton
-} from "../components/styles";
+import { Colors, ButtonText, StyledButton, StyledButtonMod } from "../components/styles";
 import { getUserData } from '../src/login_registerAPI';
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from 'expo-secure-store';

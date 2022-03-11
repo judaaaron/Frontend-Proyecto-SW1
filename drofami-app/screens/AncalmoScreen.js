@@ -28,15 +28,12 @@ import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo';
 
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
-
-
-export default function AncalmoScreen({ navigation }) {
-    const Card = ({dato}) => {
+const AncalmoScreen = ({ navigation }) => {
+    const Card = ({ dato }) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
@@ -54,7 +51,7 @@ export default function AncalmoScreen({ navigation }) {
                                     ? 'rgba(245, 42, 42,0.2)'
                                     : 'rgba(0,0,0,0.2) ',
                             }}> */}
-                            {/* <Icon
+                        {/* <Icon
                                 name="favorite"
                                 size={18}
                                 color={dato.like ? Colors.red : Colors.primary}
@@ -70,7 +67,6 @@ export default function AncalmoScreen({ navigation }) {
                         <Image
                             style={{ flex: 1, resizeMode: 'contain' }}
                             source={dato.img}
-                           
                         />
                     </View>
 
@@ -83,6 +79,7 @@ export default function AncalmoScreen({ navigation }) {
                             justifyContent: 'space-between',
                             marginTop: 5,
                         }}>
+
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
@@ -99,7 +96,7 @@ export default function AncalmoScreen({ navigation }) {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.brand, fontWeight: 'bold' , top:-4}}>
+                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4 }}>
                                 +
                             </Text>
                         </View>
@@ -120,7 +117,7 @@ export default function AncalmoScreen({ navigation }) {
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.brand, alignItems:'center' }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
                         Productos ANCALMO
                     </Text>
                     {/* <PageLog
@@ -129,7 +126,7 @@ export default function AncalmoScreen({ navigation }) {
                             resizeMode="cover"
                         /> */}
                 </View>
-                <Icon name="shopping-cart" size={30} color={'#6D28D9'} />
+                <Icon name="shopping-cart" size={30} color={Colors.blue} />
             </View>
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
                 <View style={styles.searchContainer}>
@@ -177,7 +174,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 30,
-        top:-10
+        top: -10
     },
 
     input: {
@@ -191,10 +188,10 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50,
         borderRadius: 10,
-        backgroundColor: Colors.brand,
+        backgroundColor: Colors.blue,
         justifyContent: 'center',
         alignItems: 'center',
-        top:-10
+        top: -10
     },
     card: {
         height: 225,
@@ -206,3 +203,5 @@ const styles = StyleSheet.create({
         padding: 15,
     },
 });
+
+export default AncalmoScreen;
