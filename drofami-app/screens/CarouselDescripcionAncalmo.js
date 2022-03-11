@@ -29,7 +29,7 @@ const CarouselCards = () => {
         carouselRef={isCarousel}
         dotStyle={{
           width: 10,
-          height: 1,
+          height: 10,
           borderRadius: 5,
           marginHorizontal: 0,
           backgroundColor: 'rgba(0, 0, 0, 0.92)'

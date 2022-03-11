@@ -107,7 +107,7 @@ export const LeftIcon = styled.View`
 `;
 export const RightIcon = styled.TouchableOpacity`
   right: 15px;
-  top: 29px;
+  top: 30px;
   position: absolute;
   z-index: 1;
 `;

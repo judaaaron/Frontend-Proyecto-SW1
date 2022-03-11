@@ -243,7 +243,6 @@ const Signup = ({ navigation }) => {
                                     </Text>
                                 }
                                 <MyTextInput 
-                                    flex={3}
                                     label={"Direccion"}
                                     icon={"location"}
                                     placeholder={"Dirección de entrega"}
@@ -251,6 +250,7 @@ const Signup = ({ navigation }) => {
                                     onChangeText={handleChange("direccion")}
                                     onBlur={handleBlur("direccion")}
                                     values={values.direccion}
+                                    
                                 />
 
                                 {(errors.direccion && touched.direccion) &&

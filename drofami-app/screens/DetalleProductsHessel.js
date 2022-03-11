@@ -33,8 +33,8 @@ const DetalleProductsHessel = ({navigation, route}) =>{
           flex: 1,
           backgroundColor: Colors.lightblue,
         }}>
-        <View style={style.header}>
-          <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
+        <View style={style.header} top={15}>
+          <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
           <Icon name="shopping-cart" size={28} />
         </View>
         <View style={style.imageContainer}>

@@ -101,7 +101,7 @@ const ChangeEmail = ({ navigation }) => {
                                 }
                                 
 
-                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? '#6D28D9' : '#9CA3AF' }}>
+                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
                                     <ButtonText >
                                         Cambiar Correo Electronico
                                     </ButtonText>
@@ -138,7 +138,7 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,fl
     return (
         <View>
             <LeftIcon>
-                <Octicons name={icon} size={30} color={brand} />
+                <Octicons name={icon} size={30} color={Colors.blue} />
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />
