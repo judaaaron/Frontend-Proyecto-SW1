@@ -72,7 +72,6 @@ export default function SettingsHome({ navigation }) {
             <View flex={1} backgroundColor={Colors.primary}>
                 {/* <StyledContainer marginTop={-14}> */}
 
-
                 <View backgroundColor={Colors.primary} style={{ top: 40 }}>
 
                     <Subtitle2 style={styles.view3} backgroundColor={Colors.primary} color={Colors.blue} >                             Cuenta</Subtitle2>

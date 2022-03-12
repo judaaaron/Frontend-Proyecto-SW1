@@ -49,7 +49,7 @@ const ChangeEmail1 = ({route, navigation })  => {
         }
         if (response['status'] == "success") {
             alert("Cambio de correo electronico correctamente");
-            navigation.navigate('Home');
+            navigation.navigate('Login');
         } else if (response['status']) {
             alert("Ha ocurrido un error");
         } else {
@@ -68,21 +68,20 @@ const ChangeEmail1 = ({route, navigation })  => {
         <>
             <KeyboardAvoidingWrapper>
 
-            <View flex={1}>
-                <StyledContainer marginTop={-14}>
-                        <StatusBar style="dark" />
+            <View backgroundColor={Colors.primary}>
+                {/* <StyledContainer> */}
                         <View style={styles.header} top={50}>
                             <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
                         </View>
 
-                        <InnerContainer marginTop={380} >
+                        <InnerContainer marginTop={400} >
                             <PageLog
-                                top={-320}
+                                top={-250}
                                 source={require("../assets/drofamilogo1.jpg")}
                                 resizeMode="cover"
 
                             />
-                        <Subtitle style={{top:-300}}>Cambiar Correo Electrónico</Subtitle>
+                        <Subtitle style={{top:-240}}>Cambiar Correo Electrónico</Subtitle>
                         <Formik
                             initialValues={{newEmail: ""}}
                             validateOnMount={true}
@@ -91,7 +90,7 @@ const ChangeEmail1 = ({route, navigation })  => {
                             }}
                             validationSchema={SingUpValidationSchema}
                         >
-                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea style={{top:-300}}>
+                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea style={{top:-200}}>
                                 
                                 <MyTextInput
                                     label={"Nuevo Correo"}
@@ -109,20 +108,22 @@ const ChangeEmail1 = ({route, navigation })  => {
                                     </Text>
                                 }
                                 
+                                <View backgroundColor={Colors.primary}>
 
+                              
                                 <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
                                     <ButtonText >
                                         Cambiar Correo Electronico
                                     </ButtonText>
                                 </StyledButton>
-
+                                </View>
                             </StyledFormArea>)}
 
                         </Formik>
 
                     </InnerContainer>
 
-                </StyledContainer>
+                {/* </StyledContainer> */}
                 </View>
             </KeyboardAvoidingWrapper>
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>

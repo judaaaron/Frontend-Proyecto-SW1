@@ -148,8 +148,6 @@ export const StyledButton2 = styled.TouchableOpacity`
   background-color: ${primary};
   border-radius: 35px;
   font-weight: bold;
-  shadowOpacity: 0.8;
-  shadowRadius: 8px;
  
 `;
 export const StyledButtonMod = styled.TouchableOpacity`
