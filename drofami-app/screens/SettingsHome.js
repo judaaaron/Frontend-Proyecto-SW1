@@ -21,7 +21,10 @@ import {
     ExtraView,
     ExtraText,
     TextLinkContent,
-    TextLink
+    TextLink,
+    ButtonText2,
+    StyledButton2,
+    Subtitle2
 
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -65,33 +68,47 @@ export default function SettingsHome({ navigation }) {
 
     return (
         <>
-            <View flex={1}>
-                <StyledContainer marginTop={-14}>
-                    <InnerContainer marginTop={150} >
-                        <Subtitle style={{ top: -100, }} size={100}>Cuenta</Subtitle>
-                        <View style={{ top: -60 }}>
-                            <ExtraView marginRight={260} >
-                            </ExtraView>
-                            <ExtraView marginRight={260} >
-                                <TextLinkContent style={{ top: -20 }} onPress={() => {
-                                    getUserData(setLoading, token, setFormResponse)
-                                }}>Editar perfil</TextLinkContent>
-                            </ExtraView>
-                            <ExtraView marginRight={160}>
-                                <TextLink style={{ top: -15 }} onPress={() => { navigation.navigate('ChangeEmailScreen', { token: token }), console.log(token) }}>
-                                    <TextLinkContent>Cambiar correo electrónico</TextLinkContent>
-                                </TextLink>
-                            </ExtraView>
-                            <ExtraView marginRight={205}>
-                                <TextLink style={{ top: -10 }} onPress={() => { navigation.navigate('ChangePasswordScreen', { token: token }), console.log(token) }}>
-                                    <TextLinkContent>
-                                        Cambiar contraseña
-                                    </TextLinkContent>
-                                </TextLink>
-                            </ExtraView>
-                        </View>
-                    </InnerContainer>
-                </StyledContainer>
+            <View flex={1} backgroundColor={Colors.primary}>
+                {/* <StyledContainer marginTop={-14}> */}
+
+
+                <View backgroundColor={Colors.primary} style={{ top: 40 }}>
+
+                    <Subtitle2 style={styles.view3} backgroundColor={Colors.primary} color={Colors.blue} >                             Cuenta</Subtitle2>
+
+                    {/* <ExtraView marginRight={260}> */}
+
+
+
+                    <StyledButton2 onPress={() => {
+                        getUserData(setLoading, token, setFormResponse)
+                    }}>
+                        <ButtonText2>Editar perfil
+                            <Icon name="arrow-forward-ios" size={20} />
+                            <RightIcon />
+                        </ButtonText2>
+                    </StyledButton2>
+                    {/* </ExtraView> */}
+                    {/* <ExtraView marginRight={160}> */}
+                    <StyledButton2 onPress={() => { navigation.navigate('ChangeEmailScreen', { token: token }), console.log(token) }}>
+                        <ButtonText2>Cambiar correo electrónico
+                            <Icon name="arrow-forward-ios" size={20} />
+                            <RightIcon />
+                        </ButtonText2>
+                    </StyledButton2>
+                    {/* </ExtraView> */}
+                    {/* <ExtraView marginRight={205}> */}
+                    <StyledButton2 onPress={() => { navigation.navigate('ChangePasswordScreen', { token: token }), console.log(token) }}>
+                        <ButtonText2>
+                            Cambiar contraseña              
+                            <Icon name="arrow-forward-ios" size={20} style={{marginRight:110}} />
+                            <RightIcon />
+                        </ButtonText2>
+                    </StyledButton2>
+                    {/* </ExtraView> */}
+                </View>
+
+                {/* </StyledContainer> */}
             </View>
 
 
@@ -115,6 +132,19 @@ const styles = StyleSheet.create({
     },
     view2: {
         backgroundColor: 'white',
+    },
+    searchContainer: {
+        height: 50,
+        backgroundColor: Colors.secondary,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 30,
+        top: -10
+    },
+    view3: {
+        alignContent: 'center',
+        justifyContent: 'center'
     },
     searchContainer: {
         height: 50,

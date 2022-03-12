@@ -73,6 +73,20 @@ export const Subtitle = styled.Text`
 `}
 `;
 
+export const Subtitle2 = styled.Text`
+  font-size: 18px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: ${blue};
+  background-color: ${primary};
+
+  ${(props) => props.welcome && `
+  margin-bottom: 5px
+  font-weight:normal;  
+`}
+`;
+
 export const StyledFormArea = styled.View`
   width: 95%;
   background-color: ${primary};
@@ -112,6 +126,8 @@ export const RightIcon = styled.TouchableOpacity`
   z-index: 1;
 `;
 
+
+
 export const StyledButton = styled.TouchableOpacity`
   padding: 15px;
   background-color: ${blue};
@@ -126,6 +142,16 @@ export const StyledButton = styled.TouchableOpacity`
  
 `;
 
+
+export const StyledButton2 = styled.TouchableOpacity`
+  padding: 15px;
+  background-color: ${primary};
+  border-radius: 35px;
+  font-weight: bold;
+  shadowOpacity: 0.8;
+  shadowRadius: 8px;
+ 
+`;
 export const StyledButtonMod = styled.TouchableOpacity`
   padding: 15px;
   background-color: ${lightblue};
@@ -140,6 +166,12 @@ export const StyledButtonMod = styled.TouchableOpacity`
 
 export const ButtonText = styled.Text`
   color: ${primary};
+  font-size: 16px;
+  
+`;
+export const ButtonText2 = styled.Text`
+  marginLeft=10;
+  color: ${blue};
   font-size: 16px;
   
 `;

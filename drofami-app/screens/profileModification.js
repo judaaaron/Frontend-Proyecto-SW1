@@ -114,7 +114,7 @@ const Signup = ({ route, navigation }) => {
                             resizeMode="cover"
 
                         />
-                        <Subtitle>Modificacion</Subtitle>
+                        <Subtitle>Modificación</Subtitle>
                         <Formik
                             enableReinitialize
                             initialValues={{
@@ -209,7 +209,7 @@ const Signup = ({ route, navigation }) => {
                                     </Text>
                                 }
 
-                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? '#6D28D9' : '#9CA3AF' }}>
+                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
                                     <ButtonText >
                                         Modificar datos
                                     </ButtonText>
@@ -243,7 +243,7 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
     return (
         <View>
             <LeftIcon>
-                <Octicons name={icon} size={30} color={brand} />
+                <Octicons name={icon} size={30} color={Colors.blue} />
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <StyledTextInput {...props} />
