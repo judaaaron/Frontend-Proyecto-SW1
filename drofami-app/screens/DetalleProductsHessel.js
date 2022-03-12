@@ -1,33 +1,15 @@
 import React from 'react';
-import {View, SafeAreaView, Image, Text, StyleSheet} from 'react-native';
+import {View, SafeAreaView, Image, Text, StyleSheet,ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
-    StyledContainer,
-    InnerContainer,
-    PageLog,
-    PageTitle,
-    Subtitle,
-    StyledFormArea,
-    LeftIcon,
-    RightIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    ButtonText,
-    StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink,
-    WelcomeContainer,
-    WelcomeImage,
-    Avatar
+    Colors
 } from "../components/styles"
-import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from './CarouselCardItem'
+import CarouselDescripcionHessel from './CarouselDescripcionHessel'
 
 const DetalleProductsHessel = ({navigation, route}) =>{
     const producto = route.params;
     return(
+      <ScrollView>
         <SafeAreaView
         style={{
           flex: 1,
@@ -47,7 +29,7 @@ const DetalleProductsHessel = ({navigation, route}) =>{
               flexDirection: 'row',
               alignItems: 'flex-end',
             }}>
-            <Text style={{fontSize: 18, fontWeight: 'bold'}}>DROFAMI</Text>
+            
           </View>
           <View
             style={{
@@ -70,23 +52,19 @@ const DetalleProductsHessel = ({navigation, route}) =>{
               </Text>
             </View>
           </View>
+          <View style={{marginLeft:-50, top:20}}>
+              <CarouselDescripcionHessel/>
+          </View>
           <View style={{paddingHorizontal: 20, marginTop: 10}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Descripción</Text>
-            <Text
-              style={{
-                color: 'grey',
-                fontSize: 16,
-                lineHeight: 22,
-                marginTop: 10,
-              }}>
-              {producto.about}
-            </Text>
+            
+            
     
             <View
               style={{
-                marginTop: 20,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+              marginTop: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginBottom: 15
               }}>
               <View
                 style={{
@@ -119,7 +97,7 @@ const DetalleProductsHessel = ({navigation, route}) =>{
           </View>
         </View>
       </SafeAreaView>
-
+      </ScrollView>
 
     );
 
