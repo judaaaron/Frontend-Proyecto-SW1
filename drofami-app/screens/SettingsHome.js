@@ -32,51 +32,43 @@ export default function SettingsHome({ navigation }) {
         }
         const cliente = formResponse['cliente'];
         const user = cliente['user']
-        navigation.navigate('profileModification', 
-        {
-            usuario: user['username'],
-            apellido: user['last_name'],
-            nombre: user['first_name'],
-            direccion: cliente['address'],
-            phone: user['phone_number'],
-        })
+        navigation.navigate('profileModification',
+            {
+                usuario: user['username'],
+                apellido: user['last_name'],
+                nombre: user['first_name'],
+                direccion: cliente['address'],
+                phone: user['phone_number'],
+            })
     }, [formResponse])
 
     return (
         <>
             <ScrollView>
                 <StatusBar style="dark" />
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , top:20}}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', top: 30 }}>
                     <Text
                         onPress={() => navigation.navigate('Home')}
                         style={{ fontSize: 26, fontWeight: 'bold' }}>Configuración</Text>
-
-                    
                 </View>
-                <StyledButton style={{top:30}} onPress={() => {
-                        getUserData(setLoading, token, setFormResponse)
-                    }}>
-
-                        
+                <StyledButton style={{ top: 50 }} onPress={() => {
+                    getUserData(setLoading, token, setFormResponse)
+                }}>
                     <ButtonText>
                         Editar Perfil
                     </ButtonText>
                 </StyledButton>
-                <StyledButton onPress={() => {navigation.navigate('ChangePasswordScreen', {token: token}), console.log(token)}}>
-                    <ButtonText>
-                        Cambiar contraseña
-                    </ButtonText>
-                </StyledButton>
-                <StyledButton onPress={() => {navigation.navigate('ChangeEmailScreen', {token:token}), console.log(token)}}>
+                <StyledButton style={{ top: 20 }} onPress={() => { navigation.navigate('ChangeEmailScreen', { token: token }), console.log(token) }}>
                     <ButtonText>
                         Cambiar Correo Electronico
                     </ButtonText>
                 </StyledButton>
+                <StyledButton style={{ top: 30 }} onPress={() => { navigation.navigate('ChangePasswordScreen', { token: token }), console.log(token) }}>
+                    <ButtonText>
+                        Cambiar contraseña
+                    </ButtonText>
+                </StyledButton>
 
-                
-
-
-                
             </ScrollView>
         </>
 
