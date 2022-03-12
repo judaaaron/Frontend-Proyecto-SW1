@@ -31,6 +31,7 @@ import {
     TextLink
 
 } from "../components/styles";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Login from "./Login";
 
 const { brand, darkLight } = Colors;
@@ -55,9 +56,9 @@ let SingUpValidationSchema = yup.object().shape({
     direccion: yup.string().required('Dirección obligatoria'),
 });
 
-const Signup = ({route, navigation }) => {
+const Signup = ({ route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
-    const {usuario, apellido, nombre, direccion, phone} = route.params
+    const { usuario, apellido, nombre, direccion, phone } = route.params
     const [response, setResponse] = useState('');
     const token = React.useRef('');
 
@@ -69,7 +70,7 @@ const Signup = ({route, navigation }) => {
             getUserData(setLoading, token.current, setFormResponse);
         }
         getToken();
-        
+
     }, []);
 
     React.useEffect(() => {
@@ -94,17 +95,20 @@ const Signup = ({route, navigation }) => {
     }, [response])
 
     function uploadChanges() {
-        
+
     }
 
     return (
         <>
             <KeyboardAvoidingWrapper>
 
-                <StyledContainer>
+                <StyledContainer marginTop={-20} top={25}>
                     <StatusBar style="dark" />
+                    <View style={styles.header} top={6}>
+                        <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
+                    </View>
 
-                    <InnerContainer>
+                    <InnerContainer top={-10}>
                         <PageLog
                             source={require("../assets/drofamilogo1.jpg")}
                             resizeMode="cover"
@@ -112,16 +116,18 @@ const Signup = ({route, navigation }) => {
                         />
                         <Subtitle>Modificacion</Subtitle>
                         <Formik
-                            enableReinitialize 
-                            initialValues={{ usuario: usuario, nombre: nombre,
-                            apellido: apellido, phone: phone, direccion: direccion }}
+                            enableReinitialize
+                            initialValues={{
+                                usuario: usuario, nombre: nombre,
+                                apellido: apellido, phone: phone, direccion: direccion
+                            }}
                             validateOnMount={true}
                             onSubmit={(values) => {
                                 modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token.current);
                             }}
                             validationSchema={SingUpValidationSchema}
                         >
-                            {({values, handleBlur, handleChange, handleSubmit, touched, errors, isValid})=> (<StyledFormArea>
+                            {({ values, handleBlur, handleChange, handleSubmit, touched, errors, isValid }) => (<StyledFormArea>
                                 <MyTextInput
                                     label={"Primer Nombre"}
                                     icon={"person"}
@@ -186,7 +192,7 @@ const Signup = ({route, navigation }) => {
                                         {errors.phone}
                                     </Text>
                                 }
-                                
+
                                 <MyTextInput
                                     label={"Direccion"}
                                     icon={"location"}
@@ -256,7 +262,7 @@ const styles = StyleSheet.create({
     errores: {
         fontSize: 10,
         color: 'red',
-        top: -10,
+        top: -15,
     },
     spinnercontent: {
         justifyContent: 'center',
@@ -266,5 +272,10 @@ const styles = StyleSheet.create({
     },
     view2: {
         backgroundColor: 'white',
-    }
+    },
+    header: {
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
 })

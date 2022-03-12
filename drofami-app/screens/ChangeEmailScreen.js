@@ -26,6 +26,7 @@ import {
     StyledButton,
     Colors
 } from "../components/styles";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { brand, darkLight } = Colors;
 
@@ -48,7 +49,7 @@ const ChangeEmail1 = ({route, navigation })  => {
         }
         if (response['status'] == "success") {
             alert("Cambio de correo electronico correctamente");
-            navigation.navigate('Login');
+            navigation.navigate('Home');
         } else if (response['status']) {
             alert("Ha ocurrido un error");
         } else {
@@ -67,16 +68,21 @@ const ChangeEmail1 = ({route, navigation })  => {
         <>
             <KeyboardAvoidingWrapper>
 
-                <StyledContainer>
-                    <StatusBar style="dark" />
+            <View flex={1}>
+                <StyledContainer marginTop={-14}>
+                        <StatusBar style="dark" />
+                        <View style={styles.header} top={50}>
+                            <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
+                        </View>
 
-                    <InnerContainer>
-                        <PageLog
-                            source={require("../assets/drofamilogo1.jpg")}
-                            resizeMode="cover"
+                        <InnerContainer marginTop={380} >
+                            <PageLog
+                                top={-320}
+                                source={require("../assets/drofamilogo1.jpg")}
+                                resizeMode="cover"
 
-                        />
-                        <Subtitle>Cambiar Correo Electronico</Subtitle>
+                            />
+                        <Subtitle style={{top:-300}}>Cambiar Correo Electrónico</Subtitle>
                         <Formik
                             initialValues={{newEmail: ""}}
                             validateOnMount={true}
@@ -85,10 +91,10 @@ const ChangeEmail1 = ({route, navigation })  => {
                             }}
                             validationSchema={SingUpValidationSchema}
                         >
-                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
+                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea style={{top:-300}}>
                                 
                                 <MyTextInput
-                                    label={"newEmail"}
+                                    label={"Nuevo Correo"}
                                     icon={"mail"}
                                     placeholder={"drofamiClient@ejemplo.com"}
                                     placeholderTextColor={darkLight}
@@ -117,6 +123,7 @@ const ChangeEmail1 = ({route, navigation })  => {
                     </InnerContainer>
 
                 </StyledContainer>
+                </View>
             </KeyboardAvoidingWrapper>
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
@@ -25,6 +25,7 @@ import {
     StyledButton,
     Colors
 } from "../components/styles";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { brand, darkLight } = Colors;
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
@@ -37,11 +38,11 @@ let SingUpValidationSchema = yup.object().shape({
     confirmPassword: yup.string().required('Campo obligatorio'),
 });
 
-const ChangePass = ({route, navigation }) => {
+const ChangePass = ({ route, navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
-    const {token} = route.params
+    const { token } = route.params
 
     React.useEffect(() => {
         console.log(response)
@@ -50,7 +51,7 @@ const ChangePass = ({route, navigation }) => {
         }
         if (response['status'] == "success") {
             alert("Cambio de contraseña realizado correctamente");
-            //navigation.navigate('Settings'); no estoy seguro esto existe
+            navigation.navigate('Login');
         } else if (response['status'] && response['message']) {
             alert(response['message']);
         } else {
@@ -68,103 +69,112 @@ const ChangePass = ({route, navigation }) => {
     return (
         <>
             <KeyboardAvoidingWrapper>
+                <View flex={1}>
+                <StyledContainer marginTop={-14}>
+                        <StatusBar style="dark" />
+                        <View style={styles.header} top={50}>
+                            <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
+                        </View>
 
-                <StyledContainer>
-                    <StatusBar style="dark" />
+                        <InnerContainer marginTop={190} >
+                            <PageLog
+                                top={-145}
+                                source={require("../assets/drofamilogo1.jpg")}
+                                resizeMode="cover"
 
-                    <InnerContainer>
-                        <PageLog
-                            source={require("../assets/drofamilogo1.jpg")}
-                            resizeMode="cover"
-
-                        />
-                        <Subtitle>Cambiar Contraseña</Subtitle>
-                        <Formik
-                            initialValues={{newPassword: "", confirmPassword: ""}}
-                            validateOnMount={true}
-                            onSubmit={(values) => {
-                                console.log(values.actualPassword);
-                                console.log(values.newPassword);
-                                console.log(values.confirmPassword);
-                                changePassword(setLoading, values.actualPassword, values.newPassword, values.confirmPassword, token,setResponse);
-                            }}
-                            validationSchema={SingUpValidationSchema}
-                        >
-                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
+                            />
+                            <Subtitle style={{top:-150}}>Cambiar Contraseña</Subtitle>
+                            <Formik
                                 
-                                <MyTextInput
-                                    label={"Contraseña Actual"}
-                                    icon={"lock"}
-                                    placeholder={"*************"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("actualPassword")}
-                                    onBlur={handleBlur("actualPassword")}
-                                    value={values.actualPassword}
-                                    secureTextEntry={hidePassword}
-                                    isPassword={true}
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
-                                {(errors.actualPassword && touched.actualPassword) &&
-                                    <Text style={styles.errores}>
-                                        {errors.actualPassword}
-                                    </Text>
-                                }
-                                
-                                <MyTextInput
-                                    label={"Nueva Contraseña"}
-                                    icon={"lock"}
-                                    placeholder={"*************"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("newPassword")}
-                                    onBlur={handleBlur("newPassword")}
-                                    value={values.newPassword}
-                                    secureTextEntry={hidePassword}
-                                    isPassword={true}
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
-                                {(errors.newPassword && touched.newPassword) &&
-                                    <Text style={styles.errores}>
-                                        {errors.newPassword}
-                                    </Text>
-                                }
+                                initialValues={{ newPassword: "", confirmPassword: "" }}
+                                validateOnMount={true}
+                                onSubmit={(values) => {
+                                    console.log(values.actualPassword);
+                                    console.log(values.newPassword);
+                                    console.log(values.confirmPassword);
+                                    changePassword(setLoading, values.actualPassword, values.newPassword, values.confirmPassword, token, setResponse);
+                                }}
+                                validationSchema={SingUpValidationSchema}
+                            >
+                                {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea style={{top:-150}}>
+
+                                    <MyTextInput
+                                      
+                                        label={"Contraseña Actual"}
+                                        
+                                        icon={"lock"}
+                                        placeholder={"*************"}
+                                        placeholderTextColor={darkLight}
+                                        onChangeText={handleChange("actualPassword")}
+                                        onBlur={handleBlur("actualPassword")}
+                                        value={values.actualPassword}
+                                        secureTextEntry={hidePassword}
+                                        isPassword={true}
+                                        hidePassword={hidePassword}
+                                        setHidePassword={setHidePassword}
+                                        
+                                    />
+                                    {(errors.actualPassword && touched.actualPassword) &&
+                                        <Text style={styles.errores}>
+                                            {errors.actualPassword}
+                                        </Text>
+                                    }
+
+                                    <MyTextInput
+                                        label={"Nueva Contraseña"}
+                                        icon={"lock"}
+                                        placeholder={"*************"}
+                                        placeholderTextColor={darkLight}
+                                        onChangeText={handleChange("newPassword")}
+                                        onBlur={handleBlur("newPassword")}
+                                        value={values.newPassword}
+                                        secureTextEntry={hidePassword}
+                                        isPassword={true}
+                                        hidePassword={hidePassword}
+                                        setHidePassword={setHidePassword}
+                                    />
+                                    {(errors.newPassword && touched.newPassword) &&
+                                        <Text style={styles.errores}>
+                                            {errors.newPassword}
+                                        </Text>
+                                    }
 
 
-                                <MyTextInput
-                                    label={"Confirmar Contraseña"}
-                                    icon={"lock"}
-                                    placeholder={"*************"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("confirmPassword")}
-                                    onBlur={handleBlur("confirmPassword")}
-                                    value={values.confirmPassword}
-                                    secureTextEntry={hidePassword}
-                                    isPassword={true}
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
+                                    <MyTextInput
+                                        label={"Confirmar Contraseña"}
+                                        icon={"lock"}
+                                        placeholder={"*************"}
+                                        placeholderTextColor={darkLight}
+                                        onChangeText={handleChange("confirmPassword")}
+                                        onBlur={handleBlur("confirmPassword")}
+                                        value={values.confirmPassword}
+                                        secureTextEntry={hidePassword}
+                                        isPassword={true}
+                                        hidePassword={hidePassword}
+                                        setHidePassword={setHidePassword}
+                                    />
 
-                                {(errors.confirmPassword && touched.confirmPassword) &&
-                                    <Text style={styles.errores}>
-                                        {errors.confirmPassword}
-                                    </Text>
-                                }
-                                
+                                    {(errors.confirmPassword && touched.confirmPassword) &&
+                                        <Text style={styles.errores}>
+                                            {errors.confirmPassword}
+                                        </Text>
+                                    }
 
-                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
-                                    <ButtonText >
-                                        Cambiar contraseña
-                                    </ButtonText>
-                                </StyledButton>
 
-                            </StyledFormArea>)}
+                                    <StyledButton top={55} onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
+                                        <ButtonText >
+                                            Cambiar contraseña
+                                        </ButtonText>
+                                    </StyledButton>
 
-                        </Formik>
+                                </StyledFormArea>)}
 
-                    </InnerContainer>
+                            </Formik>
 
-                </StyledContainer>
+                        </InnerContainer>
+
+                    </StyledContainer>
+                </View>
             </KeyboardAvoidingWrapper>
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
@@ -182,7 +192,7 @@ const ChangePass = ({route, navigation }) => {
     );
 };
 
-const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, flex, ...props }) => {
     return (
         <View>
             <LeftIcon>

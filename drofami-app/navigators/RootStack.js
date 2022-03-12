@@ -78,7 +78,7 @@ const RootStackScreens = () => (
         <Stack.Screen name="Login" component={Login}  />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Home" component={HomeTabs} options={{ header: () => null }} />
-        <Stack.Screen name="profileModification" component={profileModification} />
+        <Stack.Screen name="profileModification" component={profileModification} options={{ header: () => null }}/>
         <Stack.Screen name="DetalleProductsAncalmo" component={DetalleProductsAncalmo} options={{ header: () => null }} />
         <Stack.Screen name="DetalleProductsHessel" component={DetalleProductsHessel} options={{ header: () => null }} />
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ header: () => null }}/>
