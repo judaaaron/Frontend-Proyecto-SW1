@@ -81,8 +81,8 @@ const RootStackScreens = () => (
         <Stack.Screen name="profileModification" component={profileModification} />
         <Stack.Screen name="DetalleProductsAncalmo" component={DetalleProductsAncalmo} options={{ header: () => null }} />
         <Stack.Screen name="DetalleProductsHessel" component={DetalleProductsHessel} options={{ header: () => null }} />
-        <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen}/>
-        <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen}/>
+        <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ header: () => null }}/>
+        <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen} options={{ header: () => null }}/>
     </Stack.Navigator>
 );
 export default RootStack;

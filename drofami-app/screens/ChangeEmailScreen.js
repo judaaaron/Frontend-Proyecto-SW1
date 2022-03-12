@@ -9,6 +9,7 @@ import { signUp } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
+import { changeEmail } from "../src/login_registerAPI";
 
 import {
     StyledContainer,
@@ -29,14 +30,16 @@ import {
 const { brand, darkLight } = Colors;
 
 let SingUpValidationSchema = yup.object().shape({
-    correo: yup.string().email('Ingrese un correo válido').required('Dirección de correo es obligatoria'),
+    newEmail: yup.string().email('Ingrese un correo válido').required('Dirección de correo es obligatoria'),
 
 });
 
-const ChangeEmail = ({ navigation }) => {
+const ChangeEmail1 = ({route, navigation })  => {
     //const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
+    const {token} = route.params
+    
 
     React.useEffect(() => {
         console.log(response)
@@ -78,25 +81,25 @@ const ChangeEmail = ({ navigation }) => {
                             initialValues={{newEmail: ""}}
                             validateOnMount={true}
                             onSubmit={(values) => {
-                                signUp(values.newEmail, setLoading, setResponse);
+                            changeEmail(setLoading, values.newEmail, token, setResponse);
                             }}
                             validationSchema={SingUpValidationSchema}
                         >
                             {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
                                 
                                 <MyTextInput
-                                    label={"Correo"}
+                                    label={"newEmail"}
                                     icon={"mail"}
                                     placeholder={"drofamiClient@ejemplo.com"}
                                     placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("correo")}
-                                    onBlur={handleBlur("correo")}
-                                    values={values.correo}
+                                    onChangeText={handleChange("newEmail")}
+                                    onBlur={handleBlur("newEmail")}
+                                    values={values.newEmail}
                                     keyboardType={"email-address"}
                                 />
-								{(errors.correo && touched.correo) &&
+								{(errors.newEmail && touched.newEmail) &&
                                     <Text style={styles.errores}>
-                                        {errors.correo}
+                                        {errors.newEmail}
                                     </Text>
                                 }
                                 
@@ -119,7 +122,7 @@ const ChangeEmail = ({ navigation }) => {
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
                 <ActivityIndicator size={100} color={'blue'} />
                 <Text>
-                    Cambiando correo electronico...
+                    Cambiando correo electrónico...
                 </Text>
             </View>
 
@@ -132,7 +135,7 @@ const ChangeEmail = ({ navigation }) => {
 
 
 };
-export default ChangeEmail;
+export default ChangeEmail1;
 
 const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
     return (
