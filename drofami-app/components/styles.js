@@ -167,13 +167,19 @@ export const StyledButtonMod = styled.TouchableOpacity`
 export const ButtonText = styled.Text`
   color: ${primary};
   font-size: 16px;
+ 
   
 `;
 export const ButtonText2 = styled.Text`
-  marginLeft=10;
   color: ${blue};
-  font-size: 16px;
+  font-size: 18px;
   
+`;
+export const RightIcon2 = styled.TouchableOpacity`
+  right: 15px;
+  top: 15px;
+  position: absolute;
+  z-index: 1;
 `;
 
 export const ExtraView = styled.View`

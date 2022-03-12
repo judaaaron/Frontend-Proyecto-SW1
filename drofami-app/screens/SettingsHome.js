@@ -24,7 +24,8 @@ import {
     TextLink,
     ButtonText2,
     StyledButton2,
-    Subtitle2
+    Subtitle2,
+    RightIcon2
 
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -78,31 +79,39 @@ export default function SettingsHome({ navigation }) {
 
                     {/* <ExtraView marginRight={260}> */}
 
-
-
                     <StyledButton2 onPress={() => {
                         getUserData(setLoading, token, setFormResponse)
                     }}>
+                        <RightIcon2 onPress={() => {
+                        getUserData(setLoading, token, setFormResponse)
+                    }}>
+                            <Icon name="arrow-forward-ios" size={20} marginRight={40} color={Colors.blue}/>
+                        </RightIcon2>
                         <ButtonText2>Editar perfil
-                            <Icon name="arrow-forward-ios" size={20} />
-                            <RightIcon />
+
+                            {/* <RightIcon /> */}
                         </ButtonText2>
                     </StyledButton2>
                     {/* </ExtraView> */}
                     {/* <ExtraView marginRight={160}> */}
+
                     <StyledButton2 onPress={() => { navigation.navigate('ChangeEmailScreen', { token: token }), console.log(token) }}>
+                        <RightIcon2 onPress={() => { navigation.navigate('ChangeEmailScreen', { token: token }), console.log(token) }}>
+                            <Icon name="arrow-forward-ios" size={20} color={Colors.blue} />
+                        </RightIcon2>
+
                         <ButtonText2>Cambiar correo electrónico
-                            <Icon name="arrow-forward-ios" size={20} />
-                            <RightIcon />
+
                         </ButtonText2>
                     </StyledButton2>
                     {/* </ExtraView> */}
                     {/* <ExtraView marginRight={205}> */}
                     <StyledButton2 onPress={() => { navigation.navigate('ChangePasswordScreen', { token: token }), console.log(token) }}>
+                        <RightIcon2 onPress={() => { navigation.navigate('ChangePasswordScreen', { token: token }), console.log(token) }}>
+                            <Icon name="arrow-forward-ios" size={20} color={Colors.blue} />
+                        </RightIcon2>
                         <ButtonText2>
-                            Cambiar contraseña              
-                            <Icon name="arrow-forward-ios" size={20} style={{marginRight:110}} />
-                            <RightIcon />
+                            Cambiar contraseña
                         </ButtonText2>
                     </StyledButton2>
                     {/* </ExtraView> */}
@@ -144,7 +153,8 @@ const styles = StyleSheet.create({
     },
     view3: {
         alignContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
     },
     searchContainer: {
         height: 50,
