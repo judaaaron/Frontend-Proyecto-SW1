@@ -7,6 +7,9 @@ import Login from './screens/Login'
 //import Signup from './screens/Signup'
 import Home from './screens/Home'
 import RootStack from "./navigators/RootStack";
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();
 
 export default function App(){
     return <RootStack/>
