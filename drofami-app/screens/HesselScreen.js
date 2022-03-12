@@ -113,7 +113,7 @@ export default function HesselScreen({ navigation}) {
         <SafeAreaView
             style={{
                 flex: 1,
-                top: 25,
+                top: 1,
                 paddingHorizontal: 20,
                 backgroundColor: Colors.primary,
 
@@ -122,7 +122,10 @@ export default function HesselScreen({ navigation}) {
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
                     <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems:'center' }}>
-                        Productos  HESSEL
+                        Productos
+                    </Text>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems:'center' }}>
+                        HESSEL
                     </Text>
                     {/* <PageLog
                             source={require("../assets/logoAncalmo.png")}
@@ -161,7 +164,7 @@ export default function HesselScreen({ navigation}) {
 
 const styles = StyleSheet.create({
     header: {
-        marginTop: 20,
+        marginTop: 35,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
