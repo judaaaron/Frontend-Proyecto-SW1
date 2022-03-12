@@ -1,10 +1,31 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { Colors, ButtonText, StyledButton, StyledButtonMod } from "../components/styles";
+import { View, ScrollView, StyleSheet, SafeAreaView, Text } from "react-native";
 import { getUserData } from '../src/login_registerAPI';
 import { StatusBar } from "expo-status-bar";
 import * as SecureStore from 'expo-secure-store';
+import {
+    StyledContainer,
+    InnerContainer,
+    PageLog,
+    PageTitle,
+    Subtitle,
+    StyledFormArea,
+    LeftIcon,
+    RightIcon,
+    StyledInputLabel,
+    StyledTextInput,
+    ButtonText,
+    StyledButton,
+    Colors,
+    ExtraView,
+    ExtraText,
+    TextLinkContent,
+    TextLink
+
+} from "../components/styles";
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 export default function SettingsHome({ navigation }) {
     const [isLoading, setLoading] = useState(false);
@@ -44,33 +65,64 @@ export default function SettingsHome({ navigation }) {
 
     return (
         <>
-            <ScrollView>
-                <StatusBar style="dark" />
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', top: 30 }}>
-                    <Text
-                        onPress={() => navigation.navigate('Home')}
-                        style={{ fontSize: 26, fontWeight: 'bold' }}>Configuración</Text>
-                </View>
-                <StyledButton style={{ top: 50 }} onPress={() => {
-                    getUserData(setLoading, token, setFormResponse)
-                }}>
-                    <ButtonText>
-                        Editar Perfil
-                    </ButtonText>
-                </StyledButton>
-                <StyledButton style={{ top: 20 }} onPress={() => { navigation.navigate('ChangeEmailScreen', { token: token }), console.log(token) }}>
-                    <ButtonText>
-                        Cambiar Correo Electronico
-                    </ButtonText>
-                </StyledButton>
-                <StyledButton style={{ top: 30 }} onPress={() => { navigation.navigate('ChangePasswordScreen', { token: token }), console.log(token) }}>
-                    <ButtonText>
-                        Cambiar contraseña
-                    </ButtonText>
-                </StyledButton>
+            <View flex={1}>
+                <StyledContainer marginTop={-14}>
+                    <InnerContainer marginTop={150} >
+                        <Subtitle style={{ top: -100, }} size={100}>Cuenta</Subtitle>
+                        <View style={{ top: -60 }}>
+                            <ExtraView marginRight={260} >
+                            </ExtraView>
+                            <ExtraView marginRight={260} >
+                                <TextLinkContent style={{ top: -20 }} onPress={() => {
+                                    getUserData(setLoading, token, setFormResponse)
+                                }}>Editar perfil</TextLinkContent>
+                            </ExtraView>
+                            <ExtraView marginRight={160}>
+                                <TextLink style={{ top: -15 }} onPress={() => { navigation.navigate('ChangeEmailScreen', { token: token }), console.log(token) }}>
+                                    <TextLinkContent>Cambiar correo electrónico</TextLinkContent>
+                                </TextLink>
+                            </ExtraView>
+                            <ExtraView marginRight={205}>
+                                <TextLink style={{ top: -10 }} onPress={() => { navigation.navigate('ChangePasswordScreen', { token: token }), console.log(token) }}>
+                                    <TextLinkContent>
+                                        Cambiar contraseña
+                                    </TextLinkContent>
+                                </TextLink>
+                            </ExtraView>
+                        </View>
+                    </InnerContainer>
+                </StyledContainer>
+            </View>
 
-            </ScrollView>
+
+
         </>
 
     );
 }
+
+const styles = StyleSheet.create({
+    errores: {
+        fontSize: 10,
+        color: 'red',
+        top: -10,
+    },
+    spinnercontent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        zIndex: 1,
+    },
+    view2: {
+        backgroundColor: 'white',
+    },
+    searchContainer: {
+        height: 50,
+        backgroundColor: Colors.secondary,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 30,
+        top: -10
+    },
+})
