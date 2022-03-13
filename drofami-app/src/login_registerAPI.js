@@ -127,6 +127,7 @@ export async function getUserData(setLoading, token, setResponse) {
     const resp = {};
     let response = {}
     try {
+
         response = await fetch(API_URL + 'auth/modify/', {
             method: 'GET',
             headers: {
@@ -134,14 +135,13 @@ export async function getUserData(setLoading, token, setResponse) {
                 'Content-Type': 'application/json',
                 'Authorization': 'Token ' + token,
               },
+              
         }).then((response) => response.json())//el status conseguir
         .then(data => {
             resp['data'] = data;
-            console.log('holaaa')
             setResponse(data)
         })
     } catch (e){
-        console.log("HOLA JUDA")
         console.log(e)
     } finally {
        setLoading(false)

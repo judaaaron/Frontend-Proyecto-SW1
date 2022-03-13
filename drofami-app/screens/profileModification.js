@@ -58,21 +58,24 @@ let SingUpValidationSchema = yup.object().shape({
 
 const Signup = ({ route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
-    const { usuario, apellido, nombre, direccion, phone } = route.params
+    const { usuario, apellido, nombre, address, phone } = route.params
+
     const [response, setResponse] = useState('');
     const token = React.useRef('');
 
     React.useEffect(() => {
+        console.log(route.params)
         async function getToken() {
             const session = await SecureStore.getItemAsync("user_session");
             token.current = JSON.parse(session)['token']
             console.log("token ", token)
+            
             getUserData(setLoading, token.current, setFormResponse);
         }
         getToken();
 
     }, []);
-
+    
     React.useEffect(() => {
         if (!response) {
             return;
@@ -119,7 +122,7 @@ const Signup = ({ route, navigation }) => {
                             enableReinitialize
                             initialValues={{
                                 usuario: usuario, nombre: nombre,
-                                apellido: apellido, phone: phone, direccion: direccion
+                                apellido: apellido, phone: phone, direccion: address
                             }}
                             validateOnMount={true}
                             onSubmit={(values) => {

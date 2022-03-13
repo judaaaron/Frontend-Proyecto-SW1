@@ -13,6 +13,7 @@ import CarouselCards2 from './CarouselCards2'
 import { StatusBar } from "expo-status-bar";
 
 export default function MainHome({ navigation }) {
+    
     return (
 
         <>
@@ -29,7 +30,7 @@ export default function MainHome({ navigation }) {
 
 
                         <Subtitle style={{top:10}}>Ancalmo</Subtitle>
-                        <SafeAreaView style={styles.container} style={{top:10}}>
+                        <SafeAreaView style={styles.container}>
                             <CarouselCards />
                         </SafeAreaView>
                     </InnerContainer>
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 50
+      padding: 50,
+      top:10
     },
   });
   
