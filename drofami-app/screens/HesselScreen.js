@@ -27,9 +27,11 @@ import {
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datosH from './HesselProducts';
+import * as SecureStore from 'expo-secure-store';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo';
 import DetalleProductsHessel from './DetalleProductsHessel';
+import {getCatalog} from '../src/ProductMethods'
 
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
@@ -37,13 +39,56 @@ const width = Dimensions.get('window').width / 2 - 30;
 
 
 export default function HesselScreen({ navigation}) {
-    const Card = ({datoh}) => {
+    const [isloading, setLoading] = useState(false);
+    const [response, setResponse] = useState();
+    const [token, setToken] = useState();
+    const [catalog, setCatalog] = useState([]);
+    React.useEffect(() => {
+        async function token() {
+            const session = await SecureStore.getItemAsync("user_session");
+            token = JSON.parse(session)['token'];
+            console.log("token ", token);
+            setToken(token)    
+        }
+        token();
+    }, []);
+
+    React.useEffect(() => {
+        if (!token) {
+            return;
+        }
+        getCatalog(setLoading, token, 'HES',setResponse);
+    }, [token])
+
+    React.useEffect(() => {
+        if (!response) {
+            return;
+        }
+        if (!response['data']) {
+            return;
+        }
+        const tempCatalog = [...catalog];
+        response['data'].forEach((element) => {
+            tempCatalog.push(element);
+        })
+        setCatalog(catalog => ({
+            ...tempCatalog
+        }));
+    }, [response]);
+
+    React.useEffect(() => {
+        const entries = Object.entries(catalog);
+        console.log(entries);
+    }, [catalog])
+    const Card = ({dato}) => {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('DetalleProductsHessel', datoh)}>
+                onPress={() => navigation.navigate('DetalleProductsHessel', dato) }>
+                    {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
+                    
                 <View style={styles.card}>
-                    <View style={{ alignItems: 'flex-end'}}>
+                    <View style={{ alignItems: 'flex-end' }}>
                         {/* <View
                             style={{
                                 width: 30,
@@ -55,7 +100,7 @@ export default function HesselScreen({ navigation}) {
                                     ? 'rgba(245, 42, 42,0.2)'
                                     : 'rgba(0,0,0,0.2) ',
                             }}> */}
-                            {/* <Icon
+                        {/* <Icon
                                 name="favorite"
                                 size={18}
                                 color={dato.like ? Colors.red : Colors.primary}
@@ -69,14 +114,13 @@ export default function HesselScreen({ navigation}) {
                             alignItems: 'center',
                         }}>
                         <Image
-                            style={{ flex: 1, resizeMode: 'contain' }}
-                            source={datoh.img}
-                           
+                            style={{ width: 100, height: 100, }}
+                            source={{uri: dato.producto['imagen']}}
                         />
                     </View>
 
                     <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10 }}>
-                        {datoh.name}
+                        {dato.producto['nombre']}
                     </Text>
                     <View
                         style={{
@@ -84,11 +128,13 @@ export default function HesselScreen({ navigation}) {
                             justifyContent: 'space-between',
                             marginTop: 5,
                         }}>
+                                {/* estimado necesita algo? */}
+                                
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
                         <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
-                            {datoh.currency}{datoh.price}
+                            {'L. '}{dato.producto.precio}
                         </Text>
                         <View
                             style={{
@@ -100,7 +146,7 @@ export default function HesselScreen({ navigation}) {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold' , top:-4}}>
+                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4 }}>
                                 +
                             </Text>
                         </View>
@@ -152,10 +198,11 @@ export default function HesselScreen({ navigation}) {
                     paddingBottom: 50,
                 }}
                 numColumns={2}
-                data={datosH}
+                data={catalog ? Object.values(catalog) : []}
                 renderItem={({ item }) => {
-                    return <Card datoh={item} />;
+                    return <Card dato={item} />;
                 }}
+                keyExtractor={(item) => item.producto.id}
             />
         </SafeAreaView>
 

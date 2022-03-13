@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as SecureStore from 'expo-secure-store';
 import {
     StyledContainer,
     InnerContainer,
@@ -28,16 +29,61 @@ import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import {getCatalog} from '../src/ProductMethods'
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
 const AncalmoScreen = ({ navigation }) => {
+    const [isloading, setLoading] = useState(false);
+    const [response, setResponse] = useState();
+    const [token, setToken] = useState();
+    const [catalog, setCatalog] = useState([]);
+    React.useEffect(() => {
+        async function token() {
+            const session = await SecureStore.getItemAsync("user_session");
+            token = JSON.parse(session)['token'];
+            console.log("token ", token);
+            setToken(token)    
+        }
+        token();
+    }, []);
+
+    React.useEffect(() => {
+        if (!token) {
+            return;
+        }
+        getCatalog(setLoading, token, 'ANC',setResponse);
+    }, [token])
+
+    React.useEffect(() => {
+        if (!response) {
+            return;
+        }
+        if (!response['data']) {
+            return;
+        }
+        const tempCatalog = [...catalog];
+        response['data'].forEach((element) => {
+            tempCatalog.push(element);
+        })
+        setCatalog(catalog => ({
+            ...tempCatalog
+        }));
+    }, [response]);
+
+    React.useEffect(() => {
+        const entries = Object.entries(catalog);
+        console.log(entries);
+    }, [catalog])
+
     const Card = ({ dato }) => {
+        console.log(dato)
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('DetalleProductsAncalmo', dato)}>
+                onPress={() => navigation.navigate('DetalleProductsAncalmo', dato) }>
+                    {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
+                    
                 <View style={styles.card}>
                     <View style={{ alignItems: 'flex-end' }}>
                         {/* <View
@@ -65,13 +111,13 @@ const AncalmoScreen = ({ navigation }) => {
                             alignItems: 'center',
                         }}>
                         <Image
-                            style={{ flex: 1, resizeMode: 'contain' }}
-                            source={dato.img}
+                            style={{ width: 100, height: 100, }}
+                            source={{uri: dato.producto['imagen']}}
                         />
                     </View>
 
                     <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10 }}>
-                        {dato.name}
+                        {dato.producto['nombre']}
                     </Text>
                     <View
                         style={{
@@ -79,12 +125,13 @@ const AncalmoScreen = ({ navigation }) => {
                             justifyContent: 'space-between',
                             marginTop: 5,
                         }}>
-
+                                {/* estimado necesita algo? */}
+                                
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
                         <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
-                            {dato.currency}{dato.price}
+                            {'L. '}{dato.producto.precio}
                         </Text>
                         <View
                             style={{
@@ -145,10 +192,11 @@ const AncalmoScreen = ({ navigation }) => {
                     paddingBottom: 50,
                 }}
                 numColumns={2}
-                data={datos}
+                data={catalog ? Object.values(catalog) : []}
                 renderItem={({ item }) => {
                     return <Card dato={item} />;
                 }}
+                keyExtractor={(item) => item.producto.id}
             />
         </SafeAreaView>
 
