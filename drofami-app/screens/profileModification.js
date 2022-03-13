@@ -227,7 +227,7 @@ const Signup = ({ route, navigation }) => {
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
                 <ActivityIndicator size={100} color={'blue'} />
                 <Text>
-                    Creando cuenta...
+                    Modificando datos...
                 </Text>
             </View>
 

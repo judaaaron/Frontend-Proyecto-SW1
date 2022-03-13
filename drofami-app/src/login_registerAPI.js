@@ -72,7 +72,7 @@ export async function modification(username, phoneNumber,
     let response = {};
     setLoading(true);
     try {
-        response = await fetch(API_URL + 'auth/register/', {
+        response = await fetch(API_URL + 'auth/modify/', {
             method: 'PUT',
             body: JSON.stringify({
                 'username': username,
@@ -141,6 +141,7 @@ export async function getUserData(setLoading, token, setResponse) {
             setResponse(data)
         })
     } catch (e){
+        console.log("HOLA JUDA")
         console.log(e)
     } finally {
        setLoading(false)
