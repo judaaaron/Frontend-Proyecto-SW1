@@ -109,8 +109,8 @@ const AncalmoScreen = ({ navigation }) => {
         <SafeAreaView
             style={{
                 flex: 1,
-                top: 1,
-                paddingHorizontal: 20,
+                top: 25,
+                paddingHorizontal: 25,
                 backgroundColor: Colors.primary,
 
             }}>
@@ -157,7 +157,7 @@ const AncalmoScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     header: {
-        marginTop: 35,
+        marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },

@@ -111,13 +111,13 @@ export default function HesselScreen({ navigation}) {
     };
     return (
         <SafeAreaView
-            style={{
-                flex: 1,
-                top: 1,
-                paddingHorizontal: 20,
-                backgroundColor: Colors.primary,
+        style={{
+            flex: 1,
+            top: 20,
+            paddingHorizontal: 25,
+            backgroundColor: Colors.primary,
 
-            }}>
+        }}>
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
@@ -164,7 +164,7 @@ export default function HesselScreen({ navigation}) {
 
 const styles = StyleSheet.create({
     header: {
-        marginTop: 35,
+        marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },

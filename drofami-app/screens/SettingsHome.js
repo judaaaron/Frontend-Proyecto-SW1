@@ -73,11 +73,11 @@ export default function SettingsHome({ navigation }) {
                 {/* <StyledContainer marginTop={-14}> */}
 
                 <View backgroundColor={Colors.primary} style={{ top: 40 }}>
-                    <View style={{alignItems:'center', fontSize:20}}>
+                    <View style={{ alignItems: 'center', fontSize: 20 }}>
                         <Subtitle2 style={styles.view3} backgroundColor={Colors.primary} color={Colors.blue} >Cuenta</Subtitle2>
                     </View>
                     {/* <ExtraView marginRight={260}> */}
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center', alignContent:'center'}}>
                         <Avatar
                             size={64}
                             rounded
@@ -86,23 +86,21 @@ export default function SettingsHome({ navigation }) {
                                 borderColor: Colors.blue,
                                 borderStyle: 'solid',
                                 borderWidth: 1,
-                                marginRight: 45
 
                             }}>
-                                 <Avatar.Accessory 
-                                 size={15}
-                                 source={{ uri: 'https://cdn-icons-png.flaticon.com/512/929/929440.png' }}
-                                  />
-                                </Avatar>
-                        <Text style={{ alignContent: 'center' }}>
-                            Juda Ponce</Text>
+                            <Avatar.Accessory
+                                size={15}
+                                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/929/929440.png' }}
+                            />
+                        </Avatar>
+                        <View style={{alignItems:'center'}}>
+                            <Text style={{ alignContent: 'center' }}>
+                                Juda Ponce</Text>
+                        </View>
+
                     </View>
-                    <StyledButton2 onPress={() => {
-                        getUserData(setLoading, token, setFormResponse)
-                    }}>
-                        <RightIcon2 onPress={() => {
-                            getUserData(setLoading, token, setFormResponse)
-                        }}>
+                    <StyledButton2 onPress={() => {getUserData(setLoading, token, setFormResponse)}}>
+                        <RightIcon2 onPress={() => {getUserData(setLoading, token, setFormResponse)}}>
                             <Icon name="arrow-forward-ios" size={20} marginRight={40} color={Colors.blue} />
                         </RightIcon2>
                         <ButtonText2>Editar perfil
