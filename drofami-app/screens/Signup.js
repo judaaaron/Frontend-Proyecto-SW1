@@ -211,6 +211,7 @@ const Signup = ({ navigation }) => {
                                         {errors.phone}
                                     </Text>
                                 }
+
                                 <MyTextInput
                                     label={"Contraseña"}
                                     icon={"lock"}
@@ -338,6 +339,7 @@ const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHide
             <StyledInputLabel>{label}</StyledInputLabel>
             <AutoGrowingTextInput 
                 style = {styles.textInput}
+                {...props}
              />
         </View>
     );
@@ -370,6 +372,7 @@ const styles = StyleSheet.create({
         height: 52,
         marginVertical: 3,
         marginBottom: 20,
+        fontWeight:'bold'
       }
 })
 
