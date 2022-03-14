@@ -33,25 +33,27 @@ import {
 } from "../components/styles";
 import Login from "./Login";
 
+import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
+
+
 const { brand, darkLight } = Colors;
-const regularNameLastName = /(^(\S[aA-zZ]))*$/ //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
+const regularNameLastName = /(^(\S))+(\s*[aA-zZ])+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
 const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{2})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
-const regularDireccion = /^[A-Za-z0-9]+$/g
-const quepasa = /^[0-9]+$/
-const regularUsername = /(^\S)+(\s*[aA-zZ0-9!@_#\$%\^&])+$/
-// /(^(\S))+(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
+const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
+const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9,.])+$/
+
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
         .required('Nombre es obligatorio').matches(regularNameLastName,
-            "Nombre inválido, este campo no permite espacios"
+            "Nombre inválido. Asegurese de no tener espacios, solo letras"
         ),
     apellido: yup.string()
         .required('Apellido es obligatorio').matches(regularNameLastName,
-            "Apellido inválido"
+            "Apellido inválido. Asegurese de no tener espacios, solo letras"
         ),
-        usuario: yup.string().required('Nombre de usuario es obligatorio').matches(regularUsername,
+    usuario: yup.string().required('Nombre de usuario es obligatorio').matches(regularUsername,
             "Nombre de usuario inválido, este campo no permite espacios"
         ),
     correo: yup.string().email('Ingrese un correo válido').required('Dirección de correo es obligatoria'),
@@ -196,7 +198,7 @@ const Signup = ({ navigation }) => {
                                 <MyTextInput
                                     label={"Teléfono"}
                                     icon={"device-mobile"}
-                                    placeholder={"1234-5678"}
+                                    placeholder={"9985-5678"}
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("phone")}
                                     onBlur={handleBlur("phone")}
@@ -248,7 +250,8 @@ const Signup = ({ navigation }) => {
                                         {errors.confirmPassword}
                                     </Text>
                                 }
-                                <MyTextInput 
+                                <MyAutoGrowingTextInput 
+                                    backgroundColor= {Colors.secondary}
                                     label={"Direccion"}
                                     icon={"location"}
                                     placeholder={"Dirección de entrega"}
@@ -256,8 +259,7 @@ const Signup = ({ navigation }) => {
                                     onChangeText={handleChange("direccion")}
                                     onBlur={handleBlur("direccion")}
                                     values={values.direccion}
-                                    
-                                />
+                                     />
 
                                 {(errors.direccion && touched.direccion) &&
                                     <Text style={styles.errores}>
@@ -327,6 +329,19 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,fl
         </View>
     );
 };
+const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
+    return (
+        <View>
+            <LeftIcon>
+                <Octicons name={icon} size={30} color={Colors.blue} />
+            </LeftIcon>
+            <StyledInputLabel>{label}</StyledInputLabel>
+            <AutoGrowingTextInput 
+                style = {styles.textInput}
+             />
+        </View>
+    );
+};
 
 export default Signup;
 
@@ -344,7 +359,18 @@ const styles = StyleSheet.create({
     },
     view2: {
         backgroundColor: 'white',
-    }
+    },
+    textInput: {
+        backgroundColor: Colors.secondary,
+        padding: 15,
+        paddingLeft: 55,
+        paddingRight: 55,
+        borderRadius: 35,
+        fontSize: 16,
+        height: 52,
+        marginVertical: 3,
+        marginBottom: 20,
+      }
 })
 
 
