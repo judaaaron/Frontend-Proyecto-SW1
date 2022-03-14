@@ -33,6 +33,9 @@ import {
 } from "../components/styles";
 import Login from "./Login";
 
+import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
+
+
 const { brand, darkLight } = Colors;
 const regularNameLastName = /(^(\S))+(\s*[aA-zZ])+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
@@ -63,7 +66,7 @@ let SingUpValidationSchema = yup.object().shape({
             "Número teléfonico inválido",
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
-    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio').matches(regularDireccion,'Dirección inválida'),
+    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio'),
     rtn: yup.string().min(14, ({ min }) => `RTN debe tener 14 números`).max(14, ({ max }) => `RTN debe tener 14 números`)
         .required('Número de RTN es obligatorio').matches(regularRTN,
             "RTN inválido"
@@ -247,7 +250,8 @@ const Signup = ({ navigation }) => {
                                         {errors.confirmPassword}
                                     </Text>
                                 }
-                                <MyTextInput 
+                                <MyAutoGrowingTextInput 
+                                    backgroundColor= {Colors.secondary}
                                     label={"Direccion"}
                                     icon={"location"}
                                     placeholder={"Dirección de entrega"}
@@ -255,8 +259,7 @@ const Signup = ({ navigation }) => {
                                     onChangeText={handleChange("direccion")}
                                     onBlur={handleBlur("direccion")}
                                     values={values.direccion}
-                                    
-                                />
+                                     />
 
                                 {(errors.direccion && touched.direccion) &&
                                     <Text style={styles.errores}>
@@ -326,6 +329,19 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,fl
         </View>
     );
 };
+const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
+    return (
+        <View>
+            <LeftIcon>
+                <Octicons name={icon} size={30} color={Colors.blue} />
+            </LeftIcon>
+            <StyledInputLabel>{label}</StyledInputLabel>
+            <AutoGrowingTextInput 
+                style = {styles.textInput}
+             />
+        </View>
+    );
+};
 
 export default Signup;
 
@@ -343,7 +359,18 @@ const styles = StyleSheet.create({
     },
     view2: {
         backgroundColor: 'white',
-    }
+    },
+    textInput: {
+        backgroundColor: Colors.secondary,
+        padding: 15,
+        paddingLeft: 55,
+        paddingRight: 55,
+        borderRadius: 35,
+        fontSize: 16,
+        height: 52,
+        marginVertical: 3,
+        marginBottom: 20,
+      }
 })
 
 
