@@ -24,7 +24,10 @@ import {
     StyledTextInput,
     ButtonText,
     StyledButton,
-    Colors
+    Colors,
+    StyledContainer2,
+    InnerContainer2,
+    StyledFormArea2
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -35,12 +38,12 @@ let SingUpValidationSchema = yup.object().shape({
 
 });
 
-const ChangeEmail1 = ({route, navigation })  => {
+const ChangeEmail1 = ({ route, navigation }) => {
     //const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
-    const {token} = route.params
-    
+    const { token } = route.params
+
 
     React.useEffect(() => {
         console.log(response)
@@ -66,66 +69,64 @@ const ChangeEmail1 = ({route, navigation })  => {
 
     return (
         <>
-            <KeyboardAvoidingWrapper>
+            {/* <KeyboardAvoidingWrapper> */}
+            <View backgroundColor={Colors.primary} top={-90}>
 
-            <View backgroundColor={Colors.primary}>
-                {/* <StyledContainer> */}
-                        <View style={styles.header} top={50}>
-                            <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
-                        </View>
+                <InnerContainer2 style={styles.inner2}>
+                    <View style={{marginRight:350}}>
+                        <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
+                    </View>
+                    <PageLog
+                        source={require("../assets/drofamilogo1.jpg")}
+                        resizeMode="cover"
 
-                        <InnerContainer marginTop={400} >
-                            <PageLog
-                                top={-250}
-                                source={require("../assets/drofamilogo1.jpg")}
-                                resizeMode="cover"
+                    />
 
-                            />
-                        <Subtitle style={{top:-240}}>Cambiar Correo Electrónico</Subtitle>
-                        <Formik
-                            initialValues={{newEmail: ""}}
-                            validateOnMount={true}
-                            onSubmit={(values) => {
+                    <Subtitle>Cambiar Correo Electrónico</Subtitle>
+                    <Formik
+                        initialValues={{ newEmail: "" }}
+                        validateOnMount={true}
+                        onSubmit={(values) => {
                             changeEmail(setLoading, values.newEmail, token, setResponse);
-                            }}
-                            validationSchema={SingUpValidationSchema}
-                        >
-                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea style={{top:-200}}>
-                                
-                                <MyTextInput
-                                    label={"Nuevo Correo"}
-                                    icon={"mail"}
-                                    placeholder={"drofamiClient@ejemplo.com"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("newEmail")}
-                                    onBlur={handleBlur("newEmail")}
-                                    values={values.newEmail}
-                                    keyboardType={"email-address"}
-                                />
-								{(errors.newEmail && touched.newEmail) &&
-                                    <Text style={styles.errores}>
-                                        {errors.newEmail}
-                                    </Text>
-                                }
-                                
-                                <View backgroundColor={Colors.primary}>
+                        }}
+                        validationSchema={SingUpValidationSchema}
+                    >
+                        {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea2>
 
-                              
+                            <MyTextInput
+                                label={"Nuevo Correo"}
+                                icon={"mail"}
+                                placeholder={"drofamiClient@ejemplo.com"}
+                                placeholderTextColor={darkLight}
+                                onChangeText={handleChange("newEmail")}
+                                onBlur={handleBlur("newEmail")}
+                                values={values.newEmail}
+                                keyboardType={"email-address"}
+                            />
+                            {(errors.newEmail && touched.newEmail) &&
+                                <Text style={styles.errores}>
+                                    {errors.newEmail}
+                                </Text>
+                            }
+
+                            <View backgroundColor={Colors.primary}>
+
+
                                 <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
                                     <ButtonText >
                                         Cambiar Correo Electronico
                                     </ButtonText>
                                 </StyledButton>
-                                </View>
-                            </StyledFormArea>)}
+                            </View>
+                            <View backgroundColor={Colors.primary}>
 
-                        </Formik>
+                            </View>
+                        </StyledFormArea2>)}
 
-                    </InnerContainer>
-
-                {/* </StyledContainer> */}
-                </View>
-            </KeyboardAvoidingWrapper>
+                    </Formik>
+                </InnerContainer2>
+            </View>
+            {/* </KeyboardAvoidingWrapper> */}
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
                 <ActivityIndicator size={100} color={'blue'} />
@@ -145,7 +146,7 @@ const ChangeEmail1 = ({route, navigation })  => {
 };
 export default ChangeEmail1;
 
-const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, flex, ...props }) => {
     return (
         <View>
             <LeftIcon>
@@ -176,5 +177,15 @@ const styles = StyleSheet.create({
     },
     view2: {
         backgroundColor: 'white',
+    },
+    backIcon: {
+        top: 180,
+
+    },
+    inner2: {
+        top: 80,
+    },
+    container2: {
+        marginTop: 50,
     }
 })

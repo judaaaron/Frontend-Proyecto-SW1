@@ -7,6 +7,7 @@ import { View, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
+import Keyboard2 from "../components/Keyboard2";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import { changePassword } from "../src/login_registerAPI";
@@ -68,8 +69,8 @@ const ChangePass = ({ route, navigation }) => {
 
     return (
         <>
-            <KeyboardAvoidingWrapper>
-                <View flex={1}>
+            <Keyboard2 backgroundColor={Colors.primary}>
+           
                 <StyledContainer marginTop={-14}>
                         <StatusBar style="dark" />
                         <View style={styles.header} top={50}>
@@ -174,8 +175,8 @@ const ChangePass = ({ route, navigation }) => {
                         </InnerContainer>
 
                     </StyledContainer>
-                </View>
-            </KeyboardAvoidingWrapper>
+            
+            </Keyboard2>
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
                 <ActivityIndicator size={100} color={'blue'} />

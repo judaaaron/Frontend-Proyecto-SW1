@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import MaskInput from 'react-native-mask-input';
 import * as SecureStore from 'expo-secure-store';
+import Keyboard2 from "../components/Keyboard2";
 import {
     StyledContainer,
     InnerContainer,
@@ -103,7 +104,7 @@ const Signup = ({ route, navigation }) => {
 
     return (
         <>
-            <KeyboardAvoidingWrapper>
+            <Keyboard2>
 
                 <StyledContainer marginTop={-20} top={25}>
                     <StatusBar style="dark" />
@@ -225,7 +226,7 @@ const Signup = ({ route, navigation }) => {
                     </InnerContainer>
 
                 </StyledContainer>
-            </KeyboardAvoidingWrapper>
+            </Keyboard2>
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
                 <ActivityIndicator size={100} color={'blue'} />

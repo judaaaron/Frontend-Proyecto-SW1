@@ -160,10 +160,11 @@ export default function HesselScreen({ navigation}) {
         style={{
             flex: 1,
             top: 20,
-            paddingHorizontal: 25,
+            paddingHorizontal: 19,
             backgroundColor: Colors.primary,
 
         }}>
+            
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>

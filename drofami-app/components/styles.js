@@ -27,6 +27,13 @@ export const StyledContainer = styled.View`
   background-color: ${primary};
 `;
 
+export const StyledContainer2 = styled.View`
+  flex: 1;
+  padding: 10px;
+  top:-150;
+  background-color: ${primary};
+`;
+
 export const InnerContainer = styled.View`
 
   width: 100%;
@@ -35,6 +42,14 @@ export const InnerContainer = styled.View`
   top: -0px;
   
   background-color: ${primary};
+  
+`;
+
+
+export const InnerContainer2 = styled.View`
+  align-items: center;
+  background-color: ${primary};
+  margin-top:45;
   
 `;
 
@@ -92,6 +107,12 @@ export const StyledFormArea = styled.View`
   background-color: ${primary};
 `;
 
+
+export const StyledFormArea2 = styled.View`
+  width: 95%;
+  height:95%;
+  background-color: ${primary};
+`;
 export const StyledTextInput = styled.TextInput`
   background: ${secondary};
   padding: 15px;

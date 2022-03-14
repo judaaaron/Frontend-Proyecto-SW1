@@ -157,7 +157,7 @@ const AncalmoScreen = ({ navigation }) => {
             style={{
                 flex: 1,
                 top: 25,
-                paddingHorizontal: 25,
+                paddingHorizontal: 19,
                 backgroundColor: Colors.primary,
 
             }}>
