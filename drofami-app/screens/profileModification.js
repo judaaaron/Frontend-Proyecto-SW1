@@ -6,7 +6,6 @@ import { Formik } from "formik";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { modification, getUserData } from "../src/login_registerAPI";
-import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import MaskInput from 'react-native-mask-input';
@@ -16,7 +15,6 @@ import {
     StyledContainer,
     InnerContainer,
     PageLog,
-    PageTitle,
     Subtitle,
     StyledFormArea,
     LeftIcon,
@@ -26,35 +24,33 @@ import {
     ButtonText,
     StyledButton,
     Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink
 
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Login from "./Login";
 
 const { brand, darkLight } = Colors;
-const regularNameLastName = /^[aA-zZ\s]+$/  //solo acepta letras
+const regularNameLastName = /(^(\S))+(\s*[aA-zZ])+$/  //solo acepta letras
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
-const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}-[0-9]{4}-[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
-const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
+const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
+const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9,.])+$/
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
         .required('Nombre es obligatorio').matches(regularNameLastName,
-            "Nombre inválido"
+            "Nombre inválido. Asegurese de no tener espacios, solo letras"
         ),
     apellido: yup.string()
         .required('Apellido es obligatorio').matches(regularNameLastName,
-            "Apellido inválido"
+            "Apellido inválido. Asegurese de no tener espacios, solo letras"
         ),
-    usuario: yup.string().required('Nombre de usuario es obligatorio'),
+    usuario: yup.string().required('Nombre de usuario es obligatorio').matches(regularUsername,
+            "Nombre de usuario inválido, este campo no permite espacios"
+        ),
     phone: yup.string().min(9, ({ min }) => `Número teléfonico debe tener 8 números y un guión`).max(9, ({ max }) => `Número teléfonico debe tener 8 números y un guión`)
         .required('Número teléfonico es obligatorio').matches(regularPhone,
             "Número teléfonico inválido",
         ),
-    direccion: yup.string().required('Dirección obligatoria'),
+    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio').matches(regularDireccion,'Dirección inválida'),
 });
 
 const Signup = ({ route, navigation }) => {

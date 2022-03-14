@@ -34,20 +34,25 @@ import {
 import Login from "./Login";
 
 const { brand, darkLight } = Colors;
-const regularNameLastName = /^[aA-zZ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
+const regularNameLastName = /(^(\S))+(\s*[aA-zZ])+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
 const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{2})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
+const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
+const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9,.])+$/
+
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
         .required('Nombre es obligatorio').matches(regularNameLastName,
-            "Nombre inválido"
+            "Nombre inválido. Asegurese de no tener espacios, solo letras"
         ),
     apellido: yup.string()
         .required('Apellido es obligatorio').matches(regularNameLastName,
-            "Apellido inválido"
+            "Apellido inválido. Asegurese de no tener espacios, solo letras"
         ),
-    usuario: yup.string().required('Nombre de usuario es obligatorio'),
+    usuario: yup.string().required('Nombre de usuario es obligatorio').matches(regularUsername,
+            "Nombre de usuario inválido, este campo no permite espacios"
+        ),
     correo: yup.string().email('Ingrese un correo válido').required('Dirección de correo es obligatoria'),
     password: yup.string().min(8, ({ min }) => `La contraseña debe de tener al menos ${min} caracteres`)
         .required('Contraseña es obligatoria').matches(regularPassword,
@@ -58,7 +63,7 @@ let SingUpValidationSchema = yup.object().shape({
             "Número teléfonico inválido",
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
-    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio'),
+    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio').matches(regularDireccion,'Dirección inválida'),
     rtn: yup.string().min(14, ({ min }) => `RTN debe tener 14 números`).max(14, ({ max }) => `RTN debe tener 14 números`)
         .required('Número de RTN es obligatorio').matches(regularRTN,
             "RTN inválido"
@@ -190,7 +195,7 @@ const Signup = ({ navigation }) => {
                                 <MyTextInput
                                     label={"Teléfono"}
                                     icon={"device-mobile"}
-                                    placeholder={"1234-5678"}
+                                    placeholder={"9985-5678"}
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("phone")}
                                     onBlur={handleBlur("phone")}
