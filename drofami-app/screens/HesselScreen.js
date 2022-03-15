@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image, RefreshControl} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
     StyledContainer,
@@ -37,6 +37,9 @@ import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
 
 export default function HesselScreen({ navigation}) {
     const [isloading, setLoading] = useState(false);
@@ -44,6 +47,14 @@ export default function HesselScreen({ navigation}) {
     const [token, setToken] = useState();
     const [productResponse, setProductResponse] = useState();
     const [catalog, setCatalog] = useState([]);
+
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        const entries = Object.entries(catalog);
+    }, [catalog])
+    wait(2000).then(() => setRefreshing(false));
+
     React.useEffect(() => {
         async function token() {
             const session = await SecureStore.getItemAsync("user_session");
@@ -253,6 +264,7 @@ export default function HesselScreen({ navigation}) {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             />
         </SafeAreaView>
 

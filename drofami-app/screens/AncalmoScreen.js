@@ -1,44 +1,39 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image, RefreshControl} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as SecureStore from 'expo-secure-store';
 import {
-    StyledContainer,
-    InnerContainer,
-    PageLog,
-    PageTitle,
-    Subtitle,
-    StyledFormArea,
-    LeftIcon,
-    RightIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    ButtonText,
-    StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink,
-    WelcomeContainer,
-    WelcomeImage,
-    Avatar
+    Colors
 } from "../components/styles"
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {getCatalog, getProduct} from '../src/ProductMethods'
-import { StatusBar } from "expo-status-bar";
+import { useIsFocused } from "@react-navigation/native";
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
+
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+  
 const AncalmoScreen = ({ navigation }) => {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
     const [productResponse, setProductResponse] = useState();
     const [token, setToken] = useState();
     const [catalog, setCatalog] = useState([]);
+
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+    
+    }, [catalog])
+    wait(2000).then(() => setRefreshing(false));
+  
+
     React.useEffect(() => {
         async function token() {
             const session = await SecureStore.getItemAsync("user_session");
@@ -49,12 +44,16 @@ const AncalmoScreen = ({ navigation }) => {
         token();
     }, []);
 
+    const isFocused = useIsFocused();
     React.useEffect(() => {
         if (!token) {
             return;
         }
-        getCatalog(setLoading, token, 'ANC',setResponse);
+        if(isFocused){ 
+            getCatalog(setLoading, token, 'ANC',setResponse);
+        }
     }, [token])
+    //}, [token, isFocused])
 
     React.useEffect(() => {
         if (!response) {
@@ -123,6 +122,7 @@ const AncalmoScreen = ({ navigation }) => {
     }
 
     const Card = ({ dato }) => {
+      
         return (
             <TouchableOpacity
                 disabled={dato['cantidad'] == 0 ? true : false}
@@ -172,7 +172,6 @@ const AncalmoScreen = ({ navigation }) => {
                             justifyContent: 'space-between',
                             marginTop: 5,
                         }}>
-                                {/* estimado necesita algo? */}
                                 
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
@@ -208,20 +207,34 @@ const AncalmoScreen = ({ navigation }) => {
                 backgroundColor: Colors.primary,
 
             }}>
+        {/* <ScrollView contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
+             */}
+                   
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
                     <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
                         Productos ANCALMO
                     </Text>
+
                     {/* <PageLog
                             source={require("../assets/logoAncalmo.png")}
                             style={{width: 100, height: 100}}
                             resizeMode="cover"
                         /> */}
+                        
                 </View>
+                
                 <Icon name="shopping-cart" size={30} color={Colors.blue} />
             </View>
+           
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
                 <View style={styles.searchContainer}>
                     <Icon name="search" size={25} style={{ marginLeft: 20 }} />
@@ -231,6 +244,7 @@ const AncalmoScreen = ({ navigation }) => {
                     <Icon name="sort" size={30} color={Colors.primary} />
                 </View>
             </View>
+              
             <FlatList
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 showsVerticalScrollIndicator={false}
@@ -244,7 +258,9 @@ const AncalmoScreen = ({ navigation }) => {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             />
+             {/* </ScrollView> */}
         </SafeAreaView>
 
     );
@@ -297,6 +313,9 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 15,
     },
+    scrollView: {
+        backgroundColor:'white',
+      },
 });
 
 export default AncalmoScreen;

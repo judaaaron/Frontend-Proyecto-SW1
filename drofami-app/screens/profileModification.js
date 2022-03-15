@@ -80,7 +80,7 @@ const Signup = ({ route, navigation }) => {
         }
         if (response['status'] == "success") {
             alert(response['message']);
-            //navigation.navigate('Settings'); no estoy seguro esto existe
+            navigation.navigate('Home');
         } else if (response['status'] && response['message']) {
             alert(response['message']);
         } else {
@@ -242,7 +242,9 @@ const Signup = ({ route, navigation }) => {
             {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
             <ActivityIndicator size={100} color={"blue"} />
             <Text>Modificando datos...</Text>
+           
           </View>
+          
         )}
       </>
     );

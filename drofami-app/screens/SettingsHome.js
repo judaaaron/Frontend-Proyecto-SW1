@@ -2,26 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, Text } from "react-native";
 import { getUserData } from '../src/login_registerAPI';
-import { StatusBar } from "expo-status-bar";
 import * as SecureStore from 'expo-secure-store';
+import { useIsFocused } from "@react-navigation/native";
 import {
-    StyledContainer,
-    InnerContainer,
-    PageLog,
-    PageTitle,
-    Subtitle,
-    StyledFormArea,
-    LeftIcon,
-    RightIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    ButtonText,
-    StyledButton,
     Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink,
     ButtonText2,
     StyledButton2,
     Subtitle2,
@@ -47,18 +31,22 @@ export default function SettingsHome({ navigation }) {
         async function token() {
             const session = await SecureStore.getItemAsync("user_session");
             token = JSON.parse(session)['token'];
-            console.log("token ", token);
             setToken(token)
             
         }
         token();
     }, [])
+    const isFocused = useIsFocused();
 
     React.useEffect(() =>{
-      getUserData(setLoading, token, setFormResponse)
-    },[token])
+      if(isFocused){ 
+        getUserData(setLoading, token, setFormResponse)
+      }
+    },[token, isFocused])
 
-    React.useEffect(() => {
+
+    React.useEffect(() => { 
+      console.log("called");
         console.log('response ->', formResponse)
         if (!formResponse) {
             return;
@@ -78,7 +66,6 @@ export default function SettingsHome({ navigation }) {
         setState(state => ({
           ...obj
         }));
-        console.log(user)
     }, [formResponse])
 
     return (
