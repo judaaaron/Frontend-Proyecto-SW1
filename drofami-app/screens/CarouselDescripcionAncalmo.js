@@ -5,7 +5,7 @@ import CardItemCarouselAncalmo, { SLIDER_WIDTH, ITEM_WIDTH } from './CardItemCar
 import data from './DataDetalleAncalmo'
 
 
-const CarouselCards = () => {
+const CarouselCards = (props) => {
   const [index, setIndex] = React.useState(0)
   const isCarousel = React.useRef(null)
 
@@ -16,7 +16,7 @@ const CarouselCards = () => {
         layout="stack"
         layoutCardOffset={19}
         ref={isCarousel}
-        data={data}
+        data={props.data}
         renderItem={CardItemCarouselAncalmo}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}

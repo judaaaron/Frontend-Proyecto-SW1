@@ -8,6 +8,23 @@ import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
+  const {id,cantidad ,imagen ,nombre ,precio,fabricante ,indicaciones ,dosis ,formula} = route.params
+  
+  const carouselData = [
+    {
+      name: "Indicaciones",
+      body: indicaciones,
+      
+    },
+    {
+      name: "Formula",
+      body: formula,
+    },
+    {
+      name: "Dosis",
+      body: dosis,
+    },
+  ]
 
   return (
     <ScrollView>
@@ -21,7 +38,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
         <Icon name="shopping-cart" size={28} />
       </View>
       <View style={style.imageContainer}>
-        <Image source={producto.img} style={{ resizeMode: 'contain', flex: 1 }} top={-50} />
+        <Image source={{uri: imagen}} style={{ resizeMode: 'contain', flex: 1, width: 350, height: 350,}} top={-50} />
       </View>
       <View style={style.detailsContainer} top={-60} marginTop={30} >
         <View
@@ -40,7 +57,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{producto.name}</Text>
+          <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{nombre}</Text>
           <View style={style.priceTag}>
             <Text
               style={{
@@ -49,12 +66,12 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 fontWeight: 'bold',
                 fontSize: 16,
               }}>
-              L. {producto.price}
+              L. {precio}
             </Text>
           </View>
         </View>
         <View style={{marginLeft:-50, top:20}}>
-              <CarouselDescripcionAncalmo/>
+              <CarouselDescripcionAncalmo data={carouselData}/>
         </View>
         
         <View style={{ paddingHorizontal: 20, marginTop: 10 }}>

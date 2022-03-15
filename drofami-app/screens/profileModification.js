@@ -11,6 +11,7 @@ import { ActivityIndicator } from "react-native-paper";
 import MaskInput from 'react-native-mask-input';
 import * as SecureStore from 'expo-secure-store';
 import Keyboard2 from "../components/Keyboard2";
+import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
 import {
     StyledContainer,
     InnerContainer,
@@ -99,143 +100,151 @@ const Signup = ({ route, navigation }) => {
     }
 
     return (
-        <>
-            <Keyboard2>
-
-                <StyledContainer marginTop={-20} top={25}>
-                    <StatusBar style="dark" />
-                    <View style={styles.header} top={6}>
-                        <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
-                    </View>
-
-                    <InnerContainer top={-10}>
-                        <PageLog
-                            source={require("../assets/drofamilogo1.jpg")}
-                            resizeMode="cover"
-
-                        />
-                        <Subtitle>Modificación</Subtitle>
-                        <Formik
-                            enableReinitialize
-                            initialValues={{
-                                usuario: usuario, nombre: nombre,
-                                apellido: apellido, phone: phone, direccion: address
-                            }}
-                            validateOnMount={true}
-                            onSubmit={(values) => {
-                                modification(values.usuario, values.phone, values.nombre, values.apellido, values.direccion, setLoading, setResponse, token.current);
-                            }}
-                            validationSchema={SingUpValidationSchema}
-                        >
-                            {({ values, handleBlur, handleChange, handleSubmit, touched, errors, isValid }) => (<StyledFormArea>
-                                <MyTextInput
-                                    label={"Primer Nombre"}
-                                    icon={"person"}
-                                    placeholder={"Mauricio"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("nombre")}
-                                    onBlur={handleBlur("nombre")}
-                                    value={values.nombre}
-                                />
-
-                                {(errors.nombre && touched.nombre) &&
-                                    <Text style={styles.errores}>
-                                        {errors.nombre}
-                                    </Text>
-                                }
-
-                                <MyTextInput
-                                    label={"Primer Apellido"}
-                                    icon={"person"}
-                                    placeholder={"Silva"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("apellido")}
-                                    onBlur={handleBlur("apellido")}
-                                    value={values.apellido}
-                                />
-
-                                {(errors.apellido && touched.apellido) &&
-                                    <Text style={styles.errores}>
-                                        {errors.apellido}
-                                    </Text>
-                                }
-
-                                <MyTextInput
-                                    label={"Username"}
-                                    icon={"person"}
-                                    placeholder={"drofamiClient"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("usuario")}
-                                    onBlur={handleBlur("usuario")}
-                                    value={values.usuario}
-
-                                />
-
-                                {(errors.usuario && touched.usuario) &&
-                                    <Text style={styles.errores}>
-                                        {errors.usuario}
-                                    </Text>
-                                }
-                                <MyTextInput
-                                    label={"Teléfono"}
-                                    icon={"device-mobile"}
-                                    placeholder={"9874-8574"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("phone")}
-                                    onBlur={handleBlur("phone")}
-                                    value={values.phone}
-                                />
-
-
-                                {(errors.phone && touched.phone) &&
-                                    <Text style={styles.errores}>
-                                        {errors.phone}
-                                    </Text>
-                                }
-
-                                <MyTextInput
-                                    label={"Direccion"}
-                                    icon={"location"}
-                                    placeholder={"Dirección de entrega"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("direccion")}
-                                    onBlur={handleBlur("direccion")}
-                                    value={values.direccion}
-                                />
-
-                                {(errors.direccion && touched.direccion) &&
-                                    <Text style={styles.errores}>
-                                        {errors.direccion}
-                                    </Text>
-                                }
-
-                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
-                                    <ButtonText >
-                                        Modificar datos
-                                    </ButtonText>
-                                </StyledButton>
-
-                            </StyledFormArea>)}
-
-                        </Formik>
-
-                    </InnerContainer>
-
-                </StyledContainer>
-            </Keyboard2>
-            {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
-                {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
-                <ActivityIndicator size={100} color={'blue'} />
-                <Text>
-                    Modificando datos...
-                </Text>
+      <>
+        <Keyboard2>
+          <StyledContainer marginTop={-20} top={25}>
+            <StatusBar style="dark" />
+            <View style={styles.header} top={6}>
+              <Icon
+                name="arrow-back"
+                size={30}
+                onPress={() => navigation.goBack()}
+              />
             </View>
 
-            }
+            <InnerContainer top={-10}>
+              <PageLog
+                source={require("../assets/drofamilogo1.jpg")}
+                resizeMode="cover"
+              />
+              <Subtitle>Modificación</Subtitle>
+              <Formik
+                enableReinitialize
+                initialValues={{
+                  usuario: usuario,
+                  nombre: nombre,
+                  apellido: apellido,
+                  phone: phone,
+                  direccion: address,
+                }}
+                validateOnMount={true}
+                onSubmit={(values) => {
+                  modification(
+                    values.usuario,
+                    values.phone,
+                    values.nombre,
+                    values.apellido,
+                    values.direccion,
+                    setLoading,
+                    setResponse,
+                    token.current
+                  );
+                }}
+                validationSchema={SingUpValidationSchema}
+              >
+                {({
+                  values,
+                  handleBlur,
+                  handleChange,
+                  handleSubmit,
+                  touched,
+                  errors,
+                  isValid,
+                }) => (
+                  <StyledFormArea>
+                    <MyTextInput
+                      label={"Primer Nombre"}
+                      icon={"person"}
+                      placeholder={"Mauricio"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("nombre")}
+                      onBlur={handleBlur("nombre")}
+                      value={values.nombre}
+                    />
 
-        </>
+                    {errors.nombre && touched.nombre && (
+                      <Text style={styles.errores}>{errors.nombre}</Text>
+                    )}
 
+                    <MyTextInput
+                      label={"Primer Apellido"}
+                      icon={"person"}
+                      placeholder={"Silva"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("apellido")}
+                      onBlur={handleBlur("apellido")}
+                      value={values.apellido}
+                    />
 
+                    {errors.apellido && touched.apellido && (
+                      <Text style={styles.errores}>{errors.apellido}</Text>
+                    )}
+
+                    <MyTextInput
+                      label={"Username"}
+                      icon={"person"}
+                      placeholder={"drofamiClient"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("usuario")}
+                      onBlur={handleBlur("usuario")}
+                      value={values.usuario}
+                    />
+
+                    {errors.usuario && touched.usuario && (
+                      <Text style={styles.errores}>{errors.usuario}</Text>
+                    )}
+                    <MyTextInput
+                      label={"Teléfono"}
+                      icon={"device-mobile"}
+                      placeholder={"9874-8574"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("phone")}
+                      onBlur={handleBlur("phone")}
+                      value={values.phone}
+                    />
+
+                    {errors.phone && touched.phone && (
+                      <Text style={styles.errores}>{errors.phone}</Text>
+                    )}
+
+                    <MyAutoGrowingTextInput
+                      label={"Direccion"}
+                      icon={"location"}
+                      placeholder={"Dirección de entrega"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("direccion")}
+                      onBlur={handleBlur("direccion")}
+                      value={values.direccion}
+                    />
+
+                    {errors.direccion && touched.direccion && (
+                      <Text style={styles.errores}>{errors.direccion}</Text>
+                    )}
+
+                    <StyledButton
+                      onPress={handleSubmit}
+                      rounded
+                      disabled={!isValid}
+                      style={{
+                        backgroundColor: isValid ? Colors.blue : "#9CA3AF",
+                      }}
+                    >
+                      <ButtonText>Modificar datos</ButtonText>
+                    </StyledButton>
+                  </StyledFormArea>
+                )}
+              </Formik>
+            </InnerContainer>
+          </StyledContainer>
+        </Keyboard2>
+        {isLoading && (
+          <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
+            {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
+            <ActivityIndicator size={100} color={"blue"} />
+            <Text>Modificando datos...</Text>
+          </View>
+        )}
+      </>
     );
 };
 
@@ -256,26 +265,54 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
     );
 };
 
+const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
+    return (
+        <View>
+            <LeftIcon>
+                <Octicons name={icon} size={30} color={Colors.blue} />
+            </LeftIcon>
+            <StyledInputLabel>{label}</StyledInputLabel>
+            <AutoGrowingTextInput 
+                style = {styles.textInput}
+                size = {50} 
+                {...props}
+             />
+        </View>
+    );
+};
+
 export default Signup;
 
 const styles = StyleSheet.create({
-    errores: {
-        fontSize: 10,
-        color: 'red',
-        top: -15,
-    },
-    spinnercontent: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        zIndex: 1,
-    },
-    view2: {
-        backgroundColor: 'white',
-    },
-    header: {
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-})
+  errores: {
+    fontSize: 10,
+    color: "red",
+    top: -15,
+  },
+  spinnercontent: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    zIndex: 1,
+  },
+  view2: {
+    backgroundColor: "white",
+  },
+  header: {
+    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  textInput: {
+    backgroundColor: Colors.secondary,
+    padding: 15,
+    paddingLeft: 55,
+    paddingRight: 55,
+    borderRadius: 35,
+    fontSize: 16,
+    height: 52,
+    marginVertical: 3,
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
+});

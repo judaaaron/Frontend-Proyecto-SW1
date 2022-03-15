@@ -29,13 +29,14 @@ import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {getCatalog} from '../src/ProductMethods'
+import {getCatalog, getProduct} from '../src/ProductMethods'
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
 const AncalmoScreen = ({ navigation }) => {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
+    const [productResponse, setProductResponse] = useState();
     const [token, setToken] = useState();
     const [catalog, setCatalog] = useState([]);
     React.useEffect(() => {
@@ -73,15 +74,46 @@ const AncalmoScreen = ({ navigation }) => {
 
     React.useEffect(() => {
         const entries = Object.entries(catalog);
-        console.log(entries);
     }, [catalog])
 
+    React.useEffect(() => {
+        if (!productResponse) {
+            return;
+        }
+        if (!productResponse['status']) {
+            alert('Ocurrió un error inesperado')
+            return;
+        }
+        if (productResponse['status'] == 'failed') {
+            alert(productResponse['message']);
+        }
+        console.log(productResponse)
+        const product = productResponse['data'];
+        navigation.navigate('DetalleProductsAncalmo', {
+            id: product["producto"]['id'],
+            cantidad: product['cantidad'],
+            imagen: product['producto']['imagen'],
+            nombre: product['producto']["nombre"],
+            precio: product['producto']["precio"],
+            fabricante: product['producto']["fabricante"],
+            indicaciones: product['producto']["indicaciones"],
+            dosis: product['producto']["dosis"],
+            formula: product['producto']['formula'],
+          });
+    }, [productResponse])
+    
+    //hacer funcion que revise cada elemento del array, si la cantidad es 0 pop -> push al fondo 
+    function emptyToBack(array) {
+        const tempArr = [...array]
+
+    }
+
     const Card = ({ dato }) => {
-        console.log(dato)
         return (
             <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate('DetalleProductsAncalmo', dato) }>
+                disabled={dato['cantidad'] == 0 ? true : false}
+                activeOpacity={dato['cantidad'] == 0  ? 0.1 : 1}
+                onPress={() => getProduct(setLoading, token, dato.producto['id'], setProductResponse) }>
                     {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
                     
                 <View style={styles.card}>
@@ -111,13 +143,14 @@ const AncalmoScreen = ({ navigation }) => {
                             alignItems: 'center',
                         }}>
                         <Image
-                            style={{ width: 100, height: 100, }}
+                            style={{ width: 100, height: 100, opacity: dato['cantidad'] == 0 ? 0.3:1,}}
                             source={{uri: dato.producto['imagen']}}
                         />
                     </View>
 
-                    <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10 }}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
                         {dato.producto['nombre']}
+                        {dato['cantidad']==0 ? ' (Agotado)':''}
                     </Text>
                     <View
                         style={{
@@ -130,7 +163,7 @@ const AncalmoScreen = ({ navigation }) => {
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
-                        <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
                             {'L. '}{dato.producto.precio}
                         </Text>
                         <View
@@ -143,7 +176,7 @@ const AncalmoScreen = ({ navigation }) => {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4 }}>
+                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.bl, }} >
                                 +
                             </Text>
                         </View>

@@ -14,6 +14,8 @@ export default data = [
       name: "Dosis",
       body: "Aplicar inicialmente 3 ó 4 veces al día en el área afectada.",
     //   imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/calamina-rosada-1.jpg"
-    }
+    },
+    
+
     
   ]
