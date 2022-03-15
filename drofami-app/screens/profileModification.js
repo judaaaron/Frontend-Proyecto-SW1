@@ -269,7 +269,7 @@ const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHide
     return (
         <View>
             <LeftIcon>
-                <Octicons name={icon} size={30} color={Colors.blue} />
+                <Octicons name={icon} size={40} color={Colors.blue} />
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <AutoGrowingTextInput 
@@ -304,15 +304,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   textInput: {
-    backgroundColor: Colors.secondary,
-    padding: 15,
-    paddingLeft: 55,
-    paddingRight: 55,
-    borderRadius: 35,
-    fontSize: 16,
-    height: 52,
-    marginVertical: 3,
-    marginBottom: 20,
-    fontWeight: "bold",
-  },
+        backgroundColor: Colors.secondary,
+        justifyContent: 'center',
+        alignContent: 'center',
+        paddingTop: 17,
+        padding: 17,
+        paddingLeft: 55,
+        paddingRight: 55,
+        borderRadius: 35,
+        fontSize: 16,
+        height: 52,
+        marginVertical: 3,
+        marginBottom: 20,
+        fontWeight:'bold',
+        color: Colors.tertiary,
+      }
 });
