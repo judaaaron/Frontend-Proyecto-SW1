@@ -103,9 +103,23 @@ const AncalmoScreen = ({ navigation }) => {
     }, [productResponse])
     
     //hacer funcion que revise cada elemento del array, si la cantidad es 0 pop -> push al fondo 
+    //Esto se seguirá haciendo?
     function emptyToBack(array) {
-        const tempArr = [...array]
-
+        //Ordena por cantidades y lo imprime en una tabla
+        //console.table(this.producto.sort(((a, b) => b.cantidad - a.cantidad)));
+        const temp = [];
+        const empty = [];
+        array.forEach((element) => {
+            if (element['cantidad'] != 0) {
+                temp.push(element);
+            } else {
+                empty.push(element);
+            }
+        });
+        empty.forEach((element) => {
+            temp.push(element);
+        })
+        return temp
     }
 
     const Card = ({ dato }) => {
@@ -225,7 +239,7 @@ const AncalmoScreen = ({ navigation }) => {
                     paddingBottom: 50,
                 }}
                 numColumns={2}
-                data={catalog ? Object.values(catalog) : []}
+                data={catalog ? emptyToBack(Object.values(catalog)) : []}
                 renderItem={({ item }) => {
                     return <Card dato={item} />;
                 }}

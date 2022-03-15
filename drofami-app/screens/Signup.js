@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
-import { Formik } from "formik";
+import { Formi0k } from "formik";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
