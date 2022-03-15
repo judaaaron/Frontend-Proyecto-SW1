@@ -106,7 +106,7 @@ const AncalmoScreen = ({ navigation }) => {
     //Esto se seguirá haciendo?
     function emptyToBack(array) {
         //Ordena por cantidades y lo imprime en una tabla
-        //console.table(this.producto.sort(((a, b) => b.cantidad - a.cantidad)));
+        //console.table(this.producto.sort(((a, b) => b.cantidad - a.cantidad)));w
         const temp = [];
         const empty = [];
         array.forEach((element) => {
