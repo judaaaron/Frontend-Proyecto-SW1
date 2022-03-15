@@ -33,14 +33,14 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
         flex: 1,
         backgroundColor: Colors.lightblue,
       }}>
-      <View style={style.header} top={15}>
-        <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
+      <View style={style.header}>
+        <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()}/>
         <Icon name="shopping-cart" size={28} />
       </View>
-      <View style={style.imageContainer}>
+      <View style={style.imageContainer} top={25}>
         <Image source={{uri: imagen}} style={{ resizeMode: 'contain', flex: 1, width: 350, height: 350,}} top={-50} />
       </View>
-      <View style={style.detailsContainer} top={-60} marginTop={30} >
+      <View style={style.detailsContainer} top={-50} marginTop={30} >
         <View
           style={{
             marginLeft: 20,

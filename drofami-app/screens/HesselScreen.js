@@ -31,7 +31,7 @@ import * as SecureStore from 'expo-secure-store';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo';
 import DetalleProductsHessel from './DetalleProductsHessel';
-import {getCatalog} from '../src/ProductMethods'
+import {getCatalog, getProduct} from '../src/ProductMethods'
 
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
@@ -42,6 +42,7 @@ export default function HesselScreen({ navigation}) {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
     const [token, setToken] = useState();
+    const [productResponse, setProductResponse] = useState();
     const [catalog, setCatalog] = useState([]);
     React.useEffect(() => {
         async function token() {
@@ -77,14 +78,49 @@ export default function HesselScreen({ navigation}) {
     }, [response]);
 
     React.useEffect(() => {
+        if (!productResponse) {
+            return;
+        }
+        if (!productResponse['status']) {
+            alert('Ocurrió un error inesperado')
+            return;
+        }
+        if (productResponse['status'] == 'failed') {
+            alert(productResponse['message']);
+        }
+        console.log(productResponse)
+        const product = productResponse['data'];
+        navigation.navigate('DetalleProductsAncalmo', {
+            id: product["producto"]['id'],
+            cantidad: product['cantidad'],
+            imagen: product['producto']['imagen'],
+            nombre: product['producto']["nombre"],
+            precio: product['producto']["precio"],
+            fabricante: product['producto']["fabricante"],
+            indicaciones: product['producto']["indicaciones"],
+            dosis: product['producto']["dosis"],
+            formula: product['producto']['formula'],
+          });
+    }, [productResponse])
+    
+    //hacer funcion que revise cada elemento del array, si la cantidad es 0 pop -> push al fondo 
+    function emptyToBack(array) {
+        const tempArr = [...array]
+
+    }
+
+    React.useEffect(() => {
         const entries = Object.entries(catalog);
         console.log(entries);
     }, [catalog])
-    const Card = ({dato}) => {
+
+    
+    const Card = ({ dato }) => {
         return (
             <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate('DetalleProductsHessel', dato) }>
+                disabled={dato['cantidad'] == 0 ? true : false}
+                activeOpacity={dato['cantidad'] == 0  ? 0.1 : 1}
+                onPress={() => getProduct(setLoading, token, dato.producto['id'], setProductResponse) }>
                     {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
                     
                 <View style={styles.card}>
@@ -114,13 +150,14 @@ export default function HesselScreen({ navigation}) {
                             alignItems: 'center',
                         }}>
                         <Image
-                            style={{ width: 100, height: 100, }}
+                            style={{ width: 100, height: 100, opacity: dato['cantidad'] == 0 ? 0.3:1,}}
                             source={{uri: dato.producto['imagen']}}
                         />
                     </View>
 
-                    <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10 }}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
                         {dato.producto['nombre']}
+                        {dato['cantidad']==0 ? ' (Agotado)':''}
                     </Text>
                     <View
                         style={{
@@ -133,7 +170,7 @@ export default function HesselScreen({ navigation}) {
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
-                        <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
                             {'L. '}{dato.producto.precio}
                         </Text>
                         <View
@@ -146,7 +183,7 @@ export default function HesselScreen({ navigation}) {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4 }}>
+                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.blue, }} >
                                 +
                             </Text>
                         </View>
@@ -157,21 +194,20 @@ export default function HesselScreen({ navigation}) {
     };
     return (
         <SafeAreaView
-        style={{
-            flex: 1,
-            top: 20,
-            paddingHorizontal: 19,
-            backgroundColor: Colors.primary,
+            style={{
+                flex: 1,
+                top: 25,
+                paddingHorizontal: 19,
+                backgroundColor: Colors.primary,
 
-        }}>
-            
+            }}>
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems:'center' }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
                         Productos
                     </Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems:'center' }}>
+                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
                         HESSEL
                     </Text>
                     {/* <PageLog

@@ -176,7 +176,7 @@ const AncalmoScreen = ({ navigation }) => {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.bl, }} >
+                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.blue, }} >
                                 +
                             </Text>
                         </View>
