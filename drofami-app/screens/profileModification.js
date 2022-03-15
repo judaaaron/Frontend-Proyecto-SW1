@@ -269,7 +269,7 @@ const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHide
     return (
         <View>
             <LeftIcon>
-                <Octicons name={icon} size={30} color={Colors.blue} />
+                <Octicons name={icon} size={40} color={Colors.blue} />
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <AutoGrowingTextInput 
