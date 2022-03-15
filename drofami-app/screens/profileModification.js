@@ -31,7 +31,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Login from "./Login";
 
 const { brand, darkLight } = Colors;
-const regularNameLastName = /(^(\S))+(\s*[aA-zZ])+$/  //solo acepta letras
+const regularNameLastName = /^[A-Za-záéíóú]+$/  //solo acepta letras
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
 const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
 const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9,.])+$/

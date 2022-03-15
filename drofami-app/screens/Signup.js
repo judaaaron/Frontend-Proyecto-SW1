@@ -37,7 +37,7 @@ import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 
 
 const { brand, darkLight } = Colors;
-const regularNameLastName = /(^(\S))+(\s*[aA-zZ])+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
+const regularNameLastName = /^[A-Za-záéíóú]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
 const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{2})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
@@ -253,7 +253,7 @@ const Signup = ({ navigation }) => {
                                 }
                                 <MyAutoGrowingTextInput 
                                     backgroundColor= {Colors.secondary}
-                                    label={"Direccion"}
+                                    label={"Dirección"}
                                     icon={"location"}
                                     placeholder={"Dirección de entrega"}
                                     placeholderTextColor={darkLight}
