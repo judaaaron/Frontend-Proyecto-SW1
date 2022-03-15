@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
-import { Formi0k } from "formik";
+import { Formik } from "formik";
 import { View, ScrollView, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
@@ -338,8 +338,9 @@ const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHide
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
             <AutoGrowingTextInput 
-                style = {styles.textInput}
                 {...props}
+                style = {styles.textInput}
+                
              />
         </View>
     );
@@ -364,7 +365,10 @@ const styles = StyleSheet.create({
     },
     textInput: {
         backgroundColor: Colors.secondary,
-        padding: 15,
+        justifyContent: 'center',
+        alignContent: 'center',
+        paddingTop: 17,
+        padding: 17,
         paddingLeft: 55,
         paddingRight: 55,
         borderRadius: 35,
@@ -372,7 +376,8 @@ const styles = StyleSheet.create({
         height: 52,
         marginVertical: 3,
         marginBottom: 20,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        color: Colors.tertiary,
       }
 })
 
