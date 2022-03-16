@@ -17,11 +17,11 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       
     },
     {
-      name: "Formula",
+      name: "Fórmula",
       body: formula,
     },
     {
-      name: "Dosis",
+      name: "Dósis",
       body: dosis,
     },
   ]
