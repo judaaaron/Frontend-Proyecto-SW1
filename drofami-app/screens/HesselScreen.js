@@ -264,7 +264,7 @@ export default function HesselScreen({ navigation}) {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             />
         </SafeAreaView>
 
