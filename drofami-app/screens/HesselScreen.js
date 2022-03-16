@@ -49,11 +49,15 @@ export default function HesselScreen({ navigation}) {
     const [catalog, setCatalog] = useState([]);
 
     const [refreshing, setRefreshing] = React.useState(false);
+    const [content, setContent] = React.useState(catalog)
     const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        const entries = Object.entries(catalog);
-    }, [catalog])
-    wait(2000).then(() => setRefreshing(false));
+        setRefreshing(true)
+        wait(2000).then(()=>{
+            setRefreshing(false)
+            setContent(getCatalog(setLoading, token,'HES',setResponse))
+        })
+    },[refreshing, token])
+
 
     React.useEffect(() => {
         async function token() {
@@ -79,7 +83,7 @@ export default function HesselScreen({ navigation}) {
         if (!response['data']) {
             return;
         }
-        const tempCatalog = [...catalog];
+        const tempCatalog = [];
         response['data'].forEach((element) => {
             tempCatalog.push(element);
         })
@@ -264,7 +268,7 @@ export default function HesselScreen({ navigation}) {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
-                // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             />
         </SafeAreaView>
 

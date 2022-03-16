@@ -28,15 +28,9 @@ const AncalmoScreen = ({ navigation }) => {
 
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
-    // const onRefresh = React.useCallback(() => {
-    //     setRefreshing(true);
-    
-    // }, [catalog])
-    // wait(2000).then(() => setRefreshing(false));
-  
+ 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
-        setContent(getCatalog(setLoading, token, 'ANC',setResponse))
         wait(2000).then(()=>{
             setRefreshing(false)
             setContent(getCatalog(setLoading, token, 'ANC',setResponse))
@@ -70,7 +64,7 @@ const AncalmoScreen = ({ navigation }) => {
         if (!response['data']) {
             return;
         }
-        const tempCatalog = [...catalog];
+        const tempCatalog = [];
         response['data'].forEach((element) => {
             tempCatalog.push(element);
         })
@@ -266,7 +260,7 @@ const AncalmoScreen = ({ navigation }) => {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
-                // refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             />
              {/* </ScrollView> */}
         </SafeAreaView>
