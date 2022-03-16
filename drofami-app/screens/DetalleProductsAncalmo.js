@@ -132,7 +132,7 @@ export default DetalleProductsAncalmo;
 const style = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
-    marginTop: 20,
+    marginTop: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

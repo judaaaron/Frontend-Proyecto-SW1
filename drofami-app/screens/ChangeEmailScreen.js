@@ -114,7 +114,7 @@ const ChangeEmail1 = ({ route, navigation }) => {
 
                                 <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
                                     <ButtonText >
-                                        Cambiar Correo Electronico
+                                        Cambiar Correo Electrónico
                                     </ButtonText>
                                 </StyledButton>
                             </View>
