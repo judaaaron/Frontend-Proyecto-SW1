@@ -12,6 +12,8 @@ import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {getCatalog, getProduct} from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
+import filter from 'lodash.filter'
+
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
 
@@ -28,6 +30,14 @@ const AncalmoScreen = ({ navigation }) => {
 
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
+
+    handleSearch = text => {
+        const formattedQuery = text.toLowerCase()
+        const data = filter(productResponse['data'], product => {
+          return this.contains(product, formattedQuery)
+        })
+        this.setState({ data, query: text })
+      }
  
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
@@ -240,11 +250,11 @@ const AncalmoScreen = ({ navigation }) => {
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
                 <View style={styles.searchContainer}>
                     <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-                    <TextInput placeholder='Buscar' style={styles.input}></TextInput>
+                    <TextInput placeholder='Buscar' style={styles.input} clearButtonMode='always'></TextInput>
                 </View>
-                <View style={styles.sortBtn}>
+                {/* <View style={styles.sortBtn}>
                     <Icon name="sort" size={30} color={Colors.primary} />
-                </View>
+                </View> */}
             </View>
               
             <FlatList
