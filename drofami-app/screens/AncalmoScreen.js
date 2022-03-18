@@ -271,6 +271,7 @@ const AncalmoScreen = ({ navigation }) => {
                 }}
                 keyExtractor={(item) => item.producto.id}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+                // ListHeaderComponent={this.renderHeader}
             />
              {/* </ScrollView> */}
         </SafeAreaView>

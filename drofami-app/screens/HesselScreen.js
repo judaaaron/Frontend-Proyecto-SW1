@@ -248,12 +248,12 @@ export default function HesselScreen({ navigation}) {
             </View>
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
                 <View style={styles.searchContainer}>
-                    <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-                    <TextInput placeholder='Buscar' style={styles.input}></TextInput>
+                    <Icon name="search" size={25} style={{ marginLeft: 20 }}  />
+                    <TextInput placeholder='Buscar' style={styles.input}  clearButtonMode='always'></TextInput>
                 </View>
-                <View style={styles.sortBtn}>
+                {/* <View style={styles.sortBtn}>
                     <Icon name="sort" size={30} color={Colors.primary} />
-                </View>
+                </View> */}
             </View>
             <FlatList
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
