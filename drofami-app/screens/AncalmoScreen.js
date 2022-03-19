@@ -239,9 +239,9 @@ const AncalmoScreen = ({ navigation }) => {
               style={styles.input}
               autoCapitalize="none"
               autoCorrect={false}
-              clearButtonMode="always"
-              value={query}
-              onChangeText={queryText => handleSearch(queryText)}
+             // clearButtonMode="always"
+              //value={query}
+             // onChangeText={queryText => handleSearch(queryText)}
               placeholder="Buscar"
              
             />
