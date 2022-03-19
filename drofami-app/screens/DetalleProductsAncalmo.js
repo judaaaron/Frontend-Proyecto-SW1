@@ -1,14 +1,25 @@
 import React from 'react';
-import { View, SafeAreaView, Image, Text, StyleSheet,ScrollView } from 'react-native';
+import { useState } from 'react';
+import { View, SafeAreaView, Image, Text, StyleSheet,ScrollView, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   Colors
 } from "../components/styles"
 import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
+import { FAB } from 'react-native-paper';
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
   const {id,cantidad ,imagen ,nombre ,precio,fabricante ,indicaciones ,dosis ,formula} = route.params
+  const [counter, setCounter] = useState(1);
+
+  const handleAdd = ()=>{
+     setCounter(counter+1);
+  }
+
+  const handleSubstract = ()=>{
+      counter!=1 ? setCounter(counter-1): counter
+  }
   
   const carouselData = [
     {
@@ -93,7 +104,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 
               }}>
               <View style={style.borderBtn} >
-                <Text style={style.borderBtnText}>-</Text>
+                <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text>
               </View>
               <Text
                 style={{
@@ -101,10 +112,10 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                   marginHorizontal: 10,
                   fontWeight: 'bold',
                 }}>
-                1
+                  {counter}
               </Text>
               <View style={style.borderBtn}>
-                <Text style={style.borderBtnText}>+</Text>
+                <Text style={style.borderBtnText} onPress={handleAdd}>+</Text>
               </View>
              
             </View>

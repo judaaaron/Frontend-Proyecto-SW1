@@ -30,14 +30,12 @@ const AncalmoScreen = ({ navigation }) => {
 
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
+    const [isLoadingg, setIsLoading] = useState(false);
+    const [data, setData] = useState(catalog);
+    const [error, setError] = useState(null);
+    const [query, setQuery] = useState('');
+    const [fullData, setFullData] = useState([]);
 
-    handleSearch = text => {
-        const formattedQuery = text.toLowerCase()
-        const data = filter(productResponse['data'], product => {
-          return this.contains(product, formattedQuery)
-        })
-        this.setState({ data, query: text })
-      }
  
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
@@ -55,6 +53,12 @@ const AncalmoScreen = ({ navigation }) => {
         }
         token();
     }, []);
+
+    React.useEffect(()=>{
+        setData(getCatalog(setLoading, token, 'ANC',setResponse))
+        setFullData(getCatalog(setLoading, token, 'ANC',setResponse))
+        setIsLoading(false)
+    }, [])
 
     const isFocused = useIsFocused();
     React.useEffect(() => {
@@ -210,6 +214,40 @@ const AncalmoScreen = ({ navigation }) => {
             </TouchableOpacity>
         );
     };
+    
+
+    const handleSearch = text => {
+        const formattedQuery = text.toLowerCase();
+        const filteredData = filter(fullData, producto => {
+          return contains(producto, formattedQuery);
+        });
+        setData(filteredData);
+        setQuery(text);
+      };
+      
+      const contains = () => {
+    
+          return true;
+      };
+
+
+      function renderHeader() {
+        return (
+          <View style={styles.searchContainer} marginTop={10}>
+            <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+            <TextInput 
+              style={styles.input}
+              autoCapitalize="none"
+              autoCorrect={false}
+              clearButtonMode="always"
+              value={query}
+              onChangeText={queryText => handleSearch(queryText)}
+              placeholder="Buscar"
+             
+            />
+          </View>
+        );
+    }
     return (
         <SafeAreaView
             style={{
@@ -248,16 +286,17 @@ const AncalmoScreen = ({ navigation }) => {
             </View>
            
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
-                <View style={styles.searchContainer}>
+                {/* <View style={styles.searchContainer}>
                     <Icon name="search" size={25} style={{ marginLeft: 20 }} />
                     <TextInput placeholder='Buscar' style={styles.input} clearButtonMode='always'></TextInput>
-                </View>
+                </View> */}
                 {/* <View style={styles.sortBtn}>
                     <Icon name="sort" size={30} color={Colors.primary} />
                 </View> */}
             </View>
               
             <FlatList
+                ListHeaderComponent={renderHeader}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
