@@ -183,6 +183,23 @@ export default function SettingsHome({ navigation }) {
               </RightIcon2>
               <ButtonText2>Cambiar contraseña</ButtonText2>
             </StyledButton2>
+
+            <StyledButton2
+              onPress={() => {
+                navigation.navigate("SelectEmpresa", { token: token }),
+                  console.log(token);
+              }}
+            >
+              <RightIcon2
+                onPress={() => {
+                  navigation.navigate("SelectEmpresa", { token: token }),
+                    console.log(token);
+                }}
+              >
+                <Icon name="arrow-forward-ios" size={20} color={Colors.blue} />
+              </RightIcon2>
+              <ButtonText2>Selección de empresa</ButtonText2>
+            </StyledButton2>
             {/* </ExtraView> */}
           </View>
 
