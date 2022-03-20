@@ -23,7 +23,6 @@ export async function getCatalog(setLoading, token, fabricante,setResponse) {
     } catch (e){
         console.log('Error en getCatalog! ', e);
     } finally {
-        console.log(resp['data'])
        setLoading(false)
     }
 }   
@@ -51,7 +50,6 @@ export async function getProduct(setLoading, token, id, setResponse) {
     } catch (e){
         console.log('Error en getProduct! ', e);
     } finally {
-        console.log(resp['data'])
        setLoading(false)
     }
 }

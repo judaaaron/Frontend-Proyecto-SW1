@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image, RefreshControl} from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image, RefreshControl } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as SecureStore from 'expo-secure-store';
 import {
@@ -10,7 +10,7 @@ import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {getCatalog, getProduct} from '../src/ProductMethods'
+import { getCatalog, getProduct } from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
 import filter from 'lodash.filter'
 
@@ -19,54 +19,57 @@ const width = Dimensions.get('window').width / 2 - 30;
 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
-  }
-  
-const AncalmoScreen = ({ navigation }) => {
+}
+
+const AncalmoScreen = ({ navigation, dato }) => {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
     const [productResponse, setProductResponse] = useState();
     const [token, setToken] = useState();
     const [catalog, setCatalog] = useState([]);
-
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
-    const [isLoadingg, setIsLoading] = useState(false);
-    const [data, setData] = useState(catalog);
-    const [error, setError] = useState(null);
-    const [query, setQuery] = useState('');
-    const [fullData, setFullData] = useState([]);
+    const [search, setSearch] = useState('a');
+    const [filteredDataSource, setFilteredDataSource] = useState();
+    const [masterDataSource, setMasterDataSource] = useState(catalog);
 
- 
+
+    React.useEffect(() => {
+        console.log("AQUIIII:",filteredDataSource)
+    }, [filteredDataSource])
+
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
-        wait(2000).then(()=>{
+        wait(2000).then(() => {
             setRefreshing(false)
-            setContent(getCatalog(setLoading, token, 'ANC',setResponse))
+            setContent(getCatalog(setLoading, token, 'ANC', setResponse))
         })
-    },[refreshing, token])
+    }, [refreshing, token])
     React.useEffect(() => {
         async function token() {
             const session = await SecureStore.getItemAsync("user_session");
             token = JSON.parse(session)['token'];
             console.log("token ", token);
-            setToken(token)    
+            setToken(token)
         }
         token();
+        setSearch('');
     }, []);
 
-    React.useEffect(()=>{
-        setData(getCatalog(setLoading, token, 'ANC',setResponse))
-        setFullData(getCatalog(setLoading, token, 'ANC',setResponse))
-        setIsLoading(false)
-    }, [])
+    // React.useEffect(()=>{
+    //     setData(getCatalog(setLoading, token, 'ANC',setResponse))
+    //     setFullData(getCatalog(setLoading, token, 'ANC',setResponse))
+    //     setIsLoading(false)
+    // }, [])
 
     const isFocused = useIsFocused();
     React.useEffect(() => {
         if (!token) {
             return;
         }
-        if(isFocused){ 
-            getCatalog(setLoading, token, 'ANC',setResponse);
+        if (isFocused) {
+            getCatalog(setLoading, token, 'ANC', setResponse);
         }
     }, [token])
     //}, [token, isFocused])
@@ -82,9 +85,7 @@ const AncalmoScreen = ({ navigation }) => {
         response['data'].forEach((element) => {
             tempCatalog.push(element);
         })
-        setCatalog(catalog => ({
-            ...tempCatalog
-        }));
+        setCatalog(tempCatalog)
     }, [response]);
 
     React.useEffect(() => {
@@ -114,9 +115,9 @@ const AncalmoScreen = ({ navigation }) => {
             indicaciones: product['producto']["indicaciones"],
             dosis: product['producto']["dosis"],
             formula: product['producto']['formula'],
-          });
+        });
     }, [productResponse])
-    
+
     //hacer funcion que revise cada elemento del array, si la cantidad es 0 pop -> push al fondo 
     //Esto se seguirá haciendo?
     function emptyToBack(array) {
@@ -137,15 +138,103 @@ const AncalmoScreen = ({ navigation }) => {
         return temp
     }
 
+    const searchFilterFunction = (text) => {
+        // Check if searched text is not blank
+        if (text) {
+            // Inserted text is not blank
+            // Filter the masterDataSource
+            // Update FilteredDataSource
+            /*const newData = catalog.filter(
+                function (item) {
+                    const itemData = item.producto.nombre
+                        ? item.producto.nombre.toUpperCase()
+                        : ''.toUpperCase();
+                    const textData = text.toUpperCase();
+                    return itemData.indexOf(textData) > -1;
+                });*/
+            const newData = catalog.filter((element) => {
+                return element.producto.nombre.toLowerCase().includes(text.toLowerCase()) ? true : false;
+            });
+            setFilteredDataSource(newData);
+            setSearch(text);
+        } else {
+            // Inserted text is blank
+            // Update FilteredDataSource with masterDataSource
+            setFilteredDataSource(catalog);
+            setSearch(text);
+        }
+    };
+
+    const ItemView = ({ item }) => {
+        return (
+            // Flat List Item
+            <View style={styles.card}>
+                <View
+                    style={{
+                        height: 100,
+                        alignItems: 'center',
+                    }}>
+                    <Image
+                        style={{ width: 100, height: 100, opacity: dato['cantidad'] == 0 ? 0.3 : 1, }}
+                        source={{ uri: dato.producto['imagen'] }}
+                    />
+                </View>
+
+                <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10, color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
+                    {dato.producto['nombre']}
+                    {dato['cantidad'] == 0 ? ' (Agotado)' : ''}
+                </Text>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        marginTop: 5,
+                    }}>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
+                        {'L. '}{dato.producto.precio}
+                    </Text>
+                    <View
+                        style={{
+                            height: 25,
+                            width: 25,
+                            backgroundColor: Colors.primary,
+                            borderRadius: 5,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                        <Text
+                            style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary : Colors.blue, }} >
+                            +
+                        </Text>
+                    </View>
+                </View>
+            </View>
+        );
+    };
+
+    const ItemSeparatorView = () => {
+        return (
+            // Flat List Item Separator
+            <View
+                style={{
+                    height: 0.2,
+                    width: '100%',
+                    backgroundColor: '#C8C8C8',
+                }}
+            />
+        );
+    };
+
     const Card = ({ dato }) => {
-      
+
+
         return (
             <TouchableOpacity
                 disabled={dato['cantidad'] == 0 ? true : false}
-                activeOpacity={dato['cantidad'] == 0  ? 0.1 : 1}
-                onPress={() => getProduct(setLoading, token, dato.producto['id'], setProductResponse) }>
-                    {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
-                    
+                activeOpacity={dato['cantidad'] == 0 ? 0.1 : 1}
+                onPress={() => getProduct(setLoading, token, dato.producto['id'], setProductResponse)}>
+                {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
+
                 <View style={styles.card}>
                     <View style={{ alignItems: 'flex-end' }}>
                         {/* <View
@@ -173,14 +262,14 @@ const AncalmoScreen = ({ navigation }) => {
                             alignItems: 'center',
                         }}>
                         <Image
-                            style={{ width: 100, height: 100, opacity: dato['cantidad'] == 0 ? 0.3:1,}}
-                            source={{uri: dato.producto['imagen']}}
+                            style={{ width: 100, height: 100, opacity: dato['cantidad'] == 0 ? 0.3 : 1, }}
+                            source={{ uri: dato.producto['imagen'] }}
                         />
                     </View>
 
-                    <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10, color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
                         {dato.producto['nombre']}
-                        {dato['cantidad']==0 ? ' (Agotado)':''}
+                        {dato['cantidad'] == 0 ? ' (Agotado)' : ''}
                     </Text>
                     <View
                         style={{
@@ -188,11 +277,11 @@ const AncalmoScreen = ({ navigation }) => {
                             justifyContent: 'space-between',
                             marginTop: 5,
                         }}>
-                                
+
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
-                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
                             {'L. '}{dato.producto.precio}
                         </Text>
                         <View
@@ -205,7 +294,7 @@ const AncalmoScreen = ({ navigation }) => {
                                 alignItems: 'center',
                             }}>
                             <Text
-                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary:Colors.blue, }} >
+                                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary : Colors.blue, }} >
                                 +
                             </Text>
                         </View>
@@ -214,38 +303,35 @@ const AncalmoScreen = ({ navigation }) => {
             </TouchableOpacity>
         );
     };
-    
-
-    const handleSearch = text => {
-        const formattedQuery = text.toLowerCase();
-        const filteredData = filter(fullData, producto => {
-          return contains(producto, formattedQuery);
-        });
-        setData(filteredData);
-        setQuery(text);
-      };
-      
-      const contains = () => {
-    
-          return true;
-      };
 
 
-      function renderHeader() {
+    // const handleSearch = text => {
+    //     const formattedQuery = text.toLowerCase();
+    //     const filteredData = filter(<Card />, producto => {
+    //         return contains(<Card />, formattedQuery);
+    //     });
+    //     setData(filteredData);
+    //     setQuery(text);
+    // };
+
+    // const contains = () => {
+
+    //     return true;
+    // };
+
+
+    function renderHeader() {
         return (
-          <View style={styles.searchContainer} marginTop={10}>
-            <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-            <TextInput 
-              style={styles.input}
-              autoCapitalize="none"
-              autoCorrect={false}
-             // clearButtonMode="always"
-              //value={query}
-             // onChangeText={queryText => handleSearch(queryText)}
-              placeholder="Buscar"
-             
-            />
-          </View>
+            <View style={styles.searchContainer} marginTop={10}>
+                <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => searchFilterFunction(text)}
+                    value={search}
+                    placeholder="Buscar"
+
+                />
+            </View>
         );
     }
     return (
@@ -257,7 +343,7 @@ const AncalmoScreen = ({ navigation }) => {
                 backgroundColor: Colors.primary,
 
             }}>
-        {/* <ScrollView contentContainerStyle={styles.scrollView}
+            {/* <ScrollView contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -266,7 +352,7 @@ const AncalmoScreen = ({ navigation }) => {
         }
       >
              */}
-                   
+
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
@@ -279,12 +365,12 @@ const AncalmoScreen = ({ navigation }) => {
                             style={{width: 100, height: 100}}
                             resizeMode="cover"
                         /> */}
-                        
+
                 </View>
-                
+
                 <Icon name="shopping-cart" size={30} color={Colors.blue} />
             </View>
-           
+
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
                 {/* <View style={styles.searchContainer}>
                     <Icon name="search" size={25} style={{ marginLeft: 20 }} />
@@ -294,7 +380,7 @@ const AncalmoScreen = ({ navigation }) => {
                     <Icon name="sort" size={30} color={Colors.primary} />
                 </View> */}
             </View>
-              
+
             <FlatList
                 ListHeaderComponent={renderHeader}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
@@ -304,15 +390,16 @@ const AncalmoScreen = ({ navigation }) => {
                     paddingBottom: 50,
                 }}
                 numColumns={2}
-                data={catalog ? emptyToBack(Object.values(catalog)) : []}
+                data={filteredDataSource ? emptyToBack(filteredDataSource) : catalog ? emptyToBack(catalog) : []}
                 renderItem={({ item }) => {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
+                ItemSeparatorComponent={ItemSeparatorView}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-                // ListHeaderComponent={this.renderHeader}
+
             />
-             {/* </ScrollView> */}
+            {/* </ScrollView> */}
         </SafeAreaView>
 
     );
@@ -366,8 +453,10 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     scrollView: {
-        backgroundColor:'white',
-      },
+        backgroundColor: 'white',
+    },
 });
 
 export default AncalmoScreen;
+
+

@@ -50,7 +50,9 @@ export default function HesselScreen({ navigation}) {
 
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
-    const [filterdData, setfilterdData]= useState([])
+    const [search, setSearch] = useState('a');
+    const [filteredDataSource, setFilteredDataSource] = useState();
+    const [masterDataSource, setMasterDataSource] = useState(catalog);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
         wait(2000).then(()=>{
