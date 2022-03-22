@@ -2,10 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { Button, Modal, RadioButton, Text } from "react-native-paper";
 import { Formik } from "formik";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
+import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 
 import {
     PageLog,
@@ -19,23 +20,40 @@ import {
     Colors,
     StyledContainer2,
     InnerContainer2,
+    ExtraView,
+    ExtraText,
+    TextLinkContent,
+    TextLink,
     StyledFormArea2
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { brand, darkLight } = Colors;
 
+const data = [
+    {label: 'Kielsa', value: '1'},
+    {label: 'Del Ahorro', value: '2'},
+    {label: 'Siman', value: '3'},
+    {label: 'Item 4', value: '4'},
+    {label: 'Item 5', value: '5'},
+    {label: 'Item 6', value: '6'},
+    {label: 'Item 7', value: '7'},
+    {label: 'Item 8', value: '8'},
+];
 
 
 const SelectEmpresa = ({ route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
     const [checked, setChecked] = React.useState('first');
-    const opciones = [
-        { value: 'Cadenas de Farmacia' },
-        { value: 'Farmacias Independientes' },
-    ];
 
-    
+    const _renderItem = item => {
+            return (
+            <View style={styles.item}>
+                <Text style={styles.textItem}>{item.label}</Text>
+                {/* <Image style={styles.icon} source={require('../assets/drofamilogo1.png')} /> */}
+            </View>
+            );
+        };
 
     return (
         <>
@@ -52,48 +70,53 @@ const SelectEmpresa = ({ route, navigation }) => {
 
                     />
 
-                    <Subtitle>Cambiar Correo Electrónico</Subtitle>
+                    <Subtitle>Seleccionar empresa</Subtitle>
                     <Formik>
                         
                         <StyledFormArea2>
 
-                            <MyTextInput
-                                label={"Nuevo Correo"}
-                                icon={"mail"}
-                                placeholder={"drofamiClient@ejemplo.com"}
-                                placeholderTextColor={darkLight}
-                                keyboardType={"email-address"}
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>Empresas registradas</Text>
+
+                            <Dropdown
+                                style={styles.dropdown}
+                                containerStyle={styles.shadow}
+                                data={data}
+                                search
+                                searchPlaceholder="Buscar"
+                                labelField="label"
+                                valueField="value"
+                                label="Dropdown"
+                                placeholder="Seleccionar"
+                                // value={dropdown}
+                                onChange={item => {
+                                // setDropdown(item.value);
+                                    console.log('selected', item);
+                                }}
+                                renderLeftIcon={() => (
+                                    // <Image style={styles.icon} source={require('../assets/bacaoliver-web.png')} />
+                                    <Icon name="house" size={25} style={{ marginLeft: 20 }} />
+                                )}
+                                renderItem={item => _renderItem(item)}
+                                textError="Error"
                             />
-                            
-                            <View>
-                                <RadioButton
-                                    
-                                    label="Cadenas de farmacia"
-                                    value="first"
-                                    status={ checked === 'first' ? 'checked' : 'unchecked' }
-                                    onPress={() => setChecked('first')}
-                                    >
-                                    <Text>Hola</Text>
-                                </RadioButton>
-                                <RadioButton
-                                    value="second"
-                                    status={ checked === 'second' ? 'checked' : 'unchecked' }
-                                    onPress={() => setChecked('second')}
-                                />
-                            </View>
+
                             
                             <View backgroundColor={Colors.primary}>
-
-
                                 <StyledButton>
                                     <ButtonText >
-                                        Cambiar Correo Electrónico
+                                        Seleccionar Empresa
                                     </ButtonText>
                                 </StyledButton>
                             </View>
-                            <View backgroundColor={Colors.primary}>
+                            
 
-                            </View>
+                            <ExtraView>
+                                <ExtraText>¿No está tu empresa? </ExtraText>
+                                {/* <TextLink onPress={() => navigation.navigate('')}> poner entre comillas el nombre de la ventana registrar empresa*/}
+                                <TextLink>
+                                    <TextLinkContent>Regístrala</TextLinkContent>
+                                </TextLink>
+                            </ExtraView>
                         </StyledFormArea2>
 
                     </Formik>
@@ -160,5 +183,42 @@ const styles = StyleSheet.create({
     },
     container2: {
         marginTop: 50,
-    }
+    },
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        padding: 40,
+    },
+    dropdown: {
+        backgroundColor: 'white',
+        borderBottomColor: 'gray',
+        borderBottomWidth: 0.5,
+        marginTop: 20,
+    },
+    icon: {
+        marginRight: 5,
+        width: 18,
+        height: 18,
+    },
+    item: {
+        paddingVertical: 17,
+        paddingHorizontal: 4,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    textItem: {
+        flex: 1,
+        fontSize: 16,
+    },
+    shadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+        width: 0,
+        height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+        elevation: 2,
+    },
 })
