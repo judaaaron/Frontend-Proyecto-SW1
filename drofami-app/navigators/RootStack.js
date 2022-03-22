@@ -14,6 +14,7 @@ import profileModification from '../screens/profileModification'
 import DetalleProductsHessel from "../screens/DetalleProductsHessel";
 import ChangePasswordScreen from '../screens/ChangePasswordScreen'
 import ChangeEmailScreen from '../screens/ChangeEmailScreen'
+import SelectEmpresa from '../screens/SelectEmpresa'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
 
@@ -83,6 +84,7 @@ const RootStackScreens = () => (
         <Stack.Screen name="DetalleProductsHessel" component={DetalleProductsHessel} options={{ header: () => null }} />
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ header: () => null }}/>
         <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen} options={{ header: () => null }}/>
+        <Stack.Screen name="SelectEmpresa" component={SelectEmpresa} options={{ header: () => null }}/>
     </Stack.Navigator>
 );
 export default RootStack;
