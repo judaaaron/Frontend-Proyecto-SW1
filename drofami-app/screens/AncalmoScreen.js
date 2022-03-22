@@ -4,7 +4,26 @@ import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as SecureStore from 'expo-secure-store';
 import {
-    Colors
+    StyledContainer,
+    InnerContainer,
+    PageLog,
+    PageTitle,
+    Subtitle,
+    StyledFormArea,
+    LeftIcon,
+    RightIcon,
+    StyledInputLabel,
+    StyledTextInput,
+    ButtonText,
+    StyledButton,
+    Colors,
+    ExtraView,
+    ExtraText,
+    TextLinkContent,
+    TextLink,
+    WelcomeContainer,
+    WelcomeImage,
+    Avatar
 } from "../components/styles"
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
@@ -27,6 +46,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [productResponse, setProductResponse] = useState();
     const [token, setToken] = useState();
     const [catalog, setCatalog] = useState([]);
+
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
     const [search, setSearch] = useState('a');
@@ -46,6 +66,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             setContent(getCatalog(setLoading, token, 'ANC', setResponse))
         })
     }, [refreshing, token])
+    
     React.useEffect(() => {
         async function token() {
             const session = await SecureStore.getItemAsync("user_session");
@@ -57,12 +78,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
         setSearch('');
     }, []);
 
-    // React.useEffect(()=>{
-    //     setData(getCatalog(setLoading, token, 'ANC',setResponse))
-    //     setFullData(getCatalog(setLoading, token, 'ANC',setResponse))
-    //     setIsLoading(false)
-    // }, [])
-
     const isFocused = useIsFocused();
     React.useEffect(() => {
         if (!token) {
@@ -72,7 +87,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             getCatalog(setLoading, token, 'ANC', setResponse);
         }
     }, [token])
-    //}, [token, isFocused])
+
 
     React.useEffect(() => {
         if (!response) {
@@ -104,6 +119,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             alert(productResponse['message']);
         }
         console.log(productResponse)
+
         const product = productResponse['data'];
         navigation.navigate('DetalleProductsAncalmo', {
             id: product["producto"]['id'],
@@ -165,53 +181,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
         }
     };
 
-    const ItemView = ({ item }) => {
-        return (
-            // Flat List Item
-            <View style={styles.card}>
-                <View
-                    style={{
-                        height: 100,
-                        alignItems: 'center',
-                    }}>
-                    <Image
-                        style={{ width: 100, height: 100, opacity: dato['cantidad'] == 0 ? 0.3 : 1, }}
-                        source={{ uri: dato.producto['imagen'] }}
-                    />
-                </View>
-
-                <Text style={{ fontWeight: 'bold', fontSize: 17, marginTop: 10, color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
-                    {dato.producto['nombre']}
-                    {dato['cantidad'] == 0 ? ' (Agotado)' : ''}
-                </Text>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginTop: 5,
-                    }}>
-                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
-                        {'L. '}{dato.producto.precio}
-                    </Text>
-                    <View
-                        style={{
-                            height: 25,
-                            width: 25,
-                            backgroundColor: Colors.primary,
-                            borderRadius: 5,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}>
-                        <Text
-                            style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: dato['cantidad'] == 0 ? Colors.secondary : Colors.blue, }} >
-                            +
-                        </Text>
-                    </View>
-                </View>
-            </View>
-        );
-    };
-
+    
     const ItemSeparatorView = () => {
         return (
             // Flat List Item Separator
@@ -304,22 +274,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
         );
     };
 
-
-    // const handleSearch = text => {
-    //     const formattedQuery = text.toLowerCase();
-    //     const filteredData = filter(<Card />, producto => {
-    //         return contains(<Card />, formattedQuery);
-    //     });
-    //     setData(filteredData);
-    //     setQuery(text);
-    // };
-
-    // const contains = () => {
-
-    //     return true;
-    // };
-
-
     function renderHeader() {
         return (
             <View style={styles.searchContainer} marginTop={10}>
@@ -372,17 +326,23 @@ const AncalmoScreen = ({ navigation, dato }) => {
             </View>
 
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
-                {/* <View style={styles.searchContainer}>
-                    <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-                    <TextInput placeholder='Buscar' style={styles.input} clearButtonMode='always'></TextInput>
-                </View> */}
+            <View style={styles.searchContainer} marginTop={10}>
+                <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => searchFilterFunction(text)}
+                    value={search}
+                    placeholder="Buscar"
+
+                />
+            </View>
                 {/* <View style={styles.sortBtn}>
                     <Icon name="sort" size={30} color={Colors.primary} />
                 </View> */}
             </View>
 
             <FlatList
-                ListHeaderComponent={renderHeader}
+                //ListHeaderComponent={renderHeader}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
@@ -395,7 +355,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
-                ItemSeparatorComponent={ItemSeparatorView}
+              //  ItemSeparatorComponent={ItemSeparatorView}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 
             />

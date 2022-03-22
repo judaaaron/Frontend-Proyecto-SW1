@@ -31,7 +31,7 @@ export async function login(setLoading, username, password, setLoginResponse) {
 }
 
 export async function signUp(username, email, phoneNumber, password, password2,
-    first_name, last_name, address, rtn, setLoading, setResponse) {
+    first_name, last_name, setLoading, setResponse) {
     let response = {};
     const rtnNew = rtn.replace(/-/g, '');
     setLoading(true);
@@ -46,10 +46,10 @@ export async function signUp(username, email, phoneNumber, password, password2,
                 'first_name': first_name,
                 'last_name': last_name,
                 'phone_number': phoneNumber,
-                'cliente': {
-                    'rtn': rtnNew,
-                    'address': address
-                }
+                // 'cliente': {
+                //     'rtn': rtnNew,
+                //     'address': address
+                // }
             }),
             headers: {
                 Accept: 'application/json',

@@ -32,6 +32,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo';
 import DetalleProductsHessel from './DetalleProductsHessel';
 import {getCatalog, getProduct} from '../src/ProductMethods'
+import { useIsFocused } from "@react-navigation/native";
+import filter from 'lodash.filter'
 
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
@@ -53,6 +55,11 @@ export default function HesselScreen({ navigation}) {
     const [search, setSearch] = useState('a');
     const [filteredDataSource, setFilteredDataSource] = useState();
     const [masterDataSource, setMasterDataSource] = useState(catalog);
+
+    React.useEffect(() => {
+        console.log("AQUIIII:",filteredDataSource)
+    }, [filteredDataSource])
+
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
         wait(2000).then(()=>{
@@ -60,7 +67,6 @@ export default function HesselScreen({ navigation}) {
             setContent(getCatalog(setLoading, token,'HES',setResponse))
         })
     },[refreshing, token])
-
 
     React.useEffect(() => {
         async function token() {
@@ -70,13 +76,17 @@ export default function HesselScreen({ navigation}) {
             setToken(token)    
         }
         token();
+        setSearch('');
     }, []);
 
+    const isFocused = useIsFocused();
     React.useEffect(() => {
         if (!token) {
             return;
         }
-        getCatalog(setLoading, token, 'HES',setResponse);
+        if (isFocused) {
+            getCatalog(setLoading, token, 'HES', setResponse);
+        }
     }, [token])
 
     React.useEffect(() => {
@@ -90,10 +100,12 @@ export default function HesselScreen({ navigation}) {
         response['data'].forEach((element) => {
             tempCatalog.push(element);
         })
-        setCatalog(catalog => ({
-            ...tempCatalog
-        }));
+        setCatalog(tempCatalog)
     }, [response]);
+
+    React.useEffect(() => {
+        const entries = Object.entries(catalog);
+    }, [catalog])
 
     React.useEffect(() => {
         if (!productResponse) {
@@ -107,6 +119,7 @@ export default function HesselScreen({ navigation}) {
             alert(productResponse['message']);
         }
         console.log(productResponse)
+
         const product = productResponse['data'];
         navigation.navigate('DetalleProductsAncalmo', {
             id: product["producto"]['id'],
@@ -140,10 +153,33 @@ export default function HesselScreen({ navigation}) {
         return temp
     }
 
-    React.useEffect(() => {
-        const entries = Object.entries(catalog);
-        console.log(entries);
-    }, [catalog])
+    const searchFilterFunction = (text) => {
+        if (text) {
+            const newData = catalog.filter((element) => {
+                return element.producto.nombre.toLowerCase().includes(text.toLowerCase()) ? true : false;
+            });
+            setFilteredDataSource(newData);
+            setSearch(text);
+        } else {
+            // Inserted text is blank
+            // Update FilteredDataSource with masterDataSource
+            setFilteredDataSource(catalog);
+            setSearch(text);
+        }
+    };
+
+    const ItemSeparatorView = () => {
+        return (
+            // Flat List Item Separator
+            <View
+                style={{
+                    height: 0.2,
+                    width: '100%',
+                    backgroundColor: '#C8C8C8',
+                }}
+            />
+        );
+    };
 
     
     const Card = ({ dato }) => {
@@ -223,6 +259,21 @@ export default function HesselScreen({ navigation}) {
             </TouchableOpacity>
         );
     };
+
+    function renderHeader() {
+        return (
+            <View style={styles.searchContainer} marginTop={10}>
+                <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => searchFilterFunction(text)}
+                    value={search}
+                    placeholder="Buscar"
+
+                />
+            </View>
+        );
+    }
     return (
         <SafeAreaView
             style={{
@@ -250,15 +301,22 @@ export default function HesselScreen({ navigation}) {
                 <Icon name="shopping-cart" size={30} color={Colors.blue} />
             </View>
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
-                <View style={styles.searchContainer}>
-                    <Icon name="search" size={25} style={{ marginLeft: 20 }}  />
-                    <TextInput placeholder='Buscar' style={styles.input}  clearButtonMode='always'></TextInput>
-                </View>
+            <View style={styles.searchContainer} marginTop={10}>
+                <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => searchFilterFunction(text)}
+                    value={search}
+                    placeholder="Buscar"
+
+                />
+            </View>
                 {/* <View style={styles.sortBtn}>
                     <Icon name="sort" size={30} color={Colors.primary} />
                 </View> */}
             </View>
             <FlatList
+              //  ListHeaderComponent={renderHeader}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
@@ -266,11 +324,12 @@ export default function HesselScreen({ navigation}) {
                     paddingBottom: 50,
                 }}
                 numColumns={2}
-                data={catalog ? emptyToBack(Object.values(catalog)) : []}
+                data={filteredDataSource ? emptyToBack(filteredDataSource) : catalog ? emptyToBack(catalog) : []}
                 renderItem={({ item }) => {
                     return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
+             //   ItemSeparatorComponent={ItemSeparatorView}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             />
         </SafeAreaView>

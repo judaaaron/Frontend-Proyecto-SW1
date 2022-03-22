@@ -18,7 +18,7 @@ export default function MainHome({ navigation }) {
 
         <>
             <ScrollView>
-                <StyledContainer style={{top:10}}>
+                <StyledContainer style={{top:23}}>
                     <StatusBar style="dark" />
                     <InnerContainer>
                         <PageLog

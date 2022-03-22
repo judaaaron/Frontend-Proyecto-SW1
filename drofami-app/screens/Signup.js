@@ -34,7 +34,7 @@ import {
 import Login from "./Login";
 
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
-
+import Keyboard2 from "../components/Keyboard2";
 
 const { brand, darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóú]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
@@ -66,11 +66,11 @@ let SingUpValidationSchema = yup.object().shape({
             "Número teléfonico inválido",
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
-    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Campo obligatorio'),
-    rtn: yup.string().min(14, ({ min }) => `RTN debe tener 14 números`).max(14, ({ max }) => `RTN debe tener 14 números`)
-        .required('Número de RTN es obligatorio').matches(regularRTN,
-            "RTN inválido"
-        ),
+    // direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Campo obligatorio'),
+    // rtn: yup.string().min(14, ({ min }) => `RTN debe tener 14 números`).max(14, ({ max }) => `RTN debe tener 14 números`)
+    //     .required('Número de RTN es obligatorio').matches(regularRTN,
+    //         "RTN inválido"
+    //     ),
 
 
 
@@ -105,8 +105,7 @@ const Signup = ({ navigation }) => {
 
     return (
         <>
-            <KeyboardAvoidingWrapper>
-
+           <Keyboard2>
                 <StyledContainer>
                     <StatusBar style="dark" />
 
@@ -118,12 +117,11 @@ const Signup = ({ navigation }) => {
                         />
                         <Subtitle>Registro</Subtitle>
                         <Formik
-                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "", rtn: "" }}
+                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "" }}
                             validateOnMount={true}
                             onSubmit={(values) => {
                                 signUp(values.usuario, values.correo, values.phone, values.password,
-                                    values.confirmPassword, values.nombre, values.apellido, values.direccion,
-                                    values.rtn, setLoading, setResponse
+                                    values.confirmPassword, values.nombre, values.apellido, setLoading, setResponse
                                 );
                             }}
                             validationSchema={SingUpValidationSchema}
@@ -251,7 +249,7 @@ const Signup = ({ navigation }) => {
                                         {errors.confirmPassword}
                                     </Text>
                                 }
-                                <MyAutoGrowingTextInput 
+                                {/* <MyAutoGrowingTextInput 
                                     backgroundColor= {Colors.secondary}
                                     label={"Dirección"}
                                     icon={"location"}
@@ -282,7 +280,7 @@ const Signup = ({ navigation }) => {
                                     <Text style={styles.errores}>
                                         {errors.rtn}
                                     </Text>
-                                }
+                                } */}
 
                                 <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
                                     <ButtonText >
@@ -297,7 +295,7 @@ const Signup = ({ navigation }) => {
                     </InnerContainer>
 
                 </StyledContainer>
-            </KeyboardAvoidingWrapper>
+                </Keyboard2>
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
                 <ActivityIndicator size={100} color={'blue'} />

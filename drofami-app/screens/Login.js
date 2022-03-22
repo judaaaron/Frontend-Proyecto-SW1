@@ -31,6 +31,7 @@ import {
     TextLink
 
 } from "../components/styles";
+import Keyboard2 from "../components/Keyboard2";
 
 const { brand, darkLight } = Colors;
 
@@ -95,17 +96,15 @@ const Login = ({ navigation }) => {
 
     return (
         <>
-
-            <KeyboardAvoidingWrapper>
-                <View style={estilos.view2}>
+            <Keyboard2>
+                <View style={estilos.view2} top={-50}>
                     <StyledContainer>
                         <StatusBar style="dark" />
-                        <InnerContainer>
+                        <InnerContainer marginTop={120}>
                             <PageLog
+                                top={-30}
                                 source={require("../assets/drofamilogo1.jpg")}
-                                resizeMode="cover"
-
-                            />
+                                resizeMode="cover"/>
                             <PageTitle>Droguería y Farmacia
                                 Centroámerica Milenio
                             </PageTitle>
@@ -164,7 +163,7 @@ const Login = ({ navigation }) => {
                         </InnerContainer>
                     </StyledContainer>
                 </View>
-            </KeyboardAvoidingWrapper>
+            </Keyboard2>
 
             {isLoading && <View style={[StyleSheet.absoluteFillObject, estilos.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
