@@ -332,7 +332,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
                     style={styles.input}
                     onChangeText={(text) => searchFilterFunction(text)}
                     value={search}
-                    placeholder="Buscar"
+                    placeholder="Buscarr"
 
                 />
             </View>
