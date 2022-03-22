@@ -103,8 +103,15 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 alignItems: 'center',
                 
               }}>
-              <View style={style.borderBtn} >
-                <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text>
+                
+              <View>
+                {/* <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text> */}
+                <FAB
+                  theme={{ colors: { accent: Colors.blue } }}
+                  big
+                  icon="minus"
+                  onPress={handleSubstract}
+                />
               </View>
               <Text
                 style={{
@@ -114,13 +121,19 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 }}>
                   {counter}
               </Text>
-              <View style={style.borderBtn}>
-                <Text style={style.borderBtnText} onPress={handleAdd}>+</Text>
+              <View >
+              {/* <Text style={style.borderBtnText} onPress={handleAdd}>+</Text> */}
+              <FAB
+                  // style={style.borderBtnText}
+                  theme={{ colors: { accent: Colors.blue } }}
+                  big
+                  icon="plus"
+                  onPress={handleAdd}
+                />
               </View>
              
             </View>
-
-            <View style={style.buyBtn}>
+            <View style={style.buyBtn} top={3}>
               <Text
                 style={{ color: Colors.primary, fontSize: 18, fontWeight: 'bold' }}>
                 Ordenar
@@ -195,4 +208,19 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25,
   },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    color:Colors.blue,
+  },
+  fab2: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    color:Colors.blue,
+  },
+
 });
