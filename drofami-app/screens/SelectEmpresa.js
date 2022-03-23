@@ -7,6 +7,8 @@ import { Octicons, Ionicons } from "@expo/vector-icons";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
+import {getEmpresa} from '../src/EmpresaMethods'
+import * as SecureStore from 'expo-secure-store';
 
 import {
     PageLog,
@@ -45,100 +47,105 @@ const data = [
 const SelectEmpresa = ({ route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
     const [checked, setChecked] = React.useState('first');
+    const [response, setResponse] = React.useState();
+    const [token, setToken] = React.useState();
+    const [empresas, setEmpresas] = React.useState([]);
+    const [selected, setSelected] = React.useState(null);
+
+    React.useEffect(() => {
+        async function token() {
+            const session = await SecureStore.getItemAsync("user_session");
+            token = JSON.parse(session)['token'];
+            setToken(token)
+        }
+        token();
+    }, []);
+
+    React.useEffect(() => {
+        getEmpresa(setLoading, token, setResponse);
+    }, [token])
+
+    React.useEffect(() => {
+        if (!response) {
+            return;
+        }
+        console.log('data', response['data']);
+        setEmpresas(response['data']);
+    }, [response])
 
     const _renderItem = item => {
             return (
             <View style={styles.item}>
-                <Text style={styles.textItem}>{item.label}</Text>
+                <Text style={styles.textItem}>{item.name}</Text>
                 {/* <Image style={styles.icon} source={require('../assets/drofamilogo1.png')} /> */}
             </View>
             );
         };
 
+    function handleSubmit() {
+        console.log(selected)
+    }
+
     return (
         <>
             {/* <KeyboardAvoidingWrapper> */}
             <View backgroundColor={Colors.primary} top={-90}>
-
                 <InnerContainer2 style={styles.inner2}>
-                    <View style={{marginRight:350}}>
+                    <View style={{marginRight:350}} >
                         <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
                     </View>
                     <PageLog
                         source={require("../assets/drofamilogo1.jpg")}
                         resizeMode="cover"
-
-                    />
-
-                    <Subtitle>Seleccionar empresa</Subtitle>
-                    <Formik>
-                        
-                        <StyledFormArea2>
-
-                            <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>Empresas registradas</Text>
-
+                    />                
+                    <StyledFormArea2>
+                        <Subtitle marginTop={10}>Seleccione su empresa para continuar</Subtitle>
+                            {/* <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>Registrá t</Text> */}
                             <Dropdown
                                 style={styles.dropdown}
                                 containerStyle={styles.shadow}
-                                data={data}
+                                data={empresas}
                                 search
                                 searchPlaceholder="Buscar"
-                                labelField="label"
-                                valueField="value"
+                                labelField="name"
+                                valueField="id"
                                 label="Dropdown"
-                                placeholder="Seleccionar"
+                                placeholder=" Empresas"
+                                fontWeight="bold"
                                 // value={dropdown}
-                                onChange={item => {
-                                // setDropdown(item.value);
-                                    console.log('selected', item);
-                                }}
+                                onChange={(item) => {
+                                        setSelected(item)
+                                    }
+                                }
                                 renderLeftIcon={() => (
-                                    // <Image style={styles.icon} source={require('../assets/bacaoliver-web.png')} />
-                                    <Icon name="house" size={25} style={{ marginLeft: 20 }} />
+                                    <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/>
                                 )}
                                 renderItem={item => _renderItem(item)}
                                 textError="Error"
-                            />
-
-                            
+                            />                        
                             <View backgroundColor={Colors.primary}>
-                                <StyledButton>
+                                <StyledButton onPress={() => handleSubmit()} 
+                                disabled={selected ? false : true} 
+                                style={{ backgroundColor: selected ? Colors.blue : '#9CA3AF' }}>
                                     <ButtonText >
-                                        Seleccionar Empresa
+                                        Aceptar
                                     </ButtonText>
                                 </StyledButton>
-                            </View>
-                            
-
+                            </View>                        
                             <ExtraView>
                                 <ExtraText>¿No está tu empresa? </ExtraText>
                                 {/* <TextLink onPress={() => navigation.navigate('')}> poner entre comillas el nombre de la ventana registrar empresa*/}
                                 <TextLink>
                                     <TextLinkContent>Regístrala</TextLinkContent>
                                 </TextLink>
-                            </ExtraView>
+                            </ExtraView>                            
                         </StyledFormArea2>
-
-                    </Formik>
                 </InnerContainer2>
             </View>
             {/* </KeyboardAvoidingWrapper> */}
-            {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
-                {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
-                <ActivityIndicator size={100} color={'blue'} />
-                <Text>
-                    Cambiando correo electrónico...
-                </Text>
-            </View>
-
-            }
-
+            
         </>
-
-
     );
-
-
 };
 export default SelectEmpresa;
 
@@ -160,65 +167,65 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, f
 };
 
 const styles = StyleSheet.create({
-    errores: {
-        fontSize: 10,
-        color: 'red',
-        top: -10,
+  errores: {
+    fontSize: 10,
+    color: "red",
+    top: -10,
+  },
+  spinnercontent: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    zIndex: 1,
+  },
+  view2: {
+    backgroundColor: "white",
+  },
+  backIcon: {
+    top: 180,
+  },
+  inner2: {
+    top: 80,
+  },
+  container2: {
+    marginTop: 50,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    padding: 40,
+  },
+  dropdown: {
+    backgroundColor: "white",
+    borderBottomColor: "gray",
+    borderBottomWidth: 0.5,
+    marginTop: 50,
+    marginBottom: 50,
+  },
+  icon: {
+    marginRight: 5,
+    width: 18,
+    height: 18,
+  },
+  item: {
+    paddingVertical: 17,
+    paddingHorizontal: 4,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
     },
-    spinnercontent: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        zIndex: 1,
-    },
-    view2: {
-        backgroundColor: 'white',
-    },
-    backIcon: {
-        top: 180,
-
-    },
-    inner2: {
-        top: 80,
-    },
-    container2: {
-        marginTop: 50,
-    },
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        padding: 40,
-    },
-    dropdown: {
-        backgroundColor: 'white',
-        borderBottomColor: 'gray',
-        borderBottomWidth: 0.5,
-        marginTop: 20,
-    },
-    icon: {
-        marginRight: 5,
-        width: 18,
-        height: 18,
-    },
-    item: {
-        paddingVertical: 17,
-        paddingHorizontal: 4,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    textItem: {
-        flex: 1,
-        fontSize: 16,
-    },
-    shadow: {
-        shadowColor: '#000',
-        shadowOffset: {
-        width: 0,
-        height: 1,
-        },
-        shadowOpacity: 0.2,
-        shadowRadius: 1.41,
-        elevation: 2,
-    },
-})
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+});

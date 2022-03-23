@@ -37,7 +37,7 @@ import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import Keyboard2 from "../components/Keyboard2";
 
 const { brand, darkLight } = Colors;
-const regularNameLastName = /^[A-Za-záéíóú]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
+const regularNameLastName = /^[A-Za-záéíóúñ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
 const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0]{1}[0-4]{1})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
@@ -66,14 +66,11 @@ let SingUpValidationSchema = yup.object().shape({
             "Número teléfonico inválido",
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
-    // direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Campo obligatorio'),
+    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Campo obligatorio'),
     // rtn: yup.string().min(14, ({ min }) => `RTN debe tener 14 números`).max(14, ({ max }) => `RTN debe tener 14 números`)
     //     .required('Número de RTN es obligatorio').matches(regularRTN,
     //         "RTN inválido"
     //     ),
-
-
-
 });
 
 const Signup = ({ navigation }) => {
@@ -117,11 +114,12 @@ const Signup = ({ navigation }) => {
                         />
                         <Subtitle>Registro</Subtitle>
                         <Formik
-                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "" }}
+                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion:"" }}
                             validateOnMount={true}
                             onSubmit={(values) => {
                                 signUp(values.usuario, values.correo, values.phone, values.password,
-                                    values.confirmPassword, values.nombre, values.apellido, setLoading, setResponse
+                                    values.confirmPassword, values.nombre, values.apellido, values.direccion,
+                                    setLoading, setResponse
                                 );
                             }}
                             validationSchema={SingUpValidationSchema}
@@ -196,7 +194,7 @@ const Signup = ({ navigation }) => {
                                 <MyTextInput
                                     label={"Teléfono"}
                                     icon={"device-mobile"}
-                                    placeholder={"9985-5678"}
+                                    placeholder={"9999-9999"}
                                     placeholderTextColor={darkLight}
                                     onChangeText={handleChange("phone")}
                                     onBlur={handleBlur("phone")}
@@ -249,7 +247,7 @@ const Signup = ({ navigation }) => {
                                         {errors.confirmPassword}
                                     </Text>
                                 }
-                                {/* <MyAutoGrowingTextInput 
+                                 <MyAutoGrowingTextInput 
                                     backgroundColor= {Colors.secondary}
                                     label={"Dirección"}
                                     icon={"location"}
@@ -266,7 +264,7 @@ const Signup = ({ navigation }) => {
                                     </Text>
                                 }
 
-                                <MyTextInput
+                                {/* <MyTextInput
                                     label={"RTN"}
                                     icon={"credit-card"}
                                     placeholder={"08011999987415"}

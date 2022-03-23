@@ -131,7 +131,7 @@ const Login = ({ navigation }) => {
                                         keyboardType={"email-address"}
                                     />
                                     <MyTextInput
-                                        label={"Token"}
+                                        label={"Contraseña"}
                                         icon={"lock"} 
                                         placeholder={"*************"}
                                         placeholderTextColor={darkLight}

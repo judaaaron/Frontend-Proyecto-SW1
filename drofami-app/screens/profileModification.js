@@ -196,7 +196,7 @@ const Signup = ({ route, navigation }) => {
                     <MyTextInput
                       label={"Teléfono"}
                       icon={"device-mobile"}
-                      placeholder={"9874-8574"}
+                      placeholder={"9999-99"}
                       placeholderTextColor={darkLight}
                       onChangeText={handleChange("phone")}
                       onBlur={handleBlur("phone")}

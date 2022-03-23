@@ -31,9 +31,9 @@ export async function login(setLoading, username, password, setLoginResponse) {
 }
 
 export async function signUp(username, email, phoneNumber, password, password2,
-    first_name, last_name, setLoading, setResponse) {
+    first_name, last_name, address, setLoading, setResponse) {
     let response = {};
-    const rtnNew = rtn.replace(/-/g, '');
+    //const rtnNew = rtn.replace(/-/g, '');
     setLoading(true);
     try {
         response = await fetch(API_URL + 'auth/register/', {
@@ -46,10 +46,10 @@ export async function signUp(username, email, phoneNumber, password, password2,
                 'first_name': first_name,
                 'last_name': last_name,
                 'phone_number': phoneNumber,
-                // 'cliente': {
-                //     'rtn': rtnNew,
-                //     'address': address
-                // }
+                'cliente': {
+                    //  'rtn': " .",
+                     'address': address,
+                }
             }),
             headers: {
                 Accept: 'application/json',
@@ -58,6 +58,7 @@ export async function signUp(username, email, phoneNumber, password, password2,
         }).then((response) => 
             response.json())
         .then(data => {
+            console.log(data)
             setResponse(data)
         })
     } catch (e){
