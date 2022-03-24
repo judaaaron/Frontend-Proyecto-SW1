@@ -135,7 +135,7 @@ const SelectEmpresa = ({ route, navigation }) => {
                             <ExtraView>
                                 <ExtraText>¿No está tu empresa? </ExtraText>
                                 {/* <TextLink onPress={() => navigation.navigate('')}> poner entre comillas el nombre de la ventana registrar empresa*/}
-                                <TextLink>
+                                <TextLink onPress={() => navigation.navigate('CreateEmpresa')}>
                                     <TextLinkContent>Regístrala</TextLinkContent>
                                 </TextLink>
                             </ExtraView>                            

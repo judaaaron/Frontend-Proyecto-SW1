@@ -15,6 +15,7 @@ import DetalleProductsHessel from "../screens/DetalleProductsHessel";
 import ChangePasswordScreen from '../screens/ChangePasswordScreen'
 import ChangeEmailScreen from '../screens/ChangeEmailScreen'
 import SelectEmpresa from '../screens/SelectEmpresa'
+import CreateEmpresa from '../screens/CreateEmpresa'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
 
@@ -75,9 +76,9 @@ const RootStack = () => {
 }
 
 const RootStackScreens = () => (
-    <Stack.Navigator initialRouteName={Login}>
-        <Stack.Screen name="Login" component={Login} options={{ header: () => null }} />
-        <Stack.Screen name="Signup" component={Signup} options={{ header: () => null }}/>
+    <Stack.Navigator initialRouteName={MainHome}>
+       {/* <Stack.Screen name="Login" component={Login} options={{ header: () => null }} />
+        <Stack.Screen name="Signup" component={Signup} options={{ header: () => null }}/> */}
         <Stack.Screen name="Home" component={HomeTabs} options={{ header: () => null }} />
         <Stack.Screen name="profileModification" component={profileModification} options={{ header: () => null }}/>
         <Stack.Screen name="DetalleProductsAncalmo" component={DetalleProductsAncalmo} options={{ header: () => null }} />
@@ -85,6 +86,8 @@ const RootStackScreens = () => (
         <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} options={{ header: () => null }}/>
         <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen} options={{ header: () => null }}/>
         <Stack.Screen name="SelectEmpresa" component={SelectEmpresa} options={{ header: () => null }}/>
+        <Stack.Screen name="CreateEmpresa" component={CreateEmpresa} options={{ header: () => null }}/>
+
     </Stack.Navigator>
 );
 export default RootStack;
