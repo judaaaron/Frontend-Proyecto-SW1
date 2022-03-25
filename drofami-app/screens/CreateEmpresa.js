@@ -96,24 +96,23 @@ const createEmpresa = ({ navigation }) => {
 
     return (
       <>
-        <KeyboardAvoidingWrapper>
-          <View backgroundColor={Colors.primary} top={-90}>
-            <StyledContainer>
-              <StatusBar style="dark" />
+        <Keyboard2>
+          <StyledContainer marginTop={-20} top={25}>
+            <StatusBar style="dark" />
+            <View style={styles.header} top={6}>
+              <Icon
+                name="arrow-back"
+                size={30}
+                onPress={() => navigation.goBack()}
+              />
+            </View>
 
-              <InnerContainer2 style={styles.inner2}>
-                <View style={{ marginRight: 350 }}>
-                  <Icon
-                    name="arrow-back"
-                    size={30}
-                    onPress={() => navigation.goBack()}
-                  />
-                </View>
-                <PageLog
-                  source={require("../assets/drofamilogo1.jpg")}
-                  resizeMode="cover"
-                />
-                <Subtitle>Creacion de Empresa</Subtitle>
+            <InnerContainer top={-10}>
+              <PageLog
+                source={require("../assets/drofamilogo1.jpg")}
+                resizeMode="cover"
+              />
+              <Subtitle>Modificación</Subtitle>
                 <Formik
                   initialValues={{
                     nombre: "",
@@ -209,9 +208,7 @@ const createEmpresa = ({ navigation }) => {
                         })}
                       </Picker>
 
-                      {errors.nombre && touched.nombre && (
-                        <Text style={styles.errores}>{errors.nombre}</Text>
-                      )}
+                
 
                       <StyledButton
                         onPress={handleSubmit}
@@ -226,10 +223,9 @@ const createEmpresa = ({ navigation }) => {
                     </StyledFormArea>
                   )}
                 </Formik>
-              </InnerContainer2>
+              </InnerContainer>
             </StyledContainer>
-          </View>
-        </KeyboardAvoidingWrapper>
+        </Keyboard2>
         {isLoading && (
           <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
             {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
@@ -285,7 +281,7 @@ const styles = StyleSheet.create({
         top: 180,
       },
       inner2: {
-        top: 80,
+        marginTop:180,
       },
     container2: {
         marginTop: 50,

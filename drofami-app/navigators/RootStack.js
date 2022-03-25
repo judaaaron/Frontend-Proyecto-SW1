@@ -40,28 +40,11 @@ const HomeTabs = () => {
             <Tab.Screen name={Ancalmo} component={AncalmoScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/ancalmoAzul.png")} style={{ width: 25, height: 25, top: 5 }} />), name: () => null }} />
             <Tab.Screen name={Hessel} component={HesselScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/heseelAzul.png")} style={{ width: 30, height: 30, top: 3 }} />), name: () => null }} />
             <Tab.Screen name={settingsName} component={SettingsHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/userAzul.png")} style={{ width: 25, height: 25, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
-            {/* <Tab.Screen name={"Detalle"} component={DetalleProductsAncalmo} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/profile5.png")} style={{ width: 25, height: 25, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} /> */}
 
         </Tab.Navigator>
-        // <Tab.Navigation>
-        //     <Tab.Screen
-        //         name='Settings'
-        //         listeners={() => ({
-        //             tabPress: (e) => {
-        //                 e.preventDefault();
-        //                 navigation.navigate('Settings');
-        //             }
-        //         })} />
-        // </Tab.Navigation>
 
     );
 };
-
-// const AncalmoNavigator = () => {
-//     <Stack.Navigator>
-//         <Stack.Screen name="DetalleAncalmo" component={DetalleProductsAncalmo} options={{ header: () => null }} />
-//     </Stack.Navigator>
-// }
 
 const RootStack = () => {
     return (
@@ -87,7 +70,6 @@ const RootStackScreens = () => (
         <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen} options={{ header: () => null }}/>
         <Stack.Screen name="SelectEmpresa" component={SelectEmpresa} options={{ header: () => null }}/>
         <Stack.Screen name="CreateEmpresa" component={CreateEmpresa} options={{ header: () => null }}/>
-
     </Stack.Navigator>
 );
 export default RootStack;
