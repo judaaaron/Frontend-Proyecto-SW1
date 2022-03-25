@@ -7,7 +7,7 @@ import { Octicons, Ionicons } from "@expo/vector-icons";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
-import {getEmpresa} from '../src/EmpresaMethods'
+import {getEmpresa, setEmpresa} from '../src/EmpresaMethods'
 import * as SecureStore from 'expo-secure-store';
 
 import {
@@ -48,6 +48,7 @@ const SelectEmpresa = ({ route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
     const [checked, setChecked] = React.useState('first');
     const [response, setResponse] = React.useState();
+    const [responsePUT, setResponsePUT] = React.useState();
     const [token, setToken] = React.useState();
     const [empresas, setEmpresas] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
@@ -73,6 +74,20 @@ const SelectEmpresa = ({ route, navigation }) => {
         setEmpresas(response['data']);
     }, [response])
 
+    React.useEffect(() => {
+        if (!responsePUT) {
+            return;
+        
+        }
+        if (responsePUT['message']) {
+            alert(responsePUT['message']);
+        }
+        if (response['status'] && response['status'] == 'success') {
+            navigation.goBack();
+        }
+        setEmpresas(responsePUT['data']);
+    }, [responsePUT])
+
     const _renderItem = item => {
             return (
             <View style={styles.item}>
@@ -83,7 +98,13 @@ const SelectEmpresa = ({ route, navigation }) => {
         };
 
     function handleSubmit() {
-        console.log(selected)
+        if(!selected || !selected.id) {
+            return;
+        }
+        const id = selected.id
+        console.log('Token ', token)
+        console.log('ID |||', id, "|||")
+        setEmpresa(setLoading, token, id, setResponsePUT);
     }
 
     return (

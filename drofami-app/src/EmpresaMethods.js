@@ -24,28 +24,28 @@ export async function getEmpresa(setLoading, token, setResponse) {
     }
 }
 
-export async function setEmpresa(setLoading, token, id, setResponse) {
+export async function setEmpresa(setLoading, token, idEmpresa, setResponse) {
     setLoading(true);
     const resp = {};
     let response = {}
     try {
-        response = await fetch(API_URL + 'enterprise/', {
-            method: 'GET',
+        response = await fetch(API_URL + 'enterprise/register/', {
+            method: 'PUT',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Token ' + token,
               },
-              body: {
-                  id: id
-              }
+              body: JSON.stringify({
+                  'id': idEmpresa
+              })
         }).then((response) => response.json())
         .then(data => {
             resp['data'] = data;
             setResponse(data)
         })
     } catch (e){
-        console.log('Error en getEmpresa! ', e);
+        console.log('Error en putEmpresa! ', e);
     } finally {
        setLoading(false)
     }

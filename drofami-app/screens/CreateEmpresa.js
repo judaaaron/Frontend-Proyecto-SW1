@@ -4,11 +4,13 @@ import { Button, Modal, Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, Image, StyleSheet } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import MaskInput from 'react-native-mask-input';
+
 
 import {
     StyledContainer,
@@ -39,8 +41,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const { brand, darkLight } = Colors;
-const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0]{1}[0-4]{1})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
-const regularName = /(^(\S))+(\s*[aA-zZ0-9!-@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
+const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{1}[0-2]{1})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
+const regularName = /(^(\S))+(\s*[aA-zZ0-9])+$/ // acepta basicamente todo tipo de caracter
 const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9])+$/
 
 //es basicamente el signup  pero como create en empresa
@@ -56,9 +58,16 @@ let CreateValidationSchema = yup.object().shape({
          ),
 });
 
-const Signup = ({ navigation }) => {
+const createEmpresa = ({ navigation }) => {
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
+
+    const canalesDeVenta = [
+        {nombre: 'Mayorista', id: 'MAY'},
+        {nombre: 'Farmacia', id: 'FAR'},
+        {nombre: 'Supermercado', id: 'SUP'},
+        // {nombre: 'Farmacia-Mayorista'},
+    ]
 
     React.useEffect(() => {
         console.log(response)
@@ -86,28 +95,34 @@ const Signup = ({ navigation }) => {
     }, [response])
 
     return (
-        <>
-           <Keyboard2>
-           <View backgroundColor={Colors.primary} top={-90}>
-                <StyledContainer>
-                    <StatusBar style="dark" />
+      <>
+        <KeyboardAvoidingWrapper>
+          <View backgroundColor={Colors.primary} top={-90}>
+            <StyledContainer>
+              <StatusBar style="dark" />
 
-                    <InnerContainer2 style={styles.inner2}>
-                        <View style={{marginRight:350}} >
-
-                            <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
-                        
-                        </View>
-                        <PageLog
-                            source={require("../assets/drofamilogo1.jpg")}
-                            resizeMode="cover"
-
-                        />
-                        <Subtitle>Creacion de Empresa</Subtitle>
-                        <Formik
-                            initialValues={{  nombre: "", direccion:"",rtn:"", canal:"" }}
-                            validateOnMount={true}
-                            /*
+              <InnerContainer2 style={styles.inner2}>
+                <View style={{ marginRight: 350 }}>
+                  <Icon
+                    name="arrow-back"
+                    size={30}
+                    onPress={() => navigation.goBack()}
+                  />
+                </View>
+                <PageLog
+                  source={require("../assets/drofamilogo1.jpg")}
+                  resizeMode="cover"
+                />
+                <Subtitle>Creacion de Empresa</Subtitle>
+                <Formik
+                  initialValues={{
+                    nombre: "",
+                    direccion: "",
+                    rtn: "",
+                    canal: "",
+                  }}
+                  validateOnMount={true}
+                  /*
                             onSubmit={(values) => {
 
                                 // Esto hay que cambiar aqui va la parte de subir a la base de datos
@@ -116,107 +131,113 @@ const Signup = ({ navigation }) => {
                                     setLoading, setResponse
                                 );
                             }}*/
-                            validationSchema={CreateValidationSchema}
-                        >
-                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
-                                <MyTextInput
-                                    label={"Nombre de la Empresa"}
-                                    //hay que sacar un diferente Icon for this
-                                    icon={"pencil"}
-                                    placeholder={"ej. Kielsa"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("nombre")}
-                                    onBlur={handleBlur("nombre")}
-                                    values={values.nombre}
+                  validationSchema={CreateValidationSchema}
+                >
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    touched,
+                    errors,
+                    isValid,
+                  }) => (
+                    <StyledFormArea>
+                      <MyTextInput
+                        label={"Nombre de la Empresa"}
+                        //hay que sacar un diferente Icon para esto
+                        icon={"pencil"}
+                        placeholder={"ej. Kielsa"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("nombre")}
+                        onBlur={handleBlur("nombre")}
+                        values={values.nombre}
+                      />
 
-                                />
+                      {errors.nombre && touched.nombre && (
+                        <Text style={styles.errores}>{errors.nombre}</Text>
+                      )}
 
-                                {(errors.nombre && touched.nombre) &&
-                                    <Text style={styles.errores}>
-                                        {errors.nombre}
-                                    </Text>
-                                }
+                      <MyAutoGrowingTextInput
+                        backgroundColor={Colors.secondary}
+                        label={"Dirección"}
+                        icon={"location"}
+                        placeholder={"Dirección de entrega"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("direccion")}
+                        onBlur={handleBlur("direccion")}
+                        values={values.direccion}
+                      />
 
-                                 <MyAutoGrowingTextInput 
-                                    backgroundColor= {Colors.secondary}
-                                    label={"Dirección"}
-                                    icon={"location"}
-                                    placeholder={"Dirección de entrega"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("direccion")}
-                                    onBlur={handleBlur("direccion")}
-                                    values={values.direccion}
-                                     />
+                      {errors.direccion && touched.direccion && (
+                        <Text style={styles.errores}>{errors.direccion}</Text>
+                      )}
 
-                                {(errors.direccion && touched.direccion) &&
-                                    <Text style={styles.errores}>
-                                        {errors.direccion}
-                                    </Text>
-                                }
+                      <MyTextInput
+                        label={"RTN"}
+                        icon={"credit-card"}
+                        placeholder={"08011999987415"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("rtn")}
+                        onBlur={handleBlur("rtn")}
+                        values={values.rtn}
+                      />
 
-                                 <MyTextInput
-                                    label={"RTN"}
-                                    icon={"credit-card"}
-                                    placeholder={"08011999987415"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("rtn")}
-                                    onBlur={handleBlur("rtn")}
-                                    values={values.rtn}
-                                />
+                      {errors.rtn && touched.rtn && (
+                        <Text style={styles.errores}>{errors.rtn}</Text>
+                      )}
 
-                                {(errors.rtn && touched.rtn) &&
-                                    <Text style={styles.errores}>
-                                        {errors.rtn}
-                                    </Text>
-                                } 
+                      {/* Canal de venta sera un text input Meanwhile */}
+                      <StyledInputLabel>Canal de Venta</StyledInputLabel>
+                      <Picker
+                        enabled={true}
+                        mode="dropdown"
+                        placeholder="Canal de venta"
+                        // onValueChange={formik.handleChange('city_name')}
+                        // selectedValue={formik.values.city_name}
+                        selectedValue={values.canal}
+                        onValueChange={handleChange("canal")}
+                      >
+                        {canalesDeVenta.map((item) => {
+                          return (
+                            <Picker.Item
+                              label={item.nombre.toString()}
+                              value={item.nombre.toString()}
+                              id={item.id.toString()}
+                            />
+                          );
+                        })}
+                      </Picker>
 
-                                {/* Canal de venta sera un text input Meanwhile */}
-                                <MyTextInput
-                                    label={"Canal de venta"}
-                                    icon={"person"}
-                                    placeholder={"ej. Independiente, Farmacia "}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("nombre")}
-                                    onBlur={handleBlur("nombre")}
-                                    values={values.canal}
+                      {errors.nombre && touched.nombre && (
+                        <Text style={styles.errores}>{errors.nombre}</Text>
+                      )}
 
-                                />
-
-                                {(errors.nombre && touched.nombre) &&
-                                    <Text style={styles.errores}>
-                                        {errors.nombre}
-                                    </Text>
-                                }
-
-
-                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
-                                    <ButtonText >
-                                        Registrar Empresa
-                                    </ButtonText>
-                                </StyledButton>
-
-                            </StyledFormArea>)}
-
-                        </Formik>
-
-                    </InnerContainer2>
-
-                </StyledContainer>
-            </View>
-            </Keyboard2>
-            {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
-                {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
-                <ActivityIndicator size={100} color={'blue'} />
-                <Text>
-                    Creando empresa...
-                </Text>
-            </View>
-
-            }
-
-        </>
-
-
+                      <StyledButton
+                        onPress={handleSubmit}
+                        rounded
+                        disabled={!isValid}
+                        style={{
+                          backgroundColor: isValid ? Colors.blue : "#9CA3AF",
+                        }}
+                      >
+                        <ButtonText>Registrar Empresa</ButtonText>
+                      </StyledButton>
+                    </StyledFormArea>
+                  )}
+                </Formik>
+              </InnerContainer2>
+            </StyledContainer>
+          </View>
+        </KeyboardAvoidingWrapper>
+        {isLoading && (
+          <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
+            {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
+            <ActivityIndicator size={100} color={"blue"} />
+            <Text>Creando empresa...</Text>
+          </View>
+        )}
+      </>
     );
 };
 
@@ -247,7 +268,7 @@ const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHide
     );
 };
 
-export default Signup;
+export default createEmpresa;
 
 const styles = StyleSheet.create({
     errores: {
