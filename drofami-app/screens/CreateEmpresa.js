@@ -85,7 +85,7 @@ const createEmpresa = ({ navigation }) => {
             return;
         }
         if (response['status'] && response['status'] == "success") {
-            alert("Empresa creada y registrada exitosamente")
+            alert("Empresa creada y vinculada exitosamente")
         }
     }, [responsePUT])
 

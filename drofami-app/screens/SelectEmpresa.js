@@ -9,7 +9,7 @@ import { ActivityIndicator } from "react-native-paper";
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import {getEmpresa, setEmpresa} from '../src/EmpresaMethods'
 import * as SecureStore from 'expo-secure-store';
-
+import { useIsFocused } from "@react-navigation/native";
 import {
     PageLog,
     Subtitle,
@@ -61,6 +61,14 @@ const SelectEmpresa = ({ route, navigation }) => {
         }
         token();
     }, []);
+
+    const isFocused = useIsFocused();
+
+    React.useEffect(() =>{
+      if(isFocused && token){ 
+        getEmpresa(setLoading, token, setResponse)
+      }
+    },[token, isFocused])
 
     React.useEffect(() => {
         getEmpresa(setLoading, token, setResponse);
