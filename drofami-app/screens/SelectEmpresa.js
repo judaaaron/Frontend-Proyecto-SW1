@@ -70,6 +70,7 @@ const SelectEmpresa = ({ route, navigation }) => {
         if (!response) {
             return;
         }
+        console.log(response);
         console.log('data', response['data']);
         setEmpresas(response['data']);
     }, [response])

@@ -50,3 +50,35 @@ export async function setEmpresa(setLoading, token, idEmpresa, setResponse) {
        setLoading(false)
     }
 }
+
+export async function crearEmpresa(setLoading, token, name, rtn, address, channel, setResponse) {
+    setLoading(true);
+    const resp = {};
+    let response = {}
+    console.log(channel)
+    try {
+
+        response = await fetch(API_URL + 'enterprise/', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+              body: JSON.stringify({
+                "name": name,
+                "rtn": rtn,
+                "address": address,
+                "channel": channel
+              })
+        }).then((response) => response.json())
+        .then(data => {
+            resp['data'] = data;
+            setResponse(data)
+        })
+    } catch (e){
+        console.log('Error en crearEmpresa! ', e);
+    } finally {
+       setLoading(false)
+    }
+}

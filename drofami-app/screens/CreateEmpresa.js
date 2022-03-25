@@ -10,8 +10,8 @@ import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import MaskInput from 'react-native-mask-input';
-
-
+import {crearEmpresa, setEmpresa} from '../src/EmpresaMethods'
+import * as SecureStore from 'expo-secure-store';
 import {
     StyledContainer,
     InnerContainer,
@@ -61,6 +61,8 @@ let CreateValidationSchema = yup.object().shape({
 const createEmpresa = ({ navigation }) => {
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
+    const [responsePUT, setResponsePUT] = useState('')
+    const [token, setToken] = useState();
 
     const canalesDeVenta = [
         {nombre: 'Mayorista', id: 'MAY'},
@@ -70,15 +72,32 @@ const createEmpresa = ({ navigation }) => {
     ]
 
     React.useEffect(() => {
+        async function token() {
+            const session = await SecureStore.getItemAsync("user_session");
+            token = JSON.parse(session)['token'];
+            setToken(token)
+        }
+        token();
+    }, []);
+
+    React.useEffect(() => {
+        if (!responsePUT) {
+            return;
+        }
+        if (response['status'] && response['status'] == "success") {
+            alert("Empresa creada y registrada exitosamente")
+        }
+    }, [responsePUT])
+
+    React.useEffect(() => {
         console.log(response)
         if (!response) {
             return;
         }
         if (response['status'] == "success") {
-            alert("Registrado correctamente");
-
+            setEmpresa(setLoading, token, response['data']['id'], setResponsePUT);
+            navigation.navigate("Home");
             //Aqui va la parte adonde va a ir
-            navigation.navigate('SelectEmpresa');
             //where to?
         } else if (response['status']) {
             alert("Ha ocurrido un error");
@@ -96,135 +115,135 @@ const createEmpresa = ({ navigation }) => {
 
     return (
       <>
-        <Keyboard2>
-          <StyledContainer marginTop={-20} top={25}>
+       <Keyboard2>
+          <StyledContainer marginTop={-10} top={25}>
             <StatusBar style="dark" />
             <View style={styles.header} top={6}>
-              <Icon
+              {/* <Icon
                 name="arrow-back"
                 size={30}
                 onPress={() => navigation.goBack()}
-              />
+              /> */}
             </View>
 
-            <InnerContainer top={-10}>
+            <InnerContainer top={-30}>
               <PageLog
                 source={require("../assets/drofamilogo1.jpg")}
                 resizeMode="cover"
               />
               <Subtitle>Modificación</Subtitle>
-                <Formik
-                  initialValues={{
-                    nombre: "",
-                    direccion: "",
-                    rtn: "",
-                    canal: "",
-                  }}
-                  validateOnMount={true}
-                  /*
-                            onSubmit={(values) => {
+              <Formik
+                initialValues={{
+                  nombre: "",
+                  direccion: "",
+                  rtn: "",
+                  canal: "",
+                }}
+                validateOnMount={true}
+                onSubmit={(values) => {
+                  // Esto hay que cambiar aqui va la parte de subir a la base de datos
+                  crearEmpresa(
+                    setLoading,
+                    token,
+                    values.nombre,
+                    values.rtn,
+                    values.direccion,
+                    values.canal,
+                    setResponse
+                  );
+                }}
+                validationSchema={CreateValidationSchema}
+              >
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  touched,
+                  errors,
+                  isValid,
+                }) => (
+                  <StyledFormArea>
+                    <MyTextInput
+                      label={"Nombre de la Empresa"}
+                      //hay que sacar un diferente Icon para esto
+                      icon={"pencil"}
+                      placeholder={"Nombre Empresa"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("nombre")}
+                      onBlur={handleBlur("nombre")}
+                      values={values.nombre}
+                    />
 
-                                // Esto hay que cambiar aqui va la parte de subir a la base de datos
-                                signUp(values.usuario, values.correo, values.phone, values.password,
-                                    values.confirmPassword, values.nombre, values.apellido, values.direccion,
-                                    setLoading, setResponse
-                                );
-                            }}*/
-                  validationSchema={CreateValidationSchema}
-                >
-                  {({
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    values,
-                    touched,
-                    errors,
-                    isValid,
-                  }) => (
-                    <StyledFormArea>
-                      <MyTextInput
-                        label={"Nombre de la Empresa"}
-                        //hay que sacar un diferente Icon para esto
-                        icon={"pencil"}
-                        placeholder={"ej. Kielsa"}
-                        placeholderTextColor={darkLight}
-                        onChangeText={handleChange("nombre")}
-                        onBlur={handleBlur("nombre")}
-                        values={values.nombre}
-                      />
+                    {errors.nombre && touched.nombre && (
+                      <Text style={styles.errores}>{errors.nombre}</Text>
+                    )}
 
-                      {errors.nombre && touched.nombre && (
-                        <Text style={styles.errores}>{errors.nombre}</Text>
-                      )}
+                    <MyAutoGrowingTextInput
+                      backgroundColor={Colors.secondary}
+                      label={"Dirección"}
+                      icon={"location"}
+                      placeholder={"Dirección de entrega"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("direccion")}
+                      onBlur={handleBlur("direccion")}
+                      values={values.direccion}/>
 
-                      <MyAutoGrowingTextInput
-                        backgroundColor={Colors.secondary}
-                        label={"Dirección"}
-                        icon={"location"}
-                        placeholder={"Dirección de entrega"}
-                        placeholderTextColor={darkLight}
-                        onChangeText={handleChange("direccion")}
-                        onBlur={handleBlur("direccion")}
-                        values={values.direccion}
-                      />
+                    {errors.direccion && touched.direccion && (
+                      <Text style={styles.errores}>{errors.direccion}</Text>
+                    )}
 
-                      {errors.direccion && touched.direccion && (
-                        <Text style={styles.errores}>{errors.direccion}</Text>
-                      )}
+                    <MyTextInput
+                      label={"RTN"}
+                      icon={"credit-card"}
+                      placeholder={"RTN"}
+                      placeholderTextColor={darkLight}
+                      onChangeText={handleChange("rtn")}
+                      onBlur={handleBlur("rtn")}
+                      values={values.rtn}
+                    />
 
-                      <MyTextInput
-                        label={"RTN"}
-                        icon={"credit-card"}
-                        placeholder={"08011999987415"}
-                        placeholderTextColor={darkLight}
-                        onChangeText={handleChange("rtn")}
-                        onBlur={handleBlur("rtn")}
-                        values={values.rtn}
-                      />
+                    {errors.rtn && touched.rtn && (
+                      <Text style={styles.errores}>{errors.rtn}</Text>
+                    )}
 
-                      {errors.rtn && touched.rtn && (
-                        <Text style={styles.errores}>{errors.rtn}</Text>
-                      )}
+                    {/* Canal de venta sera un text input Meanwhile */}
+                    <StyledInputLabel>Canal de Venta</StyledInputLabel>
+                    <Picker
+                      enabled={true}
+                      mode="dropdown"
+                      placeholder="Canal de venta"
+                      // onValueChange={formik.handleChange('city_name')}
+                      // selectedValue={formik.values.city_name}
+                      selectedValue={values.canal}
+                      onValueChange={handleChange("canal")}
+                    >
+                      {canalesDeVenta.map((item) => {
+                        return (
+                          <Picker.Item
+                            label={item.nombre.toString()}
+                            value={item.id.toString()}
+                            id={item.id.toString()}
+                          />
+                        );
+                      })}
+                    </Picker>
 
-                      {/* Canal de venta sera un text input Meanwhile */}
-                      <StyledInputLabel>Canal de Venta</StyledInputLabel>
-                      <Picker
-                        enabled={true}
-                        mode="dropdown"
-                        placeholder="Canal de venta"
-                        // onValueChange={formik.handleChange('city_name')}
-                        // selectedValue={formik.values.city_name}
-                        selectedValue={values.canal}
-                        onValueChange={handleChange("canal")}
-                      >
-                        {canalesDeVenta.map((item) => {
-                          return (
-                            <Picker.Item
-                              label={item.nombre.toString()}
-                              value={item.nombre.toString()}
-                              id={item.id.toString()}
-                            />
-                          );
-                        })}
-                      </Picker>
-
-                
-
-                      <StyledButton
-                        onPress={handleSubmit}
-                        rounded
-                        disabled={!isValid}
-                        style={{
-                          backgroundColor: isValid ? Colors.blue : "#9CA3AF",
-                        }}
-                      >
-                        <ButtonText>Registrar Empresa</ButtonText>
-                      </StyledButton>
-                    </StyledFormArea>
-                  )}
-                </Formik>
-              </InnerContainer>
-            </StyledContainer>
+                    <StyledButton
+                      onPress={handleSubmit}
+                      rounded
+                      disabled={!isValid}
+                      style={{
+                        backgroundColor: isValid ? Colors.blue : "#9CA3AF",
+                      }}
+                    >
+                      <ButtonText>Registrar Empresa</ButtonText>
+                    </StyledButton>
+                  </StyledFormArea>
+                )}
+              </Formik>
+            </InnerContainer>
+          </StyledContainer>
         </Keyboard2>
         {isLoading && (
           <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
