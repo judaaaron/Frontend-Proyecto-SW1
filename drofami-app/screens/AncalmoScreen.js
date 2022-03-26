@@ -58,7 +58,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
         console.log("AQUIIII:",filteredDataSource)
     }, [filteredDataSource])
 
-
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
         wait(2000).then(() => {
@@ -96,6 +95,8 @@ const AncalmoScreen = ({ navigation, dato }) => {
         if (!response['data']) {
             return;
         }
+
+        console.log(response);
         const tempCatalog = [];
         response['data'].forEach((element) => {
             tempCatalog.push(element);

@@ -237,9 +237,9 @@ export default function HesselScreen({ navigation}) {
                         {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
                             {dato.price}
                         </Text> */}
-                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
+                        {dato.producto.precio != '' &&<Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary:Colors.black, }}>
                             {'L. '}{dato.producto.precio}
-                        </Text>
+                        </Text>}
                         <View
                             style={{
                                 height: 25,
