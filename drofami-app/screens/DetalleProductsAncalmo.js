@@ -69,7 +69,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
             alignItems: 'center',
           }}>
           <Text style={{ fontSize: 22, fontWeight: 'bold' }}>{nombre}</Text>
-          <View style={style.priceTag}>
+          {precio != '' && <View style={style.priceTag}>
             <Text
               style={{
                 marginLeft: 15,
@@ -79,13 +79,13 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
               }}>
               L. {precio}
             </Text>
-          </View>
+          </View>}
         </View>
         <View style={{marginLeft:-50, top:20}}>
               <CarouselDescripcionAncalmo data={carouselData}/>
         </View>
         
-        <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
+        {precio != '' && <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
           {/* <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Descripción</Text> */}
           
           
@@ -140,7 +140,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
               </Text>
             </View>
           </View>
-        </View>
+        </View>}
       </View>
     </SafeAreaView>
     </ScrollView>

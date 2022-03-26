@@ -39,7 +39,7 @@ import Keyboard2 from "../components/Keyboard2";
 const { brand, darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóúñ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
-const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0]{1}[0-4]{1})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
+const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{1}[0-2]{1})[0-9]{6}$/   // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
 const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!-@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
 const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9])+$/
@@ -106,7 +106,7 @@ const Signup = ({ navigation }) => {
                 <StyledContainer>
                     <StatusBar style="dark" />
 
-                    <InnerContainer>
+                    <InnerContainer marginTop={25}>
                         <PageLog
                             source={require("../assets/drofamilogo1.jpg")}
                             resizeMode="cover"

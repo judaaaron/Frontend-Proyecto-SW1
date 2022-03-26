@@ -42,8 +42,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { brand, darkLight } = Colors;
 const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{1}[0-2]{1})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
-const regularName = /(^(\S))+(\s*[aA-zZ0-9])+$/ // acepta basicamente todo tipo de caracter
-const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9])+$/
+const regularName = /(^(\S))+(\s*[aA-zZáéíóúñ0-9])+$/ // acepta basicamente todo tipo de caracter
+const regularDireccion = /(^(\S))+(\s*[aA-zZáéíóúñ0-9])+$/
 
 //es basicamente el signup  pero como create en empresa
 let CreateValidationSchema = yup.object().shape({
@@ -218,12 +218,13 @@ const createEmpresa = ({ navigation }) => {
                       selectedValue={values.canal}
                       onValueChange={handleChange("canal")}
                     >
-                      {canalesDeVenta.map((item) => {
+                      {canalesDeVenta.map((item, index) => {
                         return (
                           <Picker.Item
                             label={item.nombre.toString()}
                             value={item.id.toString()}
                             id={item.id.toString()}
+                            key={index}
                           />
                         );
                       })}
