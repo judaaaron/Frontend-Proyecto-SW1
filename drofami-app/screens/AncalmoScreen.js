@@ -4,34 +4,13 @@ import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as SecureStore from 'expo-secure-store';
 import {
-    StyledContainer,
-    InnerContainer,
-    PageLog,
-    PageTitle,
-    Subtitle,
-    StyledFormArea,
-    LeftIcon,
-    RightIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    ButtonText,
-    StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink,
-    WelcomeContainer,
-    WelcomeImage,
-    Avatar
+    Colors
 } from "../components/styles"
-import CarouselCards from './CarouselCards'
-import CarouselCards2 from './CarouselCards2'
-import datos from './AncalmoProducts';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getCatalog, getProduct } from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
 import filter from 'lodash.filter'
+import CartScreen from './CartScreen'
 
 //import { Icon } from 'react-native-elements';
 const width = Dimensions.get('window').width / 2 - 30;
@@ -325,7 +304,9 @@ const AncalmoScreen = ({ navigation, dato }) => {
 
                 </View>
 
-                <Icon name="shopping-cart" size={30} color={Colors.blue} />
+                <Icon name="shopping-cart" size={30} color={Colors.blue} 
+                   onPress={() => navigation.navigate('CartScreen')}
+                />
             </View>
 
             <View style={{ marginTop: 30, flexDirection: 'row' }}>

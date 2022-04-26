@@ -61,6 +61,11 @@ export const PageLog = styled.Image`
   
 `;
 
+export const PageLogOferta = styled.Image`
+  width: 360px;
+  height: 100px;
+`;
+
 export const PageTitle = styled.Text`
 
   font-size: 30px;
@@ -129,6 +134,14 @@ export const StyledTextInput = styled.TextInput`
 `;
 
 export const StyledInputLabel = styled.Text`
+  color: ${tertiary};
+  font-size: 13px;
+  text-align: left;
+  font-weight: bold;
+  background-color: ${primary};
+`;
+
+export const StyledLabel = styled.Text`
   color: ${tertiary};
   font-size: 13px;
   text-align: left;

@@ -18,6 +18,7 @@ import SelectEmpresa from '../screens/SelectEmpresa'
 import CreateEmpresa from '../screens/CreateEmpresa'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
+import CartScreen from "../screens/CartScreen";
 
 const Stack = createStackNavigator();
 
@@ -70,6 +71,7 @@ const RootStackScreens = () => (
         <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen} options={{ header: () => null }}/>
         <Stack.Screen name="SelectEmpresa" component={SelectEmpresa} options={{ header: () => null }}/>
         <Stack.Screen name="CreateEmpresa" component={CreateEmpresa} options={{ header: () => null }}/>
+        <Stack.Screen name="CartScreen" component={CartScreen} options ={{ header: () => null }}/>
     </Stack.Navigator>
 );
 export default RootStack;
