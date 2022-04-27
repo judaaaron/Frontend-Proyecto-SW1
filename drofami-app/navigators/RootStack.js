@@ -43,8 +43,11 @@ const HomeTabs = () => {
             <Tab.Screen name={homeName} component={MainHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/homeAzul3.png")} style={{ width: 35, height: 35, top: 2 }} />), name: () => null }} />
             <Tab.Screen name={Ancalmo} component={AncalmoScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/ancalmoAzul.png")} style={{ width: 25, height: 25, top: 5 }} />), name: () => null }} />
             <Tab.Screen name={Hessel} component={HesselScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/heseelAzul.png")} style={{ width: 30, height: 30, top: 3 }} />), name: () => null }} />
-            <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarBadge: 
-            notifications.length >0 && notifications.length, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
+            {notifications.length >0 ? 
+            <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarBadge: notifications.length, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
+            : 
+            <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
+            }
             <Tab.Screen name={settingsName} component={SettingsHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/userAzul.png")} style={{ width: 25, height: 25, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
             
         </Tab.Navigator>
