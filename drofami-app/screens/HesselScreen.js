@@ -286,19 +286,17 @@ export default function HesselScreen({ navigation}) {
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
-                        Productos
+                    <Text style={{ fontSize: 35, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
+                        Productos HESSEL
                     </Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
-                        HESSEL
-                    </Text>
+                    
                     {/* <PageLog
                             source={require("../assets/logoAncalmo.png")}
                             style={{width: 100, height: 100}}
                             resizeMode="cover"
                         /> */}
                 </View>
-                <Icon name="shopping-cart" size={30} color={Colors.blue} />
+                {/* <Icon name="shopping-cart" size={30} color={Colors.blue} /> */}
             </View>
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
             <View style={styles.searchContainer} marginTop={10}>

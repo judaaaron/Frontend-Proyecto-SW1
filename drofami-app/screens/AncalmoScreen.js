@@ -292,7 +292,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             <View style={styles.header}>
                 <View>
                     <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 38, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 35, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
                         Productos ANCALMO
                     </Text>
 

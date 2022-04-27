@@ -272,7 +272,7 @@ const CartScreen = ({ navigation }) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: '400',
                   maxWidth: '80%',
                   color: Colors.black,
@@ -298,7 +298,7 @@ const CartScreen = ({ navigation }) => {
               }}>
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: '400',
                   maxWidth: '80%',
                   color: Colors.black,
@@ -308,7 +308,7 @@ const CartScreen = ({ navigation }) => {
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: '500',
                   color: Colors.black,
                 }}>
