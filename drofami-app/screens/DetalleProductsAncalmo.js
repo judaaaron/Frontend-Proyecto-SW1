@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, SafeAreaView, Image, Text, StyleSheet,ScrollView, TextInput } from 'react-native';
+import { View, SafeAreaView, Image, Text, StyleSheet,ScrollView, TextInput, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { NotificationText, Counter, Colors } from "../components/styles";
+import { NotificationText, Counter, Colors, StyledButton, ButtonText} from "../components/styles";
 import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 import { FAB } from 'react-native-paper';
+import {showMessage} from 'react-native-flash-message';
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
@@ -45,12 +46,12 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       }}>
       <View style={style.header}>
         <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()}/>
-        <Icon name="shopping-cart" size={28} />
+        {/* <Icon name="shopping-cart" size={28} /> */}
         {
             notifications.length >0 &&
-            <Counter>
-        <NotificationText>{notifications.length}</NotificationText>
-        </Counter>
+          <Counter>
+          <NotificationText>{notifications.length}</NotificationText>
+          </Counter>
           }
         
       </View>
@@ -139,12 +140,33 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
               </View>
              
             </View>
-            <View style={style.buyBtn} top={3}>
-              <Text
+            <View >
+              {/* <Text
                 style={{ color: Colors.primary, fontSize: 18, fontWeight: 'bold' }}
                 onPress={() => setNotifications((prev) => [...prev, 1])}>
+               
+              </Text> */}
+               
+              {/* <Button
+              style={style.buyBtn} top={3}
+               title=" Añadir al carrito"
+               
+            /> */}
+
+            <StyledButton 
+            style={style.buyBtn}
+            onPress={() => {
+                     showMessage({
+                      message: "Producto agregado.",
+                      description:'El producto ha sido añadido al carrito con éxito',
+                      type: "success",
+                    });
+                   }}>
+              <ButtonText>
                 Añadir al carrito
-              </Text>
+              </ButtonText>
+            </StyledButton>
+     
             </View>
           </View>
         </View>}

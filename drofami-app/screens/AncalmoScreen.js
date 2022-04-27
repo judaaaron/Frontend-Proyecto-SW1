@@ -303,10 +303,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
                         /> */}
 
                 </View>
-
-                <Icon name="shopping-cart" size={30} color={Colors.blue} 
-                   onPress={() => navigation.navigate('CartScreen')}
-                />
             </View>
 
             <View style={{ marginTop: 30, flexDirection: 'row' }}>
@@ -351,9 +347,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
 
 const styles = StyleSheet.create({
     header: {
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        marginTop: 20
     },
     container: {
         backgroundColor: '#fff',

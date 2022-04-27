@@ -31,6 +31,7 @@
     "react-native-autogrow-textinput": "^5.4.0",
     "react-native-element-dropdown": "^1.8.2",
     "react-native-elements": "^3.4.2",
+    "react-native-flash-message": "^0.2.1",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-mask-input": "^1.2.0",
     "react-native-paper": "^4.11.2",

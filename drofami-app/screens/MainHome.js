@@ -9,6 +9,7 @@ import {
   Colors,
   NotificationText,
   CounterHome,
+  PageTitle
 } from "../components/styles";
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
@@ -29,27 +30,8 @@ export default function MainHome({ navigation }) {
             <StatusBar style="dark" />
 
             {/* Icono */}
-            <View style={styles.header}>
-                <View>
-                  
-                    <Text style={{ fontSize: 35, color: Colors.blue, alignItems: 'center' }}>
-                            Productos en Oferta
-                    </Text>
-
-                </View>
-                <View style={{justifyContent: 'center'}}>
-                <Icon name="shopping-cart" size={30} color={Colors.blue} 
-                   onPress={() => navigation.navigate('CartScreen')}
-                />
-                <CounterHome>
-                  <NotificationText>3</NotificationText>
-                  </CounterHome>
-                </View>
-            </View>
-
+            <PageTitle>Productos en Oferta</PageTitle>
             
-
-
             <InnerContainer>
               <Subtitle style={{ top: 10 }}>Ancalmo</Subtitle>
 

@@ -8,9 +8,17 @@ import Login from './screens/Login'
 import Home from './screens/Home'
 import RootStack from "./navigators/RootStack";
 import { LogBox } from 'react-native';
+import FlashMessage from 'react-native-flash-message';
+import { View } from 'react-native';
 
 LogBox.ignoreAllLogs();
 
 export default function App(){
-    return <RootStack/>
+    return(
+        <View style={{flex:1}}>
+            <RootStack/>
+            <FlashMessage position="top"/>
+        </View>
+        
+    ) 
 }

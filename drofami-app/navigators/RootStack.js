@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Colors } from '../components/styles'
+import { Colors } from "../components/styles";
 import Login from '../screens/Login'
 import Signup from '../screens/Signup'
 import AncalmoScreen from '../screens/AncalmoScreen';
@@ -19,6 +19,7 @@ import CreateEmpresa from '../screens/CreateEmpresa'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
 import CartScreen from "../screens/CartScreen";
+import { Badge, Icon, withBadge } from "react-native-elements";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const homeName = "Inicio";
 const Ancalmo = "Ancalmo";
 const Hessel = "Hessel";
 const settingsName = "Mi cuenta";
+const carrito = "Carrito";
 
 const Tab = createBottomTabNavigator();
 const HomeTabs = () => {
@@ -40,8 +42,9 @@ const HomeTabs = () => {
             <Tab.Screen name={homeName} component={MainHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/homeAzul3.png")} style={{ width: 35, height: 35, top: 2 }} />), name: () => null }} />
             <Tab.Screen name={Ancalmo} component={AncalmoScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/ancalmoAzul.png")} style={{ width: 25, height: 25, top: 5 }} />), name: () => null }} />
             <Tab.Screen name={Hessel} component={HesselScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/heseelAzul.png")} style={{ width: 30, height: 30, top: 3 }} />), name: () => null }} />
+            <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
             <Tab.Screen name={settingsName} component={SettingsHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/userAzul.png")} style={{ width: 25, height: 25, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
-
+            
         </Tab.Navigator>
 
     );
@@ -71,7 +74,7 @@ const RootStackScreens = () => (
         <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen} options={{ header: () => null }}/>
         <Stack.Screen name="SelectEmpresa" component={SelectEmpresa} options={{ header: () => null }}/>
         <Stack.Screen name="CreateEmpresa" component={CreateEmpresa} options={{ header: () => null }}/>
-        <Stack.Screen name="CartScreen" component={CartScreen} options ={{ header: () => null }}/>
+       
     </Stack.Navigator>
 );
 export default RootStack;
