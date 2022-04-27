@@ -17,7 +17,7 @@ export default function App(){
     return(
         <View style={{flex:1}}>
             <RootStack/>
-            <FlashMessage position="top"/>
+            <FlashMessage position="bottom"/>
         </View>
         
     ) 
