@@ -5,15 +5,13 @@ import {
   StyledContainer,
   InnerContainer,
   PageLogOferta,
-  PageTitle,
   Subtitle,
-  RightIcon,
   Colors,
-  RightIcon2
+  NotificationText,
+  CounterHome,
 } from "../components/styles";
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
-import { Ionicons } from "@expo/vector-icons";
 
 import { StatusBar } from "expo-status-bar";
 
@@ -43,8 +41,13 @@ export default function MainHome({ navigation }) {
                 <Icon name="shopping-cart" size={30} color={Colors.blue} 
                    onPress={() => navigation.navigate('CartScreen')}
                 />
+                <CounterHome>
+                  <NotificationText>3</NotificationText>
+                  </CounterHome>
                 </View>
             </View>
+
+            
 
 
             <InnerContainer>

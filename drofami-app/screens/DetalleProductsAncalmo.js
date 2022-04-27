@@ -2,14 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import { View, SafeAreaView, Image, Text, StyleSheet,ScrollView, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {
-  Colors
-} from "../components/styles"
+import { NotificationText, Counter, Colors } from "../components/styles";
 import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 import { FAB } from 'react-native-paper';
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
+  const [notifications, setNotifications] = useState([]);
   const {id,cantidad ,imagen ,nombre ,precio,fabricante ,indicaciones ,dosis ,formula} = route.params
   const [counter, setCounter] = useState(1);
 
@@ -47,6 +46,13 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       <View style={style.header}>
         <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()}/>
         <Icon name="shopping-cart" size={28} />
+        {
+            notifications.length >0 &&
+            <Counter>
+        <NotificationText>{notifications.length}</NotificationText>
+        </Counter>
+          }
+        
       </View>
       <View style={style.imageContainer} top={25}>
         <Image source={{uri: imagen}} style={{ resizeMode: 'contain', flex: 1, width: 350, height: 350,}} top={-50} />
@@ -135,7 +141,8 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
             </View>
             <View style={style.buyBtn} top={3}>
               <Text
-                style={{ color: Colors.primary, fontSize: 18, fontWeight: 'bold' }}>
+                style={{ color: Colors.primary, fontSize: 18, fontWeight: 'bold' }}
+                onPress={() => setNotifications((prev) => [...prev, 1])}>
                 Añadir al carrito
               </Text>
             </View>

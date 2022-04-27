@@ -46,6 +46,45 @@ export const InnerContainer = styled.View`
   
 `;
 
+export const Counter = styled.TouchableOpacity`
+  width: 18px;
+  height: 20px;
+  background-color: red;
+  border-radius: 10;
+  padding: 5px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -5px;
+  right: 5px;
+`;
+
+export const CounterHome = styled.TouchableOpacity`
+  width: 18px;
+  height: 20px;
+  background-color: red;
+  border-radius: 10;
+  padding: 5px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+`;
+
+export const NotificationText = styled.Text`
+  color: ${primary};
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+`;
+
 
 export const InnerContainer2 = styled.View`
   align-items: center;
@@ -203,6 +242,7 @@ export const ButtonText = styled.Text`
  
   
 `;
+
 export const ButtonText2 = styled.Text`
   color: ${blue};
   font-size: 18px;
