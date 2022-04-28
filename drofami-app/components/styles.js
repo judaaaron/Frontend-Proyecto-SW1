@@ -17,7 +17,10 @@ export const Colors = {
   blue: '#002AA2',
   lightblue: '#0E84E0',
   white: '#FFFFFF',
-  black: '#000000'
+  black: '#000000',
+  gray: '#F9F9F9',
+  gray2:'#9B9B9B',
+  darkBlue:'#000CCC'
 };
 
 const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue, white } = Colors;
@@ -217,6 +220,36 @@ export const StyledButton = styled.TouchableOpacity`
 `;
 
 
+export const StyledButtonCart = styled.TouchableOpacity`
+  borderWidth: 0.4px;
+  borderColor: ${secondary};
+  background-color: ${"#F9F9F9"};
+  align-items: center;
+  justify-content: center;
+  border-radius: 35px;
+  height: 35px;
+  font-weight: bold;
+  marginLeft: 193px;
+  width: 170px;
+  marginTop: -42px;
+`;
+
+export const StyledButtonCart2 = styled.TouchableOpacity`
+  borderWidth: 0.4px;
+  borderColor: ${green};
+  background-color: ${blue};
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  height: 34px;
+  font-weight: bold;
+  marginLeft: 210px;
+  width: 140px;
+  marginTop: -45px;
+  top:-3px;
+`;
+
+
 export const StyledButton2 = styled.TouchableOpacity`
   padding: 15px;
   background-color: ${primary};
@@ -239,8 +272,21 @@ export const StyledButtonMod = styled.TouchableOpacity`
 export const ButtonText = styled.Text`
   color: ${primary};
   font-size: 16px;
- 
   
+`;
+
+export const ButtonTextCart = styled.Text`
+  color: ${'#9B9B9B'};
+  font-weight: bold;
+  font-size: 12px;
+  opacity: 1px;
+`;
+
+export const ButtonTextCart2 = styled.Text`
+  color: ${white};
+  font-weight: bold;
+  font-size: 12px;
+  opacity: 1px;
 `;
 
 export const ButtonText2 = styled.Text`

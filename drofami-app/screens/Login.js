@@ -32,6 +32,7 @@ import {
 
 } from "../components/styles";
 import Keyboard2 from "../components/Keyboard2";
+import {showMessage} from 'react-native-flash-message';
 
 const { brand, darkLight } = Colors;
 
@@ -50,10 +51,27 @@ const Login = ({ navigation }) => {
                 storeCredentials(loginResponse['user'], loginResponse['token']);
             }
             navigation.navigate('Home');
-        } else if(loginResponse.status && loginResponse.message)
-            alert(loginResponse.message);
-            else if(loginResponse.status)
-            alert('Usuario y/o contraseña incorrectos')
+            showMessage({
+                message: "Sesión iniciada",
+                description:'Has iniciado sesión exitosamente.',
+                type: "success",
+              });
+        } else if(loginResponse.status && loginResponse.message){
+            showMessage({
+                message: loginResponse.message,
+                // description:'Ha ocurrido un error inesperado.',
+                type: "danger",
+              });
+            //   alert(loginResponse.message);
+        }else if(loginResponse.status){
+            showMessage({
+                message: "Usuario y/o contraseña incorrectos",
+                // description:'Ha ocurrido un error inesperado.',
+                type: "danger",
+              });
+            // alert('Usuario y/o contraseña incorrectos')
+        }
+            
         console.log(loginResponse);
     }, [loginResponse])
 
@@ -68,7 +86,12 @@ const Login = ({ navigation }) => {
             );
             console.log("Se almaceno");
         } catch (error) {
-            alert("Hubo un error en el almacenamiento de las credenciales.");
+            showMessage({
+                message: "Hubo un error en el almacenamiento de las credenciales.",
+                // description:'Ha ocurrido un error inesperado.',
+                type: "danger",
+              });
+            // alert("Hubo un error en el almacenamiento de las credenciales.");
             console.log(error);
         }
     };
@@ -87,7 +110,13 @@ const Login = ({ navigation }) => {
                     navigation.navigate('Home')
                 }*/
             } catch (error) {
-                alert("Hubo un error en la lectura de las credenciales.");
+                showMessage({
+                    message: "Hubo un error en la lectura de las credenciales.",
+                    // description:'Ha ocurrido un error inesperado.',
+                    type: "danger",
+                  });
+                // alert("Hubo un error en la lectura de las credenciales.");
+                
                 console.log(error);
             }
         }

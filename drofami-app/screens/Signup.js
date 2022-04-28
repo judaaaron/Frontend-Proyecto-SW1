@@ -35,6 +35,7 @@ import Login from "./Login";
 
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import Keyboard2 from "../components/Keyboard2";
+import {showMessage} from 'react-native-flash-message';
 
 const { brand, darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóúñ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
@@ -84,10 +85,20 @@ const Signup = ({ navigation }) => {
             return;
         }
         if (response['status'] == "success") {
-            alert("Registrado correctamente");
+         //   alert("Registrado correctamente");
+            showMessage({
+                message: "Registrado.",
+                description:'Has sido registrado correctamente.',
+                type: "success",
+              });
             navigation.navigate('Login');
         } else if (response['status']) {
-            alert("Ha ocurrido un error");
+           // alert("Ha ocurrido un error");
+            showMessage({
+                message: "Error.",
+                description:'Ha ocurrido un error inesperado.',
+                type: "danger",
+              });
         } else {
             let errors = '';
             for (const [key, value] of Object.entries(response)) {
@@ -96,7 +107,12 @@ const Signup = ({ navigation }) => {
                     errors += value[i] + '\n';
                 }
             }
-            alert(errors);
+           // alert(errors);
+            showMessage({
+                message: errors,
+                // description:'Has sido registrado correctamente.',
+                type: "danger",
+              });
         }
     }, [response])
 
