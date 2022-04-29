@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Button,
+  Alert
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { FlatList } from "react-native-gesture-handler";
@@ -27,7 +28,8 @@ const CartScreen = ({ navigation }) => {
   const [counter, setCounter] = useState(1);
   const [enCarrito, setCarrito] = useState([]);
 
-  const handleAdd = () => {
+  const handleAdd = (id) => {
+
     setCounter(counter + 1);
   };
 
@@ -35,23 +37,134 @@ const CartScreen = ({ navigation }) => {
     counter != 1 ? setCounter(counter - 1) : counter;
   };
 
-  const onDelete = (id) => {
-    const { data } = useState();
-    let filterArray = data.filter((val, i) => {
-      if (val.id !== id) {
-        return val;
-      }
-    });
+const [TEMP_DATA, setTEMP_DATA] = useState([
+    {
+        id: 1,
+        name: 'ANTIGRIPAL ANCALMO',
+        quantity: 3,
+        count: 1,
+       // like: true,
+        // img: require('../assets/bacaoliver-web.png'),
+    
+        // about:
+        //   'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+        // formula: 
+        //   '500 mg bla bla bla',
+        // dosis: 
+        //     ' 2 tabletas al dia', 
+      },
+    
+      {
+        id: 2,
+        name: 'BACAOLIVER EMULSION',
+        quantity: 2,
+        count: 1,
+        // currency: 'L. ',
+        // price: 20.95,
+        // //like: false,
+        // img: require('../assets/bacaoliver-web.png'),
+        // about:
+        // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+        // formula: 
+        // '500 mg bla bla bla',
+        // dosis: 
+        //   ' 2 tabletas al dia',
+      },
+    
+      {
+        id: 3,
+        name: 'CALAMINA ANTIALERGICA',
+        quantity: 4,
+        count: 1,
+        // currency: 'L. ',
+        // price: 20.95,
+        // //like: false,
+        // img: require('../assets/bacaoliver-web.png'),
+        // about:
+        // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+        // formula: 
+        // '500 mg bla bla bla',
+        // dosis: 
+        //   ' 2 tabletas al dia',
+      },
+    
+      {
+        id: 4,
+        name: 'CALAMINA MENTOLADA',
+        quantity: 6,
+        count: 1,
+    //     currency: 'L. ',
+    //     price: 20.95,
+    //    // like: true,
+    //     img: require('../assets/bacaoliver-web.png'),
+    //     about:
+    //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+    //   formula: 
+    //     '500 mg bla bla bla',
+    //   dosis: 
+    //       ' 2 tabletas al dia',
+      },
+      {
+        id: 5,
+        name: 'DOLO MARATON',
+        quantity: 7,
+        count: 1,
+    //     currency: 'L. ',
+    //     price: 20.95,
+    //     //like: true,
+    //     img: require('../assets/bacaoliver-web.png'),
+    //     about:
+    //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+    //   formula: 
+    //     '500 mg bla bla bla',
+    //   dosis: 
+    //       ' 2 tabletas al dia',
+      },
+ 
+  ]);
+  const reduction = (id) =>{
+    // const { cart } = this.state;
+    TEMP_DATA.forEach(item =>{
+        if(item.id === id){
+            item.count === 1 ? item.count = 1 : item.count -=1;
+        }
+    })
+  
+   
+};
 
-    setCarrito({ data: filterArray });
-  };
-  const CartCard = ({ item }) => {
+const increase = (id) =>{
+   
+    TEMP_DATA.forEach(item =>{
+        if(item.id === id){
+            item.count += 1;
+        }
+    })
+   
+    
+};
+
+
+  const deleteSelectedElement = (id, name) => {
+    const filteredData = TEMP_DATA.filter(item => item.id !== id);
+    setTEMP_DATA(filteredData);
+  }
+
+ const handleDecrement = (id)=>{
+    setTEMP_DATA(TEMP_DATA =>
+        setTEMP_DATA.map((item)=>
+        id===item.id ? {...item, quantity: item.quantity -1 }: item
+        )
+    )
+ }
+
+  const CartCard = ({ id, name, quantity, count }) => {
     return (
       <TouchableOpacity
-        key={data.key}
-        onPress={() =>
-          navigation.navigate("ProductInfo", { productID: data.id })
-        }
+        // key={data.key}
+        // onPress={() =>
+        // //   navigation.navigate("ProductInfo", { productID: data.id })
+        // } aqui debe de llamarse detalle de producto
         style={{
           width: "100%",
           height: 100,
@@ -68,13 +181,14 @@ const CartScreen = ({ navigation }) => {
             padding: 14,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: Colors.secondary,
+            backgroundColor: Colors.morado,
             borderRadius: 10,
             marginRight: 30,
           }}
         >
           <Image
-            source={data.productImage}
+            // source={data.productImage}
+            source={require("../assets/bacaoliver-web.png")}
             style={{
               width: "100%",
               height: "100%",
@@ -95,11 +209,13 @@ const CartScreen = ({ navigation }) => {
                 fontSize: 14,
                 maxWidth: "100%",
                 color: Colors.black,
-                fontWeight: "600",
-                letterSpacing: 1,
+                fontWeight: 'bold',
+                // letterSpacing: 1,
               }}
             >
-              {data.productName}
+              {/* {data.productName} */}
+              {/* BACAOLIVER */}
+              {name}
             </Text>
             <View
               style={{
@@ -117,11 +233,13 @@ const CartScreen = ({ navigation }) => {
                   marginRight: 4,
                 }}
               >
-                &#8377;{data.productPrice}
+                {/* &#8377;{data.productPrice} */}
+                Ancalmo
               </Text>
               <Text>
-                (~&#8377;
-                {data.productPrice + data.productPrice / 20})
+                {/* (~&#8377;
+                {data.productPrice + data.productPrice / 20}) */}
+                L.500
               </Text>
             </View>
           </View>
@@ -149,7 +267,7 @@ const CartScreen = ({ navigation }) => {
                   opacity: 0.5,
                 }}
               >
-                <TouchableOpacity onPress={handleSubstract}>
+                <TouchableOpacity onPress={()=>handleAdd()}>
                   <MaterialCommunityIcons
                     name="minus"
                     style={{
@@ -159,7 +277,7 @@ const CartScreen = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               </View>
-              <Text>{counter}</Text>
+              <Text>{count}</Text>
               <View
                 style={{
                   borderRadius: 100,
@@ -172,7 +290,7 @@ const CartScreen = ({ navigation }) => {
                   opacity: 0.5,
                 }}
               >
-                <TouchableOpacity onPress={handleAdd}>
+                <TouchableOpacity onPress={() => reduction(id)}>
                   <MaterialCommunityIcons
                     name="plus"
                     style={{
@@ -183,7 +301,7 @@ const CartScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity onPress={() => onDelete()}>
+            <TouchableOpacity onPress={() => deleteSelectedElement(id,name)}>
               <MaterialCommunityIcons
                 name="delete-outline"
                 style={{
@@ -276,11 +394,20 @@ const CartScreen = ({ navigation }) => {
       </StyledButtonCart>
 
       {/* </View> */}
+
+
+     
+        
+       
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
-        data={"foods"}
-        renderItem={({ item }) => <CartCard item={item} />}
+        // data={"foods"}
+        data={TEMP_DATA}
+        // renderItem={({ item }) => <CartCard item={item} />}
+        renderItem={({ item }) => <CartCard id={item.id} name={item.name} quantity={item.quantity} count ={item.count}/>}
+        // ItemSeparatorComponent={Divider}
+        keyExtractor={item => item.id}
         ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
       />
       <View
@@ -456,5 +583,18 @@ const style = StyleSheet.create({
     // marginLeft: 130,
   },
 });
+
+const styleSheet = StyleSheet.create({
+    MainContainer: {
+      flex: 1,
+    },
+   
+    itemText: {
+      fontSize: 26,
+      color: 'black',
+      textTransform: 'capitalize'
+    }
+   
+  });
 
 export default CartScreen;

@@ -20,10 +20,12 @@ export const Colors = {
   black: '#000000',
   gray: '#F9F9F9',
   gray2:'#9B9B9B',
-  darkBlue:'#000CCC'
+  darkBlue:'#000CCC',
+  menta:'#CDFFF4',
+  morado:'#8EA0D8'
 };
 
-const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue, white } = Colors;
+const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue, white, gray, gray2, darkBlue } = Colors;
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 10px;
@@ -222,7 +224,7 @@ export const StyledButton = styled.TouchableOpacity`
 
 export const StyledButtonCart = styled.TouchableOpacity`
   borderWidth: 0.4px;
-  borderColor: ${secondary};
+  borderColor: ${blue};
   background-color: ${"#F9F9F9"};
   align-items: center;
   justify-content: center;
