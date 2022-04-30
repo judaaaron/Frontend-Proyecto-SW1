@@ -13,6 +13,7 @@ import filter from 'lodash.filter'
 import CartScreen from './CartScreen'
 
 //import { Icon } from 'react-native-elements';
+import { showMessage } from 'react-native-flash-message';
 const width = Dimensions.get('window').width / 2 - 30;
 
 const wait = (timeout) => {
@@ -92,11 +93,21 @@ const AncalmoScreen = ({ navigation, dato }) => {
             return;
         }
         if (!productResponse['status']) {
-            alert('Ocurrió un error inesperado')
+            showMessage({
+                message: "Ha ocurrido un error inesperado.",
+                description: "Intente más tarde",
+                type: "danger",
+              });
+            // alert('Ocurrió un error inesperado')
             return;
         }
         if (productResponse['status'] == 'failed') {
-            alert(productResponse['message']);
+            showMessage({
+                message: productResponse['message'],
+                // description: "Failed",
+                type: "danger",
+              });
+            // alert(productResponse['message']);
         }
         console.log(productResponse)
 

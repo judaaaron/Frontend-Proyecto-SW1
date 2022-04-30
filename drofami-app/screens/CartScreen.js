@@ -21,7 +21,7 @@ import {
   ButtonTextCart,
 } from "../components/styles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
@@ -37,126 +37,126 @@ const CartScreen = ({ navigation }) => {
     counter != 1 ? setCounter(counter - 1) : counter;
   };
 
-const [TEMP_DATA, setTEMP_DATA] = useState([
+  const [TEMP_DATA, setTEMP_DATA] = useState([
     {
-        id: 1,
-        name: 'ANTIGRIPAL ANCALMO',
-        quantity: 3,
-        count: 1,
-       // like: true,
-        // img: require('../assets/bacaoliver-web.png'),
-    
-        // about:
-        //   'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-        // formula: 
-        //   '500 mg bla bla bla',
-        // dosis: 
-        //     ' 2 tabletas al dia', 
-      },
-    
-      {
-        id: 2,
-        name: 'BACAOLIVER EMULSION',
-        quantity: 2,
-        count: 1,
-        // currency: 'L. ',
-        // price: 20.95,
-        // //like: false,
-        // img: require('../assets/bacaoliver-web.png'),
-        // about:
-        // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-        // formula: 
-        // '500 mg bla bla bla',
-        // dosis: 
-        //   ' 2 tabletas al dia',
-      },
-    
-      {
-        id: 3,
-        name: 'CALAMINA ANTIALERGICA',
-        quantity: 4,
-        count: 1,
-        // currency: 'L. ',
-        // price: 20.95,
-        // //like: false,
-        // img: require('../assets/bacaoliver-web.png'),
-        // about:
-        // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-        // formula: 
-        // '500 mg bla bla bla',
-        // dosis: 
-        //   ' 2 tabletas al dia',
-      },
-    
-      {
-        id: 4,
-        name: 'CALAMINA MENTOLADA',
-        quantity: 6,
-        count: 1,
-    //     currency: 'L. ',
-    //     price: 20.95,
-    //    // like: true,
-    //     img: require('../assets/bacaoliver-web.png'),
-    //     about:
-    //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-    //   formula: 
-    //     '500 mg bla bla bla',
-    //   dosis: 
-    //       ' 2 tabletas al dia',
-      },
-      {
-        id: 5,
-        name: 'DOLO MARATON',
-        quantity: 7,
-        count: 1,
-    //     currency: 'L. ',
-    //     price: 20.95,
-    //     //like: true,
-    //     img: require('../assets/bacaoliver-web.png'),
-    //     about:
-    //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-    //   formula: 
-    //     '500 mg bla bla bla',
-    //   dosis: 
-    //       ' 2 tabletas al dia',
-      },
- 
+      id: 0,
+      name: 'ANTIGRIPAL ANCALMO',
+      quantity: 3,
+      count: 1,
+      // like: true,
+      // img: require('../assets/bacaoliver-web.png'),
+
+      // about:
+      //   'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+      // formula: 
+      //   '500 mg bla bla bla',
+      // dosis: 
+      //     ' 2 tabletas al dia', 
+    },
+
+    {
+      id: 1,
+      name: 'BACAOLIVER EMULSION',
+      quantity: 2,
+      count: 1,
+      // currency: 'L. ',
+      // price: 20.95,
+      // //like: false,
+      // img: require('../assets/bacaoliver-web.png'),
+      // about:
+      // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+      // formula: 
+      // '500 mg bla bla bla',
+      // dosis: 
+      //   ' 2 tabletas al dia',
+    },
+
+    {
+      id: 2,
+      name: 'CALAMINA ANTIALERGICA',
+      quantity: 4,
+      count: 1,
+      // currency: 'L. ',
+      // price: 20.95,
+      // //like: false,
+      // img: require('../assets/bacaoliver-web.png'),
+      // about:
+      // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+      // formula: 
+      // '500 mg bla bla bla',
+      // dosis: 
+      //   ' 2 tabletas al dia',
+    },
+
+    {
+      id: 3,
+      name: 'CALAMINA MENTOLADA',
+      quantity: 6,
+      count: 1,
+      //     currency: 'L. ',
+      //     price: 20.95,
+      //    // like: true,
+      //     img: require('../assets/bacaoliver-web.png'),
+      //     about:
+      //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+      //   formula: 
+      //     '500 mg bla bla bla',
+      //   dosis: 
+      //       ' 2 tabletas al dia',
+    },
+    {
+      id: 4,
+      name: 'DOLO MARATON',
+      quantity: 7,
+      count: 1,
+      //     currency: 'L. ',
+      //     price: 20.95,
+      //     //like: true,
+      //     img: require('../assets/bacaoliver-web.png'),
+      //     about:
+      //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
+      //   formula: 
+      //     '500 mg bla bla bla',
+      //   dosis: 
+      //       ' 2 tabletas al dia',
+    },
+
   ]);
-  const reduction = (id) =>{
-    // const { cart } = this.state;
-    TEMP_DATA.forEach(item =>{
-        if(item.id === id){
-            item.count === 1 ? item.count = 1 : item.count -=1;
-        }
-    })
-  
-   
-};
 
-const increase = (id) =>{
-   
-    TEMP_DATA.forEach(item =>{
-        if(item.id === id){
-            item.count += 1;
-        }
-    })
-   
-    
-};
 
+  const increaseQuantity = (id) => {
+    const currentItems = [...TEMP_DATA];
+
+    currentItems[id].count += 1;
+    setTEMP_DATA(currentItems);
+    // console.log("idIncrease ", id);
+  };
+
+  const decreaseQuantity = (id) => {
+    const currentItems = [...TEMP_DATA];
+
+    if (currentItems[id].count > 1) {
+      currentItems[id].count -= 1; 
+      setTEMP_DATA(currentItems);
+    }
+    // console.log("idDecrease ", id);
+  };
 
   const deleteSelectedElement = (id, name) => {
+    // console.log("tamano arreglo ", TEMP_DATA.length);
     const filteredData = TEMP_DATA.filter(item => item.id !== id);
+    // console.log("tamano arreglo ", TEMP_DATA.length);
+    filteredData.forEach(item => {
+        if(item.id>id){
+          item.id=item.id-1;
+        }
+        
+    })
     setTEMP_DATA(filteredData);
+
   }
 
- const handleDecrement = (id)=>{
-    setTEMP_DATA(TEMP_DATA =>
-        setTEMP_DATA.map((item)=>
-        id===item.id ? {...item, quantity: item.quantity -1 }: item
-        )
-    )
- }
+
 
   const CartCard = ({ id, name, quantity, count }) => {
     return (
@@ -267,7 +267,7 @@ const increase = (id) =>{
                   opacity: 0.5,
                 }}
               >
-                <TouchableOpacity onPress={()=>handleAdd()}>
+                <TouchableOpacity onPress={() => decreaseQuantity(id)}>
                   <MaterialCommunityIcons
                     name="minus"
                     style={{
@@ -285,12 +285,12 @@ const increase = (id) =>{
                   padding: 4,
                   borderWidth: 0.5,
                   borderColor: Colors.white,
-                //   color: Colors.white,
+                  //   color: Colors.white,
                   backgroundColor: Colors.darkBlue,
                   opacity: 0.5,
                 }}
               >
-                <TouchableOpacity onPress={() => reduction(id)}>
+                <TouchableOpacity onPress={() => increaseQuantity(id)}>
                   <MaterialCommunityIcons
                     name="plus"
                     style={{
@@ -301,7 +301,7 @@ const increase = (id) =>{
                 </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity onPress={() => deleteSelectedElement(id,name)}>
+            <TouchableOpacity onPress={() => deleteSelectedElement(id, name)}>
               <MaterialCommunityIcons
                 name="delete-outline"
                 style={{
@@ -373,6 +373,7 @@ const increase = (id) =>{
           paddingTop: 10,
           paddingBottom: 10,
           paddingLeft: 16,
+          top:-6
           // marginBottom: 10,
         }}
       >
@@ -396,16 +397,16 @@ const increase = (id) =>{
       {/* </View> */}
 
 
-     
-        
-       
+
+
+
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
         // data={"foods"}
         data={TEMP_DATA}
         // renderItem={({ item }) => <CartCard item={item} />}
-        renderItem={({ item }) => <CartCard id={item.id} name={item.name} quantity={item.quantity} count ={item.count}/>}
+        renderItem={({ item }) => <CartCard id={item.id} name={item.name} quantity={item.quantity} count={item.count} />}
         // ItemSeparatorComponent={Divider}
         keyExtractor={item => item.id}
         ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
@@ -428,25 +429,25 @@ const increase = (id) =>{
             fontSize: 16,
             color: Colors.black,
             fontWeight: "bold",
-            letterSpacing: 1,
+            letterSpacing: 0.7,
             marginBottom: 20,
           }}
         >
           Información de pedido
         </Text>
         <StyledButtonCart2
-        // style={borderWidth= 0.3}
-        // style={style.buyBtn}
-        onPress={() => {
-          showMessage({
-            message: "Orden en Proceso.",
-            description: "Estamos preparando los detalles de tu orden",
-            type: "info",
-          });
-        }}
-      >
-        <ButtonTextCart2>CONTINUAR</ButtonTextCart2>
-      </StyledButtonCart2>
+          // style={borderWidth= 0.3}
+          // style={style.buyBtn}
+          onPress={() => {
+            showMessage({
+              message: "Orden en Proceso.",
+              description: "Estamos preparando los detalles de tu orden",
+              type: "info",
+            });
+          }}
+        >
+          <ButtonTextCart2>CONTINUAR</ButtonTextCart2>
+        </StyledButtonCart2>
         <View
           style={{
             flexDirection: "row",
@@ -464,7 +465,7 @@ const increase = (id) =>{
               opacity: 0.5,
             }}
           >
-        Subtotal
+            Subtotal
           </Text>
           <Text
             style={{
@@ -537,7 +538,7 @@ const increase = (id) =>{
         </View>
       </View>
 
-      
+
 
       {/* </ScrollView> */}
     </View>
@@ -585,16 +586,16 @@ const style = StyleSheet.create({
 });
 
 const styleSheet = StyleSheet.create({
-    MainContainer: {
-      flex: 1,
-    },
-   
-    itemText: {
-      fontSize: 26,
-      color: 'black',
-      textTransform: 'capitalize'
-    }
-   
-  });
+  MainContainer: {
+    flex: 1,
+  },
+
+  itemText: {
+    fontSize: 26,
+    color: 'black',
+    textTransform: 'capitalize'
+  }
+
+});
 
 export default CartScreen;

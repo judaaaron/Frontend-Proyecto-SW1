@@ -224,7 +224,7 @@ export const StyledButton = styled.TouchableOpacity`
 
 export const StyledButtonCart = styled.TouchableOpacity`
   borderWidth: 0.4px;
-  borderColor: ${blue};
+  borderColor: ${gray2};
   background-color: ${"#F9F9F9"};
   align-items: center;
   justify-content: center;
@@ -233,7 +233,7 @@ export const StyledButtonCart = styled.TouchableOpacity`
   font-weight: bold;
   marginLeft: 193px;
   width: 170px;
-  marginTop: -42px;
+  marginTop: -45px;
 `;
 
 export const StyledButtonCart2 = styled.TouchableOpacity`
