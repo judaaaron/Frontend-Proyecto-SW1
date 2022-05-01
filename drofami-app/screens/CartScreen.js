@@ -25,13 +25,14 @@ import {
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { showMessage } from 'react-native-flash-message';
 import { useIsFocused } from "@react-navigation/native";
+import { useSelector } from "react-redux";//esta
 
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
   const [enCarrito, setCarrito] = useState([]);
   const [response, setResponse] = useState(null);
   const [dataCart, setDataCart] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(useSelector((state) => state.getToken));
   const [loading, setLoading] = useState(false);
   const [productResponse, setProductResponse] = useState(null);
   const [TEMP_DATA, setTEMP_DATA] = useState([
@@ -89,15 +90,15 @@ const CartScreen = ({ navigation }) => {
     }
   }, [dataCart])
 
-  React.useEffect(() => {
-    async function token() {
-        const session = await SecureStore.getItemAsync("user_session");
-        token = JSON.parse(session)['token'];
-        console.log("token ", token);
-        setToken(token)
-    }
-    token();
-}, []);
+//   React.useEffect(() => {
+//     async function token() {
+//         const session = await SecureStore.getItemAsync("user_session");
+//         token = JSON.parse(session)['token'];
+//         console.log("token ", token);
+//         setToken(token)
+//     }
+//     token();
+// }, []);
 
 const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -201,7 +202,7 @@ const isFocused = useIsFocused();
   const CartCard = ({ id, name, quantity, count, productImage, precio }) => {
     return (
       <TouchableOpacity
-        // key={data.key}
+        // key={id}
         // onPress={() =>
         // //   navigation.navigate("ProductInfo", { productID: data.id })
         // } aqui debe de llamarse detalle de producto

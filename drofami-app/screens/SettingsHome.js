@@ -14,11 +14,13 @@ import {
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Avatar } from 'react-native-elements';
+import { useSelector } from "react-redux";//esta
 
 export default function SettingsHome({ navigation }) {
     const [isLoading, setLoading] = useState(false);
     const [formResponse, setFormResponse] = useState({});
-    const [token, setToken] = useState();
+    const [token, setToken] = useState(useSelector((state) => state.getToken));
+    console.log("redux token ", token);
     const [state, setState] = useState({
       first_name: '',
       last_name:'',

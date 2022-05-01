@@ -11,7 +11,7 @@ import { getCatalog, getProduct } from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
 import filter from 'lodash.filter'
 import CartScreen from './CartScreen'
-
+import { useSelector } from "react-redux";//este se agrega
 //import { Icon } from 'react-native-elements';
 import { showMessage } from 'react-native-flash-message';
 const width = Dimensions.get('window').width / 2 - 30;
@@ -24,15 +24,15 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
     const [productResponse, setProductResponse] = useState();
-    const [token, setToken] = useState();
+    const [token, setToken] = useState(useSelector((state) => state.getToken));//se agrega
     const [catalog, setCatalog] = useState([]);
 
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
-    const [search, setSearch] = useState('a');
+    const [search, setSearch] = useState();
     const [filteredDataSource, setFilteredDataSource] = useState();
     const [masterDataSource, setMasterDataSource] = useState(catalog);
-
+    console.log("redux token ", token);
 
     React.useEffect(() => {
         console.log("AQUIIII:",filteredDataSource)
@@ -46,16 +46,16 @@ const AncalmoScreen = ({ navigation, dato }) => {
         })
     }, [refreshing, token])
     
-    React.useEffect(() => {
-        async function token() {
-            const session = await SecureStore.getItemAsync("user_session");
-            token = JSON.parse(session)['token'];
-            console.log("token ", token);
-            setToken(token)
-        }
-        token();
-        setSearch('');
-    }, []);
+    // React.useEffect(() => {
+    //     async function token() {
+    //         const session = await SecureStore.getItemAsync("user_session");
+    //         token = JSON.parse(session)['token'];
+    //         console.log("token ", token);
+    //         setToken(token)
+    //     }
+    //     token();
+    //     setSearch('');
+    // }, []);
 
     const isFocused = useIsFocused();
     React.useEffect(() => {

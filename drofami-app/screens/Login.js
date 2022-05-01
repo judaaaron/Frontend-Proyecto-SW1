@@ -36,10 +36,19 @@ import {showMessage} from 'react-native-flash-message';
 
 const { brand, darkLight } = Colors;
 
+import { useSelector, useDispatch } from "react-redux";//esta
+import { setToken } from "../src/actions";
+
 const Login = ({ navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [loginResponse, setLoginResponse] = useState('');
+
+    //redux
+    const reduxToken = useSelector(state => state.getToken);//esta linea
+    const dispatch = useDispatch();
+
+    console.log("redux token ", reduxToken);
 
     React.useEffect(() => {
         console.log(loginResponse);
@@ -102,6 +111,7 @@ const Login = ({ navigation }) => {
                 console.log("oli");
                 const session = await SecureStore.getItemAsync("user_session");
                 console.log(session);
+                dispatch(setToken(JSON.parse(session)["token"]));
                 checkToken(setLoading, JSON.parse(session)['token'], setLoginResponse)
 
                 /*if (session == undefined) {

@@ -29,6 +29,7 @@ import {
     StyledFormArea2
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useSelector } from "react-redux";//esta
 
 const { brand, darkLight } = Colors;
 
@@ -49,18 +50,19 @@ const SelectEmpresa = ({ route, navigation }) => {
     const [checked, setChecked] = React.useState('first');
     const [response, setResponse] = React.useState();
     const [responsePUT, setResponsePUT] = React.useState();
-    const [token, setToken] = React.useState();
+    const [token, setToken] = React.useState(useSelector((state) => state.getToken));
     const [empresas, setEmpresas] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
+    console.log("redux token ", token);
 
-    React.useEffect(() => {
-        async function token() {
-            const session = await SecureStore.getItemAsync("user_session");
-            token = JSON.parse(session)['token'];
-            setToken(token)
-        }
-        token();
-    }, []);
+    // React.useEffect(() => {
+    //     async function token() {
+    //         const session = await SecureStore.getItemAsync("user_session");
+    //         token = JSON.parse(session)['token'];
+    //         setToken(token)
+    //     }
+    //     token();
+    // }, []);
 
     const isFocused = useIsFocused();
 

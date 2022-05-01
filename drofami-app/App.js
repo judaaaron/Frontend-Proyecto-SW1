@@ -10,15 +10,21 @@ import RootStack from "./navigators/RootStack";
 import { LogBox } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { View } from 'react-native';
+import { createStore } from "redux";
+import allReducers from "./src/reducers/index"
+import { Provider } from "react-redux"
+
+const store = createStore( allReducers);
 
 LogBox.ignoreAllLogs();
 
 export default function App(){
     return(
-        <View style={{flex:1}}>
-            <RootStack/>
-            <FlashMessage position="bottom"/>
+        <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <RootStack />
+          <FlashMessage position="bottom" />
         </View>
-        
+      </Provider>
     ) 
 }

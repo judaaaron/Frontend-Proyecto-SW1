@@ -34,6 +34,7 @@
     "react-native-flash-message": "^0.2.1",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-mask-input": "^1.2.0",
+    "react-native-numeric-input": "^1.9.1",
     "react-native-paper": "^4.11.2",
     "react-native-reanimated": "^2.3.1",
     "react-native-safe-area-context": "3.3.2",
@@ -41,6 +42,8 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg-icon": "^0.10.0",
     "react-native-web": "0.17.1",
+    "react-redux": "^8.0.1",
+    "redux": "^4.2.0",
     "styled-components": "^5.3.3",
     "yup": "^0.32.11"
   },

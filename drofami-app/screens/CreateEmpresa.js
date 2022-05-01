@@ -38,7 +38,7 @@ import Login from "./Login";
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import Keyboard2 from "../components/Keyboard2";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import { useSelector } from "react-redux";//esta
 
 const { brand, darkLight } = Colors;
 const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{1}[0-2]{1})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
@@ -62,7 +62,8 @@ const createEmpresa = ({ navigation }) => {
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
     const [responsePUT, setResponsePUT] = useState('')
-    const [token, setToken] = useState();
+    const [token, setToken] = useState(useSelector((state) => state.getToken));
+    console.log("redux token ", token);
 
     const canalesDeVenta = [
         {nombre: 'Mayorista', id: 'MAY'},
@@ -71,14 +72,14 @@ const createEmpresa = ({ navigation }) => {
         // {nombre: 'Farmacia-Mayorista'},
     ]
 
-    React.useEffect(() => {
-        async function token() {
-            const session = await SecureStore.getItemAsync("user_session");
-            token = JSON.parse(session)['token'];
-            setToken(token)
-        }
-        token();
-    }, []);
+    // React.useEffect(() => {
+    //     async function token() {
+    //         const session = await SecureStore.getItemAsync("user_session");
+    //         token = JSON.parse(session)['token'];
+    //         setToken(token)
+    //     }
+    //     token();
+    // }, []);
 
     React.useEffect(() => {
         if (!responsePUT) {

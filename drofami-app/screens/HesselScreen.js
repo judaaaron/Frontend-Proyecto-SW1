@@ -34,7 +34,7 @@ import DetalleProductsHessel from './DetalleProductsHessel';
 import {getCatalog, getProduct} from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
 import filter from 'lodash.filter'
-
+import { useSelector } from "react-redux";//este se agrega
 import { StatusBar } from "expo-status-bar";
 //import { Icon } from 'react-native-elements';
 import { showMessage } from 'react-native-flash-message';
@@ -47,13 +47,13 @@ const wait = (timeout) => {
 export default function HesselScreen({ navigation}) {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
-    const [token, setToken] = useState();
+    const [token, setToken] = useState(useSelector((state) => state.getToken));
     const [productResponse, setProductResponse] = useState();
     const [catalog, setCatalog] = useState([]);
 
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
-    const [search, setSearch] = useState('a');
+    const [search, setSearch] = useState();
     const [filteredDataSource, setFilteredDataSource] = useState();
     const [masterDataSource, setMasterDataSource] = useState(catalog);
 
@@ -69,16 +69,16 @@ export default function HesselScreen({ navigation}) {
         })
     },[refreshing, token])
 
-    React.useEffect(() => {
-        async function token() {
-            const session = await SecureStore.getItemAsync("user_session");
-            token = JSON.parse(session)['token'];
-            console.log("token ", token);
-            setToken(token)    
-        }
-        token();
-        setSearch('');
-    }, []);
+    // React.useEffect(() => {
+    //     async function token() {
+    //         const session = await SecureStore.getItemAsync("user_session");
+    //         token = JSON.parse(session)['token'];
+    //         console.log("token ", token);
+    //         setToken(token)    
+    //     }
+    //     token();
+    //     setSearch('');
+    // }, []);
 
     const isFocused = useIsFocused();
     React.useEffect(() => {
