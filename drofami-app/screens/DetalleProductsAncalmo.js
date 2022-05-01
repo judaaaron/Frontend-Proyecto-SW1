@@ -114,15 +114,6 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
 
                 <View>
                 <NumericInput
-                
-                 minValue={1}
-                 //initValue={1}
-                // inputMode=
-                valueType='integer'
-                initValue={1}
-                 value={counter} 
-                 onChange={value => setCounter({value})}
-                  // onLimitReached={(isMax, msg) => console.log(isMax, msg)}
                   totalWidth={130}
                   totalHeight={45}
                   iconSize={15}
@@ -131,7 +122,16 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                   iconStyle={{ color: 'white' }}
                   rightButtonBackgroundColor= {Colors.blue}
                   leftButtonBackgroundColor= {Colors.blue}
-                  
+                  minValue={1}
+                  maxValue={1000} // traer la cantidad de este producto de backend
+                  value={counter}
+                  onChange={(value) => setCounter(value)}
+                  containerStyle={{
+                    backgroundColor: Colors.white,
+                   // borderWidth: 1,
+                    borderColor: Colors.white,
+                    borderRadius:50
+                }}
                   />
                   {/* <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text> */}
                   {/* <FAB

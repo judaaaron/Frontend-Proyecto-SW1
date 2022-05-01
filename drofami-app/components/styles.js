@@ -234,6 +234,7 @@ export const StyledButtonCart = styled.TouchableOpacity`
   marginLeft: 193px;
   width: 170px;
   marginTop: -45px;
+  
 `;
 
 export const StyledButtonCart2 = styled.TouchableOpacity`
