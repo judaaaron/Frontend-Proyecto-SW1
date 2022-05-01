@@ -113,30 +113,30 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 
               <View>
                 {/* <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text> */}
-                {/* <FAB
+                 <FAB
                   theme={{ colors: { accent: Colors.blue } }}
                   big
                   icon="minus"
                   onPress={handleSubstract}
-                /> */}
+                /> 
               </View>
-              {/* <Text
+              <Text
                 style={{
                   fontSize: 20,
                   marginHorizontal: 10,
                   fontWeight: 'bold',
                 }}>
                   {counter}
-              </Text> */}
+              </Text>
               <View >
               {/* <Text style={style.borderBtnText} onPress={handleAdd}>+</Text> */}
-              {/* <FAB
+              <FAB
                   // style={style.borderBtnText}
                   theme={{ colors: { accent: Colors.blue } }}
                   big
                   icon="plus"
                   onPress={handleAdd}
-                /> */}
+                />
               </View>
              
             </View>
@@ -222,12 +222,13 @@ const style = StyleSheet.create({
   },
   borderBtnText: { fontWeight: 'bold', fontSize: 28 },
   buyBtn: {
-    width: 325,
+    width: 200,
     height: 50,
     backgroundColor: Colors.blue,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
+    marginLeft: 10,
   },
   priceTag: {
     backgroundColor: Colors.blue,

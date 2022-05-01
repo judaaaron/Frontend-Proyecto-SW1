@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import * as SecureStore from 'expo-secure-store';
+import { getCart, saveCart, clearCarrito, deleteProduct } from '../src/CartMethods'
 import {
   SafeAreaView,
   StyleSheet,
@@ -22,36 +24,23 @@ import {
 } from "../components/styles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { showMessage } from 'react-native-flash-message';
+import { useIsFocused } from "@react-navigation/native";
 
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
-  const [counter, setCounter] = useState(1);
   const [enCarrito, setCarrito] = useState([]);
-
-  const handleAdd = (id) => {
-
-    setCounter(counter + 1);
-  };
-
-  const handleSubstract = () => {
-    counter != 1 ? setCounter(counter - 1) : counter;
-  };
-
+  const [response, setResponse] = useState(null);
+  const [dataCart, setDataCart] = useState(null);
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [productResponse, setProductResponse] = useState(null);
   const [TEMP_DATA, setTEMP_DATA] = useState([
+    //#region tempData
     {
       id: 0,
       name: 'ANTIGRIPAL ANCALMO',
       quantity: 3,
       count: 1,
-      // like: true,
-      // img: require('../assets/bacaoliver-web.png'),
-
-      // about:
-      //   'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-      // formula: 
-      //   '500 mg bla bla bla',
-      // dosis: 
-      //     ' 2 tabletas al dia', 
     },
 
     {
@@ -59,16 +48,7 @@ const CartScreen = ({ navigation }) => {
       name: 'BACAOLIVER EMULSION',
       quantity: 2,
       count: 1,
-      // currency: 'L. ',
-      // price: 20.95,
-      // //like: false,
-      // img: require('../assets/bacaoliver-web.png'),
-      // about:
-      // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-      // formula: 
-      // '500 mg bla bla bla',
-      // dosis: 
-      //   ' 2 tabletas al dia',
+
     },
 
     {
@@ -76,16 +56,7 @@ const CartScreen = ({ navigation }) => {
       name: 'CALAMINA ANTIALERGICA',
       quantity: 4,
       count: 1,
-      // currency: 'L. ',
-      // price: 20.95,
-      // //like: false,
-      // img: require('../assets/bacaoliver-web.png'),
-      // about:
-      // 'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-      // formula: 
-      // '500 mg bla bla bla',
-      // dosis: 
-      //   ' 2 tabletas al dia',
+
     },
 
     {
@@ -93,58 +64,109 @@ const CartScreen = ({ navigation }) => {
       name: 'CALAMINA MENTOLADA',
       quantity: 6,
       count: 1,
-      //     currency: 'L. ',
-      //     price: 20.95,
-      //    // like: true,
-      //     img: require('../assets/bacaoliver-web.png'),
-      //     about:
-      //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-      //   formula: 
-      //     '500 mg bla bla bla',
-      //   dosis: 
-      //       ' 2 tabletas al dia',
+
     },
     {
       id: 4,
       name: 'DOLO MARATON',
       quantity: 7,
       count: 1,
-      //     currency: 'L. ',
-      //     price: 20.95,
-      //     //like: true,
-      //     img: require('../assets/bacaoliver-web.png'),
-      //     about:
-      //     'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-      //   formula: 
-      //     '500 mg bla bla bla',
-      //   dosis: 
-      //       ' 2 tabletas al dia',
+
     },
 
-  ]);
+  ]);//#endregion
+  
+  React.useEffect(() => {
+    if (!response) {
+      return;
+    }
+    setDataCart(response['data']);
+  }, [response])
 
+  React.useEffect(() => {
+    if (dataCart) {
+      //console.log('PUPU', dataCart)
+    }
+  }, [dataCart])
+
+  React.useEffect(() => {
+    async function token() {
+        const session = await SecureStore.getItemAsync("user_session");
+        token = JSON.parse(session)['token'];
+        console.log("token ", token);
+        setToken(token)
+    }
+    token();
+}, []);
+
+const isFocused = useIsFocused();
+  React.useEffect(() => {
+    if (!token) {
+      return;
+    }
+    if (isFocused) {
+      getCart(setLoading, token, setResponse);
+    }
+  }, [token, isFocused])
+
+  React.useEffect(() => {
+    if (!productResponse || !productResponse['status']) {
+      return;
+    }
+    switch (productResponse['status']) {
+      case 'succesful':
+        //no nos interesa creo
+        break;
+      case 'over-limit': 
+      showMessage({
+        message: productResponse['message'],
+        type: "danger",
+        
+      });
+        break;
+    }
+    if (!productResponse['data']['cantidad']) {
+      return;
+    }
+    const currentItems = [...dataCart];
+    currentItems.forEach((element) => {
+      console.log('excremento', element)
+      if (element.producto.id == productResponse['data']['producto']['id']) {
+        element.cantidad = productResponse['data']['cantidad'];
+        console.log('excremento', element)
+      }
+    });
+    console.log('caca', productResponse['data']['cantidad']);
+    setDataCart(currentItems);
+  }, [productResponse])
 
   const increaseQuantity = (id) => {
-    const currentItems = [...TEMP_DATA];
-
-    currentItems[id].count += 1;
-    setTEMP_DATA(currentItems);
-    // console.log("idIncrease ", id);
+    const currentItems = [...dataCart];
+    //console.log('pupu', currentItems)
+    let cant = 0
+    currentItems.forEach((element) => {
+      if (element.producto.id == id) {
+        cant = (element.cantidad + 1);
+      }
+    });
+    saveCart(token, id, cant, setProductResponse)  
   };
 
   const decreaseQuantity = (id) => {
-    const currentItems = [...TEMP_DATA];
+    const currentItems = [...dataCart];
 
-    if (currentItems[id].count > 1) {
-      currentItems[id].count -= 1; 
-      setTEMP_DATA(currentItems);
-    }
-    // console.log("idDecrease ", id);
+    let cant = 0
+    currentItems.forEach((element) => {
+      if (element.producto.id == id) {
+        cant = (element.cantidad - 1);
+      }
+    });
+    saveCart(token, id, cant, setProductResponse)  
   };
 
   const deleteSelectedElement = (id, name) => {
     // console.log("tamano arreglo ", TEMP_DATA.length);
-    const filteredData = TEMP_DATA.filter(item => item.id !== id);
+    const filteredData = dataCart.filter(item => item.id !== id);
     // console.log("tamano arreglo ", TEMP_DATA.length);
     filteredData.forEach(item => {
         if(item.id>id){
@@ -156,9 +178,27 @@ const CartScreen = ({ navigation }) => {
 
   }
 
+  // const vaciarCarrito = (id) => {
+
+  //   showMessage({
+  //     message: (
+  //       '¿Estás seguro de cancelar pedido?',
+  //       'Seleccione:',
+  //       [
+  //         { text: 'Cancel', onPress: () => { }, style: 'cancel' },
+  //         {
+  //           text: 'OK', onPress: () => {
+        
+  //           }
+  //         },
+  //       ]),
+  //     description: "Su orden ha sido cancelada",
+  //     type: "danger",
+  //   });
+  // }
 
 
-  const CartCard = ({ id, name, quantity, count }) => {
+  const CartCard = ({ id, name, quantity, count, productImage, precio }) => {
     return (
       <TouchableOpacity
         // key={data.key}
@@ -187,8 +227,7 @@ const CartScreen = ({ navigation }) => {
           }}
         >
           <Image
-            // source={data.productImage}
-            source={require("../assets/bacaoliver-web.png")}
+            source={{ uri: productImage}}
             style={{
               width: "100%",
               height: "100%",
@@ -228,18 +267,17 @@ const CartScreen = ({ navigation }) => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: "400",
+                  fontWeight: 'bold',
                   maxWidth: "85%",
                   marginRight: 4,
                 }}
               >
-                {/* &#8377;{data.productPrice} */}
-                Ancalmo
+                L. {precio}
+                {/* Ancalmo */}
               </Text>
               <Text>
                 {/* (~&#8377;
                 {data.productPrice + data.productPrice / 20}) */}
-                L.500
               </Text>
             </View>
           </View>
@@ -388,6 +426,7 @@ const CartScreen = ({ navigation }) => {
             message: "Orden Cancelada.",
             description: "Su orden ha sido cancelada",
             type: "danger",
+            
           });
         }}
       >
@@ -395,19 +434,12 @@ const CartScreen = ({ navigation }) => {
       </StyledButtonCart>
 
       {/* </View> */}
-
-
-
-
-
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
-        // data={"foods"}
-        data={TEMP_DATA}
-        // renderItem={({ item }) => <CartCard item={item} />}
-        renderItem={({ item }) => <CartCard id={item.id} name={item.name} quantity={item.quantity} count={item.count} />}
-        // ItemSeparatorComponent={Divider}
+        data={dataCart ? dataCart : []}
+        renderItem={({ item }) => <CartCard key={item.producto.ids} id={item.producto.id} name={item.producto.nombre} count={item.cantidad}
+        productImage={item.producto.imagen} precio={item.producto.precio}/>}
         keyExtractor={item => item.id}
         ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
       />
@@ -533,7 +565,7 @@ const CartScreen = ({ navigation }) => {
               color: Colors.black,
             }}
           >
-            L. {total + total / 20}
+            L. {total + (total *0.15)}
           </Text>
         </View>
       </View>
