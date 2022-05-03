@@ -6,6 +6,7 @@ import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../
 import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 import { FAB } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
+import { getCart, saveCart } from '../src/CartMethods';
 import NumericInput from 'react-native-numeric-input'
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
@@ -13,6 +14,47 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const [notifications, setNotifications] = useState([]);
   const { id, cantidad, imagen, nombre, precio, fabricante, indicaciones, dosis, formula } = route.params
   const [counter, setCounter] = useState(1);
+  const [token, setToken] = useState(useSelector((state) => state.getToken));//se agrega
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [productResponse, setProductResponse] = useState(null);
+
+  React.useEffect(() => {
+    getCart(setLoading, token, setResponse);
+  }, [token]);
+
+  React.useEffect(() => {
+    if (!response) {
+      return;
+    }
+    if (!response['data'] || !response['data']['cantidad']) {
+      //error super inesperado
+      return;
+    }
+    setCounter(response['data']['cantidad']);
+  }, [response]);
+
+  React.useEffect(() => {
+    if (!productResponse || !productResponse['status']) {
+      return;
+    }
+    switch (productResponse['status']) {
+      case 'succesful':
+        //no nos interesa creo
+        break;
+      case 'over-limit': 
+      showMessage({
+        message: productResponse['message'],
+        type: "danger",
+        
+      });
+        break;
+    }
+    if (!productResponse['data']['cantidad']) {
+      return;
+    }
+    setCounter(cantidad);
+  }, [productResponse])
 
   const handleAdd = () => {
     setCounter(counter + 1);
@@ -20,6 +62,10 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
 
   const handleSubstract = () => {
     counter != 1 ? setCounter(counter - 1) : counter
+  }
+
+  function handleChange(value) {
+    saveCart(token, id, value, productResponse);
   }
 
   const carouselData = [
@@ -125,7 +171,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                   minValue={1}
                   maxValue={1000} // traer la cantidad de este producto de backend
                   value={counter}
-                  onChange={(value) => setCounter(value)}
+                  onChange={(value) => handleChange(value)}
                   containerStyle={{
                     backgroundColor: Colors.white,
                    // borderWidth: 1,
