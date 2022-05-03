@@ -24,7 +24,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   React.useEffect(() => {
     if (isFocused) {
-      getCart(setLoading, token, setResponse);   
+      getCart(setLoading, token, setResponse);
     }
   }, [token]);
 
@@ -50,20 +50,25 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     }
     switch (productResponse['status']) {
       case 'succesful':
-        //no nos interesa creo
+        showMessage({
+          message: 'Producto agregado al carrito.',
+          type: "success",
+
+        });
         break;
-      case 'over-limit': 
-      showMessage({
-        message: productResponse['message'],
-        type: "danger",
-        
-      });
+      case 'over-limit':
+        showMessage({
+          message: productResponse['message'],
+          type: "danger",
+
+        });
         break;
     }
     if (!productResponse['data']['cantidad']) {
       return;
     }
-    setCounter(cantidad);
+    console.log('wuuuuuu', productResponse['data']['cantidad']);
+    setCounter(productResponse['data']['cantidad']);
   }, [productResponse])
 
   const handleAdd = () => {
@@ -75,7 +80,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   }
 
   function handleChange(value) {
-    console.log("HOLAAAAA","holaaaaaaaaaaaaa")
+    
     saveCart(token, id, value, setProductResponse);
   }
 
@@ -170,27 +175,29 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 }}>
 
                 <View>
-                <NumericInput
-                  mobile
-                  totalWidth={130}
-                  totalHeight={45}
-                  iconSize={15}
-                  textColor={Colors.black}
-                  iconStyle={{ color: 'white' }}
-                  rightButtonBackgroundColor= {Colors.blue}
-                  leftButtonBackgroundColor= {Colors.blue}
-                  step={1}
-                  minValue={1}
-                  maxValue={1000} // traer la cantidad de este producto de backend
-                  initValue={counter}
-                  value={counter}
-                  onChange={(value) => console.log("value:",value)}
-                  containerStyle={{
-                    backgroundColor: Colors.white,
-                   // borderWidth: 1,
-                    borderColor: Colors.white,
-                    borderRadius:50
-                  }}
+                
+                  <NumericInput
+                    totalWidth={130}
+                    totalHeight={45}
+                    iconSize={15}
+                    textColor={Colors.black}
+                    iconStyle={{ color: 'white' }}
+                    rightButtonBackgroundColor={Colors.blue}
+                    leftButtonBackgroundColor={Colors.blue}
+                    step={1}
+                    minValue={1}
+                    maxValue={1000} // traer la cantidad de este producto de backend
+                    // mobile
+                    initValue={counter}
+                    value={counter}
+                    disable={false}
+                    onChange={(value) => setCounter(value)}
+                    containerStyle={{
+                      backgroundColor: Colors.white,
+                      // borderWidth: 1,
+                      borderColor: Colors.white,
+                      borderRadius: 50
+                    }}
                   />
                   {/* <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text> */}
                   {/* <FAB
@@ -200,14 +207,18 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                     onPress={handleSubstract}
                   /> */}
                 </View>
-                {/* <Text
-                  style={{
-                    fontSize: 20,
-                    marginHorizontal: 10,
-                    fontWeight: 'bold',
-                  }}>
-                  {counter}
-                </Text> */}
+                <TextInput
+                    style={{
+                      fontSize: 20,
+                      marginHorizontal: 10,
+                      fontWeight: 'bold',
+                    }}
+                    keyboardType='numeric'
+                    // value={counter.toString()}
+                    // onChangeText={(value)=>handleChange(parseInt(value))}
+                  />
+                  
+                
                 <View >
                   {/* <Text style={style.borderBtnText} onPress={handleAdd}>+</Text> */}
                   {/* <FAB
@@ -232,16 +243,12 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                title=" Añadir al carrito"
                
             /> */}
-               
+
 
                 <StyledButton
                   style={style.buyBtn}
                   onPress={() => {
-                    showMessage({
-                      message: "Producto agregado.",
-                      description: 'El producto ha sido añadido al carrito con éxito',
-                      type: "success",
-                    });
+                    saveCart(token, id, counter, setProductResponse);
                   }}>
                   <ButtonText>
                     Añadir al carrito
@@ -309,7 +316,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
-    marginLeft: 10,
+    marginLeft: -20,
   },
   priceTag: {
     backgroundColor: Colors.blue,
