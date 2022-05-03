@@ -35,6 +35,7 @@ const CartScreen = ({ navigation }) => {
   const [token, setToken] = useState(useSelector((state) => state.getToken));
   const [loading, setLoading] = useState(false);
   const [productResponse, setProductResponse] = useState(null);
+  const [productResponseDel, setProductResponseDel] = useState(null);
   const [TEMP_DATA, setTEMP_DATA] = useState([
     //#region tempData
     {
@@ -131,19 +132,30 @@ const isFocused = useIsFocused();
     }
     const currentItems = [...dataCart];
     currentItems.forEach((element) => {
-      console.log('excremento', element)
       if (element.producto.id == productResponse['data']['producto']['id']) {
         element.cantidad = productResponse['data']['cantidad'];
-        console.log('excremento', element)
       }
     });
-    console.log('caca', productResponse['data']['cantidad']);
     setDataCart(currentItems);
   }, [productResponse])
 
+  React.useEffect(() => {
+    if (!productResponseDel || !productResponseDel['status']) {
+      return;
+    }
+    if (!productResponseDel['data']['producto']) {
+      return;
+    }
+    
+    const currentItems = [...dataCart];
+    const arr2 = currentItems.filter((element) => {
+      return element.producto.id != productResponseDel['data']['producto']['id'];
+    });
+    setDataCart(arr2);
+  }, [productResponseDel])
+
   const increaseQuantity = (id) => {
     const currentItems = [...dataCart];
-    //console.log('pupu', currentItems)
     let cant = 0
     currentItems.forEach((element) => {
       if (element.producto.id == id) {
@@ -165,18 +177,8 @@ const isFocused = useIsFocused();
     saveCart(token, id, cant, setProductResponse)  
   };
 
-  const deleteSelectedElement = (id, name) => {
-    // console.log("tamano arreglo ", TEMP_DATA.length);
-    const filteredData = dataCart.filter(item => item.id !== id);
-    // console.log("tamano arreglo ", TEMP_DATA.length);
-    filteredData.forEach(item => {
-        if(item.id>id){
-          item.id=item.id-1;
-        }
-        
-    })
-    setTEMP_DATA(filteredData);
-
+  const deleteSelectedElement = (id) => {
+    deleteProduct(setLoading, token, id, setProductResponseDel);
   }
 
   // const vaciarCarrito = (id) => {
@@ -340,7 +342,7 @@ const isFocused = useIsFocused();
                 </TouchableOpacity>
               </View>
             </View>
-            <TouchableOpacity onPress={() => deleteSelectedElement(id, name)}>
+            <TouchableOpacity onPress={() => deleteSelectedElement(id)}>
               <MaterialCommunityIcons
                 name="delete-outline"
                 style={{
@@ -439,9 +441,9 @@ const isFocused = useIsFocused();
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
         data={dataCart ? dataCart : []}
-        renderItem={({ item }) => <CartCard key={item.producto.ids} id={item.producto.id} name={item.producto.nombre} count={item.cantidad}
+        renderItem={({ item }) => <CartCard key={item.producto.id} id={item.producto.id} name={item.producto.nombre} count={item.cantidad}
         productImage={item.producto.imagen} precio={item.producto.precio}/>}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.producto.id}
         ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
       />
       <View

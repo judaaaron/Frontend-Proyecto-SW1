@@ -8,6 +8,8 @@ import { FAB } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
 import { getCart, saveCart } from '../src/CartMethods';
 import NumericInput from 'react-native-numeric-input'
+import { useSelector } from "react-redux";//este se agrega
+import { useIsFocused } from "@react-navigation/native";
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
@@ -19,19 +21,27 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const [response, setResponse] = useState(null);
   const [productResponse, setProductResponse] = useState(null);
 
+  const isFocused = useIsFocused();
   React.useEffect(() => {
-    getCart(setLoading, token, setResponse);
+    if (isFocused) {
+      getCart(setLoading, token, setResponse);   
+    }
   }, [token]);
 
   React.useEffect(() => {
     if (!response) {
       return;
     }
-    if (!response['data'] || !response['data']['cantidad']) {
+    if (!response['data']) {
       //error super inesperado
       return;
     }
-    setCounter(response['data']['cantidad']);
+    response['data'].forEach((element) => {
+      if (id == element.producto.id) {
+        setCounter(element.cantidad)
+        console.log('caca', element.cantidad)
+      }
+    });
   }, [response]);
 
   React.useEffect(() => {
@@ -65,7 +75,8 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   }
 
   function handleChange(value) {
-    saveCart(token, id, value, productResponse);
+    console.log("HOLAAAAA","holaaaaaaaaaaaaa")
+    saveCart(token, id, value, setProductResponse);
   }
 
   const carouselData = [
@@ -160,24 +171,26 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
 
                 <View>
                 <NumericInput
+                  mobile
                   totalWidth={130}
                   totalHeight={45}
                   iconSize={15}
-                  step={1}
                   textColor={Colors.black}
                   iconStyle={{ color: 'white' }}
                   rightButtonBackgroundColor= {Colors.blue}
                   leftButtonBackgroundColor= {Colors.blue}
+                  step={1}
                   minValue={1}
                   maxValue={1000} // traer la cantidad de este producto de backend
+                  initValue={counter}
                   value={counter}
-                  onChange={(value) => handleChange(value)}
+                  onChange={(value) => console.log("value:",value)}
                   containerStyle={{
                     backgroundColor: Colors.white,
                    // borderWidth: 1,
                     borderColor: Colors.white,
                     borderRadius:50
-                }}
+                  }}
                   />
                   {/* <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text> */}
                   {/* <FAB

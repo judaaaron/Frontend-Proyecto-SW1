@@ -93,6 +93,7 @@ const Login = ({ navigation }) => {
                     token: sToken
                 })
             );
+            dispatch(setToken(sToken));
             console.log("Se almaceno");
         } catch (error) {
             showMessage({

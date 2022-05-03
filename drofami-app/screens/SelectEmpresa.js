@@ -50,7 +50,8 @@ const SelectEmpresa = ({ route, navigation }) => {
     const [checked, setChecked] = React.useState('first');
     const [response, setResponse] = React.useState();
     const [responsePUT, setResponsePUT] = React.useState();
-    const [token, setToken] = React.useState(useSelector((state) => state.getToken));
+    // const [token, setToken] = React.useState(useSelector((state) => state.getToken));
+    const { token } = route.params;
     const [empresas, setEmpresas] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
     console.log("redux token ", token);
