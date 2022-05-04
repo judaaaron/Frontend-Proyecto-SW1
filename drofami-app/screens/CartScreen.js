@@ -77,18 +77,29 @@ const CartScreen = ({ navigation }) => {
     },
 
   ]);//#endregion
+
+
   
-  React.useEffect(() => {
+  React.useEffect(() => { 
     if (!response) {
       return;
     }
     setDataCart(response['data']);
+    
+
   }, [response])
 
   React.useEffect(() => {
-    if (dataCart) {
-      //console.log('PUPU', dataCart)
+    if (!dataCart) {
+      setTotal(0);
+      return;
     }
+    const currentItems = dataCart;
+    var totalAcum = 0;
+    currentItems.forEach((element) => {
+      totalAcum += element.producto.precio*element.cantidad;
+    });
+    setTotal(totalAcum);
   }, [dataCart])
 
 //   React.useEffect(() => {
@@ -165,6 +176,8 @@ const isFocused = useIsFocused();
     saveCart(token, id, cant, setProductResponse)  
   };
 
+
+
   const decreaseQuantity = (id) => {
     const currentItems = [...dataCart];
 
@@ -201,13 +214,24 @@ const isFocused = useIsFocused();
   // }
 
 
-  const CartCard = ({ id, name, quantity, count, productImage, precio }) => {
+  const CartCard = ({ id, name, quantity, count, productImage, precio, dosis, formula, indicaciones, fabricante }) => {
     return (
       <TouchableOpacity
         // key={id}
-        // onPress={() =>
-        // //   navigation.navigate("ProductInfo", { productID: data.id })
-        // } aqui debe de llamarse detalle de producto
+        onPress={() =>
+          navigation.navigate('DetalleProductsAncalmo', {
+            id: id,
+            cantidad: count,
+            imagen: productImage,
+            nombre: name,
+            precio: precio,
+            fabricante: fabricante,
+            indicaciones: indicaciones,
+            dosis: dosis,
+            formula: formula,
+        })
+        } 
+        // aqui debe de llamarse detalle de producto
         style={{
           width: "100%",
           height: 100,
@@ -274,8 +298,16 @@ const isFocused = useIsFocused();
                   maxWidth: "85%",
                   marginRight: 4,
                 }}
+                
               >
+{/* 
+                (()=>({
+                {
+                   getPrecio(precio)
+                } */}
                 L. {precio}
+
+               
                 {/* Ancalmo */}
               </Text>
               <Text>
@@ -442,7 +474,8 @@ const isFocused = useIsFocused();
         contentContainerStyle={{ paddingBottom: 80 }}
         data={dataCart ? dataCart : []}
         renderItem={({ item }) => <CartCard key={item.producto.id} id={item.producto.id} name={item.producto.nombre} count={item.cantidad}
-        productImage={item.producto.imagen} precio={item.producto.precio}/>}
+        productImage={item.producto.imagen} precio={item.producto.precio} indicaciones={item.producto.indicaciones}
+        dosis={item.producto.dosis} formula={item.producto.formula} fabricante={item.producto.fabricante} />}
         keyExtractor={item => item.producto.id}
         ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
       />
