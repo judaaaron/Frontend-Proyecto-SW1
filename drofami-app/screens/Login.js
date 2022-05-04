@@ -37,7 +37,10 @@ import {showMessage} from 'react-native-flash-message';
 const { brand, darkLight } = Colors;
 
 import { useSelector, useDispatch } from "react-redux";//esta
-import { setToken } from "../src/actions";
+// import { login, logout } from "../features/user";
+import { setToken } from "../src/reducers/getToken";
+import { isStaff } from "../src/reducers/staff";
+
 
 const Login = ({ navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
@@ -45,10 +48,13 @@ const Login = ({ navigation }) => {
     const [loginResponse, setLoginResponse] = useState('');
 
     //redux
-    const reduxToken = useSelector(state => state.getToken);//esta linea
+    // const reduxToken = useSelector(state => state.getToken);//esta linea
+    const reduxToken = useSelector((state) => state.token.value); 
+    const reduxStaff = useSelector((state) => state.staff.value); 
     const dispatch = useDispatch();
 
     console.log("redux token ", reduxToken);
+    console.log("redux staff ", reduxStaff);
 
     React.useEffect(() => {
         console.log(loginResponse);
@@ -93,7 +99,11 @@ const Login = ({ navigation }) => {
                     token: sToken
                 })
             );
+            console.log("usuario ", usuario.is_staff);
+            // dispatch(setToken(sToken));
+            // dispatch(login({ name: "Pedro", age: 20, email: "pedro@gmail.com" }));
             dispatch(setToken(sToken));
+            dispatch(isStaff(usuario.is_staff));
             console.log("Se almaceno");
         } catch (error) {
             showMessage({
@@ -111,8 +121,10 @@ const Login = ({ navigation }) => {
             try {
                 console.log("oli");
                 const session = await SecureStore.getItemAsync("user_session");
-                console.log(session);
+                console.log("session ", session);
+                console.log("staff get credentials ", JSON.parse(session)["user"]["is_staff"])
                 dispatch(setToken(JSON.parse(session)["token"]));
+                dispatch(isStaff(JSON.parse(session)["user"]["is_staff"]));
                 checkToken(setLoading, JSON.parse(session)['token'], setLoginResponse)
 
                 /*if (session == undefined) {

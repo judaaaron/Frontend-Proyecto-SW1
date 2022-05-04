@@ -24,7 +24,8 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
     const [productResponse, setProductResponse] = useState();
-    const [token, setToken] = useState(useSelector((state) => state.getToken));//se agrega
+    // const [token, setToken] = useState(useSelector((state) => state.getToken));//se agrega
+    const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
     const [catalog, setCatalog] = useState([]);
 
     const [refreshing, setRefreshing] = React.useState(false);

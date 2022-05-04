@@ -16,7 +16,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const [notifications, setNotifications] = useState([]);
   const { id, cantidad, imagen, nombre, precio, fabricante, indicaciones, dosis, formula } = route.params
   const [counter, setCounter] = useState(1);
-  const [token, setToken] = useState(useSelector((state) => state.getToken));//se agrega
+  const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [productResponse, setProductResponse] = useState(null);

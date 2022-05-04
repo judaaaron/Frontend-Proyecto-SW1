@@ -11,10 +11,19 @@ import { LogBox } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { View } from 'react-native';
 import { createStore } from "redux";
-import allReducers from "./src/reducers/index"
+import tokenReducer from "./src/reducers/getToken"
+import staffReducer from "./src/reducers/staff"
 import { Provider } from "react-redux"
+import {configureStore} from '@reduxjs/toolkit'
 
-const store = createStore( allReducers);
+// const stores = createStore( allReducers);
+
+const store = configureStore({
+  reducer: {
+    token: tokenReducer,
+    staff: staffReducer,
+  },
+});
 
 LogBox.ignoreAllLogs();
 

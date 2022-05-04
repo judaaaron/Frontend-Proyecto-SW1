@@ -32,7 +32,7 @@ const CartScreen = ({ navigation }) => {
   const [enCarrito, setCarrito] = useState([]);
   const [response, setResponse] = useState(null);
   const [dataCart, setDataCart] = useState(null);
-  const [token, setToken] = useState(useSelector((state) => state.getToken));
+  const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
   const [loading, setLoading] = useState(false);
   const [productResponse, setProductResponse] = useState(null);
   const [productResponseDel, setProductResponseDel] = useState(null);
@@ -40,54 +40,45 @@ const CartScreen = ({ navigation }) => {
     //#region tempData
     {
       id: 0,
-      name: 'ANTIGRIPAL ANCALMO',
+      name: "ANTIGRIPAL ANCALMO",
       quantity: 3,
       count: 1,
     },
 
     {
       id: 1,
-      name: 'BACAOLIVER EMULSION',
+      name: "BACAOLIVER EMULSION",
       quantity: 2,
       count: 1,
-
     },
 
     {
       id: 2,
-      name: 'CALAMINA ANTIALERGICA',
+      name: "CALAMINA ANTIALERGICA",
       quantity: 4,
       count: 1,
-
     },
 
     {
       id: 3,
-      name: 'CALAMINA MENTOLADA',
+      name: "CALAMINA MENTOLADA",
       quantity: 6,
       count: 1,
-
     },
     {
       id: 4,
-      name: 'DOLO MARATON',
+      name: "DOLO MARATON",
       quantity: 7,
       count: 1,
-
     },
+  ]); //#endregion
 
-  ]);//#endregion
-
-
-  
-  React.useEffect(() => { 
+  React.useEffect(() => {
     if (!response) {
       return;
     }
-    setDataCart(response['data']);
-    
-
-  }, [response])
+    setDataCart(response["data"]);
+  }, [response]);
 
   React.useEffect(() => {
     if (!dataCart) {
@@ -97,22 +88,22 @@ const CartScreen = ({ navigation }) => {
     const currentItems = dataCart;
     var totalAcum = 0;
     currentItems.forEach((element) => {
-      totalAcum += element.producto.precio*element.cantidad;
+      totalAcum += element.producto.precio * element.cantidad;
     });
     setTotal(totalAcum);
-  }, [dataCart])
+  }, [dataCart]);
 
-//   React.useEffect(() => {
-//     async function token() {
-//         const session = await SecureStore.getItemAsync("user_session");
-//         token = JSON.parse(session)['token'];
-//         console.log("token ", token);
-//         setToken(token)
-//     }
-//     token();
-// }, []);
+  //   React.useEffect(() => {
+  //     async function token() {
+  //         const session = await SecureStore.getItemAsync("user_session");
+  //         token = JSON.parse(session)['token'];
+  //         console.log("token ", token);
+  //         setToken(token)
+  //     }
+  //     token();
+  // }, []);
 
-const isFocused = useIsFocused();
+  const isFocused = useIsFocused();
   React.useEffect(() => {
     if (!token) {
       return;
@@ -120,79 +111,78 @@ const isFocused = useIsFocused();
     if (isFocused) {
       getCart(setLoading, token, setResponse);
     }
-  }, [token, isFocused])
+  }, [token, isFocused]);
 
   React.useEffect(() => {
-    if (!productResponse || !productResponse['status']) {
+    if (!productResponse || !productResponse["status"]) {
       return;
     }
-    switch (productResponse['status']) {
-      case 'succesful':
+    switch (productResponse["status"]) {
+      case "succesful":
         //no nos interesa creo
         break;
-      case 'over-limit': 
-      showMessage({
-        message: productResponse['message'],
-        type: "danger",
-        
-      });
+      case "over-limit":
+        showMessage({
+          message: productResponse["message"],
+          type: "danger",
+        });
         break;
     }
-    if (!productResponse['data']['cantidad']) {
+    if (!productResponse["data"]["cantidad"]) {
       return;
     }
     const currentItems = [...dataCart];
     currentItems.forEach((element) => {
-      if (element.producto.id == productResponse['data']['producto']['id']) {
-        element.cantidad = productResponse['data']['cantidad'];
+      if (element.producto.id == productResponse["data"]["producto"]["id"]) {
+        element.cantidad = productResponse["data"]["cantidad"];
       }
     });
     setDataCart(currentItems);
-  }, [productResponse])
+  }, [productResponse]);
 
   React.useEffect(() => {
-    if (!productResponseDel || !productResponseDel['status']) {
+    if (!productResponseDel || !productResponseDel["status"]) {
       return;
     }
-    if (!productResponseDel['data']['producto']) {
+    if (!productResponseDel["data"]["producto"]) {
       return;
     }
-    
+
     const currentItems = [...dataCart];
     const arr2 = currentItems.filter((element) => {
-      return element.producto.id != productResponseDel['data']['producto']['id'];
+      return (
+        element.producto.id != productResponseDel["data"]["producto"]["id"]
+      );
     });
     setDataCart(arr2);
-  }, [productResponseDel])
+  }, [productResponseDel]);
 
   const increaseQuantity = (id) => {
     const currentItems = [...dataCart];
-    let cant = 0
+    let cant = 0;
     currentItems.forEach((element) => {
       if (element.producto.id == id) {
-        cant = (element.cantidad + 1);
+        cant = element.cantidad + 1;
       }
     });
-    saveCart(token, id, cant, setProductResponse)  
+    saveCart(token, id, cant, setProductResponse);
   };
-
-
 
   const decreaseQuantity = (id) => {
     const currentItems = [...dataCart];
 
-    let cant = 0
+    let cant = 0;
     currentItems.forEach((element) => {
       if (element.producto.id == id) {
-        cant = (element.cantidad - 1);
+        cant = element.cantidad - 1;
       }
     });
-    saveCart(token, id, cant, setProductResponse)  
+    saveCart(token, id, cant, setProductResponse);
   };
 
   const deleteSelectedElement = (id) => {
     deleteProduct(setLoading, token, id, setProductResponseDel);
-  }
+  };
 
   // const vaciarCarrito = (id) => {
 
@@ -204,7 +194,7 @@ const isFocused = useIsFocused();
   //         { text: 'Cancel', onPress: () => { }, style: 'cancel' },
   //         {
   //           text: 'OK', onPress: () => {
-        
+
   //           }
   //         },
   //       ]),
@@ -213,13 +203,23 @@ const isFocused = useIsFocused();
   //   });
   // }
 
-
-  const CartCard = ({ id, name, quantity, count, productImage, precio, dosis, formula, indicaciones, fabricante }) => {
+  const CartCard = ({
+    id,
+    name,
+    quantity,
+    count,
+    productImage,
+    precio,
+    dosis,
+    formula,
+    indicaciones,
+    fabricante,
+  }) => {
     return (
       <TouchableOpacity
         // key={id}
         onPress={() =>
-          navigation.navigate('DetalleProductsAncalmo', {
+          navigation.navigate("DetalleProductsAncalmo", {
             id: id,
             cantidad: count,
             imagen: productImage,
@@ -229,8 +229,8 @@ const isFocused = useIsFocused();
             indicaciones: indicaciones,
             dosis: dosis,
             formula: formula,
-        })
-        } 
+          })
+        }
         // aqui debe de llamarse detalle de producto
         style={{
           width: "100%",
@@ -254,7 +254,7 @@ const isFocused = useIsFocused();
           }}
         >
           <Image
-            source={{ uri: productImage}}
+            source={{ uri: productImage }}
             style={{
               width: "100%",
               height: "100%",
@@ -275,7 +275,7 @@ const isFocused = useIsFocused();
                 fontSize: 14,
                 maxWidth: "100%",
                 color: Colors.black,
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 // letterSpacing: 1,
               }}
             >
@@ -294,20 +294,17 @@ const isFocused = useIsFocused();
               <Text
                 style={{
                   fontSize: 14,
-                  fontWeight: 'bold',
+                  fontWeight: "bold",
                   maxWidth: "85%",
                   marginRight: 4,
                 }}
-                
               >
-{/* 
+                {/* 
                 (()=>({
                 {
                    getPrecio(precio)
                 } */}
                 L. {precio}
-
-               
                 {/* Ancalmo */}
               </Text>
               <Text>
@@ -446,7 +443,7 @@ const isFocused = useIsFocused();
           paddingTop: 10,
           paddingBottom: 10,
           paddingLeft: 16,
-          top:-6
+          top: -6,
           // marginBottom: 10,
         }}
       >
@@ -461,7 +458,6 @@ const isFocused = useIsFocused();
             message: "Orden Cancelada.",
             description: "Su orden ha sido cancelada",
             type: "danger",
-            
           });
         }}
       >
@@ -473,10 +469,21 @@ const isFocused = useIsFocused();
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
         data={dataCart ? dataCart : []}
-        renderItem={({ item }) => <CartCard key={item.producto.id} id={item.producto.id} name={item.producto.nombre} count={item.cantidad}
-        productImage={item.producto.imagen} precio={item.producto.precio} indicaciones={item.producto.indicaciones}
-        dosis={item.producto.dosis} formula={item.producto.formula} fabricante={item.producto.fabricante} />}
-        keyExtractor={item => item.producto.id}
+        renderItem={({ item }) => (
+          <CartCard
+            key={item.producto.id}
+            id={item.producto.id}
+            name={item.producto.nombre}
+            count={item.cantidad}
+            productImage={item.producto.imagen}
+            precio={item.producto.precio}
+            indicaciones={item.producto.indicaciones}
+            dosis={item.producto.dosis}
+            formula={item.producto.formula}
+            fabricante={item.producto.fabricante}
+          />
+        )}
+        keyExtractor={(item) => item.producto.id}
         ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
       />
       <View
@@ -601,17 +608,15 @@ const isFocused = useIsFocused();
               color: Colors.black,
             }}
           >
-            L. {total + (total *0.15)}
+            L. {total + total * 0.15}
           </Text>
         </View>
       </View>
 
-
-
       {/* </ScrollView> */}
     </View>
   );
-};
+};;
 
 const style = StyleSheet.create({
   header: {
