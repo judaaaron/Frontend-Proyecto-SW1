@@ -62,7 +62,7 @@ export default function SettingsHome({ navigation }) {
           },
           {
             text: "OK",
-            onPress: () => SecureStore.deleteItemAsync('token').then(
+            onPress: () => SecureStore.deleteItemAsync("user_session").then(
               navigation.navigate('Login', showMessage({
                 message: 'Sesión Cerrada',
                 description: 'Esperamos verte pronto.',
