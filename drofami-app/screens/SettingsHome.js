@@ -145,7 +145,7 @@ export default function SettingsHome({ navigation }) {
               </Text>
             </View>
           </View>
-          <View>
+          {/* <View>
             <Switch
               trackColor={{ false: Colors.red, true: Colors.blue }}
               thumbColor={isEnabled ? Colors.blue : Colors.secondary}
@@ -154,7 +154,7 @@ export default function SettingsHome({ navigation }) {
               value={isEnabled}
               marginLeft={250}
               marginTop={-25}
-            /></View>
+            /></View> */}
           <StyledButton2
             onPress={() => {
               navigation.navigate("profileModification", {
@@ -247,11 +247,21 @@ export default function SettingsHome({ navigation }) {
             <ButtonText2>Selección de empresa</ButtonText2>
           </StyledButton2>
           {/* </ExtraView> */}
+          <StyledButton2
+            onPress={()=> setIsEnabled(true)}
+          >
+            <RightIcon2
+              onPress={()=> setIsEnabled(true)}
+            >
+              <Icon name="logout" size={20} color={Colors.red} />
+            </RightIcon2>
+            <ButtonText2 style={{color: Colors.red}}>Cerrar Sesión</ButtonText2>
+          </StyledButton2>
         </View>
 
         {/* </StyledContainer> */}
       </View>
-   
+
 
     </>
   );
