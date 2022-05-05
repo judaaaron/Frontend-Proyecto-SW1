@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, Switch, Alert, Image } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
@@ -16,7 +16,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Avatar } from 'react-native-elements';
 import { useSelector } from "react-redux";//esta
 import { showMessage } from 'react-native-flash-message';
-import { ActivityIndicator } from "react-native-paper";
 
 export default function SettingsHome({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -24,7 +23,6 @@ export default function SettingsHome({ navigation }) {
   const [isLoading, setLoading] = useState(false);
   const [formResponse, setFormResponse] = useState({});
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
-  console.log("redux token ", token);
   const [responseLog, setResponseLog] = useState(null);
   const [state, setState] = useState({
     first_name: "",
@@ -90,7 +88,6 @@ export default function SettingsHome({ navigation }) {
   }, [responseLog]);
 
   React.useEffect(() => {
-    console.log("called");
     console.log("response ->", formResponse);
     if (!formResponse) {
       return;

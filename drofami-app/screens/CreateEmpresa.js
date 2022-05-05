@@ -1,46 +1,33 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, Image, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { Octicons, Ionicons } from "@expo/vector-icons";
-import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
+import { Octicons } from "@expo/vector-icons";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
-import MaskInput from 'react-native-mask-input';
 import {crearEmpresa, setEmpresa} from '../src/EmpresaMethods'
-import * as SecureStore from 'expo-secure-store';
 import {
     StyledContainer,
     InnerContainer,
     PageLog,
-    PageTitle,
     Subtitle,
     StyledFormArea,
     LeftIcon,
-    RightIcon,
     StyledInputLabel,
     StyledTextInput,
     ButtonText,
-    InnerContainer2,
     StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink
-
+    Colors
 } from "../components/styles";
-import Login from "./Login";
 
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import Keyboard2 from "../components/Keyboard2";
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from "react-redux";//esta
 
-const { brand, darkLight } = Colors;
+const { darkLight } = Colors;
 const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{1}[0-2]{1})[0-9]{6}$/  // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularName = /(^(\S))+(\s*[aA-zZáéíóúñ0-9])+$/ // acepta basicamente todo tipo de caracter
 const regularDireccion = /(^(\S))+(\s*[aA-zZáéíóúñ0-9])+$/
@@ -63,23 +50,13 @@ const createEmpresa = ({ navigation }) => {
   const [response, setResponse] = useState("");
   const [responsePUT, setResponsePUT] = useState("");
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
-  console.log("redux token ", token);
 
   const canalesDeVenta = [
     { nombre: "Mayorista", id: "MAY" },
     { nombre: "Farmacia", id: "FAR" },
     { nombre: "Supermercado", id: "SUP" },
-    // {nombre: 'Farmacia-Mayorista'},
   ];
 
-  // React.useEffect(() => {
-  //     async function token() {
-  //         const session = await SecureStore.getItemAsync("user_session");
-  //         token = JSON.parse(session)['token'];
-  //         setToken(token)
-  //     }
-  //     token();
-  // }, []);
 
   React.useEffect(() => {
     if (!responsePUT) {
@@ -91,7 +68,6 @@ const createEmpresa = ({ navigation }) => {
   }, [responsePUT]);
 
   React.useEffect(() => {
-    console.log(response);
     if (!response) {
       return;
     }

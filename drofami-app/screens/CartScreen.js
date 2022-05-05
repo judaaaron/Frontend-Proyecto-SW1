@@ -1,19 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import * as SecureStore from 'expo-secure-store';
 import { getCart, saveCart, clearCarrito, deleteProduct } from '../src/CartMethods'
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   Text,
   Image,
-  ScrollView,
   TouchableOpacity,
-  Button,
-  Alert
 } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { FlatList } from "react-native-gesture-handler";
 import {
   Colors,
@@ -29,7 +23,6 @@ import { useSelector } from "react-redux";//esta
 
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
-  const [enCarrito, setCarrito] = useState([]);
   const [response, setResponse] = useState(null);
   const [dataCart, setDataCart] = useState(null);
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
@@ -92,16 +85,6 @@ const CartScreen = ({ navigation }) => {
     });
     setTotal(totalAcum);
   }, [dataCart]);
-
-  //   React.useEffect(() => {
-  //     async function token() {
-  //         const session = await SecureStore.getItemAsync("user_session");
-  //         token = JSON.parse(session)['token'];
-  //         console.log("token ", token);
-  //         setToken(token)
-  //     }
-  //     token();
-  // }, []);
 
   const isFocused = useIsFocused();
   React.useEffect(() => {

@@ -1,23 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, Text } from "react-native-paper";
-import { StatusBar } from "expo-status-bar";
+import { Text } from "react-native-paper";
 import { Formik } from "formik";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import { signUp } from "../src/login_registerAPI";
-import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
 import { changeEmail } from "../src/login_registerAPI";
 
 import {
-    StyledContainer,
-    InnerContainer,
     PageLog,
-    PageTitle,
     Subtitle,
-    StyledFormArea,
     LeftIcon,
     RightIcon,
     StyledInputLabel,
@@ -25,13 +18,12 @@ import {
     ButtonText,
     StyledButton,
     Colors,
-    StyledContainer2,
     InnerContainer2,
     StyledFormArea2
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const { brand, darkLight } = Colors;
+const { darkLight } = Colors;
 
 let SingUpValidationSchema = yup.object().shape({
     newEmail: yup.string().email('Ingrese un correo válido').required('Dirección de correo es obligatoria'),
@@ -46,7 +38,6 @@ const ChangeEmail1 = ({ route, navigation }) => {
 
 
     React.useEffect(() => {
-        console.log(response)
         if (!response) {
             return;
         }

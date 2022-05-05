@@ -19,7 +19,6 @@ import CreateEmpresa from '../screens/CreateEmpresa'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, Image } from 'react-native';
 import CartScreen from "../screens/CartScreen";
-import { Badge, Icon, withBadge } from "react-native-elements";
 import { useSelector } from "react-redux";//esta
 
 const Stack = createStackNavigator();
@@ -33,12 +32,7 @@ const carrito = "Carrito";
 const Tab = createBottomTabNavigator();
 const HomeTabs = () => {
     const [notifications, setNotifications] = useState([]);
-    const [worker, setWorker] = useState(reduxStaff === "false" ? 0 : 1);
-    const reduxStaff = useSelector((state) => state.staff.value); 
-    console.log("redux staff en rootstack ", worker);
-    console.log("redux staff en rootstack ", reduxStaff);
 
-    
     return (
         <Tab.Navigator
             tabBarOptions={{
@@ -57,7 +51,6 @@ const HomeTabs = () => {
             <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
             
             :
-            // <Tab.Screen name={settingsName} component={SettingsHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/userAzul.png")} style={{ width: 25, height: 25, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
             null
             }
             <Tab.Screen name={settingsName} component={SettingsHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/userAzul.png")} style={{ width: 25, height: 25, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />

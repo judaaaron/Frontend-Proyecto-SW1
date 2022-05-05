@@ -1,15 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { ActivityIndicator } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import { View, StyleSheet } from "react-native";
 import { login, checkToken } from "../src/login_registerAPI";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
-import AppLoader from "../components/AppLoader";
-import AnimatedLottieView from 'lottie-react-native';
 import * as SecureStore from 'expo-secure-store';
 import {
     StyledContainer,
@@ -34,10 +31,9 @@ import {
 import Keyboard2 from "../components/Keyboard2";
 import {showMessage} from 'react-native-flash-message';
 
-const { brand, darkLight } = Colors;
+const {  darkLight } = Colors;
 
-import { useSelector, useDispatch } from "react-redux";//esta
-// import { login, logout } from "../features/user";
+import { useDispatch } from "react-redux";
 import { setToken } from "../src/reducers/getToken";
 import { isStaff } from "../src/reducers/staff";
 
@@ -48,16 +44,10 @@ const Login = ({ navigation }) => {
     const [loginResponse, setLoginResponse] = useState('');
 
     //redux
-    // const reduxToken = useSelector(state => state.getToken);//esta linea
-    const reduxToken = useSelector((state) => state.token.value); 
-    const reduxStaff = useSelector((state) => state.staff.value); 
     const dispatch = useDispatch();
 
-    console.log("redux token ", reduxToken);
-    console.log("redux staff ", reduxStaff);
 
     React.useEffect(() => {
-        console.log(loginResponse);
         if (!loginResponse) {
             return;
         }
@@ -87,7 +77,6 @@ const Login = ({ navigation }) => {
             // alert('Usuario y/o contraseña incorrectos')
         }
             
-        console.log(loginResponse);
     }, [loginResponse])
 
     async function storeCredentials(usuario, sToken) {
@@ -99,9 +88,6 @@ const Login = ({ navigation }) => {
                     token: sToken
                 })
             );
-            console.log("usuario ", usuario.is_staff);
-            // dispatch(setToken(sToken));
-            // dispatch(login({ name: "Pedro", age: 20, email: "pedro@gmail.com" }));
             dispatch(setToken(sToken));
             dispatch(isStaff(usuario.is_staff));
             console.log("Se almaceno");
@@ -119,19 +105,11 @@ const Login = ({ navigation }) => {
     React.useEffect(() => {
         async function getCredentials() {
             try {
-                console.log("oli");
                 const session = await SecureStore.getItemAsync("user_session");
-                console.log("session ", session);
-                console.log("staff get credentials ", JSON.parse(session)["user"]["is_staff"])
                 dispatch(setToken(JSON.parse(session)["token"]));
                 dispatch(isStaff(JSON.parse(session)["user"]["is_staff"]));
                 checkToken(setLoading, JSON.parse(session)['token'], setLoginResponse)
 
-                /*if (session == undefined) {
-                    console.log("olvidese");
-                } else {
-                    navigation.navigate('Home')
-                }*/
             } catch (error) {
                 showMessage({
                     message: "Hubo un error en la lectura de las credenciales.",
@@ -269,10 +247,4 @@ const estilos = StyleSheet.create({
 })
 
 {
-    /* <Button onPress={() => setOpenModal(!openModal)}>
-              <Text>Holaa</Text>
-          </Button>
-          <Modal visible={openModal} onDismiss={() => setOpenModal(false)}>
-              <Text>Hola Hola Holaaaa</Text>
-          </Modal> */
 }

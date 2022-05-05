@@ -1,12 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, ScrollView, StyleSheet, SafeAreaView } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import { signUp } from "../src/login_registerAPI";
-import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import Keyboard2 from "../components/Keyboard2";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
@@ -15,7 +13,6 @@ import {
     StyledContainer,
     InnerContainer,
     PageLog,
-    PageTitle,
     Subtitle,
     StyledFormArea,
     LeftIcon,
@@ -28,7 +25,7 @@ import {
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const { brand, darkLight } = Colors;
+const { darkLight } = Colors;
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
 let SingUpValidationSchema = yup.object().shape({
     actualPassword: yup.string().required('Campo obligatorio'),
@@ -46,7 +43,6 @@ const ChangePass = ({ route, navigation }) => {
     const { token } = route.params
 
     React.useEffect(() => {
-        console.log(response)
         if (!response) {
             return;
         }
@@ -90,9 +86,6 @@ const ChangePass = ({ route, navigation }) => {
                                 initialValues={{ newPassword: "", confirmPassword: "" }}
                                 validateOnMount={true}
                                 onSubmit={(values) => {
-                                    console.log(values.actualPassword);
-                                    console.log(values.newPassword);
-                                    console.log(values.confirmPassword);
                                     changePassword(setLoading, values.actualPassword, values.newPassword, values.confirmPassword, token, setResponse);
                                 }}
                                 validationSchema={SingUpValidationSchema}

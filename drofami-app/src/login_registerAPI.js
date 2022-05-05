@@ -3,8 +3,6 @@ const API_URL = 'https://drofami-app.herokuapp.com/api/'
 export async function login(setLoading, username, password, setLoginResponse) {
     setLoading(true);
     const resp = {};
-    console.log(username)
-    console.log(password)
     let response = {}
     try {
         response = await fetch(API_URL + 'token-auth/', {
@@ -58,7 +56,6 @@ export async function signUp(username, email, phoneNumber, password, password2,
         }).then((response) => 
             response.json())
         .then(data => {
-            console.log(data)
             setResponse(data)
         })
     } catch (e){
@@ -167,7 +164,6 @@ export async function changeEmail(setLoading, email, token, setResponse) {
         }).then((response) => response.json())
         .then(data => {
             resp['data'] = data;
-            console.log('holaaa')
             setResponse(data)
         })
     } catch (e){
@@ -198,7 +194,6 @@ export async function changePassword(setLoading, password, newPassword, confirmP
             response.json())
         .then(data => {
             resp['data'] = data;
-            console.log('holaaa')
             setResponse(data)
         })
     } catch (e){

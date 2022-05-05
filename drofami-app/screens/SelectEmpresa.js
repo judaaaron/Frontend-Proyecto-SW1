@@ -1,14 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, RadioButton, Text } from "react-native-paper";
-import { Formik } from "formik";
+import { Text } from "react-native-paper";
 import { View, Image, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import * as yup from 'yup';
-import { ActivityIndicator } from "react-native-paper";
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import {getEmpresa, setEmpresa} from '../src/EmpresaMethods'
-import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
 import {
     PageLog,
@@ -20,7 +16,6 @@ import {
     ButtonText,
     StyledButton,
     Colors,
-    StyledContainer2,
     InnerContainer2,
     ExtraView,
     ExtraText,
@@ -29,41 +24,16 @@ import {
     StyledFormArea2
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useSelector } from "react-redux";//esta
 
-const { brand, darkLight } = Colors;
-
-const data = [
-    {label: 'Kielsa', value: '1'},
-    {label: 'Del Ahorro', value: '2'},
-    {label: 'Siman', value: '3'},
-    {label: 'Item 4', value: '4'},
-    {label: 'Item 5', value: '5'},
-    {label: 'Item 6', value: '6'},
-    {label: 'Item 7', value: '7'},
-    {label: 'Item 8', value: '8'},
-];
-
+const { darkLight } = Colors;
 
 const SelectEmpresa = ({ route, navigation }) => {
     const [isLoading, setLoading] = useState(false);
-    const [checked, setChecked] = React.useState('first');
     const [response, setResponse] = React.useState();
     const [responsePUT, setResponsePUT] = React.useState();
-    // const [token, setToken] = React.useState(useSelector((state) => state.getToken));
     const { token } = route.params;
     const [empresas, setEmpresas] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
-    console.log("redux token ", token);
-
-    // React.useEffect(() => {
-    //     async function token() {
-    //         const session = await SecureStore.getItemAsync("user_session");
-    //         token = JSON.parse(session)['token'];
-    //         setToken(token)
-    //     }
-    //     token();
-    // }, []);
 
     const isFocused = useIsFocused();
 
@@ -81,7 +51,6 @@ const SelectEmpresa = ({ route, navigation }) => {
         if (!response) {
             return;
         }
-        console.log(response);
         console.log('data', response['data']);
         setEmpresas(response['data']);
     }, [response])
@@ -104,7 +73,6 @@ const SelectEmpresa = ({ route, navigation }) => {
             return (
             <View style={styles.item}>
                 <Text style={styles.textItem}>{item.name}</Text>
-                {/* <Image style={styles.icon} source={require('../assets/drofamilogo1.png')} /> */}
             </View>
             );
         };

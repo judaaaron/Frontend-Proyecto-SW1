@@ -2,17 +2,13 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image, RefreshControl } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import * as SecureStore from 'expo-secure-store';
 import {
     Colors
 } from "../components/styles"
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getCatalog, getProduct } from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
-import filter from 'lodash.filter'
-import CartScreen from './CartScreen'
-import { useSelector } from "react-redux";//este se agrega
-//import { Icon } from 'react-native-elements';
+import { useSelector } from "react-redux";
 import { showMessage } from 'react-native-flash-message';
 const width = Dimensions.get('window').width / 2 - 30;
 
@@ -24,7 +20,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [isloading, setLoading] = useState(false);
     const [response, setResponse] = useState();
     const [productResponse, setProductResponse] = useState();
-    // const [token, setToken] = useState(useSelector((state) => state.getToken));//se agrega
     const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
     const [catalog, setCatalog] = useState([]);
 
@@ -32,8 +27,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [content, setContent] = React.useState(catalog)
     const [search, setSearch] = useState();
     const [filteredDataSource, setFilteredDataSource] = useState();
-    const [masterDataSource, setMasterDataSource] = useState(catalog);
-    console.log("redux token ", token);
 
     React.useEffect(() => {
         console.log("AQUIIII:",filteredDataSource)
@@ -46,17 +39,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
             setContent(getCatalog(setLoading, token, 'ANC', setResponse))
         })
     }, [refreshing, token])
-    
-    // React.useEffect(() => {
-    //     async function token() {
-    //         const session = await SecureStore.getItemAsync("user_session");
-    //         token = JSON.parse(session)['token'];
-    //         console.log("token ", token);
-    //         setToken(token)
-    //     }
-    //     token();
-    //     setSearch('');
-    // }, []);
 
     const isFocused = useIsFocused();
     React.useEffect(() => {
@@ -77,7 +59,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
             return;
         }
 
-        console.log(response);
         const tempCatalog = [];
         response['data'].forEach((element) => {
             tempCatalog.push(element);
@@ -110,7 +91,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
               });
             // alert(productResponse['message']);
         }
-        console.log(productResponse)
 
         const product = productResponse['data'];
         navigation.navigate('DetalleProductsAncalmo', {
@@ -130,7 +110,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
     //Esto se seguirá haciendo?
     function emptyToBack(array) {
         //Ordena por cantidades y lo imprime en una tabla
-        //console.table(this.producto.sort(((a, b) => b.cantidad - a.cantidad)));w
         const temp = [];
         const empty = [];
         array.forEach((element) => {
@@ -210,11 +189,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
                                     ? 'rgba(245, 42, 42,0.2)'
                                     : 'rgba(0,0,0,0.2) ',
                             }}> */}
-                        {/* <Icon
-                                name="favorite"
-                                size={18}
-                                color={dato.like ? Colors.red : Colors.primary}
-                            /> */}
+                        
                         {/* </View> */}
                     </View>
 
@@ -240,9 +215,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
                             marginTop: 5,
                         }}>
 
-                        {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
-                            {dato.price}
-                        </Text> */}
                         
                       {dato.producto.precio != '' && <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
                             {'L. '}{dato.producto.precio}

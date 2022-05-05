@@ -1,21 +1,18 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
-import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
-import MaskInput from 'react-native-mask-input';
 
 import {
     StyledContainer,
     InnerContainer,
     PageLog,
-    PageTitle,
     Subtitle,
     StyledFormArea,
     LeftIcon,
@@ -24,26 +21,19 @@ import {
     StyledTextInput,
     ButtonText,
     StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink
+    Colors
 
 } from "../components/styles";
-import Login from "./Login";
 
 import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import Keyboard2 from "../components/Keyboard2";
 import {showMessage} from 'react-native-flash-message';
 
-const { brand, darkLight } = Colors;
+const { darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóúñ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
-const regularRTN = /^[0-9]{1}[1-9]{1}[0-9]{2}([1]{1}[9]{1}[0-9]{2}|[2]{1}[0]{1}[0-2]{1}[0-2]{1})[0-9]{6}$/   // solo acepta numeros y 2 guiones en pos 4 y pos 9
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
 const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!-@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
-const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9])+$/
 
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
@@ -68,10 +58,6 @@ let SingUpValidationSchema = yup.object().shape({
         ),
     confirmPassword: yup.string().required('Campo obligatorio'),
     direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Campo obligatorio'),
-    // rtn: yup.string().min(14, ({ min }) => `RTN debe tener 14 números`).max(14, ({ max }) => `RTN debe tener 14 números`)
-    //     .required('Número de RTN es obligatorio').matches(regularRTN,
-    //         "RTN inválido"
-    //     ),
 });
 
 const Signup = ({ navigation }) => {
@@ -80,7 +66,6 @@ const Signup = ({ navigation }) => {
     const [response, setResponse] = useState('')
 
     React.useEffect(() => {
-        console.log(response)
         if (!response) {
             return;
         }

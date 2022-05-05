@@ -4,7 +4,6 @@ import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, But
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../components/styles";
 import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
-import { FAB } from 'react-native-paper';
 import { showMessage } from 'react-native-flash-message';
 import { getCart, saveCart } from '../src/CartMethods';
 import NumericInput from 'react-native-numeric-input'
@@ -39,7 +38,6 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     response['data'].forEach((element) => {
       if (id == element.producto.id) {
         setCounter(element.cantidad)
-        console.log('caca', element.cantidad)
       }
     });
   }, [response]);
@@ -48,26 +46,24 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     if (!productResponse || !productResponse['status']) {
       return;
     }
-    switch (productResponse['status']) {
-      case 'succesful':
+    switch (productResponse["status"]) {
+      case "success":
         showMessage({
-          message: 'Producto agregado al carrito.',
+          message: "Producto agregado al carrito.",
           type: "success",
-
         });
-        break;
-      case 'over-limit':
-        showMessage({
-          message: productResponse['message'],
-          type: "danger",
 
+        break;
+      case "over-limit":
+        showMessage({
+          message: productResponse["message"],
+          type: "danger",
         });
         break;
     }
     if (!productResponse['data']['cantidad']) {
       return;
     }
-    console.log('wuuuuuu', productResponse['data']['cantidad']);
     setCounter(productResponse['data']['cantidad']);
   }, [productResponse])
 

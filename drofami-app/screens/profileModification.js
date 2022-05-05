@@ -1,14 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Modal, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { modification, getUserData } from "../src/login_registerAPI";
 import * as yup from 'yup';
 import { ActivityIndicator } from "react-native-paper";
-import MaskInput from 'react-native-mask-input';
 import * as SecureStore from 'expo-secure-store';
 import Keyboard2 from "../components/Keyboard2";
 import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
@@ -28,13 +27,11 @@ import {
 
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Login from "./Login";
 
-const { brand, darkLight } = Colors;
+const { darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóú]+$/  //solo acepta letras
 const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
 const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
-const regularDireccion = /(^(\S))+(\s*[aA-zZ0-9,.])+$/
 let SingUpValidationSchema = yup.object().shape({
     nombre: yup.string()
         .required('Nombre es obligatorio').matches(regularNameLastName,
@@ -66,7 +63,6 @@ const Signup = ({ route, navigation }) => {
         async function getToken() {
             const session = await SecureStore.getItemAsync("user_session");
             token.current = JSON.parse(session)['token']
-            console.log("token ", token)
             
             getUserData(setLoading, token.current, setFormResponse);
         }

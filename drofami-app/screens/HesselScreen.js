@@ -3,40 +3,12 @@ import { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, ScrollView, TextInput, FlatList, Dimensions, Image, RefreshControl} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
-    StyledContainer,
-    InnerContainer,
-    PageLog,
-    PageTitle,
-    Subtitle,
-    StyledFormArea,
-    LeftIcon,
-    RightIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    ButtonText,
-    StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink,
-    WelcomeContainer,
-    WelcomeImage,
-    Avatar
+    Colors
 } from "../components/styles"
-import CarouselCards from './CarouselCards'
-import CarouselCards2 from './CarouselCards2'
-import datosH from './HesselProducts';
-import * as SecureStore from 'expo-secure-store';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo';
-import DetalleProductsHessel from './DetalleProductsHessel';
 import {getCatalog, getProduct} from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
-import filter from 'lodash.filter'
 import { useSelector } from "react-redux";//este se agrega
-import { StatusBar } from "expo-status-bar";
-//import { Icon } from 'react-native-elements';
 import { showMessage } from 'react-native-flash-message';
 const width = Dimensions.get('window').width / 2 - 30;
 
@@ -68,17 +40,6 @@ export default function HesselScreen({ navigation }) {
       setContent(getCatalog(setLoading, token, "HES", setResponse));
     });
   }, [refreshing, token]);
-
-  // React.useEffect(() => {
-  //     async function token() {
-  //         const session = await SecureStore.getItemAsync("user_session");
-  //         token = JSON.parse(session)['token'];
-  //         console.log("token ", token);
-  //         setToken(token)
-  //     }
-  //     token();
-  //     setSearch('');
-  // }, []);
 
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -129,7 +90,6 @@ export default function HesselScreen({ navigation }) {
       });
       // alert(productResponse['message']);
     }
-    console.log(productResponse);
 
     const product = productResponse["data"];
     navigation.navigate("DetalleProductsAncalmo", {
@@ -148,7 +108,6 @@ export default function HesselScreen({ navigation }) {
   //hacer funcion que revise cada elemento del array, si la cantidad es 0 pop -> push al fondo
   function emptyToBack(array) {
     //Ordena por cantidades y lo imprime en una tabla
-    //console.table(this.producto.sort(((a, b) => b.cantidad - a.cantidad)));
     const temp = [];
     const empty = [];
     array.forEach((element) => {
