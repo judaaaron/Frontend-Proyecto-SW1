@@ -1,22 +1,26 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView, Text } from "react-native";
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, Switch, Alert } from "react-native";
 import { getUserData } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
 import {
-    Colors,
-    ButtonText2,
-    StyledButton2,
-    Subtitle2,
-    RightIcon2
+  Colors,
+  ButtonText2,
+  StyledButton2,
+  Subtitle2,
+  RightIcon2
 
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Avatar } from 'react-native-elements';
 import { useSelector } from "react-redux";//esta
+import { showMessage } from 'react-native-flash-message';
+import { ActivityIndicator } from "react-native-paper";
 
 export default function SettingsHome({ navigation }) {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isLoading, setLoading] = useState(false);
   const [formResponse, setFormResponse] = useState({});
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
@@ -44,6 +48,34 @@ export default function SettingsHome({ navigation }) {
       getUserData(setLoading, token, setFormResponse);
     }
   }, [token, isFocused]);
+
+  React.useEffect(() => {
+    if (isEnabled) {
+      Alert.alert(
+        "Cerrando Sesión",
+        "¿Estás seguro de cerrar sesión?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => setIsEnabled(false),
+            style: "cancel"
+          },
+          {
+            text: "OK",
+            onPress: () => SecureStore.deleteItemAsync('token').then(
+              navigation.navigate('Login', showMessage({
+                message: 'Sesión Cerrada',
+                description: 'Esperamos verte pronto.',
+                type: "info",
+              }))
+            ),
+
+          }
+        ]
+      );
+
+    }
+  }, [isEnabled]);
 
   React.useEffect(() => {
     console.log("called");
@@ -83,6 +115,7 @@ export default function SettingsHome({ navigation }) {
               Cuenta
             </Subtitle2>
           </View>
+
           {/* <ExtraView marginRight={260}> */}
           <View style={{ alignItems: "center", alignContent: "center" }}>
             <Avatar
@@ -104,12 +137,24 @@ export default function SettingsHome({ navigation }) {
                 }}
               />
             </Avatar>
+
+
             <View style={{ alignItems: "center" }}>
               <Text style={{ alignContent: "center" }}>
                 {state ? state.first_name + " " + state.last_name : ""}
               </Text>
             </View>
           </View>
+          <View>
+            <Switch
+              trackColor={{ false: Colors.red, true: Colors.blue }}
+              thumbColor={isEnabled ? Colors.blue : Colors.secondary}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+              marginLeft={250}
+              marginTop={-25}
+            /></View>
           <StyledButton2
             onPress={() => {
               navigation.navigate("profileModification", {
@@ -121,6 +166,7 @@ export default function SettingsHome({ navigation }) {
               });
             }}
           >
+
             <RightIcon2
               onPress={() => {
                 navigation.navigate("profileModification", {
@@ -144,6 +190,7 @@ export default function SettingsHome({ navigation }) {
               {/* <RightIcon /> */}
             </ButtonText2>
           </StyledButton2>
+
           {/* </ExtraView> */}
           {/* <ExtraView marginRight={160}> */}
 
@@ -204,46 +251,49 @@ export default function SettingsHome({ navigation }) {
 
         {/* </StyledContainer> */}
       </View>
+   
+
     </>
   );
 }
 
 const styles = StyleSheet.create({
-    errores: {
-        fontSize: 10,
-        color: 'red',
-        top: -10,
-    },
-    spinnercontent: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        zIndex: 1,
-    },
-    view2: {
-        backgroundColor: 'white',
-    },
-    searchContainer: {
-        height: 50,
-        backgroundColor: Colors.secondary,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 30,
-        top: -10
-    },
-    view3: {
-        alignContent: 'center',
-        justifyContent: 'center',
+  errores: {
+    fontSize: 10,
+    color: 'red',
+    top: -10,
+  },
+  spinnercontent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    zIndex: 1,
+  },
+  view2: {
+    backgroundColor: 'white',
+  },
+  searchContainer: {
+    height: 50,
+    backgroundColor: Colors.secondary,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 30,
+    top: -10
+  },
+  view3: {
+    alignContent: 'center',
+    justifyContent: 'center',
 
-    },
-    searchContainer: {
-        height: 50,
-        backgroundColor: Colors.secondary,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 30,
-        top: -10
-    },
+  },
+  searchContainer: {
+    height: 50,
+    backgroundColor: Colors.secondary,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 30,
+    top: -10
+  },
+
 })
