@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView, Text, Switch, Alert } from "react-native";
-import { getUserData } from '../src/login_registerAPI';
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, Switch, Alert, Image } from "react-native";
+import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
 import {
@@ -25,6 +25,7 @@ export default function SettingsHome({ navigation }) {
   const [formResponse, setFormResponse] = useState({});
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
   console.log("redux token ", token);
+  const [responseLog, setResponseLog] = useState(null);
   const [state, setState] = useState({
     first_name: "",
     last_name: "",
@@ -51,31 +52,42 @@ export default function SettingsHome({ navigation }) {
 
   React.useEffect(() => {
     if (isEnabled) {
-      Alert.alert(
-        "Cerrando Sesión",
-        "¿Estás seguro de cerrar sesión?",
-        [
-          {
-            text: "Cancel",
-            onPress: () => setIsEnabled(false),
-            style: "cancel"
-          },
-          {
-            text: "OK",
-            onPress: () => SecureStore.deleteItemAsync("user_session").then(
-              navigation.navigate('Login', showMessage({
-                message: 'Sesión Cerrada',
-                description: 'Esperamos verte pronto.',
-                type: "info",
-              }))
-            ),
-
+      Alert.alert("Cerrando Sesión", "¿Estás seguro de cerrar sesión?", [
+        {
+          text: "Cancel",
+          onPress: () => setIsEnabled(false),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            SecureStore.deleteItemAsync("user_session").then(
+            );
+              logout(setLoading, token, setResponseLog);
           }
-        ]
-      );
+        },
+      ]);
 
     }
   }, [isEnabled]);
+
+  React.useEffect(() => {
+    if (!responseLog) {
+      return;
+    }
+    console.log(responseLog);
+    if (responseLog['status'] && responseLog['status'] == 'success') {
+      navigation.navigate(
+        "Login",
+        showMessage({
+          // responseLog['message']
+          message:"Sesión cerrada",
+          description: "Esperamos verte pronto.",
+          type: "info",
+        })
+      )
+    }
+  }, [responseLog]);
 
   React.useEffect(() => {
     console.log("called");
@@ -179,7 +191,7 @@ export default function SettingsHome({ navigation }) {
               }}
             >
               <Icon
-                name="arrow-forward-ios"
+                name="edit"
                 size={20}
                 marginRight={40}
                 color={Colors.blue}
@@ -206,7 +218,7 @@ export default function SettingsHome({ navigation }) {
                   console.log(token);
               }}
             >
-              <Icon name="arrow-forward-ios" size={20} color={Colors.blue} />
+              <Icon name="edit" size={20} color={Colors.blue} />
             </RightIcon2>
 
             <ButtonText2>Cambiar correo electrónico</ButtonText2>
@@ -225,7 +237,7 @@ export default function SettingsHome({ navigation }) {
                   console.log(token);
               }}
             >
-              <Icon name="arrow-forward-ios" size={20} color={Colors.blue} />
+              <Icon name="edit" size={20} color={Colors.blue} />
             </RightIcon2>
             <ButtonText2>Cambiar contraseña</ButtonText2>
           </StyledButton2>
@@ -242,7 +254,8 @@ export default function SettingsHome({ navigation }) {
                   console.log(token);
               }}
             >
-              <Icon name="arrow-forward-ios" size={20} color={Colors.blue} />
+              <Icon name="business" size={20} color={Colors.blue} />
+              {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
             </RightIcon2>
             <ButtonText2>Selección de empresa</ButtonText2>
           </StyledButton2>

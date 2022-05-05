@@ -207,3 +207,26 @@ export async function changePassword(setLoading, password, newPassword, confirmP
        setLoading(false)
     }
 }   
+
+export async function logout(setLoading, token, setResponse) {
+    let response = {};
+    setLoading(true);
+    try {
+        response = await fetch(API_URL + 'auth/logout/', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+        }).then((response) => 
+            response.json())
+        .then(data => {
+            setResponse(data)
+        })
+    } catch (e){
+        console.log(e)
+    } finally {
+        setLoading(false)
+    }
+}
