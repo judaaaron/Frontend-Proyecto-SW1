@@ -17,7 +17,6 @@
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
     "@reduxjs/toolkit": "^1.8.1",
-    "dominant-color": "^0.0.1",
     "expo": "~44.0.0",
     "expo-constants": "~13.0.1",
     "expo-secure-store": "~11.1.0",
@@ -46,6 +45,7 @@
     "react-native-web": "0.17.1",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
+    "rn-dominant-color": "^1.7.2",
     "styled-components": "^5.3.3",
     "yup": "^0.32.11"
   },
