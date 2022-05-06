@@ -31,6 +31,15 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     }
   }, [token, isFocused]);
 
+  React.useEffect(()=>{
+    var color = require('dominant-color'),
+    imgPath = producto.imagen
+    console.log("Entra")
+    color(imgPath, function(err, color){
+      console.log("color:",color)
+    })
+  },[]);
+
   React.useEffect(() => {
     if (!response) {
       return;
