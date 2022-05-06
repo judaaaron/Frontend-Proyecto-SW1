@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../components/styles";
 import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 import { showMessage } from 'react-native-flash-message';
-import { getCart, saveCart } from '../src/CartMethods';
+import { getCart, saveCart, isItemInCart } from '../src/CartMethods';
 import NumericInput from 'react-native-numeric-input'
 import { useSelector } from "react-redux";//este se agrega
 import { useIsFocused } from "@react-navigation/native";
@@ -19,13 +19,17 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [productResponse, setProductResponse] = useState(null);
+  const [isInCart, setIsInCart] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const timeout = React.useRef(null);
 
   const isFocused = useIsFocused();
   React.useEffect(() => {
     if (isFocused) {
       getCart(setLoading, token, setResponse);
+      isItemInCart(setLoading, producto.id, token, setIsInCart);
     }
-  }, [token]);
+  }, [token, isFocused]);
 
   React.useEffect(() => {
     if (!response) {
@@ -76,8 +80,10 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   }
 
   function handleChange(value) {
-    
-    saveCart(token, id, value, setProductResponse);
+    clearTimeout(timeout.current);
+    timeout.current = setTimeout(()=>{
+      saveCart(token, id, value, setProductResponse);
+   }, 1000);
   }
 
   const carouselData = [
@@ -97,7 +103,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   ]
 
   return (
-    <ScrollView>
+  
       <SafeAreaView
         style={{
           flex: 1,
@@ -114,6 +120,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
           }
 
         </View>
+        <ScrollView>
         <View style={style.imageContainer} top={25}>
           <Image source={{ uri: imagen }} style={{ resizeMode: 'contain', flex: 1, width: 350, height: 350, }} top={-50} />
         </View>
@@ -160,20 +167,23 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 marginTop: 10,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                marginBottom: 15
+                marginBottom: 15,
+                marginLeft: isInCart ? 50:-15
               }}>
 
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
+                  
 
                 }}>
 
-                <View>
+                <View >
                 
                   <NumericInput
-                    totalWidth={130}
+                    
+                    totalWidth={isInCart ? (220) : (150)}
                     totalHeight={45}
                     iconSize={15}
                     textColor={Colors.black}
@@ -187,12 +197,23 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                     initValue={counter}
                     value={counter}
                     disable={false}
-                    onChange={(value) => setCounter(value)}
+                    //onFocus={setIsInputFocused(true)}
+                    onEndEditing={(e) => {
+                      handleChange(e.nativeEvent.text);
+                    }}
+                    onChange={(value) => {
+                      setCounter(value)
+                      if (isInCart) {
+                        handleChange(value)
+                      }
+                    }}
                     containerStyle={{
+                      
                       backgroundColor: Colors.white,
                       // borderWidth: 1,
                       borderColor: Colors.white,
-                      borderRadius: 50
+                      borderRadius: 50,
+                      
                     }}
                   />
                   {/* <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text> */}
@@ -241,7 +262,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
             /> */}
 
 
-                <StyledButton
+                {!isInCart && <StyledButton
                   style={style.buyBtn}
                   onPress={() => {
                     saveCart(token, id, counter, setProductResponse);
@@ -249,15 +270,16 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                   <ButtonText>
                     Añadir al carrito
                   </ButtonText>
-                </StyledButton>
+                </StyledButton>}
 
               </View>
             </View>
           </View>}
         </View>
-      </SafeAreaView>
-    </ScrollView>
+        </ScrollView>
 
+      </SafeAreaView>
+   
   );
 
 

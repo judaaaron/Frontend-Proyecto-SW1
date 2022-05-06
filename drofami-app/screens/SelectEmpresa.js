@@ -51,7 +51,6 @@ const SelectEmpresa = ({ route, navigation }) => {
         if (!response) {
             return;
         }
-        console.log('data', response['data']);
         setEmpresas(response['data']);
     }, [response])
 
@@ -82,8 +81,6 @@ const SelectEmpresa = ({ route, navigation }) => {
             return;
         }
         const id = selected.id
-        console.log('Token ', token)
-        console.log('ID |||', id, "|||")
         setEmpresa(setLoading, token, id, setResponsePUT);
     }
 

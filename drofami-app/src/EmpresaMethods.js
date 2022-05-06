@@ -55,7 +55,6 @@ export async function crearEmpresa(setLoading, token, name, rtn, address, channe
     setLoading(true);
     const resp = {};
     let response = {}
-    console.log(channel)
     try {
 
         response = await fetch(API_URL + 'enterprise/', {

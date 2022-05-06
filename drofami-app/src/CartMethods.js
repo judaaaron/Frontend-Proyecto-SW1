@@ -102,3 +102,33 @@ export async function deleteProduct(setLoading, token, producto, setResponse) {
        setLoading(false)
     }
 }
+
+export async function isItemInCart(setLoading, producto, token, setIsInCart) {
+    setLoading(true);
+    const resp = {};
+    let response = {}
+    try {
+        response = await fetch("https://drofami-app.herokuapp.com/api/carrito/checkItem/", {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+              body: JSON.stringify({
+                  'producto': producto
+              })
+        }).then((response) => response.json())
+        .then(data => {
+            resp['data'] = data;
+            setLoading(false)
+            console.log("Hola Endpoint", data)
+            console.log('producto', producto)
+            data['status'] == 200 ? setIsInCart(true) : setIsInCart(false)
+        })
+    } catch (e){
+        console.log('Error en isItemInCart! ', e);
+        setIsInCart(false);
+        setLoading(false)
+    } 
+}

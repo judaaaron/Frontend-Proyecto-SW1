@@ -111,14 +111,18 @@ const Login = ({ navigation }) => {
                 checkToken(setLoading, JSON.parse(session)['token'], setLoginResponse)
 
             } catch (error) {
-                showMessage({
-                    message: "Hubo un error en la lectura de las credenciales.",
-                    // description:'Ha ocurrido un error inesperado.',
-                    type: "danger",
-                  });
-                // alert("Hubo un error en la lectura de las credenciales.");
+                if(error === "null is not an object (evaluating 'JSON.parse(session)[\"token\"]')"){
+                    showMessage({
+                      message:
+                        "Hubo un error en la lectura de las credenciales.",
+                      // description:'Ha ocurrido un error inesperado.',
+                      type: "danger",
+                    });
+                    // alert("Hubo un error en la lectura de las credenciales.");
+
+                    console.log(error);
+                }
                 
-                console.log(error);
             }
         }
         getCredentials();

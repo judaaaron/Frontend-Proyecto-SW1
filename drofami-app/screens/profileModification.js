@@ -59,7 +59,6 @@ const Signup = ({ route, navigation }) => {
     const token = React.useRef('');
 
     React.useEffect(() => {
-        console.log(route.params)
         async function getToken() {
             const session = await SecureStore.getItemAsync("user_session");
             token.current = JSON.parse(session)['token']

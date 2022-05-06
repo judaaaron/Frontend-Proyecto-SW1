@@ -73,7 +73,6 @@ export default function SettingsHome({ navigation }) {
     if (!responseLog) {
       return;
     }
-    console.log(responseLog);
     if (responseLog['status'] && responseLog['status'] == 'success') {
       navigation.navigate(
         "Login",
@@ -88,7 +87,6 @@ export default function SettingsHome({ navigation }) {
   }, [responseLog]);
 
   React.useEffect(() => {
-    console.log("response ->", formResponse);
     if (!formResponse) {
       return;
     }

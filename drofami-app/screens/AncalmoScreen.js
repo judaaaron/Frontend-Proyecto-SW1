@@ -29,7 +29,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [filteredDataSource, setFilteredDataSource] = useState();
 
     React.useEffect(() => {
-        console.log("AQUIIII:",filteredDataSource)
+        // console.log("AQUIIII:",filteredDataSource)
     }, [filteredDataSource])
 
     const onRefresh = React.useCallback(() => {

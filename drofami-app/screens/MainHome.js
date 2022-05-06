@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {SafeAreaView, StyleSheet,ScrollView, View, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {
   StyledContainer,
@@ -17,57 +17,80 @@ import CarouselCards2 from './CarouselCards2'
 import { StatusBar } from "expo-status-bar";
 
 export default function MainHome({ navigation }) {
-    
-    return (
-      <>
-        <ScrollView>
-          <StyledContainer style={{ top: 23 }}>
-            <PageLogOferta
-              source={require("../assets/drofamilogo1.jpg")}
-              resizeMode="cover"
-            />
 
-            <StatusBar style="dark" />
+  return (
 
-            {/* Icono */}
-            <PageTitle>Productos en Oferta</PageTitle>
-            
-            <InnerContainer>
-              <Subtitle style={{ top: 10 }}>Ancalmo</Subtitle>
 
-              <SafeAreaView style={styles.container}>
-                <CarouselCards />
-              </SafeAreaView>
-            </InnerContainer>
-          </StyledContainer>
+    <View style={styles.container}>
+      <PageLogOferta
+        source={require("../assets/drofamilogo1.jpg")}
+        resizeMode="cover"
+      />
+      <PageTitle style={{marginRight:-180, marginTop:-20, fontWeight: 'bold'}}>Ofertas</PageTitle>
+      <ScrollView
+      // scrollIndicatorInsets={false}
+      showsVerticalScrollIndicator={false}
+      >
+        <Image source={require("./../assets/logoAncalmo.png")}
+        style={{ width: 100, height: 100, top: 3, backgroundColor: Colors.primary, marginLeft:125 }}
+        />
+        <StyledContainer style={{marginTop:10}}>
+          <View style={styles.viiew}>
+            <CarouselCards />
+          </View>
+        </StyledContainer>
 
-          <StyledContainer>
-            <InnerContainer>
-              <Subtitle>Hessel</Subtitle>
-              <SafeAreaView style={styles.container}>
-                <CarouselCards2 />
-              </SafeAreaView>
-            </InnerContainer>
-          </StyledContainer>
-        </ScrollView>
-      </>
-      /*<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!!</Text>
-        </View>*/
-    );
+        <Image source={require("./../assets/hesselLogo1.png")}
+        style={{ width: 100, height: 100, top: 3, backgroundColor: Colors.primary, marginLeft:125, marginTop:-60 }}
+        />
+        <StyledContainer style={{marginTop:-10}}>
+          <View style={styles.viiew}>
+            <CarouselCards2 />
+          </View>
+        </StyledContainer>
+      </ScrollView>
+    </View>
+
+
+
+
+
+
+
+    // <ScrollView>
+    // <StyledContainer style={{ top: 23 }}>
+    //   <PageLogOferta
+    //     source={require("../assets/drofamilogo1.jpg")}
+    //     resizeMode="cover"
+    //   />
+    //   <PageTitle>Productos en Oferta</PageTitle>
+
+    //   <InnerContainer>
+    //     <Subtitle style={{ top: 5, fontSize: 30 }}>Ancalmo</Subtitle>
+
+    //     <SafeAreaView style={styles.container}>
+    //       <CarouselCards />
+    //     </SafeAreaView>
+    //   </InnerContainer>
+    // </StyledContainer>
+
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 50,
-      top:10
-    },
-    header: {
-      marginTop: 20,
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    paddingTop: 40,
+    paddingHorizontal: 20
+  },
+  header: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  viiew: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});

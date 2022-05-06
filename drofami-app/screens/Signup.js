@@ -25,9 +25,9 @@ import {
 
 } from "../components/styles";
 
-import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
+import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 import Keyboard2 from "../components/Keyboard2";
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
 const { darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóúñ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
@@ -45,8 +45,8 @@ let SingUpValidationSchema = yup.object().shape({
             "Apellido inválido. Asegurese de no tener espacios, solo letras"
         ),
     usuario: yup.string().required('Nombre de usuario es obligatorio').matches(regularUsername,
-            "Nombre de usuario inválido, este campo no permite espacios"
-        ),
+        "Nombre de usuario inválido, este campo no permite espacios"
+    ),
     correo: yup.string().email('Ingrese un correo válido').required('Dirección de correo es obligatoria'),
     password: yup.string().min(8, ({ min }) => `La contraseña debe de tener al menos ${min} caracteres`)
         .required('Contraseña es obligatoria').matches(regularPassword,
@@ -62,6 +62,7 @@ let SingUpValidationSchema = yup.object().shape({
 
 const Signup = ({ navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
+    const [hidePassword2, setHidePassword2] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
 
@@ -70,20 +71,20 @@ const Signup = ({ navigation }) => {
             return;
         }
         if (response['status'] == "success") {
-         //   alert("Registrado correctamente");
+            //   alert("Registrado correctamente");
             showMessage({
                 message: "Registrado.",
-                description:'Has sido registrado correctamente.',
+                description: 'Has sido registrado correctamente.',
                 type: "success",
-              });
+            });
             navigation.navigate('Login');
         } else if (response['status']) {
-           // alert("Ha ocurrido un error");
+            // alert("Ha ocurrido un error");
             showMessage({
                 message: "Error.",
-                description:'Ha ocurrido un error inesperado.',
+                description: 'Ha ocurrido un error inesperado.',
                 type: "danger",
-              });
+            });
         } else {
             let errors = '';
             for (const [key, value] of Object.entries(response)) {
@@ -92,18 +93,18 @@ const Signup = ({ navigation }) => {
                     errors += value[i] + '\n';
                 }
             }
-           // alert(errors);
+            // alert(errors);
             showMessage({
                 message: errors,
                 // description:'Has sido registrado correctamente.',
                 type: "danger",
-              });
+            });
         }
     }, [response])
 
     return (
         <>
-           <Keyboard2>
+            <Keyboard2>
                 <StyledContainer>
                     <StatusBar style="dark" />
 
@@ -115,7 +116,7 @@ const Signup = ({ navigation }) => {
                         />
                         <Subtitle>Registro</Subtitle>
                         <Formik
-                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion:"" }}
+                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "" }}
                             validateOnMount={true}
                             onSubmit={(values) => {
                                 signUp(values.usuario, values.correo, values.phone, values.password,
@@ -237,10 +238,10 @@ const Signup = ({ navigation }) => {
                                     onChangeText={handleChange("confirmPassword")}
                                     onBlur={handleBlur("confirmPassword")}
                                     values={values.confirmPassword}
-                                    secureTextEntry={hidePassword}
-                                    isPassword={true}
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
+                                    secureTextEntry={hidePassword2}
+                                    isPassword2={true}
+                                    hidePassword2={hidePassword2}
+                                    setHidePassword2={setHidePassword2}
                                 />
 
                                 {(errors.confirmPassword && touched.confirmPassword) &&
@@ -248,8 +249,8 @@ const Signup = ({ navigation }) => {
                                         {errors.confirmPassword}
                                     </Text>
                                 }
-                                 <MyAutoGrowingTextInput 
-                                    backgroundColor= {Colors.secondary}
+                                <MyAutoGrowingTextInput
+                                    backgroundColor={Colors.secondary}
                                     label={"Dirección"}
                                     icon={"location"}
                                     placeholder={"Dirección de entrega"}
@@ -257,7 +258,7 @@ const Signup = ({ navigation }) => {
                                     onChangeText={handleChange("direccion")}
                                     onBlur={handleBlur("direccion")}
                                     values={values.direccion}
-                                     />
+                                />
 
                                 {(errors.direccion && touched.direccion) &&
                                     <Text style={styles.errores}>
@@ -294,7 +295,7 @@ const Signup = ({ navigation }) => {
                     </InnerContainer>
 
                 </StyledContainer>
-                </Keyboard2>
+            </Keyboard2>
             {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
                 {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
                 <ActivityIndicator size={100} color={'blue'} />
@@ -311,7 +312,7 @@ const Signup = ({ navigation }) => {
     );
 };
 
-const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
+const MyTextInput = ({ label, icon, isPassword, isPassword2, confirmPassword, hidePassword, setHidePassword,hidePassword2, setHidePassword2, flex, ...props }) => {
     return (
         <View>
             <LeftIcon>
@@ -324,21 +325,29 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,fl
                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight} />
                 </RightIcon>
             )}
+
+            {isPassword2 && (
+                <RightIcon onPress={() => setHidePassword2(!hidePassword2)}>
+                    <Ionicons name={hidePassword2 ? 'md-eye-off' : 'md-eye'} size={30} color={darkLight} />
+                </RightIcon>
+            )}
+
+
         </View>
     );
 };
-const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword,flex, ...props }) => {
+const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, flex, ...props }) => {
     return (
         <View>
             <LeftIcon>
                 <Octicons name={icon} size={40} color={Colors.blue} />
             </LeftIcon>
             <StyledInputLabel>{label}</StyledInputLabel>
-            <AutoGrowingTextInput 
+            <AutoGrowingTextInput
                 {...props}
-                style = {styles.textInput}
-                
-             />
+                style={styles.textInput}
+
+            />
         </View>
     );
 };
@@ -373,9 +382,9 @@ const styles = StyleSheet.create({
         height: 52,
         marginVertical: 3,
         marginBottom: 20,
-        fontWeight:'bold',
+        fontWeight: 'bold',
         color: Colors.tertiary,
-      }
+    }
 })
 
 

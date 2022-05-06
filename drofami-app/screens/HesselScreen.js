@@ -30,7 +30,7 @@ export default function HesselScreen({ navigation }) {
   const [masterDataSource, setMasterDataSource] = useState(catalog);
 
   React.useEffect(() => {
-    console.log("AQUIIII:", filteredDataSource);
+    // console.log("AQUIIII:", filteredDataSource);
   }, [filteredDataSource]);
 
   const onRefresh = React.useCallback(() => {
