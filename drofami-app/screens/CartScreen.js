@@ -20,15 +20,21 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { showMessage } from 'react-native-flash-message';
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";//esta
+import { useDispatch } from "react-redux";
+import { cartItems } from "../src/reducers/cartItems";
+
 
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
   const [response, setResponse] = useState(null);
   const [dataCart, setDataCart] = useState(null);
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
+  // const [cantItems, setCantIntems] = useState(useSelector((state) => state.cart.value)); //se agrega
   const [loading, setLoading] = useState(false);
   const [productResponse, setProductResponse] = useState(null);
   const [productResponseDel, setProductResponseDel] = useState(null);
+  console.log("DATA USE carrito ", useSelector((state) => state.cart.value));
+  const dispatch = useDispatch();
   const [TEMP_DATA, setTEMP_DATA] = useState([
     //#region tempData
     {
@@ -162,9 +168,12 @@ const CartScreen = ({ navigation }) => {
     });
     saveCart(token, id, cant, setProductResponse);
   };
+    const items = useSelector((state) => state.cart.value);
 
   const deleteSelectedElement = (id) => {
+    dispatch(cartItems(items-1));
     deleteProduct(setLoading, token, id, setProductResponseDel);
+    
   };
 
   // const vaciarCarrito = (id) => {
@@ -437,11 +446,20 @@ const CartScreen = ({ navigation }) => {
         // style={borderWidth= 0.3}
         // style={style.buyBtn}
         onPress={() => {
-          showMessage({
-            message: "Orden Cancelada.",
-            description: "Su orden ha sido cancelada",
-            type: "danger",
-          });
+          if(items !== 0){
+            showMessage({
+              message: "Orden Cancelada.",
+              description: "Su orden ha sido cancelada",
+              type: "danger",
+            });
+          }
+          else{
+            showMessage({
+              message: "No hay productos en su carrito.",
+              type: "danger",
+            });
+          }
+          
         }}
       >
         <ButtonTextCart>CANCELAR MI ORDEN</ButtonTextCart>
@@ -497,11 +515,20 @@ const CartScreen = ({ navigation }) => {
           // style={borderWidth= 0.3}
           // style={style.buyBtn}
           onPress={() => {
-            showMessage({
-              message: "Orden en Proceso.",
-              description: "Estamos preparando los detalles de tu orden",
-              type: "info",
-            });
+            if(items !== 0){
+              showMessage({
+                message: "Orden en Proceso.",
+                description: "Estamos preparando los detalles de tu orden",
+                type: "info",
+              });
+            }else{
+              showMessage({
+                message: "No tiene productos en su carrito.",
+                description: "Agrega productos Hessel o Ancalmo",
+                type: "danger",
+              });
+            }
+            
           }}
         >
           <ButtonTextCart2>CONTINUAR</ButtonTextCart2>

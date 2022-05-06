@@ -5,9 +5,11 @@ import {
     Colors
 } from "../components/styles"
 import CarouselDescripcionHessel from './CarouselDescripcionHessel'
+import { useSelector } from "react-redux";//este se agrega
 
 const DetalleProductsHessel = ({navigation, route}) =>{
     const producto = route.params;
+    console.log("DATA USE hessel ", useSelector((state) => state.cart.value));
     return(
       <ScrollView>
         <SafeAreaView

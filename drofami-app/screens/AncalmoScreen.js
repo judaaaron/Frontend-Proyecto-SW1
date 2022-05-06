@@ -27,7 +27,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [content, setContent] = React.useState(catalog)
     const [search, setSearch] = useState();
     const [filteredDataSource, setFilteredDataSource] = useState();
-
+    console.log(token);
     React.useEffect(() => {
         // console.log("AQUIIII:",filteredDataSource)
     }, [filteredDataSource])
