@@ -155,7 +155,7 @@ const Login = ({ navigation }) => {
 
 
                                     <MyTextInput
-                                        label={"Username"}
+                                        label={"Nombre de Usuario"}
                                         icon={"person"}
                                         placeholder={"drofamiClient"}
                                         placeholderTextColor={darkLight}

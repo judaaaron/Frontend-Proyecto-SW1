@@ -27,6 +27,8 @@ import {
 
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useSelector } from "react-redux";//esta
+
 
 const { darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóú]+$/  //solo acepta letras
@@ -176,7 +178,7 @@ const Signup = ({ route, navigation }) => {
                     )}
 
                     <MyTextInput
-                      label={"Username"}
+                      label={"Nombre de Usuario"}
                       icon={"person"}
                       placeholder={"drofamiClient"}
                       placeholderTextColor={darkLight}
@@ -202,19 +204,29 @@ const Signup = ({ route, navigation }) => {
                       <Text style={styles.errores}>{errors.phone}</Text>
                     )}
 
-                    <MyAutoGrowingTextInput
-                      label={"Direccion"}
-                      icon={"location"}
-                      placeholder={"Dirección de entrega"}
-                      placeholderTextColor={darkLight}
-                      onChangeText={handleChange("direccion")}
-                      onBlur={handleBlur("direccion")}
-                      value={values.direccion}
-                    />
+
+                    {/*🦊*/}
+                      {useSelector((state) => state.staff.value) === false ? 
+                        notifications.length >0 ? 
+                          <MyAutoGrowingTextInput
+                          label={"Direccion"}
+                          icon={"location"}
+                          placeholder={"Dirección de entrega"}
+                          placeholderTextColor={darkLight}
+                          onChangeText={handleChange("direccion")}
+                          onBlur={handleBlur("direccion")}
+                          value={values.direccion}
+                          />
+                        :
+                        null
+                        :
+                        null
+                        }
 
                     {errors.direccion && touched.direccion && (
                       <Text style={styles.errores}>{errors.direccion}</Text>
                     )}
+                    {/*🦊*/}
 
                     <StyledButton
                       onPress={handleSubmit}
