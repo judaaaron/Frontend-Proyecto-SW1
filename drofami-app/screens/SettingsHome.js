@@ -97,7 +97,7 @@ export default function SettingsHome({ navigation }) {
     const cliente = formResponse["cliente"];
     const user = cliente["user"];
     const obj = { ...state };
-    obj["address"] = cliente["address"];
+    obj["address"] = (cliente['address'] ? cliente["address"] : '');
     obj["first_name"] = user["first_name"];
     obj["last_name"] = user["last_name"];
     obj["phone_number"] = user["phone_number"];

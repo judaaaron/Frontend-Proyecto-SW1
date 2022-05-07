@@ -10,6 +10,7 @@ import { getCatalog, getProduct } from '../src/ProductMethods'
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { showMessage } from 'react-native-flash-message';
+
 const width = Dimensions.get('window').width / 2 - 30;
 
 const wait = (timeout) => {
@@ -22,7 +23,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [productResponse, setProductResponse] = useState();
     const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
     const [catalog, setCatalog] = useState([]);
-
+    const isEmpleado = React.useRef(useSelector((state) => state.staff.value));
     const [refreshing, setRefreshing] = React.useState(false);
     const [content, setContent] = React.useState(catalog)
     const [search, setSearch] = useState();
@@ -91,9 +92,18 @@ const AncalmoScreen = ({ navigation, dato }) => {
               });
             // alert(productResponse['message']);
         }
-
         const product = productResponse['data'];
-        navigation.navigate('DetalleProductsAncalmo', {
+        if (isEmpleado.current) {
+            navigation.navigate('EmpleadoDetalleProductoScreen', {
+                id: product["producto"]['id'],
+                cantidad: product['cantidad'],
+                imagen: product['producto']['imagen'],
+                nombre: product['producto']["nombre"],
+                precio: product['producto']["precio"],
+                fabricante: product['producto']["fabricante"],
+            });
+        } else {
+            navigation.navigate('DetalleProductsAncalmo', {
             id: product["producto"]['id'],
             cantidad: product['cantidad'],
             imagen: product['producto']['imagen'],
@@ -104,6 +114,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             dosis: product['producto']["dosis"],
             formula: product['producto']['formula'],
         });
+        }
     }, [productResponse])
 
     //hacer funcion que revise cada elemento del array, si la cantidad es 0 pop -> push al fondo 

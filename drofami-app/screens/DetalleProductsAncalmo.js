@@ -9,9 +9,6 @@ import { getCart, saveCart, isItemInCart } from '../src/CartMethods';
 import NumericInput from 'react-native-numeric-input'
 import { useSelector } from "react-redux";//este se agrega
 import { useIsFocused } from "@react-navigation/native";
-
-import { useDispatch } from "react-redux";
-import { cartItems } from "../src/reducers/cartItems";
 import { getColorFromURL } from 'rn-dominant-color';
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
@@ -26,10 +23,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const [isInCart, setIsInCart] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const timeout = React.useRef(null);
-  const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart.value);
-  console.log("DATA USE ancalmo ", useSelector((state) => state.cart.value));
- 
+
   const isFocused = useIsFocused();
   React.useEffect(() => {
     if (isFocused) {
@@ -38,33 +32,32 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     }
   }, [token, isFocused]);
 
-
   React.useEffect(() => {
       console.log("HOLA JUDA");
       console.log("ImagenURL:", producto.imagen)
       console.log("Color:",getAverageRGB(producto.imagen))
     }, [])
 
-  function getAverageRGB(imageUrl) {
+  async function getAverageRGB(imageUrl) {
     getColorFromURL(imageUrl).then(colors => {
-      console.log("Color Dominante: ", colors)
+      return colors
     })
 }
+ 
 
   React.useEffect(() => {
     if (!response) {
       return;
     }
-    if (!response["data"]) {
+    if (!response['data']) {
       //error super inesperado
       return;
     }
-    response["data"].forEach((element) => {
+    response['data'].forEach((element) => {
       if (id == element.producto.id) {
-        setCounter(element.cantidad);
+        setCounter(element.cantidad)
       }
     });
-    dispatch(cartItems(response.data.length));
   }, [response]);
 
   React.useEffect(() => {
@@ -287,7 +280,6 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                   style={style.buyBtn}
                   onPress={() => {
                     saveCart(token, id, counter, setProductResponse);
-                    dispatch(cartItems(items + 1));
                   }}>
                   <ButtonText>
                     Añadir al carrito

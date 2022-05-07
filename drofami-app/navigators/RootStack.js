@@ -13,6 +13,7 @@ import DetalleProductsAncalmo from '../screens/DetalleProductsAncalmo'
 import profileModification from '../screens/profileModification'
 import DetalleProductsHessel from "../screens/DetalleProductsHessel";
 import ChangePasswordScreen from '../screens/ChangePasswordScreen'
+import EmpleadoDetalleProductoScreen from "../screens/EmpleadoDetalleProductoScreen";
 import ChangeEmailScreen from '../screens/ChangeEmailScreen'
 import SelectEmpresa from '../screens/SelectEmpresa'
 import CreateEmpresa from '../screens/CreateEmpresa'
@@ -85,6 +86,7 @@ const RootStackScreens = () => (
         <Stack.Screen name="ChangeEmailScreen" component={ChangeEmailScreen} options={{ header: () => null }}/>
         <Stack.Screen name="SelectEmpresa" component={SelectEmpresa} options={{ header: () => null }}/>
         <Stack.Screen name="CreateEmpresa" component={CreateEmpresa} options={{ header: () => null }}/>
+        <Stack.Screen name="EmpleadoDetalleProductoScreen" component={EmpleadoDetalleProductoScreen} options={{ header: () => null }} />
        
     </Stack.Navigator>
 );
