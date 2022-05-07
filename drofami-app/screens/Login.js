@@ -164,6 +164,7 @@ const Login = ({ navigation }) => {
                                         values={values.usuario}
                                         keyboardType={"email-address"}
                                     />
+                                    
                                     <MyTextInput
                                         label={"Contraseña"}
                                         icon={"lock"} 
