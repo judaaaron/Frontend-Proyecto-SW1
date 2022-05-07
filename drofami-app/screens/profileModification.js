@@ -50,7 +50,7 @@ let SingUpValidationSchema = yup.object().shape({
         .required('Número teléfonico es obligatorio').matches(regularPhone,
             "Número teléfonico inválido",
         ),
-    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`).required('Número teléfonico es obligatorio'),
+    direccion: yup.string().min(15, ({ min }) => `Direccion debe de tener al menos ${min} caracteres minimo`).max(150, ({ max }) => `Solo se permiten ${max} caracteres máximo`),
 });
 
 const Signup = ({ route, navigation }) => {
@@ -207,18 +207,19 @@ const Signup = ({ route, navigation }) => {
 
                     {/*🦊*/}
                       {useSelector((state) => state.staff.value) === false ? 
-                        notifications.length >0 ? 
+                        // notifications.length >0 ? 
                           <MyAutoGrowingTextInput
                           label={"Direccion"}
                           icon={"location"}
-                          placeholder={"Dirección de entrega"}
+                          placeholder={"Dirección de entrega (opcional)"}
                           placeholderTextColor={darkLight}
                           onChangeText={handleChange("direccion")}
                           onBlur={handleBlur("direccion")}
                           value={values.direccion}
+                          
                           />
-                        :
-                        null
+                        // :
+                        // null
                         :
                         null
                         }

@@ -94,9 +94,15 @@ export default function SettingsHome({ navigation }) {
       //handle error
       return;
     }
-    const cliente = formResponse["cliente"];
-    const user = cliente["user"];
     const obj = { ...state };
+    
+    let user = '';
+    const cliente = (formResponse["cliente"] ? formResponse["cliente"] : '');
+    if (formResponse['cliente']) {
+      user = cliente["user"];
+    } else {
+      user = formResponse['data'];
+    }
     obj["address"] = (cliente['address'] ? cliente["address"] : '');
     obj["first_name"] = user["first_name"];
     obj["last_name"] = user["last_name"];

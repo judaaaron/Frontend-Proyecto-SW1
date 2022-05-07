@@ -35,42 +35,7 @@ const CartScreen = ({ navigation }) => {
   const [productResponseDel, setProductResponseDel] = useState(null);
   console.log("DATA USE carrito ", useSelector((state) => state.cart.value));
   const dispatch = useDispatch();
-  const [TEMP_DATA, setTEMP_DATA] = useState([
-    //#region tempData
-    {
-      id: 0,
-      name: "ANTIGRIPAL ANCALMO",
-      quantity: 3,
-      count: 1,
-    },
-
-    {
-      id: 1,
-      name: "BACAOLIVER EMULSION",
-      quantity: 2,
-      count: 1,
-    },
-
-    {
-      id: 2,
-      name: "CALAMINA ANTIALERGICA",
-      quantity: 4,
-      count: 1,
-    },
-
-    {
-      id: 3,
-      name: "CALAMINA MENTOLADA",
-      quantity: 6,
-      count: 1,
-    },
-    {
-      id: 4,
-      name: "DOLO MARATON",
-      quantity: 7,
-      count: 1,
-    },
-  ]); //#endregion
+  const [clearResponse, setClearResponse] = useState(null);
 
   React.useEffect(() => {
     if (!response) {
@@ -145,6 +110,27 @@ const CartScreen = ({ navigation }) => {
     });
     setDataCart(arr2);
   }, [productResponseDel]);
+
+  React.useEffect(() => {
+    if (!clearResponse) {
+      return;
+    }
+
+    if (!clearResponse['status']) {
+      showMessage({
+        message: "Error vaciando carrito.",
+        description: "Ocurrio un error inesperado, favor vuelva a intentar.",
+        type: "danger",
+      });
+      return;
+    }
+
+    showMessage({
+        message: (clearResponse['status'] == 'success' ? 'Carrito vaciado' : "Error vaciando carrito."),
+        description: clearResponse['message'],
+        type: "danger",
+      });
+  }, [clearResponse])
 
   const increaseQuantity = (id) => {
     const currentItems = [...dataCart];
@@ -446,20 +432,25 @@ const CartScreen = ({ navigation }) => {
         // style={borderWidth= 0.3}
         // style={style.buyBtn}
         onPress={() => {
-          if(items !== 0){
+          /*if(items !== 0){
             showMessage({
               message: "Orden Cancelada.",
               description: "Su orden ha sido cancelada",
               type: "danger",
             });
-          }
-          else{
-            showMessage({
-              message: "No hay productos en su carrito.",
-              type: "danger",
-            });
-          }
-          
+          }*/
+          showMessage({
+            message:
+              ("¿Estás seguro de cancelar pedido?",
+              "Seleccione:",
+              [
+                { text: "No", onPress: () => {},},
+                { text: "Cancelar", style: "cancel",
+                 onPress: () => clearCarrito(setLoading, token, setClearResponse)},
+              ]),
+            description: "Su orden ha sido cancelada",
+            type: "danger",
+          });
         }}
       >
         <ButtonTextCart>CANCELAR MI ORDEN</ButtonTextCart>
@@ -515,20 +506,19 @@ const CartScreen = ({ navigation }) => {
           // style={borderWidth= 0.3}
           // style={style.buyBtn}
           onPress={() => {
-            if(items !== 0){
+            if (items !== 0) {
               showMessage({
                 message: "Orden en Proceso.",
                 description: "Estamos preparando los detalles de tu orden",
                 type: "info",
               });
-            }else{
+            } else {
               showMessage({
                 message: "No tiene productos en su carrito.",
                 description: "Agrega productos Hessel o Ancalmo",
                 type: "danger",
               });
             }
-            
           }}
         >
           <ButtonTextCart2>CONTINUAR</ButtonTextCart2>
