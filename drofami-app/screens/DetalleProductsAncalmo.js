@@ -9,7 +9,7 @@ import { getCart, saveCart, isItemInCart } from '../src/CartMethods';
 import NumericInput from 'react-native-numeric-input'
 import { useSelector } from "react-redux";//este se agrega
 import { useIsFocused } from "@react-navigation/native";
-import { getColorFromURL } from 'rn-dominant-color';
+
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
@@ -34,16 +34,10 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
 
   React.useEffect(() => {
       console.log("HOLA JUDA");
-      console.log("ImagenURL:", producto.imagen)
-      console.log("Color:",getAverageRGB(producto.imagen))
+ 
     }, [])
 
-  async function getAverageRGB(imageUrl) {
-    getColorFromURL(imageUrl).then(colors => {
-      return colors
-    })
-}
- 
+
 
   React.useEffect(() => {
     if (!response) {
