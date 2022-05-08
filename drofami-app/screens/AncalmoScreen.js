@@ -93,6 +93,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             // alert(productResponse['message']);
         }
         const product = productResponse['data'];
+        
         if (isEmpleado.current) {
             navigation.navigate('EmpleadoDetalleProductoScreen', {
                 id: product["producto"]['id'],
@@ -101,6 +102,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
                 nombre: product['producto']["nombre"],
                 precio: product['producto']["precio"],
                 fabricante: product['producto']["fabricante"],
+                color : productResponse['colores'],
             });
         } else {
             navigation.navigate('DetalleProductsAncalmo', {
@@ -113,6 +115,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             indicaciones: product['producto']["indicaciones"],
             dosis: product['producto']["dosis"],
             formula: product['producto']['formula'],
+            color : productResponse['colores'],
         });
         }
     }, [productResponse])

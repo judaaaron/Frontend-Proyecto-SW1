@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import {
@@ -27,7 +28,7 @@ import { cartItems } from "../src/reducers/cartItems";
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
   const [response, setResponse] = useState(null);
-  const [dataCart, setDataCart] = useState(null);
+  const [dataCart, setDataCart] = useState([]);
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
   // const [cantItems, setCantIntems] = useState(useSelector((state) => state.cart.value)); //se agrega
   const [loading, setLoading] = useState(false);
@@ -36,6 +37,7 @@ const CartScreen = ({ navigation }) => {
   console.log("DATA USE carrito ", useSelector((state) => state.cart.value));
   const dispatch = useDispatch();
   const [clearResponse, setClearResponse] = useState(null);
+
 
   React.useEffect(() => {
     if (!response) {
@@ -115,7 +117,7 @@ const CartScreen = ({ navigation }) => {
     if (!clearResponse) {
       return;
     }
-
+    console.log(clearResponse);
     if (!clearResponse['status']) {
       showMessage({
         message: "Error vaciando carrito.",
@@ -126,10 +128,13 @@ const CartScreen = ({ navigation }) => {
     }
 
     showMessage({
-        message: (clearResponse['status'] == 'success' ? 'Carrito vaciado' : "Error vaciando carrito."),
-        description: clearResponse['message'],
-        type: "danger",
-      });
+      message: (clearResponse['status'] == 'success' ? 'Carrito vaciado' : "Error vaciando carrito."),
+      description: clearResponse['message'],
+      type: "danger",
+    });
+    if (clearResponse['status'] == 'success') {
+      setDataCart([]);
+    }
   }, [clearResponse])
 
   const increaseQuantity = (id) => {
@@ -154,12 +159,12 @@ const CartScreen = ({ navigation }) => {
     });
     saveCart(token, id, cant, setProductResponse);
   };
-    const items = useSelector((state) => state.cart.value);
+  const items = useSelector((state) => state.cart.value);
 
   const deleteSelectedElement = (id) => {
-    dispatch(cartItems(items-1));
+    dispatch(cartItems(items - 1));
     deleteProduct(setLoading, token, id, setProductResponseDel);
-    
+
   };
 
   // const vaciarCarrito = (id) => {
@@ -432,25 +437,28 @@ const CartScreen = ({ navigation }) => {
         // style={borderWidth= 0.3}
         // style={style.buyBtn}
         onPress={() => {
-          /*if(items !== 0){
+          if (dataCart.length == 0) {
             showMessage({
-              message: "Orden Cancelada.",
-              description: "Su orden ha sido cancelada",
+              message: "No tiene productos en su carrito.",
+              // description: "Agrega productos Hessel o Ancalmo",
               type: "danger",
             });
-          }*/
-          showMessage({
-            message:
-              ("¿Estás seguro de cancelar pedido?",
-              "Seleccione:",
-              [
-                { text: "No", onPress: () => {},},
-                { text: "Cancelar", style: "cancel",
-                 onPress: () => clearCarrito(setLoading, token, setClearResponse)},
-              ]),
-            description: "Su orden ha sido cancelada",
-            type: "danger",
-          });
+            return;
+          }
+
+          Alert.alert(
+            "Cancelando orden",
+            "¿Está seguro de cancelar su orden?",
+            [
+              { text: "Seguir en carrito", onPress: () => {} },
+              {
+                text: "Cancelar orden",
+                style: "cancel",
+                onPress: () =>
+                  clearCarrito(setLoading, token, setClearResponse),
+              },
+            ]
+          );
         }}
       >
         <ButtonTextCart>CANCELAR MI ORDEN</ButtonTextCart>
@@ -505,8 +513,13 @@ const CartScreen = ({ navigation }) => {
         <StyledButtonCart2
           // style={borderWidth= 0.3}
           // style={style.buyBtn}
+
+          style={{
+            backgroundColor: dataCart.length == 0 ? Colors.darkLight : Colors.blue,
+          }}
+          disabled={dataCart.length == 0 ? true : false}
           onPress={() => {
-            if (items !== 0) {
+            if (dataCart.length != 0) {
               showMessage({
                 message: "Orden en Proceso.",
                 description: "Estamos preparando los detalles de tu orden",

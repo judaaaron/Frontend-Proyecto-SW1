@@ -14,7 +14,7 @@ import { useIsFocused } from "@react-navigation/native";
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
   const [notifications, setNotifications] = useState([]);
-  const { id, cantidad, imagen, nombre, precio, fabricante, indicaciones, dosis, formula } = route.params
+  const { id, cantidad, imagen, nombre, precio, fabricante, indicaciones, dosis, formula, color } = route.params
   const [counter, setCounter] = useState(1);
   const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
   const [loading, setLoading] = useState(false);
@@ -58,6 +58,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     if (!productResponse || !productResponse['status']) {
       return;
     }
+    console.log(productResponse)
     switch (productResponse["status"]) {
       case "success":
         showMessage({
@@ -73,8 +74,14 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
         });
         break;
     }
-    if (!productResponse['data']['cantidad']) {
-      return;
+    if (!isInCart) {
+      setIsInCart(true);
+    }
+    console.log(productResponse)
+    if (productResponse['data']['cantidad'] == 0) {
+      console.log('pupu', productResponse)
+      setCounter(1);
+      setIsInCart(false);
     }
     setCounter(productResponse['data']['cantidad']);
   }, [productResponse])
@@ -89,6 +96,9 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
 
   function handleChange(value) {
     clearTimeout(timeout.current);
+    if (isNaN(value)) {
+      return;
+    }
     timeout.current = setTimeout(()=>{
       saveCart(token, id, value, setProductResponse);
    }, 1000);
@@ -115,7 +125,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: Colors.lightblue,
+          backgroundColor: producto.color[3],
         }}>
         <View style={style.header}>
           <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
@@ -199,7 +209,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                     rightButtonBackgroundColor={Colors.blue}
                     leftButtonBackgroundColor={Colors.blue}
                     step={1}
-                    minValue={1}
+                    minValue={isInCart ? 0 : 1}
                     maxValue={1000} // traer la cantidad de este producto de backend
                     // mobile
                     initValue={counter}
@@ -273,6 +283,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                 {!isInCart && <StyledButton
                   style={style.buyBtn}
                   onPress={() => {
+
                     saveCart(token, id, counter, setProductResponse);
                   }}>
                   <ButtonText>

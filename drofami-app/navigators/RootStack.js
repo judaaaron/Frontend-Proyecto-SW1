@@ -33,7 +33,7 @@ const carrito = "Carrito";
 const Tab = createBottomTabNavigator();
 const HomeTabs = () => {
     // const [notifications, setNotifications] = useState("3");
-    const [notifications, setNotifications] = useState([useSelector((state) => state.cart.value)]);
+    const [notifications, setNotifications] = useState([]);
     console.log("DATA USE root ", useSelector((state) => state.cart.value));
     return (
         <Tab.Navigator
@@ -47,8 +47,8 @@ const HomeTabs = () => {
             <Tab.Screen name={Ancalmo} component={AncalmoScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/ancalmoAzul.png")} style={{ width: 25, height: 25, top: 5 }} />), name: () => null }} />
             <Tab.Screen name={Hessel} component={HesselScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/heseelAzul.png")} style={{ width: 30, height: 30, top: 3 }} />), name: () => null }} />
             {useSelector((state) => state.staff.value) === false ? 
-            notifications != "0" ? 
-            <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarBadge: notifications, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
+            notifications.length != "0" ? 
+            <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarBadge: notifications.length, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
             : 
             <Tab.Screen name={carrito} component={CartScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/carrito3.png")} style={{ width: 30, height:30, top: 3, backgroundColor: Colors.primary }} />), name: () => null }} />
             

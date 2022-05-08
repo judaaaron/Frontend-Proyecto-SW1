@@ -242,7 +242,7 @@ export default function SettingsHome({ navigation }) {
             </RightIcon2>
             <ButtonText2>Cambiar contraseña</ButtonText2>
           </StyledButton2>
-
+              {useSelector((state) => state.staff.value) === false ?
           <StyledButton2
             onPress={() => {
               navigation.navigate("SelectEmpresa", { token: token }),
@@ -260,6 +260,8 @@ export default function SettingsHome({ navigation }) {
             </RightIcon2>
             <ButtonText2>Selección de empresa</ButtonText2>
           </StyledButton2>
+          :
+          null}
           {/* </ExtraView> */}
           <StyledButton2
             onPress={()=> setIsEnabled(true)}

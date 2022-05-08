@@ -42,6 +42,7 @@ const Login = ({ navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [loginResponse, setLoginResponse] = useState('');
+    const [loginInput, setLoginInput] = useState(" ");
 
     //redux
     const dispatch = useDispatch();
@@ -147,8 +148,9 @@ const Login = ({ navigation }) => {
                             <Subtitle>Inicio de Sesión</Subtitle>
                             <Formik
                                 initialValues={{ usuario: "", token: "" }}
-                                onSubmit={(values) => {
+                                onSubmit={(values, {resetForm}) => {
                                     (login(setLoading, values.usuario, values.token, setLoginResponse));
+                                    resetForm({values: ''});
                                 }}
                             >
                                 {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
@@ -163,6 +165,8 @@ const Login = ({ navigation }) => {
                                         onBlur={handleBlur("usuario")}
                                         values={values.usuario}
                                         keyboardType={"email-address"}
+                                        
+
                                     />
                                     
                                     <MyTextInput

@@ -38,6 +38,8 @@ let SingUpValidationSchema = yup.object().shape({
 
 const ChangePass = ({ route, navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
+    const [hideActualPassword, setHideActualPassword] = useState(true)
+    const [hideNewPassword, setHideNewPassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
     const { token } = route.params
@@ -102,10 +104,10 @@ const ChangePass = ({ route, navigation }) => {
                                         onChangeText={handleChange("actualPassword")}
                                         onBlur={handleBlur("actualPassword")}
                                         value={values.actualPassword}
-                                        secureTextEntry={hidePassword}
+                                        secureTextEntry={hideActualPassword}
                                         isPassword={true}
-                                        hidePassword={hidePassword}
-                                        setHidePassword={setHidePassword}
+                                        hidePassword={hideActualPassword}
+                                        setHidePassword={setHideActualPassword}
                                         
                                     />
                                     {(errors.actualPassword && touched.actualPassword) &&
@@ -122,10 +124,10 @@ const ChangePass = ({ route, navigation }) => {
                                         onChangeText={handleChange("newPassword")}
                                         onBlur={handleBlur("newPassword")}
                                         value={values.newPassword}
-                                        secureTextEntry={hidePassword}
+                                        secureTextEntry={hideNewPassword}
                                         isPassword={true}
-                                        hidePassword={hidePassword}
-                                        setHidePassword={setHidePassword}
+                                        hidePassword={hideNewPassword}
+                                        setHidePassword={setHideNewPassword}
                                     />
                                     {(errors.newPassword && touched.newPassword) &&
                                         <Text style={styles.errores}>

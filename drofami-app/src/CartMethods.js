@@ -57,14 +57,14 @@ export async function clearCarrito(setLoading, token, setResponse) {
     const resp = {};
     let response = {}
     try {
-        response = await fetch(API_URL + "/empty/", {
+        response = await fetch(API_URL + "empty/", {
             method: 'DELETE',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Token ' + token,
               },
-        }).then((response) => response.json())
+        }).then((response) =>  response.json())
         .then(data => {
             resp['data'] = data;
             setResponse(data)
