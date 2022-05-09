@@ -175,7 +175,8 @@ export const StyledTextInput = styled.TextInput`
   margin-bottom: 20px;
   font-weight: bold;
   color: ${tertiary};
-`;
+`
+;
 
 export const StyledInputLabel = styled.Text`
   color: ${tertiary};

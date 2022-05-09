@@ -125,7 +125,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: Colors.lightblue,
+          backgroundColor: producto.color[3],
         }}>
         <View style={style.header}>
           <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />

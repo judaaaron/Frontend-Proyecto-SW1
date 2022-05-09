@@ -148,12 +148,12 @@ const Login = ({ navigation }) => {
                             <Subtitle>Inicio de Sesión</Subtitle>
                             <Formik
                                 initialValues={{ usuario: "", token: "" }}
-                                onSubmit={(values, {resetForm}) => {
+                                onSubmit={(values) => {
                                     (login(setLoading, values.usuario, values.token, setLoginResponse));
-                                    resetForm({values: ''});
+                                   
                                 }}
                             >
-                                {({ handleChange, handleBlur, handleSubmit, values }) => (<StyledFormArea>
+                                {({ handleChange, handleBlur, handleSubmit, values, handleReset }) => (<StyledFormArea>
 
 
                                     <MyTextInput
@@ -165,6 +165,7 @@ const Login = ({ navigation }) => {
                                         onBlur={handleBlur("usuario")}
                                         values={values.usuario}
                                         keyboardType={"email-address"}
+                                        handleReset={handleChange(" ")}
                                         
 
                                     />
