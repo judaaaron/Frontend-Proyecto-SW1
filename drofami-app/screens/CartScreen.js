@@ -197,6 +197,7 @@ const CartScreen = ({ navigation }) => {
     formula,
     indicaciones,
     fabricante,
+    colores
   }) => {
     return (
       <TouchableOpacity
@@ -212,6 +213,7 @@ const CartScreen = ({ navigation }) => {
             indicaciones: indicaciones,
             dosis: dosis,
             formula: formula,
+            color: [Colors.lightblue,Colors.lightblue,Colors.lightblue,Colors.lightblue,Colors.lightblue]
           })
         }
         // aqui debe de llamarse detalle de producto
@@ -481,6 +483,7 @@ const CartScreen = ({ navigation }) => {
             dosis={item.producto.dosis}
             formula={item.producto.formula}
             fabricante={item.producto.fabricante}
+            color={item.colores}
           />
         )}
         keyExtractor={(item) => item.producto.id}
