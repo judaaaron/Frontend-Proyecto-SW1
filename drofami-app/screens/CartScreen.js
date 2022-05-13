@@ -162,8 +162,29 @@ const CartScreen = ({ navigation }) => {
   const items = useSelector((state) => state.cart.value);
 
   const deleteSelectedElement = (id) => {
-    dispatch(cartItems(items - 1));
-    deleteProduct(setLoading, token, id, setProductResponseDel);
+
+    Alert.alert(
+      "Eliminando de carrito",
+      "¿Está seguro de eliminar este producto?",
+      [
+        {
+          text: "Dejar en carrito", onPress: () => { },
+          style: "cancel",
+        },
+
+
+        {
+          text: "Eliminar de carrito",
+          onPress: () => {
+            dispatch(cartItems(items - 1))
+            deleteProduct(setLoading, token, id, setProductResponseDel)
+
+          }
+
+        },
+      ]
+    );
+
 
   };
 
@@ -213,7 +234,7 @@ const CartScreen = ({ navigation }) => {
             indicaciones: indicaciones,
             dosis: dosis,
             formula: formula,
-            color: [Colors.lightblue,Colors.lightblue,Colors.lightblue,Colors.lightblue,Colors.lightblue]
+            color: [Colors.lightblue, Colors.lightblue, Colors.lightblue, Colors.lightblue, Colors.lightblue]
           })
         }
         // aqui debe de llamarse detalle de producto
@@ -452,7 +473,7 @@ const CartScreen = ({ navigation }) => {
             "Cancelando orden",
             "¿Está seguro de cancelar su orden?",
             [
-              { text: "Seguir en carrito", onPress: () => {} },
+              { text: "Seguir en carrito", onPress: () => { } },
               {
                 text: "Cancelar orden",
                 style: "cancel",
