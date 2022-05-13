@@ -37,6 +37,8 @@ const CartScreen = ({ navigation }) => {
   console.log("DATA USE carrito ", useSelector((state) => state.cart.value));
   const dispatch = useDispatch();
   const [clearResponse, setClearResponse] = useState(null);
+  const [centavo, setCentavo] = useState(false);
+
 
 
   React.useEffect(() => {
@@ -112,6 +114,19 @@ const CartScreen = ({ navigation }) => {
     });
     setDataCart(arr2);
   }, [productResponseDel]);
+
+  React.useEffect(()=>{
+    (total + total * 0.15) % 1 == 0 ? setCentavo(true): setCentavo(false)
+    if(setCentavo === true){
+      <Text>
+        {total + total * 0.15}.00
+      </Text>
+    }else{
+      <Text>
+         {total + total * 0.15}
+      </Text>
+    }
+  },[total])
 
   React.useEffect(() => {
     if (!clearResponse) {
@@ -396,6 +411,7 @@ const CartScreen = ({ navigation }) => {
     );
   };
   return (
+    <>
     <View
       style={{
         width: "100%",
@@ -645,13 +661,15 @@ const CartScreen = ({ navigation }) => {
               color: Colors.black,
             }}
           >
-            L. {total + total * 0.15}
+           L. { (total + total * 0.15) %1==0 ? (total + total * 0.15).toFixed(2)  : (total + total * 0.15)}
+            
           </Text>
         </View>
       </View>
 
       {/* </ScrollView> */}
     </View>
+    </>
   );
 };;
 
