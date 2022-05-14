@@ -113,6 +113,18 @@ export default function SettingsHome({ navigation }) {
     }));
   }, [formResponse]);
 
+  const URLconSporte = "https://wa.me/50497060482?text=Buen+D%C3%ADa%2C%0ASoy+daniela+de%3A+Fullstack+Drofami%0AQueria+su+ayuda+con+algo.+%F0%9F%98%88%E2%80%8B%E2%80%8B";
+  const [url, setUrl] = useState(null);
+
+  React.useEffect(() => {
+    if (!url) {
+      return;
+    }
+    if (url['url']) {
+      followURL(url['url'])
+    }
+  })
+
   async function followURL(url) {
     const supported = await Linking.canOpenURL(url);
     if (supported) {
@@ -274,12 +286,12 @@ export default function SettingsHome({ navigation }) {
           {useSelector((state) => state.staff.value) === false ?
             <StyledButton2
               onPress={() => {
-                followURL(URLconSporte);
+                followURL(getSupportUrl(setLoading, token, setUrl));
               }}
             >
               <RightIcon2
                 onPress={() => {
-                  followURL(URLconSporte);
+                  followURL(getSupportUrl(setLoading, token, setUrl));
                 }}
               >
                 <Icon name="business" size={20} color={Colors.blue} />
