@@ -3,14 +3,8 @@ import { useState } from 'react';
 import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../components/styles";
-import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
-import { showMessage } from 'react-native-flash-message';
-import { getCart, saveCart, isItemInCart } from '../src/CartMethods'; 0
-import NumericInput from 'react-native-numeric-input'
 import { useSelector } from "react-redux";//este se agrega
-import { useIsFocused } from "@react-navigation/native";
-import { Avatar } from 'react-native-paper';
-
+import { Picker } from "@react-native-picker/picker";
 
 const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
 
@@ -24,6 +18,7 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
     const [Cart, setIsInCart] = useState(false);
     const [isInputFocused, setIsInputFocused] = useState(false);
     const timeout = React.useRef(null);
+    const [selected, setSelected] = React.useState(null);
 
     React.useEffect(() => {
         Object.entries(producto.precio).map((element, i) => {
@@ -32,6 +27,14 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
 
         })
     }, [])
+
+    const _renderItem = item => {
+        return (
+            <View style={style.item}>
+                <Text style={style.textItem}>{item.name}</Text>
+            </View>
+        );
+    };
 
 
     return (
@@ -49,13 +52,6 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
                 />
 
 
-                {/* <Icon name="shopping-cart" size={28} /> */}
-                {/* {
-            notifications.length > 0 &&
-            <Counter>
-              <NotificationText>{notifications.length}</NotificationText>
-            </Counter>
-          } */}
             </View>
             {/* <ScrollView> */}
             <View style={style.imageContainer} top={25}>
@@ -92,7 +88,7 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
                         justifyContent: 'center',
                         alignItems: "center",
                         top: -170,
-                        alignContent:'center'
+                        alignContent: 'center'
                     }}
                 >
                     <Text style={{ fontSize: 22, fontWeight: "bold" }}>{nombre}</Text>
@@ -108,33 +104,55 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
                         marginLeft: 15
                     }}
                 >
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Canales de Venta:</Text>
-                </View>
-                {Object.entries(producto.precio).map((element, i) => {
-                    return (<View style={style.priceTag} key={element[0] + '_' + i} marginTop={10}>
-                        <Text style={{ fontSize: 18, fontWeight: "bold", color: Colors.white, justifyContent: 'center' }}>{element[0]}: L. {element[1]}</Text>
-                    </View>)
-                })}
-                <View style={style.priceTag2} top={-170}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold", color: Colors.white, justifyContent: 'center' }}>En stock: {producto.cantidad}</Text>
-                </View>
-                {/*<View style={style.priceTag}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold", color: Colors.white, justifyContent:'center' }}>Farmacia: L. {producto.precio.Farmacia}</Text>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Seleccione canal de venta:</Text>
+
+
                 </View>
 
-                <View style={style.priceTag} top={-235}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold", color: Colors.white, justifyContent:'center' }}>Mayorista: L. {producto.precio.Mayorista}</Text>
+                <View
+                    marginTop={-250}
+                >
+                    <Picker
+                        enabled={true}
+                        mode="dropdown"
+                        placeholder="Canal de venta"
+                        selectedValue={selected}
+                        onValueChange={(itemValue, itemIndex) => setSelected(itemValue)}
+
+                    >
+                        <Picker.Item key={'00'}
+                            label={'Canal de venta'}
+                            value={null}
+                            id={0} />
+                        {Object.entries(producto.precio).map((item, index) => {
+                            return (
+                                <Picker.Item key={index + '-' + item[0]}
+                                    label={item[0]}
+                                    value={item[0]}
+                                    id={item[0]}
+                                />
+                            );
+                        })}
+                    </Picker>
                 </View>
 
-                <View style={style.priceTag} top={-225}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold", color: Colors.white, justifyContent:'center' }}>Supermercado: L. {producto.precio.Supermercado}</Text>
-                </View>
+                {selected &&
+                    <View style={style.priceTag}>
+                        <Text style={{ color: Colors.white }}>
+                            Precio L. {producto.precio[selected]}
+                        </Text>
+                    </View>
+                }
 
-               */}
+                {selected &&
+                    <View style={style.priceTag} marginTop={10}>
+                        <Text style={{ color: Colors.white }}>
+                            En stock {producto.cantidad}
+                        </Text>
+                    </View>
+                }
 
-
-
-
+            
                 <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
                     {/* <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Descripción</Text> */}
 
@@ -243,8 +261,8 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 25,
-        top: -250,
-        marginLeft:80
+        // top: -250,
+        marginLeft: 80
 
     },
     priceTag2: {
@@ -256,7 +274,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 25,
         top: -250,
-        marginLeft:5
+        marginLeft: 5
 
     },
     fab: {
@@ -272,6 +290,38 @@ const style = StyleSheet.create({
         right: 0,
         bottom: 0,
         color: Colors.blue,
+    },
+    dropdown: {
+        backgroundColor: Colors.secondary,
+        borderBottomColor: Colors.black,
+        borderBottomWidth: 1,
+        marginTop: 50,
+        top: -200,
+        marginBottom: 80,
+        marginLeft: 35
+
+    },
+    shadow: {
+        shadowColor: Colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+        elevation: 2,
+    },
+    item: {
+        paddingVertical: 17,
+        paddingHorizontal: 4,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    textItem: {
+        flex: 1,
+        fontSize: 16,
+        color: Colors.black
     },
 
 });
