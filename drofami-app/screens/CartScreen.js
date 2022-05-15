@@ -16,6 +16,7 @@ import {
   ButtonTextCart2,
   StyledButtonCart,
   ButtonTextCart,
+  PageLogOferta,
 } from "../components/styles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { showMessage } from 'react-native-flash-message';
@@ -23,6 +24,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";//esta
 import { useDispatch } from "react-redux";
 import { cartItems } from "../src/reducers/cartItems";
+import { FAB } from 'react-native-paper';
 
 
 const CartScreen = ({ navigation }) => {
@@ -115,18 +117,18 @@ const CartScreen = ({ navigation }) => {
     setDataCart(arr2);
   }, [productResponseDel]);
 
-  React.useEffect(()=>{
-    (total + total * 0.15) % 1 == 0 ? setCentavo(true): setCentavo(false)
-    if(setCentavo === true){
+  React.useEffect(() => {
+    (total + total * 0.15) % 1 == 0 ? setCentavo(true) : setCentavo(false)
+    if (setCentavo === true) {
       <Text>
         {total + total * 0.15}.00
       </Text>
-    }else{
+    } else {
       <Text>
-         {total + total * 0.15}
+        {total + total * 0.15}
       </Text>
     }
-  },[total])
+  }, [total])
 
   React.useEffect(() => {
     if (!clearResponse) {
@@ -412,263 +414,321 @@ const CartScreen = ({ navigation }) => {
   };
   return (
     <>
-    <View
-      style={{
-        width: "100%",
-        height: "100%",
-        backgroundColor: Colors.white,
-        position: "relative",
-      }}
-    >
-      {/* <ScrollView> */}
-      <View
+
+      {dataCart.length > 0 ? <View
         style={{
           width: "100%",
-          flexDirection: "row",
-          paddingTop: 15,
-          paddingBottom: 15,
-          paddingHorizontal: 16,
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 30,
-          backgroundColor: Colors.gray,
+          height: "100%",
+          backgroundColor: Colors.white,
+          position: "relative",
         }}
       >
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-        ></TouchableOpacity>
-
-        <Text
+        {/* <ScrollView> */}
+        <View
           style={{
-            fontSize: 18,
-            color: Colors.blue,
-            fontWeight: "bold",
+            width: "100%",
+            flexDirection: "row",
+            paddingTop: 15,
+            paddingBottom: 15,
+            paddingHorizontal: 16,
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 30,
+            backgroundColor: Colors.gray,
           }}
         >
-          RESUMEN DE TU ORDEN
-        </Text>
-        <View></View>
-      </View>
-      {/* <View> */}
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+          ></TouchableOpacity>
 
-      {/* <Button
+          <Text
+            style={{
+              fontSize: 18,
+              color: Colors.blue,
+              fontWeight: "bold",
+            }}
+          >
+            RESUMEN DE TU ORDEN
+          </Text>
+          <View></View>
+        </View>
+        {/* <View> */}
+
+        {/* <Button
           style={style.buyBtn}
           title="Press me"
           onPress={() => Alert.alert("Simple Button pressed")}
         /> */}
-      <Text
-        style={{
-          fontSize: 20,
-          color: Colors.blue,
-          backgroundColor: Colors.gray,
-          fontWeight: "bold",
-          paddingTop: 10,
-          paddingBottom: 10,
-          paddingLeft: 16,
-          top: -6,
-          // marginBottom: 10,
-        }}
-      >
-        Mi Carrito
-      </Text>
-
-      <StyledButtonCart
-        // style={borderWidth= 0.3}
-        // style={style.buyBtn}
-        onPress={() => {
-          if (dataCart.length == 0) {
-            showMessage({
-              message: "No tiene productos en su carrito.",
-              // description: "Agrega productos Hessel o Ancalmo",
-              type: "danger",
-            });
-            return;
-          }
-
-          Alert.alert(
-            "Cancelando orden",
-            "¿Está seguro de cancelar su orden?",
-            [
-              { text: "Seguir en carrito", onPress: () => { } },
-              {
-                text: "Cancelar orden",
-                style: "cancel",
-                onPress: () =>
-                  clearCarrito(setLoading, token, setClearResponse),
-              },
-            ]
-          );
-        }}
-      >
-        <ButtonTextCart>CANCELAR MI ORDEN</ButtonTextCart>
-      </StyledButtonCart>
-
-      {/* </View> */}
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 80 }}
-        data={dataCart ? dataCart : []}
-        renderItem={({ item }) => (
-          <CartCard
-            key={item.producto.id}
-            id={item.producto.id}
-            name={item.producto.nombre}
-            count={item.cantidad}
-            productImage={item.producto.imagen}
-            precio={item.producto.precio}
-            indicaciones={item.producto.indicaciones}
-            dosis={item.producto.dosis}
-            formula={item.producto.formula}
-            fabricante={item.producto.fabricante}
-            color={item.colores}
-          />
-        )}
-        keyExtractor={(item) => item.producto.id}
-        ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
-      />
-      <View
-        style={{
-          paddingHorizontal: 16,
-          paddingTop: 15,
-          paddingBottom: 15,
-          // marginTop: 20,
-          // marginBottom: 10,
-          backgroundColor: Colors.gray,
-          color: Colors.gray,
-
-          // borderWidth: 0.3,
-        }}
-      >
         <Text
           style={{
-            fontSize: 16,
-            color: Colors.black,
+            fontSize: 20,
+            color: Colors.blue,
+            backgroundColor: Colors.gray,
             fontWeight: "bold",
-            letterSpacing: 0.7,
-            marginBottom: 20,
+            paddingTop: 10,
+            paddingBottom: 10,
+            paddingLeft: 16,
+            top: -6,
+            // marginBottom: 10,
           }}
         >
-          Información de pedido
+          Mi Carrito
         </Text>
-        <StyledButtonCart2
+
+        <StyledButtonCart
           // style={borderWidth= 0.3}
           // style={style.buyBtn}
-
-          style={{
-            backgroundColor: dataCart.length == 0 ? Colors.darkLight : Colors.blue,
-          }}
-          disabled={dataCart.length == 0 ? true : false}
           onPress={() => {
-            if (dataCart.length != 0) {
-              showMessage({
-                message: "Orden en Proceso.",
-                description: "Estamos preparando los detalles de tu orden",
-                type: "info",
-              });
-            } else {
+            if (dataCart.length == 0) {
               showMessage({
                 message: "No tiene productos en su carrito.",
-                description: "Agrega productos Hessel o Ancalmo",
+                // description: "Agrega productos Hessel o Ancalmo",
                 type: "danger",
               });
+              return;
             }
+
+            Alert.alert(
+              "Cancelando orden",
+              "¿Está seguro de cancelar su orden?",
+              [
+                { text: "Seguir en carrito", onPress: () => { } },
+                {
+                  text: "Cancelar orden",
+                  style: "cancel",
+                  onPress: () =>
+                    clearCarrito(setLoading, token, setClearResponse),
+                },
+              ]
+            );
           }}
         >
-          <ButtonTextCart2>CONTINUAR</ButtonTextCart2>
-        </StyledButtonCart2>
+          <ButtonTextCart>CANCELAR MI ORDEN</ButtonTextCart>
+        </StyledButtonCart>
+
+        {/* </View> */}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 80 }}
+          data={dataCart ? dataCart : []}
+          renderItem={({ item }) => (
+            <CartCard
+              key={item.producto.id}
+              id={item.producto.id}
+              name={item.producto.nombre}
+              count={item.cantidad}
+              productImage={item.producto.imagen}
+              precio={item.producto.precio}
+              indicaciones={item.producto.indicaciones}
+              dosis={item.producto.dosis}
+              formula={item.producto.formula}
+              fabricante={item.producto.fabricante}
+              color={item.colores}
+            />
+          )}
+          keyExtractor={(item) => item.producto.id}
+          ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
+        />
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 8,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "bold",
-              maxWidth: "80%",
-              color: Colors.black,
-              opacity: 0.5,
-            }}
-          >
-            Subtotal
-          </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "bold",
-              color: Colors.black,
-              opacity: 0.8,
-            }}
-          >
-            L. {total}.00
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 22,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "bold",
-              maxWidth: "80%",
-              color: Colors.black,
-              opacity: 0.5,
-            }}
-          >
-            ISV
-          </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: "bold",
-              color: Colors.black,
-              opacity: 0.8,
-            }}
-          >
-            %{15}
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
+            paddingHorizontal: 16,
+            paddingTop: 15,
+            paddingBottom: 15,
+            // marginTop: 20,
+            // marginBottom: 10,
+            backgroundColor: Colors.gray,
+            color: Colors.gray,
+
+            // borderWidth: 0.3,
           }}
         >
           <Text
             style={{
               fontSize: 16,
-              fontWeight: "bold",
-              maxWidth: "80%",
               color: Colors.black,
-              opacity: 0.7,
+              fontWeight: "bold",
+              letterSpacing: 0.7,
+              marginBottom: 20,
             }}
           >
-            Total
+            Información de pedido
           </Text>
-          <Text
+          <StyledButtonCart2
+            // style={borderWidth= 0.3}
+            // style={style.buyBtn}
+
             style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: Colors.black,
+              backgroundColor: dataCart.length == 0 ? Colors.darkLight : Colors.blue,
+            }}
+            disabled={dataCart.length == 0 ? true : false}
+            onPress={() => {
+              if (dataCart.length != 0) {
+                showMessage({
+                  message: "Orden en Proceso.",
+                  description: "Estamos preparando los detalles de tu orden",
+                  type: "info",
+                });
+              } else {
+                showMessage({
+                  message: "No tiene productos en su carrito.",
+                  description: "Agrega productos Hessel o Ancalmo",
+                  type: "danger",
+                });
+              }
             }}
           >
-           L. { (total + total * 0.15) %1==0 ? (total + total * 0.15).toFixed(2)  : (total + total * 0.15)}
-            
+            <ButtonTextCart2>CONTINUAR</ButtonTextCart2>
+          </StyledButtonCart2>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 8,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                maxWidth: "80%",
+                color: Colors.black,
+                opacity: 0.5,
+              }}
+            >
+              Subtotal
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "bold",
+                color: Colors.black,
+                opacity: 0.8,
+              }}
+            >
+              L. {total}.00
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 22,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                maxWidth: "80%",
+                color: Colors.black,
+                opacity: 0.5,
+              }}
+            >
+              ISV
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "bold",
+                color: Colors.black,
+                opacity: 0.8,
+              }}
+            >
+              %{15}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                maxWidth: "80%",
+                color: Colors.black,
+                opacity: 0.7,
+              }}
+            >
+              Total
+            </Text>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: Colors.black,
+              }}
+            >
+              L. {(total + total * 0.15) % 1 == 0 ? (total + total * 0.15).toFixed(2) : (total + total * 0.15)}
+
+            </Text>
+          </View>
+        </View>
+
+        {/* </ScrollView> */}
+      </View> : <View
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: Colors.white,
+          position: "relative",
+        }}
+      >
+        {/* <ScrollView> */}
+
+        <View marginLeft={30}
+          top={20}
+        >
+          <Text style={{ fontWeight: 'bold', top: 200, color: Colors.blue }}>
+            Actualmente no tienes productos en carrito.
           </Text>
         </View>
-      </View>
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            paddingTop: 15,
+            paddingBottom: 15,
+            paddingHorizontal: 16,
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 230,
+            backgroundColor: Colors.white,
+          }}
+        ></View>
 
-      {/* </ScrollView> */}
-    </View>
+
+        <PageLogOferta
+          source={require("../assets/emptycart.png")}
+          resizeMode="cover"
+        />
+
+
+        <FAB
+          theme={{ colors: { accent: Colors.blue } }}
+          big
+          icon="plus"
+          style={style.fab}
+          onPress={()=>{
+            navigation.navigate('Ancalmo')
+          }}
+        />
+
+        <View marginTop={-177}
+        marginLeft={80}
+        >
+          <Text style={{ fontWeight: 'bold', top: 200, color: Colors.blue }}>
+            Agrega productos nuevos
+          </Text>
+        </View>
+      </View>}
+
+
     </>
   );
 };;
@@ -710,6 +770,13 @@ const style = StyleSheet.create({
     alignItems: "center",
     borderRadius: 30,
     // marginLeft: 130,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    // right: 0,
+    marginTop: 400,
+    color: Colors.blue,
   },
 });
 
