@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet, Text, Alert } from "react-native";
+import { View, StyleSheet, Text, Alert, Linking } from "react-native";
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
+import { getSupportUrl } from '../src/customer_service';
 import {
   Colors,
   ButtonText2,
@@ -123,7 +124,7 @@ export default function SettingsHome({ navigation }) {
     if (url['url']) {
       followURL(url['url'])
     }
-  })
+  }, [url]);
 
   async function followURL(url) {
     const supported = await Linking.canOpenURL(url);
