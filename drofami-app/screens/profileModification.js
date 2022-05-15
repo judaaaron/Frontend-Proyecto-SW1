@@ -60,16 +60,7 @@ const Signup = ({ route, navigation }) => {
     const [response, setResponse] = useState('');
     const token = React.useRef('');
 
-    React.useEffect(() => {
-        async function getToken() {
-            const session = await SecureStore.getItemAsync("user_session");
-            token.current = JSON.parse(session)['token']
-            
-            getUserData(setLoading, token.current, setFormResponse);
-        }
-        getToken();
 
-    }, []);
     
     React.useEffect(() => {
         if (!response) {

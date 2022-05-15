@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet, Text, Alert } from "react-native";
+import { View, StyleSheet, Text, Alert, Linking } from "react-native";
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
+import { getSupportUrl } from '../src/customer_service';
 import {
   Colors,
   ButtonText2,
@@ -61,7 +62,7 @@ export default function SettingsHome({ navigation }) {
           onPress: () => {
             SecureStore.deleteItemAsync("user_session").then(
             );
-              logout(setLoading, token, setResponseLog);
+            logout(setLoading, token, setResponseLog);
           }
         },
       ]);
@@ -78,7 +79,7 @@ export default function SettingsHome({ navigation }) {
         "Login",
         showMessage({
           // responseLog['message']
-          message:"Sesión cerrada",
+          message: "Sesión cerrada",
           description: "Esperamos verte pronto.",
           type: "info",
         })
@@ -95,7 +96,7 @@ export default function SettingsHome({ navigation }) {
       return;
     }
     const obj = { ...state };
-    
+
     let user = '';
     const cliente = (formResponse["cliente"] ? formResponse["cliente"] : '');
     if (formResponse['cliente']) {
@@ -112,6 +113,27 @@ export default function SettingsHome({ navigation }) {
       ...obj,
     }));
   }, [formResponse]);
+
+  const URLconSporte = "https://wa.me/50497060482?text=Buen+D%C3%ADa%2C%0ASoy+daniela+de%3A+Fullstack+Drofami%0AQueria+su+ayuda+con+algo.+%F0%9F%98%88%E2%80%8B%E2%80%8B";
+  const [url, setUrl] = useState(null);
+
+  React.useEffect(() => {
+    if (!url) {
+      return;
+    }
+    if (url['url']) {
+      followURL(url['url'])
+    }
+  }, [url]);
+
+  async function followURL(url) {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`No se puede contactar con el servicio al clienete en este momento, intente mas tarde`);
+    }
+  }
 
   return (
     <>
@@ -242,36 +264,55 @@ export default function SettingsHome({ navigation }) {
             </RightIcon2>
             <ButtonText2>Cambiar contraseña</ButtonText2>
           </StyledButton2>
-              {useSelector((state) => state.staff.value) === false ?
-          <StyledButton2
-            onPress={() => {
-              navigation.navigate("SelectEmpresa", { token: token }),
-                console.log(token);
-            }}
-          >
-            <RightIcon2
+          {useSelector((state) => state.staff.value) === false ?
+            <StyledButton2
               onPress={() => {
                 navigation.navigate("SelectEmpresa", { token: token }),
                   console.log(token);
               }}
             >
-              <Icon name="business" size={20} color={Colors.blue} />
-              {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
-            </RightIcon2>
-            <ButtonText2>Selección de empresa</ButtonText2>
-          </StyledButton2>
-          :
-          null}
+              <RightIcon2
+                onPress={() => {
+                  navigation.navigate("SelectEmpresa", { token: token }),
+                    console.log(token);
+                }}
+              >
+                <Icon name="business" size={20} color={Colors.blue} />
+                {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
+              </RightIcon2>
+              <ButtonText2>Selección de empresa</ButtonText2>
+            </StyledButton2>
+            :
+            null}
+          {useSelector((state) => state.staff.value) === false ?
+            <StyledButton2
+              onPress={() => {
+                followURL(getSupportUrl(setLoading, token, setUrl));
+              }}
+            >
+              <RightIcon2
+                onPress={() => {
+                  followURL(getSupportUrl(setLoading, token, setUrl));
+                }}
+              >
+                <Icon name="business" size={20} color={Colors.blue} />
+                {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
+              </RightIcon2>
+              <ButtonText2>Servicio al cliente</ButtonText2>
+            </StyledButton2>
+            :
+            null}
+
           {/* </ExtraView> */}
           <StyledButton2
-            onPress={()=> setIsEnabled(true)}
+            onPress={() => setIsEnabled(true)}
           >
             <RightIcon2
-              onPress={()=> setIsEnabled(true)}
+              onPress={() => setIsEnabled(true)}
             >
               <Icon name="logout" size={20} color={Colors.red} />
             </RightIcon2>
-            <ButtonText2 style={{color: Colors.red}}>Cerrar Sesión</ButtonText2>
+            <ButtonText2 style={{ color: Colors.red }}>Cerrar Sesión</ButtonText2>
           </StyledButton2>
         </View>
 

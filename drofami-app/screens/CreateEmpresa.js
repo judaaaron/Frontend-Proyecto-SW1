@@ -45,7 +45,7 @@ let CreateValidationSchema = yup.object().shape({
          ),
 });
 
-const createEmpresa = ({ navigation }) => {
+const CreateEmpresa = ({ navigation }) => {
   const [isLoading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
   const [responsePUT, setResponsePUT] = useState("");
@@ -262,7 +262,7 @@ const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHide
     );
 };
 
-export default createEmpresa;
+export default CreateEmpresa;
 
 const styles = StyleSheet.create({
     errores: {
