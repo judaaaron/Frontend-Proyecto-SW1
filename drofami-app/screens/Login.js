@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Text, Checkbox } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { ActivityIndicator } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
@@ -8,25 +8,26 @@ import { View, StyleSheet } from "react-native";
 import { login, checkToken } from "../src/login_registerAPI";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import * as SecureStore from 'expo-secure-store';
+import { CheckBox } from "react-native-elements";
 import {
-    StyledContainer,
-    InnerContainer,
-    PageLog,
-    PageTitle,
-    Subtitle,
-    StyledFormArea,
-    LeftIcon,
-    RightIcon,
-    StyledInputLabel,
-    StyledTextInput,
-    ButtonText,
-    StyledButton,
-    Colors,
-    ExtraView,
-    ExtraText,
-    TextLinkContent,
-    TextLink
-
+  StyledContainer,
+  InnerContainer,
+  PageLog,
+  PageTitle,
+  Subtitle,
+  StyledFormArea,
+  LeftIcon,
+  RightIcon,
+  StyledInputLabel,
+  StyledTextInput,
+  ButtonText,
+  StyledButton,
+  Colors,
+  ExtraView,
+  ExtraViewCheckBox,
+  ExtraText,
+  TextLinkContent,
+  TextLink,
 } from "../components/styles";
 import Keyboard2 from "../components/Keyboard2";
 import { showMessage } from 'react-native-flash-message';
@@ -186,16 +187,19 @@ const Login = ({ navigation }) => {
                                         setHidePassword={setHidePassword}
                                     />
 
-                                    <ExtraView>
-                                        <ExtraText>Recuerdame</ExtraText>
-
-                                        <Checkbox
-                                            status={rememberMe ? 'checked' : 'unchecked'}
+                                    <ExtraViewCheckBox>
+                                        {/* <ExtraText>Recuerdame</ExtraText> */}
+                                    
+                                        <CheckBox
+                                            iconRight='true'
+                                            title={'Recuérdame'}
+                                            checked={rememberMe}
+                                            // checked={rememberMe ? this.state.checked : !this.state.checked}
                                             onPress={() => {
                                                 setRememberMe(!rememberMe);
                                             }}
                                         />
-                                    </ExtraView>
+                                    </ExtraViewCheckBox>
 
                                     <StyledButton onPress={
                                         handleSubmit

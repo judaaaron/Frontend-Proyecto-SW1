@@ -312,6 +312,12 @@ export const ExtraView = styled.View`
   padding: 10px;
   background-color: ${primary};
   `;
+export const ExtraViewCheckBox = styled.View`
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${primary};
+  `;
 
 export const ExtraText = styled.Text`
   justify-content: center;
