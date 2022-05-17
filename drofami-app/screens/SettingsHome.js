@@ -317,7 +317,11 @@ export default function SettingsHome({ navigation }) {
                 <Icon name="message" size={20} color={Colors.blue} />
                 {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
               </RightIcon2>
-              <ButtonText2>Servicio al cliente</ButtonText2>
+              <ButtonText2
+                onPress={() => {
+                  followURL(getSupportUrl(setLoading, token, setUrl));
+                }}
+              >Servicio al cliente</ButtonText2>
             </StyledButton2>
             :
             null}
