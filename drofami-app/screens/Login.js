@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Text } from "react-native-paper";
+import { Text, Checkbox } from "react-native-paper";
 import { ActivityIndicator } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
@@ -29,11 +29,11 @@ import {
 
 } from "../components/styles";
 import Keyboard2 from "../components/Keyboard2";
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
-const {  darkLight } = Colors;
+const { darkLight } = Colors;
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../src/reducers/getToken";
 import { isStaff } from "../src/reducers/staff";
 
@@ -43,6 +43,7 @@ const Login = ({ navigation }) => {
     const [isLoading, setLoading] = useState(false)
     const [loginResponse, setLoginResponse] = useState('');
     const [loginInput, setLoginInput] = useState(" ");
+    const [rememberMe, setRememberMe] = useState(false);
 
     //redux
     const dispatch = useDispatch();
@@ -52,43 +53,45 @@ const Login = ({ navigation }) => {
         if (!loginResponse) {
             return;
         }
-        if(loginResponse.status == "success") { 
-            if(loginResponse['token']) {
+        if (loginResponse.status == "success") {
+            if (loginResponse['token']) {
                 storeCredentials(loginResponse['user'], loginResponse['token']);
             }
             navigation.navigate('Home');
             showMessage({
                 message: "Sesión iniciada",
-                description:'Has iniciado sesión exitosamente.',
+                description: 'Has iniciado sesión exitosamente.',
                 type: "success",
-              });
-        } else if(loginResponse.status && loginResponse.message){
+            });
+        } else if (loginResponse.status && loginResponse.message) {
             showMessage({
                 message: loginResponse.message,
                 // description:'Ha ocurrido un error inesperado.',
                 type: "danger",
-              });
+            });
             //   alert(loginResponse.message);
-        }else if(loginResponse.status){
+        } else if (loginResponse.status) {
             showMessage({
                 message: "Usuario y/o contraseña incorrectos",
                 // description:'Ha ocurrido un error inesperado.',
                 type: "danger",
-              });
+            });
             // alert('Usuario y/o contraseña incorrectos')
         }
-            
+
     }, [loginResponse])
 
     async function storeCredentials(usuario, sToken) {
         try {
-            await SecureStore.setItemAsync(
-                "user_session",
-                JSON.stringify({
-                    user: usuario,
-                    token: sToken
-                })
-            );
+            if (rememberMe) {
+                await SecureStore.setItemAsync(
+                    "user_session",
+                    JSON.stringify({
+                        user: usuario,
+                        token: sToken
+                    })
+                );
+            }
             dispatch(setToken(sToken));
             dispatch(isStaff(usuario.is_staff));
             console.log("Se almaceno");
@@ -97,7 +100,7 @@ const Login = ({ navigation }) => {
                 message: "Hubo un error en el almacenamiento de las credenciales.",
                 // description:'Ha ocurrido un error inesperado.',
                 type: "danger",
-              });
+            });
             // alert("Hubo un error en el almacenamiento de las credenciales.");
             console.log(error);
         }
@@ -112,22 +115,23 @@ const Login = ({ navigation }) => {
                 checkToken(setLoading, JSON.parse(session)['token'], setLoginResponse)
 
             } catch (error) {
-                if(error === "null is not an object (evaluating 'JSON.parse(session)[\"token\"]')"){
+                if (error === "null is not an object (evaluating 'JSON.parse(session)[\"token\"]')") {
                     showMessage({
-                      message:
-                        "Hubo un error en la lectura de las credenciales.",
-                      // description:'Ha ocurrido un error inesperado.',
-                      type: "danger",
+                        message:
+                            "Hubo un error en la lectura de las credenciales.",
+                        // description:'Ha ocurrido un error inesperado.',
+                        type: "danger",
                     });
                     // alert("Hubo un error en la lectura de las credenciales.");
 
                     console.log(error);
                 }
-                
+
             }
         }
         getCredentials();
     }, []);
+
 
     return (
         <>
@@ -139,7 +143,7 @@ const Login = ({ navigation }) => {
                             <PageLog
                                 top={-30}
                                 source={require("../assets/drofamilogo1.jpg")}
-                                resizeMode="cover"/>
+                                resizeMode="cover" />
                             <PageTitle>Droguería y Farmacia
                                 Centroámerica Milenio
                             </PageTitle>
@@ -150,7 +154,7 @@ const Login = ({ navigation }) => {
                                 initialValues={{ usuario: "", token: "" }}
                                 onSubmit={(values) => {
                                     (login(setLoading, values.usuario, values.token, setLoginResponse));
-                                   
+
                                 }}
                             >
                                 {({ handleChange, handleBlur, handleSubmit, values, handleReset }) => (<StyledFormArea>
@@ -166,13 +170,11 @@ const Login = ({ navigation }) => {
                                         values={values.usuario}
                                         keyboardType={"email-address"}
                                         handleReset={handleChange(" ")}
-                                        
-
                                     />
-                                    
+
                                     <MyTextInput
                                         label={"Contraseña"}
-                                        icon={"lock"} 
+                                        icon={"lock"}
                                         placeholder={"*************"}
                                         placeholderTextColor={darkLight}
                                         onChangeText={handleChange("token")}
@@ -184,8 +186,21 @@ const Login = ({ navigation }) => {
                                         setHidePassword={setHidePassword}
                                     />
 
-                                    <StyledButton onPress={handleSubmit}>
-                                        <ButtonText>
+                                    <ExtraView>
+                                        <ExtraText>Recuerdame</ExtraText>
+
+                                        <Checkbox
+                                            status={rememberMe ? 'checked' : 'unchecked'}
+                                            onPress={() => {
+                                                setRememberMe(!rememberMe);
+                                            }}
+                                        />
+                                    </ExtraView>
+
+                                    <StyledButton onPress={
+                                        handleSubmit
+                                    }>
+                                        <ButtonText >
                                             Iniciar Sesión
                                         </ButtonText>
                                     </StyledButton>
