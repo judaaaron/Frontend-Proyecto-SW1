@@ -286,6 +286,23 @@ export default function SettingsHome({ navigation }) {
             </StyledButton2>
             :
             null}
+          <StyledButton2
+            onPress={() => {
+              navigation.navigate("HistorialOrden")
+
+            }}
+          >
+            <RightIcon2
+              onPress={() => {
+                navigation.navigate("HistorialOrden")
+
+              }}
+            >
+              <Icon name="history" size={20} color={Colors.blue} />
+            </RightIcon2>
+
+            <ButtonText2>Historial de Ordenes</ButtonText2>
+          </StyledButton2>
           {useSelector((state) => state.staff.value) === false ?
             <StyledButton2
               onPress={() => {
@@ -297,7 +314,7 @@ export default function SettingsHome({ navigation }) {
                   followURL(getSupportUrl(setLoading, token, setUrl));
                 }}
               >
-                <Icon name="business" size={20} color={Colors.blue} />
+                <Icon name="message" size={20} color={Colors.blue} />
                 {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
               </RightIcon2>
               <ButtonText2>Servicio al cliente</ButtonText2>
