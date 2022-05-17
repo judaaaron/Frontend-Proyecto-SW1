@@ -722,7 +722,7 @@ const CartScreen = ({ navigation }) => {
         <View marginTop={-177}
         marginLeft={80}
         >
-          <Text style={{ fontWeight: 'bold', top: 200, color: Colors.blue }}>
+          <Text style={{ fontWeight: 'bold', top: 215, color: Colors.blue }}>
             Agrega productos nuevos
           </Text>
         </View>
