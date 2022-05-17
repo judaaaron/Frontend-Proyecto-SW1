@@ -23,6 +23,7 @@ import { showMessage } from 'react-native-flash-message';
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";//esta
 import { useDispatch } from "react-redux";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { cartItems } from "../src/reducers/cartItems";
 import { FAB } from 'react-native-paper';
 
@@ -57,18 +58,34 @@ const HistorialOrden = ({ navigation }) => {
                 <TouchableOpacity
 
                     style={{
-                        width: "100%",
+                        width: 350,
                         height: 100,
-                        flexDirection: "row",
+                        // paddingBottom:10,
+                        justifyContent: "center",
                         alignItems: "center",
-                        marginTop: 30,
-                        marginLeft: 30,
-                        top: 10
+                        backgroundColor: Colors.white,
+                        borderWidth: 1,
+                        borderColor: Colors.black,
 
+                        borderRadius: 10,
+                        marginLeft: 10,
+                        marginTop: 10
 
                     }}
                 >
 
+
+                    <Image
+                        source={require("./../assets/carritoH.png")}
+                        style={{
+                            width: 100,
+                            height: 80,
+                            resizeMode: "contain",
+                            marginLeft: 250,
+                            top: 10
+                        }}
+                    />
+                    <Icon name="shopping-bag" size={20} color={Colors.morado} borderColor={Colors.blue} style={{ top: -40, marginRight: 270 }} />
                     <View
                         style={{
                             flex: 1,
@@ -76,7 +93,7 @@ const HistorialOrden = ({ navigation }) => {
                             justifyContent: "space-around",
                         }}
                     >
-                        <View style={{}}>
+                        <View style={{ marginTop: -90 }}>
                             <Text
                                 style={{
                                     fontSize: 14,
@@ -88,8 +105,10 @@ const HistorialOrden = ({ navigation }) => {
                             >
                                 {/* {data.productName} */}
                                 {/* BACAOLIVER */}
-                                codigo: {codigo}
+                                Código: {codigo}
                             </Text>
+
+
                             <View
                                 style={{
                                     marginTop: 4,
@@ -107,7 +126,29 @@ const HistorialOrden = ({ navigation }) => {
                                     }}
                                 >
 
-                                    fecha de orden: {fecha}
+                                    Fecha de orden: {fecha}
+
+                                </Text>
+
+                            </View>
+                            <View
+                                style={{
+                                    marginTop: 4,
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    opacity: 0.6,
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontWeight: "bold",
+                                        maxWidth: "85%",
+                                        marginRight: 4,
+                                    }}
+                                >
+
+                                    Total: L.{total}
 
                                 </Text>
 
@@ -120,20 +161,14 @@ const HistorialOrden = ({ navigation }) => {
                                 alignItems: "center",
                             }}
                         >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}
-                            >
 
-                                <Text> Total: L. {total}</Text>
-
-                            </View>
 
                         </View>
                     </View>
+
                 </TouchableOpacity>
+
+
             </>
         );
 
@@ -150,9 +185,10 @@ const HistorialOrden = ({ navigation }) => {
             }}
 
         >
-
+            
             <View style={{ marginTop: 35, alignContent: 'center', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', fontSize: 18, color: Colors.blue }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: Colors.blue }}>Historial de tus ordenes</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: Colors.black }}>Historial de tus ordenes</Text>
+                <Icon name="arrow-back" size={28} style={{marginRight:300, top:-25}} onPress={() => navigation.goBack()} />
             </View>
             <FlatList
                 showsVerticalScrollIndicator={false}

@@ -192,7 +192,7 @@ const Login = ({ navigation }) => {
                                     
                                         <CheckBox
                                             iconRight='true'
-                                            title={'Recuérdame'}
+                                            title={'Mantener sesión iniciada'}
                                             checked={rememberMe}
                                             // checked={rememberMe ? this.state.checked : !this.state.checked}
                                             onPress={() => {
