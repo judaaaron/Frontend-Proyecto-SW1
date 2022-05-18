@@ -328,6 +328,7 @@ export default function HesselScreen({ navigation }) {
         <View style={styles.searchContainer} marginTop={10}>
           <Icon name="search" size={25} style={{ marginLeft: 20 }} />
           <TextInput
+            onFocus={(text) => searchFilterFunction()}
             style={styles.input}
             onChangeText={(text) => searchFilterFunction(text)}
             value={search}
