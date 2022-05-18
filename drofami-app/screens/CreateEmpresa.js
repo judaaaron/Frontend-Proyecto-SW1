@@ -108,7 +108,7 @@ const CreateEmpresa = ({ navigation }) => {
               source={require("../assets/drofamilogo1.jpg")}
               resizeMode="cover"
             />
-            <Subtitle>Modificación</Subtitle>
+            <Subtitle>Registrar Empresa</Subtitle>
             <Formik
               initialValues={{
                 nombre: "",
