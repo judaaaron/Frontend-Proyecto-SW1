@@ -145,7 +145,7 @@ export default function SettingsHome({ navigation }) {
       if (supported) {
         await Linking.openURL(url);
       } else {
-        Alert.alert(`Don't know how to open this URL: ${url}`);
+        Alert.alert(`No se puede contactar con el servicio al cliente en este momento, intente mas tarde: ${url}`);
       }
     }, [url]);
 
