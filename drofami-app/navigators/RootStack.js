@@ -15,6 +15,7 @@ import DetalleProductsHessel from "../screens/DetalleProductsHessel";
 import ChangePasswordScreen from '../screens/ChangePasswordScreen'
 import EmpleadoDetalleProductoScreen from "../screens/EmpleadoDetalleProductoScreen";
 import HistorialOrden from "../screens/HistorialOrden";
+import OrderDetails from "../screens/OrderDetails"
 import ChangeEmailScreen from '../screens/ChangeEmailScreen'
 import SelectEmpresa from '../screens/SelectEmpresa'
 import CreateEmpresa from '../screens/CreateEmpresa'
@@ -89,6 +90,7 @@ const RootStackScreens = () => (
         <Stack.Screen name="CreateEmpresa" component={CreateEmpresa} options={{ header: () => null }}/>
         <Stack.Screen name="EmpleadoDetalleProductoScreen" component={EmpleadoDetalleProductoScreen} options={{ header: () => null }} />
         <Stack.Screen name="HistorialOrden" component={HistorialOrden} options={{ header: () => null }} />
+        <Stack.Screen name="OrderDetails" component={OrderDetails} options={{ header: () => null }} />
     </Stack.Navigator>
 );
 export default RootStack;
