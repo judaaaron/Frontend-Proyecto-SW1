@@ -28,7 +28,6 @@ const AncalmoScreen = ({ navigation, dato }) => {
     const [content, setContent] = React.useState(catalog)
     const [search, setSearch] = useState();
     const [filteredDataSource, setFilteredDataSource] = useState();
-    console.log(token);
     React.useEffect(() => {
         // console.log("AQUIIII:",filteredDataSource)
     }, [filteredDataSource])
@@ -307,6 +306,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             <View style={styles.searchContainer} marginTop={10}>
                 <Icon name="search" size={25} style={{ marginLeft: 20 }} />
                 <TextInput
+                    onFocus={(text) => searchFilterFunction()}
                     style={styles.input}
                     onChangeText={(text) => searchFilterFunction(text)}
                     value={search}

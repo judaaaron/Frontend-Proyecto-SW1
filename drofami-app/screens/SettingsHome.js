@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { useCallback } from 'react';
 import { useState } from 'react';
-import { View, StyleSheet, Text, Alert, Linking } from "react-native";
+import { View, StyleSheet, Text, Alert, Linking, Button } from "react-native";
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
@@ -115,7 +116,7 @@ export default function SettingsHome({ navigation }) {
   }, [formResponse]);
 
   const URLconSporte = "https://wa.me/50497060482?text=Buen+D%C3%ADa%2C%0ASoy+daniela+de%3A+Fullstack+Drofami%0AQueria+su+ayuda+con+algo.+%F0%9F%98%88%E2%80%8B%E2%80%8B";
-  const [url, setUrl] = useState(null);
+  const [url, setUrl] = useState("");
 
   React.useEffect(() => {
     if (!url) {
@@ -136,6 +137,20 @@ export default function SettingsHome({ navigation }) {
       Alert.alert(`No se puede contactar con el servicio al clienete en este momento, intente mas tarde`);
     }
   }
+
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      const supported = await Linking.canOpenURL(url);
+
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(`No se puede contactar con el servicio al cliente en este momento, intente mas tarde: ${url}`);
+      }
+    }, [url]);
+
+    return <Button title={children} onPress={handlePress} />;
+  };
 
   return (
     <>
@@ -326,6 +341,16 @@ export default function SettingsHome({ navigation }) {
             :
             null}
 
+          {
+            useSelector((state) => state.staff.value) === false ?
+              <View>
+                <OpenURLButton url={URLconSporte}>
+                  Contactanos
+                </OpenURLButton>
+              </View>
+              : null
+          }
+
           {/* </ExtraView> */}
           <StyledButton2
             onPress={() => setIsEnabled(true)}
@@ -385,5 +410,5 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     top: -10
   },
-
+  container: { flex: 1, justifyContent: "center", alignItems: "center" },
 })
