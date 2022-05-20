@@ -43,7 +43,7 @@ const Login = ({ navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [loginResponse, setLoginResponse] = useState('');
-    const [loginInput, setLoginInput] = useState(" ");
+    const [loginInput, setLoginInput] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
 
     //redux
