@@ -58,7 +58,9 @@ const Login = ({ navigation }) => {
             if (loginResponse['token']) {
                 storeCredentials(loginResponse['user'], loginResponse['token']);
             }
-            navigation.navigate('Home');
+            // navigation.replace('Home');
+          
+              navigation.replace('Home')
             showMessage({
                 message: "Sesión iniciada",
                 description: 'Has iniciado sesión exitosamente.',
@@ -212,7 +214,7 @@ const Login = ({ navigation }) => {
 
                                     <ExtraView>
                                         <ExtraText>¿No tienes cuenta? </ExtraText>
-                                        <TextLink onPress={() => navigation.navigate('Signup')}>
+                                        <TextLink onPress={() => navigation.replace('Signup')}>
                                             <TextLinkContent>Registrate</TextLinkContent>
                                         </TextLink>
                                     </ExtraView>
