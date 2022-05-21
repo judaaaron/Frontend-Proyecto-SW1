@@ -1,7 +1,7 @@
 const API_URL = 'https://drofami-app.herokuapp.com/api/carrito/'
 
 export async function getCart(setLoading, token, setResponse) {
-    setLoading(true);
+    setLoading({value:true});
     const resp = {};
     let response = {}
     try {

@@ -24,8 +24,9 @@ import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";//esta
 import { useDispatch } from "react-redux";
 import { cartItems } from "../src/reducers/cartItems";
+import {nuevaOrden} from "../src/OrderMethods"
 import { FAB } from 'react-native-paper';
-
+import Spinner from "../components/Spinner";
 
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
@@ -33,14 +34,14 @@ const CartScreen = ({ navigation }) => {
   const [dataCart, setDataCart] = useState([]);
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
   // const [cantItems, setCantIntems] = useState(useSelector((state) => state.cart.value)); //se agrega
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({value: true});
   const [productResponse, setProductResponse] = useState(null);
   const [productResponseDel, setProductResponseDel] = useState(null);
   console.log("DATA USE carrito ", useSelector((state) => state.cart.value));
   const dispatch = useDispatch();
   const [clearResponse, setClearResponse] = useState(null);
   const [centavo, setCentavo] = useState(false);
-
+  const [orderResponse, setOrderResponse] = useState(null);
 
 
   React.useEffect(() => {
@@ -129,6 +130,29 @@ const CartScreen = ({ navigation }) => {
       </Text>
     }
   }, [total])
+
+  React.useEffect(() => {
+    setLoading({value: true});
+  },[])
+
+  React.useEffect(() => {
+    if (!orderResponse) {
+      return;
+    }
+    console.log(orderResponse)
+    setDataCart([]);
+    showMessage({
+      message: "Orden.",
+      description: orderResponse['status'] == 'success' ? "Orden ha sido procesada" : 
+      "Ocurrió un error inesperado. Por favor vuelva a intentar.",
+      type: orderResponse['status'],
+    }); 
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'OrderDetails' }],
+    });
+  }, [loading])
 
   React.useEffect(() => {
     if (!clearResponse) {
@@ -563,13 +587,27 @@ const CartScreen = ({ navigation }) => {
             disabled={dataCart.length == 0 ? true : false}
             onPress={() => {
               if (dataCart.length != 0) {
-                showMessage({
-                  message: "Orden en Proceso.",
-                  description: "Estamos preparando los detalles de tu orden",
-                  type: "info",
-                });
                 //navigation.navigate("OrderDetails")//no se si esto va aqui
-
+                Alert.alert(
+                  "Generando orden",
+                  "¿Estás seguro de efectuar tu orden?",
+                  [
+                    {
+                      text: "Generar orden",
+                      style:"ok",
+                      onPress: () => {
+                        nuevaOrden(setLoading, token, setOrderResponse);
+                      }
+                      
+                    },
+                    {
+                      text: "Regresar",
+                      style: "cancel",
+                      onPress: () => {}
+                     ,
+                    },
+                  ]
+                );
               } else {
                 showMessage({
                   message: "No tiene productos en su carrito.",
@@ -730,7 +768,10 @@ const CartScreen = ({ navigation }) => {
         </View>
       </View>}
 
-
+      {loading.value && 
+      (loading.message ? 
+        <Spinner text={loading.message}/> : 
+        <Spinner text={loading.message} color={'white'}/>)}
     </>
   );
 };;

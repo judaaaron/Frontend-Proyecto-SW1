@@ -24,6 +24,9 @@ import {
     Colors
 } from "../components/styles";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { getUserData, logout } from '../src/login_registerAPI';
+import * as SecureStore from 'expo-secure-store';
+import { showMessage } from 'react-native-flash-message';
 
 const { darkLight } = Colors;
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
@@ -36,12 +39,14 @@ let SingUpValidationSchema = yup.object().shape({
     confirmPassword: yup.string().required('Campo obligatorio'),
 });
 
+
 const ChangePass = ({ route, navigation }) => {
     const [hidePassword, setHidePassword] = useState(true)
     const [hideActualPassword, setHideActualPassword] = useState(true)
     const [hideNewPassword, setHideNewPassword] = useState(true)
     const [isLoading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
+    const [responseLog, setResponseLog] = useState(null);
     const { token } = route.params
 
     React.useEffect(() => {
@@ -49,8 +54,19 @@ const ChangePass = ({ route, navigation }) => {
             return;
         }
         if (response['status'] == "success") {
-            alert("Cambio de contraseña realizado correctamente");
-            navigation.navigate('Login');
+            // alert("Cambio de contraseña realizado correctamente");
+            SecureStore.deleteItemAsync("user_session").then(
+                );
+                logout(setLoading, token, setResponseLog);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                  }, showMessage({
+                        // responseLog['message']
+                        message: "Contraseña modificada",
+                        description: "Cambio de contraseña exitoso.",
+                        type: "success",
+                      }));
         } else if (response['status'] && response['message']) {
             alert(response['message']);
         } else {

@@ -7,8 +7,7 @@ import { View, StyleSheet } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
 import * as yup from 'yup';
-import { ActivityIndicator } from "react-native-paper";
-
+import Spinner from "../components/Spinner";
 import {
     StyledContainer,
     InnerContainer,
@@ -28,6 +27,7 @@ import {
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 import Keyboard2 from "../components/Keyboard2";
 import { showMessage } from 'react-native-flash-message';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóúñ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
@@ -107,8 +107,15 @@ const Signup = ({ navigation }) => {
             <Keyboard2>
                 <StyledContainer>
                     <StatusBar style="dark" />
+                    <View style={styles.header} top={7}>
+              <Icon
+                name="arrow-back"
+                size={30}
+                onPress={() => navigation.goBack()}
+              />
+            </View>
 
-                    <InnerContainer marginTop={25}>
+                    <InnerContainer marginTop={0}>
                         <PageLog
                             source={require("../assets/drofamilogo1.jpg")}
                             resizeMode="cover"
@@ -296,19 +303,9 @@ const Signup = ({ navigation }) => {
 
                 </StyledContainer>
             </Keyboard2>
-            {isLoading && <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
-                {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
-                <ActivityIndicator size={100} color={'blue'} />
-                <Text>
-                    Creando cuenta...
-                </Text>
-            </View>
-
+            {isLoading && <Spinner text="Creando cuenta..."/>
             }
-
         </>
-
-
     );
 };
 

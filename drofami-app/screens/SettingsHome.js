@@ -20,6 +20,7 @@ import { Avatar } from 'react-native-elements';
 import { useSelector } from "react-redux";//esta
 import { showMessage } from 'react-native-flash-message';
 
+
 function SettingsHome({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -78,15 +79,24 @@ function SettingsHome({ navigation }) {
       return;
     }
     if (responseLog['status'] && responseLog['status'] == 'success') {
-      navigation.navigate(
-        "Login",
-        showMessage({
-          // responseLog['message']
-          message: "Sesión cerrada",
-          description: "Esperamos verte pronto.",
-          type: "info",
-        })
-      )
+      // navigation.pop(
+      //   "Login",
+      //   showMessage({
+      //     // responseLog['message']
+      //     message: "Sesión cerrada",
+      //     description: "Esperamos verte pronto.",
+      //     type: "info",
+      //   })
+      // )
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      }, showMessage({
+            // responseLog['message']
+            message: "Sesión cerrada",
+            description: "Esperamos verte pronto.",
+            type: "info",
+          }));
     }
   }, [responseLog]);
 
@@ -116,17 +126,13 @@ function SettingsHome({ navigation }) {
       ...obj,
     }));
   }, [formResponse]);
-
-  const URLconSporte = `https://wa.me/50497060482?text=Buen+D%C3%ADa%2C%0ASoy+daniela+de%3A+Fullstack+Drofami%0AQueria+su+ayuda+con+algo.+%F0%9F%98%88%E2%80%8B%E2%80%8B`;
   const [url, setUrl] = useState("");
 
   React.useEffect(() => {
     if (!url) {
       return;
     }
-    console.log(url);
     if (url['url']) {
-      console.log('voy ahi')
       followURL(url['url'])
     }
   }, [url]);
@@ -243,14 +249,12 @@ function SettingsHome({ navigation }) {
           {useSelector((state) => state.staff.value) === false ?
             <StyledButton2
               onPress={() => {
-                navigation.navigate("SelectEmpresa", { token: token }),
-                  console.log(token);
+                navigation.navigate("SelectEmpresa", { token: token })
               }}
             >
               <RightIcon2
                 onPress={() => {
-                  navigation.navigate("SelectEmpresa", { token: token }),
-                    console.log(token);
+                  navigation.navigate("SelectEmpresa", { token: token })
                 }}
               >
                 <Icon name="business" size={20} color={Colors.blue} />
@@ -280,7 +284,6 @@ function SettingsHome({ navigation }) {
           {useSelector((state) => state.staff.value) === false ?
             <StyledButton2
             onPress={() => {
-              console.log("1", token);
               getSupportUrl(setLoading, token, setUrl);
             }}
             >

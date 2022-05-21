@@ -58,7 +58,7 @@ const Signup = ({ route, navigation }) => {
     const { usuario, apellido, nombre, address, phone } = route.params
 
     const [response, setResponse] = useState('');
-    const token = React.useRef('');
+    const token = React.useRef(useSelector((state) => state.token.value))
 
 
     

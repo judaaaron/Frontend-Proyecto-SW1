@@ -175,53 +175,54 @@ const OrderDetails = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+
+            
             <PageLogOferta
                 source={require("../assets/drofamilogo1.jpg")}
                 resizeMode="cover"
-                style={{marginTop:-63}}
+                style={{marginTop:-42}}
             />
 
-
-            <ScrollView>
-                <StyledContainer style={{ marginTop: 15 }}>
+                <StyledContainer style={{ marginTop:- 10}}>
                     <View>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 16 }}>
                             Droguería y Farmacia Centroámerica Milenio
                         </Text>
                     </View>
 
-                    <View style={{ marginTop: 20, marginLeft: 10 }}>
+                    <View style={{ marginTop: 10, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
                             Orden: #8377
                         </Text>
                     </View>
 
-                    <View style={{ marginTop: -19, marginLeft: 195 }}>
+                    <View style={{ marginTop: -25, marginLeft: 195 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
                             {date}
                         </Text>
                     </View>
 
-                    <View style={{ marginTop: 20, marginLeft: 10 }}>
+                    <View style={{ marginTop: 10, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
                             Nombre de la empresa: Kielsa
                         </Text>
                     </View>
 
-                    <View style={{ marginTop: 20, marginLeft: 10 }}>
+                    <View style={{ marginTop: 10, marginLeft: 10, }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Nombre del encargado: Paulinna Euceda
+                            Nombre del encargado: Paulina Euceda
                         </Text>
                     </View>
 
-                    <View style={{ marginTop: 20, marginLeft: 10 }}>
+                    <View style={{ marginTop: 5, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Productos Ordenados
+                            {/* Productos Ordenados */}
                         </Text>
                     </View>
 
-                    <View style={{ marginTop: 20, marginLeft: 10 }}>
+                    {/* <View style={{ marginTop:-20, top:-10, marginLeft: 10 }}> */}
                         <FlatList
+                        style={{marginLeft:10}}
                             showsVerticalScrollIndicator={true}
                             contentContainerStyle={{ paddingBottom: 80 }}
                             data={DATA}
@@ -236,12 +237,12 @@ const OrderDetails = ({ navigation }) => {
                             keyExtractor={(item) => item.id}
                             ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
                         />
-                    </View>
+                    {/* </View> */}
 
 
-                    <View style={{ marginTop: -70, marginLeft: 10 }}>
+                    <View style={{ top:15, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Total a pagar: 2500.99
+                            Total: L. 2500.99
                         </Text>
                     </View>
                     <StyledButtonCart2
@@ -249,21 +250,28 @@ const OrderDetails = ({ navigation }) => {
 
                         style={{
                             backgroundColor: Colors.blue,
-                            marginTop: 25,
+                            marginTop: -10,
+                            top:35,
                             marginLeft: 70,
                             width: 200
                         }}
 
                         onPress={() => {
-
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Home' }],
+                              }, showMessage({
+                                    // responseLog['message']
+                                    message: "Gracias por preferirnos.",
+                                    description: "Drofami.",
+                                    type: "success",
+                                  }));
                         }}
                     >
-                        <ButtonTextCart2>Generar Orden</ButtonTextCart2>
+                        <ButtonTextCart2>Continuar</ButtonTextCart2>
                     </StyledButtonCart2>
 
                 </StyledContainer>
-
-            </ScrollView>
         </View>
 
     )

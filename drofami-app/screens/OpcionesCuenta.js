@@ -5,7 +5,6 @@ import { View, StyleSheet, Text, Alert, Linking, Button } from "react-native";
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
-import { getSupportUrl } from '../src/customer_service';
 import {
   Colors,
   ButtonText2,
@@ -50,26 +49,7 @@ export default function OpcionesCuenta({ navigation }) {
     }
   }, [token, isFocused]);
 
-  React.useEffect(() => {
-    if (isEnabled) {
-      Alert.alert("Cerrando Sesión", "¿Estás seguro de cerrar sesión?", [
-        {
-          text: "Cancel",
-          onPress: () => setIsEnabled(false),
-          style: "cancel",
-        },
-        {
-          text: "OK",
-          onPress: () => {
-            SecureStore.deleteItemAsync("user_session").then(
-            );
-            logout(setLoading, token, setResponseLog);
-          }
-        },
-      ]);
 
-    }
-  }, [isEnabled]);
 
   React.useEffect(() => {
     if (!responseLog) {
@@ -114,43 +94,6 @@ export default function OpcionesCuenta({ navigation }) {
       ...obj,
     }));
   }, [formResponse]);
-
-  const URLconSporte = "https://wa.me/50497060482?text=Buen+D%C3%ADa%2C%0ASoy+daniela+de%3A+Fullstack+Drofami%0AQueria+su+ayuda+con+algo.+%F0%9F%98%88%E2%80%8B%E2%80%8B";
-  const [url, setUrl] = useState("");
-
-  React.useEffect(() => {
-    if (!url) {
-      return;
-    }
-    if (url['url']) {
-      followURL(url['url'])
-    }
-  }, [url]);
-
-  async function followURL(urll) {
-    const supported = await Linking.canOpenURL(urll);
-    console.log('PUPU', urll)
-    if (supported) {
-      await Linking.openURL(urll);
-
-    } else {
-      Alert.alert(`No se puede contactar con el servicio al clienete en este momento, intente mas tarde`);
-    }
-  }
-
-  const OpenURLButton = ({ url, children }) => {
-    const handlePress = useCallback(async () => {
-      const supported = await Linking.canOpenURL(url);
-
-      if (supported) {
-        await Linking.openURL(url);
-      } else {
-        Alert.alert(`No se puede contactar con el servicio al cliente en este momento, intente mas tarde: ${url}`);
-      }
-    }, [url]);
-
-    return <Button title={children} onPress={handlePress} />;
-  };
 
   return (
     <>

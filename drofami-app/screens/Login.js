@@ -37,6 +37,7 @@ const { darkLight } = Colors;
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../src/reducers/getToken";
 import { isStaff } from "../src/reducers/staff";
+import Spinner from "../components/Spinner";
 
 
 const Login = ({ navigation }) => {
@@ -44,7 +45,7 @@ const Login = ({ navigation }) => {
     const [isLoading, setLoading] = useState(false)
     const [loginResponse, setLoginResponse] = useState('');
     const [loginInput, setLoginInput] = useState("");
-    const [rememberMe, setRememberMe] = useState(false);
+    const [rememberMe, setRememberMe] = useState(true);
 
     //redux
     const dispatch = useDispatch();
@@ -216,30 +217,18 @@ const Login = ({ navigation }) => {
 
                                     <ExtraView>
                                         <ExtraText>¿No tienes cuenta? </ExtraText>
-                                        <TextLink onPress={() => navigation.replace('Signup')}>
+                                        <TextLink onPress={() => navigation.navigate('Signup')}>
                                             <TextLinkContent>Registrate</TextLinkContent>
                                         </TextLink>
                                     </ExtraView>
 
                                 </StyledFormArea>)}
                             </Formik>
-                        </InnerContainer>
+                        </InnerContainer> 
                     </StyledContainer>
                 </View>
             </Keyboard2>
-
-            {isLoading && <View style={[StyleSheet.absoluteFillObject, estilos.spinnercontent]}>
-                {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}
-                <ActivityIndicator size={100} color={'blue'} />
-                <Text>
-                    Cargando...
-                </Text>
-            </View>
-
-            }
-
-
-
+            {isLoading && <Spinner text='Cargando...'/> }
         </>
 
     );
@@ -268,16 +257,7 @@ export default Login;
 
 
 const estilos = StyleSheet.create({
-    spinnercontent: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        zIndex: 1,
-    },
     view2: {
         backgroundColor: 'white',
     }
 })
-
-{
-}

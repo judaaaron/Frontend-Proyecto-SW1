@@ -83,7 +83,7 @@ const HistorialOrden = ({ navigation }) => {
                         borderColor: Colors.black,
 
                         borderRadius: 10,
-                        marginLeft: 22,
+                        marginLeft: 13,
                         marginTop: 10
 
                     }}
@@ -100,7 +100,7 @@ const HistorialOrden = ({ navigation }) => {
                             top: 10
                         }}
                     />
-                    <Icon name="shopping-bag" size={20} color={Colors.morado} borderColor={Colors.blue} style={{ top: -40, marginRight: 270 }} />
+                    <Icon name="shopping-bag" size={20} color={Colors.morado} borderColor={Colors.blue} style={{ top: -40, marginRight: 290 }} />
                     <View
                         style={{
                             flex: 1,
@@ -108,7 +108,7 @@ const HistorialOrden = ({ navigation }) => {
                             justifyContent: "space-around",
                         }}
                     >
-                        <View style={{ marginTop: -90, marginLeft:39 }}>
+                        <View style={{ marginTop: -90, marginLeft:25 }}>
                             <Text
                                 style={{
                                     fontSize: 14,
