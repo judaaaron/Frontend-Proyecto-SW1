@@ -26,6 +26,7 @@ import { useDispatch } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { cartItems } from "../src/reducers/cartItems";
 import { FAB } from 'react-native-paper';
+import { getOrdenes } from "../src/OrderMethods";
 
 const DATA = [
     {
@@ -49,14 +50,28 @@ const DATA = [
 ];
 
 const HistorialOrden = ({ navigation }) => {
+    //const token = useRef(useSelector((state) => state.token.value));
+    const [response, setResponse] = useState(null);
+    const [isLoading, setLoading] = useState(false);
+    const [ordenes, setOrdenes] = useState(null);
+    const token = React.useRef(useSelector((state) => state.token.value))
+    React.useEffect(() => {
+        getOrdenes(setLoading, token.current, setResponse);
+    }, []);
+
+    React.useEffect(() => {
+        if(!response) {
+            return;
+        }
+        if (response['data']) {
+            setOrdenes(response['data']);
+        }
+    }, [response]);
 
     const List = ({ id, codigo, fecha, total }) => {
         return (
-
             <>
-
                 <TouchableOpacity
-
                     style={{
                         width: 350,
                         height: 100,
@@ -68,7 +83,7 @@ const HistorialOrden = ({ navigation }) => {
                         borderColor: Colors.black,
 
                         borderRadius: 10,
-                        marginLeft: 10,
+                        marginLeft: 22,
                         marginTop: 10
 
                     }}
@@ -93,7 +108,7 @@ const HistorialOrden = ({ navigation }) => {
                             justifyContent: "space-around",
                         }}
                     >
-                        <View style={{ marginTop: -90 }}>
+                        <View style={{ marginTop: -90, marginLeft:39 }}>
                             <Text
                                 style={{
                                     fontSize: 14,
@@ -126,7 +141,7 @@ const HistorialOrden = ({ navigation }) => {
                                     }}
                                 >
 
-                                    Fecha de orden: {fecha}
+                                    Fecha de orden: {new Date(fecha).toLocaleString('es-HN')}
 
                                 </Text>
 
@@ -193,11 +208,11 @@ const HistorialOrden = ({ navigation }) => {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 80 }}
-                data={DATA}
+                data={ordenes ? ordenes : []}
                 renderItem={({ item }) => (
                     <List
                         id={item.id}
-                        codigo={item.codigo}
+                        codigo={item.id}
                         fecha={item.fecha}
                         total={item.total}
                     />

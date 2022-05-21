@@ -178,11 +178,12 @@ const OrderDetails = ({ navigation }) => {
             <PageLogOferta
                 source={require("../assets/drofamilogo1.jpg")}
                 resizeMode="cover"
+                style={{marginTop:-63}}
             />
 
 
             <ScrollView>
-                <StyledContainer style={{ marginTop: 10 }}>
+                <StyledContainer style={{ marginTop: 15 }}>
                     <View>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 16 }}>
                             Droguería y Farmacia Centroámerica Milenio

@@ -568,7 +568,8 @@ const CartScreen = ({ navigation }) => {
                   description: "Estamos preparando los detalles de tu orden",
                   type: "info",
                 });
-                navigation.navigate("OrderDetails")
+                //navigation.navigate("OrderDetails")//no se si esto va aqui
+
               } else {
                 showMessage({
                   message: "No tiene productos en su carrito.",

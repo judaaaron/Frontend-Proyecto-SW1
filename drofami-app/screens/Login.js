@@ -166,7 +166,7 @@ const Login = ({ navigation }) => {
                                     <MyTextInput
                                         label={"Nombre de Usuario"}
                                         icon={"person"}
-                                        placeholder={"drofamiClient"}
+                                        placeholder={"Drofami"}
                                         placeholderTextColor={darkLight}
                                         onChangeText={handleChange("usuario")}
                                         onBlur={handleBlur("usuario")}
@@ -193,6 +193,8 @@ const Login = ({ navigation }) => {
                                         {/* <ExtraText>Recuerdame</ExtraText> */}
                                     
                                         <CheckBox
+                                            containerStyle ={{borderWidth: 0, backgroundColor: 'white'}}
+                                            checkedColor={Colors.blue}
                                             iconRight='true'
                                             title={'Mantener sesión iniciada'}
                                             checked={rememberMe}

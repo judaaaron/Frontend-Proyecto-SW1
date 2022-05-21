@@ -19,7 +19,7 @@ import { Avatar } from 'react-native-elements';
 import { useSelector } from "react-redux";//esta
 import { showMessage } from 'react-native-flash-message';
 
-export default function SettingsHome({ navigation }) {
+export default function OpcionesCuenta({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [isLoading, setLoading] = useState(false);
@@ -159,13 +159,7 @@ export default function SettingsHome({ navigation }) {
 
         <View backgroundColor={Colors.primary} style={{ top: 40 }}>
           <View style={{ alignItems: "center", fontSize: 20 }}>
-            <Subtitle2
-              style={styles.view3}
-              backgroundColor={Colors.primary}
-              color={Colors.blue}
-            >
-              Cuenta
-            </Subtitle2>
+          
           </View>
 
           {/* <ExtraView marginRight={260}> */}
@@ -197,132 +191,83 @@ export default function SettingsHome({ navigation }) {
               </Text>
             </View>
           </View>
-          {/* <View>
-            <Switch
-              trackColor={{ false: Colors.red, true: Colors.blue }}
-              thumbColor={isEnabled ? Colors.blue : Colors.secondary}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-              marginLeft={250}
-              marginTop={-25}
-            /></View> */}
+         
           <StyledButton2
             onPress={() => {
-              navigation.navigate("OpcionesCuenta");
+              navigation.navigate("profileModification", {
+                usuario: state["username"],
+                apellido: state["last_name"],
+                nombre: state["first_name"],
+                address: state["address"],
+                phone: state["phone_number"],
+              });
             }}
           >
 
             <RightIcon2
               onPress={() => {
-                navigation.navigate("OpcionesCuenta")
+                navigation.navigate("profileModification", {
+                  usuario: state["username"],
+                  apellido: state["last_name"],
+                  nombre: state["first_name"],
+                  address: state["address"],
+                  phone: state["phone_number"],
+                });
               }}
             >
               <Icon
-                name="settings-applications"
+                name="edit"
                 size={20}
                 marginRight={40}
                 color={Colors.blue}
               />
             </RightIcon2>
             <ButtonText2>
-              Configuración de tu cuenta
+              Editar perfil
               {/* <RightIcon /> */}
             </ButtonText2>
           </StyledButton2>
 
-          {/* </ExtraView> */}
-          {/* <ExtraView marginRight={160}> */}
+        
 
-         
-
-      
-          {useSelector((state) => state.staff.value) === false ?
-            <StyledButton2
-              onPress={() => {
-                navigation.navigate("SelectEmpresa", { token: token }),
-                  console.log(token);
-              }}
-            >
-              <RightIcon2
-                onPress={() => {
-                  navigation.navigate("SelectEmpresa", { token: token }),
-                    console.log(token);
-                }}
-              >
-                <Icon name="business" size={20} color={Colors.blue} />
-                {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
-              </RightIcon2>
-              <ButtonText2>Selección de Empresa</ButtonText2>
-            </StyledButton2>
-            :
-            null}
           <StyledButton2
             onPress={() => {
-              navigation.navigate("HistorialOrden")
-
+              navigation.navigate("ChangeEmailScreen", { token: token }),
+                console.log(token);
             }}
           >
             <RightIcon2
               onPress={() => {
-                navigation.navigate("HistorialOrden")
-
+                navigation.navigate("ChangeEmailScreen", { token: token }),
+                  console.log(token);
               }}
             >
-              <Icon name="history" size={20} color={Colors.blue} />
+              <Icon name="edit" size={20} color={Colors.blue} />
             </RightIcon2>
 
-            <ButtonText2>Historial de Órdenes</ButtonText2>
+            <ButtonText2>Cambiar correo electrónico</ButtonText2>
           </StyledButton2>
-          {useSelector((state) => state.staff.value) === false ?
-            <StyledButton2
-              onPress={() => {
-                followURL(getSupportUrl(setLoading, token, setUrl));
-              }}
-            >
-              <RightIcon2
-                onPress={() => {
-                  followURL(getSupportUrl(setLoading, token, setUrl));
-                }}
-              >
-                <Icon name="message" size={20} color={Colors.blue} />
-                {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
-              </RightIcon2>
-              <ButtonText2
-                onPress={() => {
-                  followURL(getSupportUrl(setLoading, token, setUrl));
-                }}
-              >Servicio al Cliente</ButtonText2>
-            </StyledButton2>
-            :
-            null}
-
-          {/* {
-            useSelector((state) => state.staff.value) === false ?
-              <View>
-                <OpenURLButton url={URLconSporte}>
-                  Contactanos
-                </OpenURLButton>
-              </View>
-              : null
-          } */}
-
-          {/* </ExtraView> */}
+    
           <StyledButton2
-            onPress={() => setIsEnabled(true)}
+            onPress={() => {
+              navigation.navigate("ChangePasswordScreen", { token: token }),
+                console.log(token);
+            }}
           >
             <RightIcon2
-              onPress={() => setIsEnabled(true)}
+              onPress={() => {
+                navigation.navigate("ChangePasswordScreen", { token: token }),
+                  console.log(token);
+              }}
             >
-              <Icon name="logout" size={20} color={Colors.red} />
+              <Icon name="edit" size={20} color={Colors.blue} />
             </RightIcon2>
-            <ButtonText2 style={{ color: Colors.red }}>Cerrar Sesión</ButtonText2>
+            <ButtonText2>Cambiar contraseña</ButtonText2>
           </StyledButton2>
+  
         </View>
-
-        {/* </StyledContainer> */}
+  
       </View>
-
 
     </>
   );
