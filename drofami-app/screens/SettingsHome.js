@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Text, Alert, Linking, Button } from "react-native";
+import * as Linking from 'expo-linking'
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
@@ -145,9 +146,9 @@ export default function SettingsHome({ navigation }) {
       if (supported) {
         await Linking.openURL(url);
       } else {
-        Alert.alert(`No se puede contactar con el servicio al cliente en este momento, intente mas tarde: ${url}`);
+        Alert.alert(`No se puede contactar con el servicio al cliente en este momento, intente mas tarde.`);
       }
-    }, [url]);
+    });
 
     return <Button title={children} onPress={handlePress} />;
   };
@@ -344,7 +345,7 @@ export default function SettingsHome({ navigation }) {
           {
             useSelector((state) => state.staff.value) === false ?
               <View>
-                <OpenURLButton url={URLconSporte}>
+                <OpenURLButton url={url}>
                   Contactanos
                 </OpenURLButton>
               </View>
