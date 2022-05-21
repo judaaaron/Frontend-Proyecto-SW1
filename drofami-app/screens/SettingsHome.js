@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Text, Alert, Linking, Button } from "react-native";
+//import * as Linking from 'expo-linking'
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
@@ -19,10 +20,11 @@ import { Avatar } from 'react-native-elements';
 import { useSelector } from "react-redux";//esta
 import { showMessage } from 'react-native-flash-message';
 
-export default function SettingsHome({ navigation }) {
+function SettingsHome({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [isUndefined, setIsUndefined] = useState(false);
   const [formResponse, setFormResponse] = useState({});
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
   const [responseLog, setResponseLog] = useState(null);
@@ -115,7 +117,7 @@ export default function SettingsHome({ navigation }) {
     }));
   }, [formResponse]);
 
-  const URLconSporte = "https://wa.me/50497060482?text=Buen+D%C3%ADa%2C%0ASoy+daniela+de%3A+Fullstack+Drofami%0AQueria+su+ayuda+con+algo.+%F0%9F%98%88%E2%80%8B%E2%80%8B";
+  const URLconSporte = `https://wa.me/50497060482?text=Buen+D%C3%ADa%2C%0ASoy+daniela+de%3A+Fullstack+Drofami%0AQueria+su+ayuda+con+algo.+%F0%9F%98%88%E2%80%8B%E2%80%8B`;
   const [url, setUrl] = useState("");
 
   React.useEffect(() => {
@@ -127,11 +129,11 @@ export default function SettingsHome({ navigation }) {
     }
   }, [url]);
 
-  async function followURL(urll) {
-    const supported = await Linking.canOpenURL(urll);
-    console.log('PUPU', urll)
+  async function followURL(url) {
+    const supported = await Linking.canOpenURL(url);
+    console.log('PUPU', URLconSporte)
     if (supported) {
-      await Linking.openURL(urll);
+      await Linking.openURL(url);
 
     } else {
       Alert.alert(`No se puede contactar con el servicio al clienete en este momento, intente mas tarde`);
@@ -276,9 +278,9 @@ export default function SettingsHome({ navigation }) {
           </StyledButton2>
           {useSelector((state) => state.staff.value) === false ?
             <StyledButton2
-              onPress={() => {
-                followURL(getSupportUrl(setLoading, token, setUrl));
-              }}
+            onPress={() => {
+              followURL(JSON.stringify(getSupportUrl(setLoading, token, setUrl)));
+            }}
             >
               <RightIcon2
                 onPress={() => {
@@ -289,9 +291,9 @@ export default function SettingsHome({ navigation }) {
                 {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
               </RightIcon2>
               <ButtonText2
-                onPress={() => {
-                  followURL(getSupportUrl(setLoading, token, setUrl));
-                }}
+                // onPress={() => {
+                //   followURL(getSupportUrl(setLoading, token, setUrl));
+                // }}
               >Servicio al Cliente</ButtonText2>
             </StyledButton2>
             :
@@ -368,3 +370,5 @@ const styles = StyleSheet.create({
   },
   container: { flex: 1, justifyContent: "center", alignItems: "center" },
 })
+
+export default SettingsHome;
