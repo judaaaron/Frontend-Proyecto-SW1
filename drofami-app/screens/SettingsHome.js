@@ -129,11 +129,11 @@ function SettingsHome({ navigation }) {
     }
   }, [url]);
 
-  async function followURL(url) {
-    const supported = await Linking.canOpenURL(url);
-    console.log('PUPU', URLconSporte)
+  async function followURL(urll) {
+    const supported = await Linking.canOpenURL(urll);
+    console.log('PUPU', urll)
     if (supported) {
-      await Linking.openURL(url);
+      await Linking.openURL(urll);
 
     } else {
       Alert.alert(`No se puede contactar con el servicio al clienete en este momento, intente mas tarde`);
