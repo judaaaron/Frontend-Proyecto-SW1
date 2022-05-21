@@ -89,20 +89,7 @@ const datos = [
       ' 2 tabletas al dia',
   },
   
-  {
-    id: 7,
-    name: 'ENTEROGUANIL ADULTO',
-    currency: 'L. ',
-    price: 20.95,
-    //like: false,
-    img: require('../assets/bacaoliver-web.png'),
-    about:
-    'Por su acción: Antihistamínica y antipuriginosa (Antialérgica) Se recomienda para el alivio de molestias debido al salpullido, urticaria, quemaduras de sol y otras irritaciones de la piel y alergias.',
-  formula: 
-    '500 mg bla bla bla',
-  dosis: 
-      ' 2 tabletas al dia',
-  },
+  
   
   {
     id: 8,
