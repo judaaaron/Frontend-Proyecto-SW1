@@ -124,19 +124,20 @@ function SettingsHome({ navigation }) {
     if (!url) {
       return;
     }
+    console.log(url);
     if (url['url']) {
+      console.log('voy ahi')
       followURL(url['url'])
     }
   }, [url]);
 
-  async function followURL(urll) {
-    const supported = await Linking.canOpenURL(urll);
-    console.log('PUPU', urll)
+  async function followURL(url) {
+    const supported = await Linking.canOpenURL(url);
     if (supported) {
-      await Linking.openURL(urll);
+      await Linking.openURL(url);
 
     } else {
-      Alert.alert(`No se puede contactar con el servicio al clienete en este momento, intente mas tarde`);
+      Alert.alert(`No se puede contactar con el servicio al cliene en este momento, intente mas tarde`);
     }
   }
 
@@ -279,12 +280,14 @@ function SettingsHome({ navigation }) {
           {useSelector((state) => state.staff.value) === false ?
             <StyledButton2
             onPress={() => {
-              followURL(JSON.stringify(getSupportUrl(setLoading, token, setUrl)));
+              console.log("1", token);
+              getSupportUrl(setLoading, token, setUrl);
             }}
             >
               <RightIcon2
                 onPress={() => {
-                  followURL(getSupportUrl(setLoading, token, setUrl));
+                  console.log("2", token);
+                  getSupportUrl(setLoading, token, setUrl);
                 }}
               >
                 <Icon name="message" size={20} color={Colors.blue} />
