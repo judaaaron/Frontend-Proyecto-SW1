@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Text, Alert, Linking, Button } from "react-native";
-import * as Linking from 'expo-linking'
 import { getUserData, logout } from '../src/login_registerAPI';
 import * as SecureStore from 'expo-secure-store';
 import { useIsFocused } from "@react-navigation/native";
