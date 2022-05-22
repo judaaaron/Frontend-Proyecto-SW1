@@ -141,7 +141,7 @@ const HistorialOrden = ({ navigation }) => {
                                     }}
                                 >
 
-                                    Fecha de orden: {new Date(fecha).toLocaleString('es-HN')}
+                                    Fecha de orden: {new Date(fecha).toLocaleString('es-CR')}
 
                                 </Text>
 

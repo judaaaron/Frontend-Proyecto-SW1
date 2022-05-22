@@ -104,7 +104,7 @@ const OrderDetails = ({route, navigation }) => {
                                 }}
                             >
 
-                                Nombre: {nombre}
+                                Nombre producto: {nombre}
                             </Text>
 
 
