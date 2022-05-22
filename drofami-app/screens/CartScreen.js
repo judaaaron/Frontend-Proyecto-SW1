@@ -147,10 +147,12 @@ const CartScreen = ({ navigation }) => {
       "Ocurrió un error inesperado. Por favor vuelva a intentar.",
       type: orderResponse['status'],
     }); 
-
+    if (!orderResponse['data']) {
+      return;
+    }
     navigation.reset({
       index: 0,
-      routes: [{ name: 'OrderDetails' }],
+      routes: [{ name: 'OrderDetails' , params: orderResponse['data']}]
     });
   }, [loading])
 

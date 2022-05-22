@@ -62,8 +62,11 @@ const DATA = [
     },
 ];
 
-const OrderDetails = ({ navigation }) => {
+const OrderDetails = ({route, navigation }) => {
     const current = new Date();
+    const orden = route.params;
+    console.log('caquita', orden);
+    console.log('pupu', orden.items)
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds() < 10 ? current.getSeconds() + .0 : current.getSeconds()}`;
     const List = ({ id, nombre, cantidad, precio }) => {
         return (
@@ -192,25 +195,25 @@ const OrderDetails = ({ navigation }) => {
 
                     <View style={{ marginTop: 10, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Orden: #8377
+                            Orden:#{orden.id}
                         </Text>
                     </View>
 
                     <View style={{ marginTop: -25, marginLeft: 195 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            {date}
+                            {orden.date}
                         </Text>
                     </View>
 
                     <View style={{ marginTop: 10, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Nombre de la empresa: Kielsa
+                            Nombre de la empresa: {orden.cliente.empresa}
                         </Text>
                     </View>
 
                     <View style={{ marginTop: 10, marginLeft: 10, }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Nombre del encargado: Paulina Euceda
+                            Nombre del encargado: {orden.cliente.nombre + ' ' + orden.cliente.apellido}
                         </Text>
                     </View>
 
@@ -225,13 +228,13 @@ const OrderDetails = ({ navigation }) => {
                         style={{marginLeft:10}}
                             showsVerticalScrollIndicator={true}
                             contentContainerStyle={{ paddingBottom: 80 }}
-                            data={DATA}
+                            data={orden.items}
                             renderItem={({ item }) => (
                                 <List
-                                    id={item.id}
-                                    nombre={item.nombre}
+                                    id={item.producto.id}
+                                    nombre={item.producto.nombre}
                                     cantidad={item.cantidad}
-                                    precio={item.precio}
+                                    precio={item.producto.precio}
                                 />
                             )}
                             keyExtractor={(item) => item.id}
@@ -242,7 +245,7 @@ const OrderDetails = ({ navigation }) => {
 
                     <View style={{ top:15, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Total: L. 2500.99
+                            Total: L. {(orden.total + orden.total * 0.15) % 1 == 0 ? (orden.total + orden.total * 0.15).toFixed(2) : (orden.total + orden.total * 0.15)}
                         </Text>
                     </View>
                     <StyledButtonCart2
@@ -251,8 +254,8 @@ const OrderDetails = ({ navigation }) => {
                         style={{
                             backgroundColor: Colors.blue,
                             marginTop: -10,
-                            top:35,
-                            marginLeft: 70,
+                            top:-2,
+                            marginLeft: 145,
                             width: 200
                         }}
 
