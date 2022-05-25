@@ -41,7 +41,7 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
         <SafeAreaView
             style={{
                 flex: 1,
-                backgroundColor: producto.color[3],
+                backgroundColor: color,
             }}
         >
             <View style={style.header}>

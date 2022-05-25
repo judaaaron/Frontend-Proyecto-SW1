@@ -100,7 +100,7 @@ export default function HesselScreen({ navigation }) {
         nombre: product["producto"]["nombre"],
         precio: product["producto"]["precio"],
         fabricante: product["producto"]["fabricante"],
-        color: productResponse["producto"]["color"],
+        color: product["producto"]["color"],
       });
     } else {
       navigation.navigate("DetalleProductsAncalmo", {
@@ -113,7 +113,7 @@ export default function HesselScreen({ navigation }) {
         indicaciones: product["producto"]["indicaciones"],
         dosis: product["producto"]["dosis"],
         formula: product["producto"]["formula"],
-        color: productResponse["producto"]["color"],
+        color: product["producto"]["color"],
       });
     }
   }, [productResponse]);
