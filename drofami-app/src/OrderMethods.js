@@ -48,7 +48,7 @@ export async function getOrdenes(setLoading, token, setResponse) {
     }
 }
 
-export async function getOrdenDetalle(setLoading, token, setResponse, nOrden) {
+export async function getOrdenDetalle(setLoading, token, nOrden, setResponse) {
     setLoading(true);
     const resp = {};
     let response = {}

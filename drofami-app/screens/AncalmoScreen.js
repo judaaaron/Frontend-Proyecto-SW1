@@ -101,7 +101,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
                 nombre: product['producto']["nombre"],
                 precio: product['producto']["precio"],
                 fabricante: product['producto']["fabricante"],
-                color : product['color']
+                color: product["producto"]["color"],
             });
         } else {
             navigation.navigate('DetalleProductsAncalmo', {
@@ -114,7 +114,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             indicaciones: product['producto']["indicaciones"],
             dosis: product['producto']["dosis"],
             formula: product['producto']['formula'],
-            color : product['color']
+            color: product["producto"]["color"],
         });
         }
     }, [productResponse])

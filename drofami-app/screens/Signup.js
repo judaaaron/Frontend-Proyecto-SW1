@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Text } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { signUp } from "../src/login_registerAPI";
 import * as yup from 'yup';
@@ -103,177 +103,188 @@ const Signup = ({ navigation }) => {
     }, [response])
 
     return (
-        <>
+      <>
+        <View style={styles.header} top={7}>
+          <Icon
+            name="arrow-back"
+            size={30}
+            onPress={() => navigation.goBack()}
+          />
+        </View>
+        <InnerContainer marginTop={0}>
+          <StatusBar style="dark" backgroundColor="white" />
+
+          <PageLog
+            source={require("../assets/drofamilogo1.jpg")}
+            resizeMode="cover"
+          />
+          <Subtitle>Registro</Subtitle>
+          <ScrollView
+            // scrollIndicatorInsets={false}
+            showsVerticalScrollIndicator={false}
+          >
             <Keyboard2>
-                <StyledContainer>
-                    <StatusBar style="dark" />
-                    <View style={styles.header} top={7}>
-              <Icon
-                name="arrow-back"
-                size={30}
-                onPress={() => navigation.goBack()}
-              />
-            </View>
+              <StyledContainer>
+                <Formik
+                  initialValues={{
+                    usuario: "",
+                    nombre: "",
+                    apellido: "",
+                    correo: "",
+                    phone: "",
+                    password: "",
+                    confirmPassword: "",
+                    direccion: "",
+                  }}
+                  validateOnMount={true}
+                  onSubmit={(values) => {
+                    signUp(
+                      values.usuario,
+                      values.correo,
+                      values.phone,
+                      values.password,
+                      values.confirmPassword,
+                      values.nombre,
+                      values.apellido,
+                      values.direccion,
+                      setLoading,
+                      setResponse
+                    );
+                  }}
+                  validationSchema={SingUpValidationSchema}
+                >
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    touched,
+                    errors,
+                    isValid,
+                  }) => (
+                    <StyledFormArea>
+                      <MyTextInput
+                        label={"Primer Nombre"}
+                        icon={"person"}
+                        placeholder={"Mauricio"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("nombre")}
+                        onBlur={handleBlur("nombre")}
+                        values={values.nombre}
+                      />
 
-                    <InnerContainer marginTop={0}>
-                        <PageLog
-                            source={require("../assets/drofamilogo1.jpg")}
-                            resizeMode="cover"
+                      {errors.nombre && touched.nombre && (
+                        <Text style={styles.errores}>{errors.nombre}</Text>
+                      )}
 
-                        />
-                        <Subtitle>Registro</Subtitle>
-                        <Formik
-                            initialValues={{ usuario: "", nombre: "", apellido: "", correo: "", phone: "", password: "", confirmPassword: "", direccion: "" }}
-                            validateOnMount={true}
-                            onSubmit={(values) => {
-                                signUp(values.usuario, values.correo, values.phone, values.password,
-                                    values.confirmPassword, values.nombre, values.apellido, values.direccion,
-                                    setLoading, setResponse
-                                );
-                            }}
-                            validationSchema={SingUpValidationSchema}
-                        >
-                            {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isValid }) => (<StyledFormArea>
-                                <MyTextInput
-                                    label={"Primer Nombre"}
-                                    icon={"person"}
-                                    placeholder={"Mauricio"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("nombre")}
-                                    onBlur={handleBlur("nombre")}
-                                    values={values.nombre}
+                      <MyTextInput
+                        label={"Primer Apellido"}
+                        icon={"person"}
+                        placeholder={"Silva"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("apellido")}
+                        onBlur={handleBlur("apellido")}
+                        values={values.apellido}
+                      />
 
-                                />
+                      {errors.apellido && touched.apellido && (
+                        <Text style={styles.errores}>{errors.apellido}</Text>
+                      )}
 
-                                {(errors.nombre && touched.nombre) &&
-                                    <Text style={styles.errores}>
-                                        {errors.nombre}
-                                    </Text>
-                                }
+                      <MyTextInput
+                        label={"Nombre de Usuario"}
+                        icon={"person"}
+                        placeholder={"drofamiClient"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("usuario")}
+                        onBlur={handleBlur("usuario")}
+                        values={values.usuario}
+                      />
 
-                                <MyTextInput
-                                    label={"Primer Apellido"}
-                                    icon={"person"}
-                                    placeholder={"Silva"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("apellido")}
-                                    onBlur={handleBlur("apellido")}
-                                    values={values.apellido}
-                                />
+                      {errors.usuario && touched.usuario && (
+                        <Text style={styles.errores}>{errors.usuario}</Text>
+                      )}
+                      <MyTextInput
+                        label={"Correo"}
+                        icon={"mail"}
+                        placeholder={"drofamiClient@ejemplo.com"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("correo")}
+                        onBlur={handleBlur("correo")}
+                        values={values.correo}
+                        keyboardType={"email-address"}
+                      />
 
-                                {(errors.apellido && touched.apellido) &&
-                                    <Text style={styles.errores}>
-                                        {errors.apellido}
-                                    </Text>
-                                }
+                      {errors.correo && touched.correo && (
+                        <Text style={styles.errores}>{errors.correo}</Text>
+                      )}
 
-                                <MyTextInput
-                                    label={"Nombre de Usuario"}
-                                    icon={"person"}
-                                    placeholder={"drofamiClient"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("usuario")}
-                                    onBlur={handleBlur("usuario")}
-                                    values={values.usuario}
+                      <MyTextInput
+                        label={"Teléfono"}
+                        icon={"device-mobile"}
+                        placeholder={"9999-9999"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("phone")}
+                        onBlur={handleBlur("phone")}
+                        values={values.phone}
+                      />
 
-                                />
+                      {errors.phone && touched.phone && (
+                        <Text style={styles.errores}>{errors.phone}</Text>
+                      )}
 
-                                {(errors.usuario && touched.usuario) &&
-                                    <Text style={styles.errores}>
-                                        {errors.usuario}
-                                    </Text>
-                                }
-                                <MyTextInput
-                                    label={"Correo"}
-                                    icon={"mail"}
-                                    placeholder={"drofamiClient@ejemplo.com"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("correo")}
-                                    onBlur={handleBlur("correo")}
-                                    values={values.correo}
-                                    keyboardType={"email-address"}
-                                />
+                      <MyTextInput
+                        label={"Contraseña"}
+                        icon={"lock"}
+                        placeholder={"*************"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("password")}
+                        onBlur={handleBlur("password")}
+                        values={values.password}
+                        secureTextEntry={hidePassword}
+                        isPassword={true}
+                        hidePassword={hidePassword}
+                        setHidePassword={setHidePassword}
+                      />
+                      {errors.password && touched.password && (
+                        <Text style={styles.errores}>{errors.password}</Text>
+                      )}
 
-                                {(errors.correo && touched.correo) &&
-                                    <Text style={styles.errores}>
-                                        {errors.correo}
-                                    </Text>
-                                }
+                      <MyTextInput
+                        label={"Confirmar Contraseña"}
+                        icon={"lock"}
+                        placeholder={"*************"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("confirmPassword")}
+                        onBlur={handleBlur("confirmPassword")}
+                        values={values.confirmPassword}
+                        secureTextEntry={hidePassword2}
+                        isPassword2={true}
+                        hidePassword2={hidePassword2}
+                        setHidePassword2={setHidePassword2}
+                      />
 
-                                <MyTextInput
-                                    label={"Teléfono"}
-                                    icon={"device-mobile"}
-                                    placeholder={"9999-9999"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("phone")}
-                                    onBlur={handleBlur("phone")}
-                                    values={values.phone}
-                                />
+                      {errors.confirmPassword && touched.confirmPassword && (
+                        <Text style={styles.errores}>
+                          {errors.confirmPassword}
+                        </Text>
+                      )}
+                      <MyAutoGrowingTextInput
+                        backgroundColor={Colors.secondary}
+                        label={"Dirección"}
+                        icon={"location"}
+                        placeholder={"Dirección de entrega"}
+                        placeholderTextColor={darkLight}
+                        onChangeText={handleChange("direccion")}
+                        onBlur={handleBlur("direccion")}
+                        values={values.direccion}
+                      />
 
+                      {errors.direccion && touched.direccion && (
+                        <Text style={styles.errores}>{errors.direccion}</Text>
+                      )}
 
-                                {(errors.phone && touched.phone) &&
-                                    <Text style={styles.errores}>
-                                        {errors.phone}
-                                    </Text>
-                                }
-
-                                <MyTextInput
-                                    label={"Contraseña"}
-                                    icon={"lock"}
-                                    placeholder={"*************"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("password")}
-                                    onBlur={handleBlur("password")}
-                                    values={values.password}
-                                    secureTextEntry={hidePassword}
-                                    isPassword={true}
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
-                                {(errors.password && touched.password) &&
-                                    <Text style={styles.errores}>
-                                        {errors.password}
-                                    </Text>
-                                }
-
-
-                                <MyTextInput
-                                    label={"Confirmar Contraseña"}
-                                    icon={"lock"}
-                                    placeholder={"*************"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("confirmPassword")}
-                                    onBlur={handleBlur("confirmPassword")}
-                                    values={values.confirmPassword}
-                                    secureTextEntry={hidePassword2}
-                                    isPassword2={true}
-                                    hidePassword2={hidePassword2}
-                                    setHidePassword2={setHidePassword2}
-                                />
-
-                                {(errors.confirmPassword && touched.confirmPassword) &&
-                                    <Text style={styles.errores}>
-                                        {errors.confirmPassword}
-                                    </Text>
-                                }
-                                <MyAutoGrowingTextInput
-                                    backgroundColor={Colors.secondary}
-                                    label={"Dirección"}
-                                    icon={"location"}
-                                    placeholder={"Dirección de entrega"}
-                                    placeholderTextColor={darkLight}
-                                    onChangeText={handleChange("direccion")}
-                                    onBlur={handleBlur("direccion")}
-                                    values={values.direccion}
-                                />
-
-                                {(errors.direccion && touched.direccion) &&
-                                    <Text style={styles.errores}>
-                                        {errors.direccion}
-                                    </Text>
-                                }
-
-                                {/* <MyTextInput
+                      {/* <MyTextInput
                                     label={"RTN"}
                                     icon={"credit-card"}
                                     placeholder={"08011999987415"}
@@ -289,23 +300,25 @@ const Signup = ({ navigation }) => {
                                     </Text>
                                 } */}
 
-                                <StyledButton onPress={handleSubmit} rounded disabled={!isValid} style={{ backgroundColor: isValid ? Colors.blue : '#9CA3AF' }}>
-                                    <ButtonText >
-                                        Registrate
-                                    </ButtonText>
-                                </StyledButton>
-
-                            </StyledFormArea>)}
-
-                        </Formik>
-
-                    </InnerContainer>
-
-                </StyledContainer>
+                      <StyledButton
+                        onPress={handleSubmit}
+                        rounded
+                        disabled={!isValid}
+                        style={{
+                          backgroundColor: isValid ? Colors.blue : "#9CA3AF",
+                        }}
+                      >
+                        <ButtonText>Registrate</ButtonText>
+                      </StyledButton>
+                    </StyledFormArea>
+                  )}
+                </Formik>
+              </StyledContainer>
             </Keyboard2>
-            {isLoading && <Spinner text="Creando cuenta..."/>
-            }
-        </>
+          </ScrollView>
+        </InnerContainer>
+        {isLoading && <Spinner text="Creando cuenta..." />}
+      </>
     );
 };
 
@@ -352,36 +365,40 @@ const MyAutoGrowingTextInput = ({ label, icon, isPassword, hidePassword, setHide
 export default Signup;
 
 const styles = StyleSheet.create({
-    errores: {
-        fontSize: 10,
-        color: 'red',
-        top: -10,
-    },
-    spinnercontent: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        zIndex: 1,
-    },
-    view2: {
-        backgroundColor: 'white',
-    },
-    textInput: {
-        backgroundColor: Colors.secondary,
-        justifyContent: 'center',
-        alignContent: 'center',
-        paddingTop: 17,
-        padding: 17,
-        paddingLeft: 55,
-        paddingRight: 55,
-        borderRadius: 35,
-        fontSize: 16,
-        height: 52,
-        marginVertical: 3,
-        marginBottom: 20,
-        fontWeight: 'bold',
-        color: Colors.tertiary,
-    }
-})
+  errores: {
+    fontSize: 10,
+    color: "red",
+    top: -10,
+  },
+  spinnercontent: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    zIndex: 1,
+  },
+  view2: {
+    backgroundColor: "white",
+  },
+  header: {
+    paddingTop: 8,
+    backgroundColor: "white",
+  },
+  textInput: {
+    backgroundColor: Colors.secondary,
+    justifyContent: "center",
+    alignContent: "center",
+    paddingTop: 17,
+    padding: 17,
+    paddingLeft: 55,
+    paddingRight: 55,
+    borderRadius: 35,
+    fontSize: 16,
+    height: 52,
+    marginVertical: 3,
+    marginBottom: 20,
+    fontWeight: "bold",
+    color: Colors.tertiary,
+  },
+});
 
 

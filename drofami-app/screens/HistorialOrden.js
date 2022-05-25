@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { getCart, saveCart, clearCarrito, deleteProduct } from '../src/CartMethods'
 import {
     StyleSheet,
     View,
@@ -26,7 +25,7 @@ import { useDispatch } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { cartItems } from "../src/reducers/cartItems";
 import { FAB } from 'react-native-paper';
-import { getOrdenes } from "../src/OrderMethods";
+import { getOrdenes, getOrdenDetalle } from "../src/OrderMethods";
 
 const DATA = [
     {
@@ -52,6 +51,7 @@ const DATA = [
 const HistorialOrden = ({ navigation }) => {
     //const token = useRef(useSelector((state) => state.token.value));
     const [response, setResponse] = useState(null);
+    const [specificResponse, setSpecificResponse] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [ordenes, setOrdenes] = useState(null);
     const token = React.useRef(useSelector((state) => state.token.value))
@@ -68,6 +68,24 @@ const HistorialOrden = ({ navigation }) => {
         }
     }, [response]);
 
+    React.useEffect(() => {
+        if(!specificResponse) {
+            return;
+        }
+        console.log(specificResponse)
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'OrderDetails' , params: specificResponse['data']}]
+          })
+
+    }, [specificResponse]);
+
+
+    function ordenarPorCodigo(array) {
+        const temp = array.sort((a,b)=> parseInt(a.id)-parseInt(b.id))
+        return temp;
+    }
+
     const List = ({ id, codigo, fecha, total }) => {
         return (
             <>
@@ -81,12 +99,15 @@ const HistorialOrden = ({ navigation }) => {
                         backgroundColor: Colors.white,
                         borderWidth: 1,
                         borderColor: Colors.black,
-
+                        
                         borderRadius: 10,
                         marginLeft: 13,
                         marginTop: 10
-
                     }}
+                    onPress={() => {getOrdenDetalle(setLoading, token.current, id, setSpecificResponse)}}
+                    /*onPress={
+                        
+                    }*/
                 >
 
 
@@ -163,7 +184,7 @@ const HistorialOrden = ({ navigation }) => {
                                     }}
                                 >
 
-                                    Total: L.{total}
+                                    Total: L.{total + (total*0.15)}
 
                                 </Text>
 
@@ -208,7 +229,7 @@ const HistorialOrden = ({ navigation }) => {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 80 }}
-                data={ordenes ? ordenes : []}
+                data={ordenes ? ordenarPorCodigo(ordenes) : []}
                 renderItem={({ item }) => (
                     <List
                         id={item.id}
