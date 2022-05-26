@@ -42,7 +42,7 @@ const CartScreen = ({ navigation }) => {
   const [clearResponse, setClearResponse] = useState(null);
   const [centavo, setCentavo] = useState(false);
   const [orderResponse, setOrderResponse] = useState(null);
-
+  
 
   React.useEffect(() => {
     if (!response) {
@@ -93,11 +93,16 @@ const CartScreen = ({ navigation }) => {
       return;
     }
     const currentItems = [...dataCart];
+    let found = false;
     currentItems.forEach((element) => {
       if (element.producto.id == productResponse["data"]["producto"]["id"]) {
         element.cantidad = productResponse["data"]["cantidad"];
+        found = true;
       }
     });
+    if (!found) {
+//      const newData = [..]
+    }
     setDataCart(currentItems);
   }, [productResponse]);
 
@@ -261,12 +266,12 @@ const CartScreen = ({ navigation }) => {
     formula,
     indicaciones,
     fabricante,
-    colores
+    color
   }) => {
     return (
       <TouchableOpacity
         // key={id}
-        onPress={() =>
+        onPress={() =>{
           navigation.navigate("DetalleProductsAncalmo", {
             id: id,
             cantidad: count,
@@ -277,8 +282,9 @@ const CartScreen = ({ navigation }) => {
             indicaciones: indicaciones,
             dosis: dosis,
             formula: formula,
-            color: [Colors.lightblue, Colors.lightblue, Colors.lightblue, Colors.lightblue, Colors.lightblue]
+            color: color
           })
+          }
         }
         // aqui debe de llamarse detalle de producto
         style={{
@@ -445,7 +451,7 @@ const CartScreen = ({ navigation }) => {
         style={{
           width: "100%",
           height: "100%",
-          backgroundColor: Colors.white,
+          backgroundColor: color,
           position: "relative",
         }}
       >
@@ -549,7 +555,7 @@ const CartScreen = ({ navigation }) => {
               dosis={item.producto.dosis}
               formula={item.producto.formula}
               fabricante={item.producto.fabricante}
-              color={item.colores}
+              color={item.producto.color}
             />
           )}
           keyExtractor={(item) => item.producto.id}
