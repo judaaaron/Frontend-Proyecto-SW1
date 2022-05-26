@@ -232,6 +232,7 @@ const HistorialOrden = ({ navigation }) => {
                 data={ordenes ? ordenarPorCodigo(ordenes) : []}
                 renderItem={({ item }) => (
                     <List
+                        key={item.id + '_Orden'}
                         id={item.id}
                         codigo={item.id}
                         fecha={item.fecha}

@@ -390,11 +390,11 @@ const CartScreen = ({ navigation }) => {
                 style={{
                   borderRadius: 100,
                   marginRight: 20,
-                  padding: 4,
+                  padding: 6,
                   borderWidth: 0.5,
                   borderColor: Colors.white,
                   backgroundColor: Colors.darkBlue,
-                  opacity: 0.5,
+                  // opacity: 0.5,
                 }}
               >
                 <TouchableOpacity onPress={() => decreaseQuantity(id)}>
@@ -415,12 +415,12 @@ const CartScreen = ({ navigation }) => {
                 style={{
                   borderRadius: 100,
                   marginLeft: 20,
-                  padding: 4,
+                  padding: 6,
                   borderWidth: 0.5,
                   borderColor: Colors.white,
                   //   color: Colors.white,
                   backgroundColor: Colors.darkBlue,
-                  opacity: 0.5,
+                  // opacity: 0.5,
                 }}
               >
                 <TouchableOpacity onPress={() => increaseQuantity(id)}>

@@ -1,23 +1,14 @@
 import React from 'react';
-import { useState } from 'react';
 import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../components/styles";
-import { useSelector } from "react-redux";//este se agrega
+
 import { Picker } from "@react-native-picker/picker";
 
 const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
 
     const producto = route.params;
     const { id, cantidad, imagen, nombre, precio, fabricante, color } = route.params
-    const [counter, setCounter] = useState(1);
-    const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
-    const [loading, setLoading] = useState(false);
-    const [response, setResponse] = useState(null);
-    const [productResponse, setProductResponse] = useState(null);
-    const [Cart, setIsInCart] = useState(false);
-    const [isInputFocused, setIsInputFocused] = useState(false);
-    const timeout = React.useRef(null);
     const [selected, setSelected] = React.useState(null);
 
     React.useEffect(() => {

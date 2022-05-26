@@ -100,6 +100,7 @@ const OrderDetails = ({route, navigation }) => {
                                     maxWidth: "100%",
                                     color: Colors.black,
                                     fontWeight: "bold",
+                                    marginTop:10
                                     // letterSpacing: 1,
                                 }}
                             >
@@ -231,6 +232,7 @@ const OrderDetails = ({route, navigation }) => {
                             data={orden.items}
                             renderItem={({ item }) => (
                                 <List
+                                    key={item.producto.id + '__OD'}
                                     id={item.producto.id}
                                     nombre={item.producto.nombre}
                                     cantidad={item.cantidad}
@@ -249,6 +251,7 @@ const OrderDetails = ({route, navigation }) => {
                         </Text>
                     </View>
                     <StyledButtonCart2
+
 
 
                         style={{
