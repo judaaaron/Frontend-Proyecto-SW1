@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
+import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../components/styles";
 import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
@@ -33,10 +33,14 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   }, [token, isFocused]);
 
   React.useEffect(() => {
-      console.log("HOLA JUDA");
+    StatusBar.setBackgroundColor(producto.color)
  
     }, [])
 
+  //Sintaxis del Unmount:  
+  React.useEffect(() => {
+      return () => {StatusBar.setBackgroundColor(Colors.white)}
+    }, [])
 
 
   React.useEffect(() => {
@@ -242,16 +246,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                     onPress={handleSubstract}
                   /> */}
                 </View>
-                <TextInput
-                    style={{
-                      fontSize: 20,
-                      marginHorizontal: 10,
-                      fontWeight: 'bold',
-                    }}
-                    keyboardType='numeric'
-                    // value={counter.toString()}
-                    // onChangeText={(value)=>handleChange(parseInt(value))}
-                  />
+               
                   
                 
                 <View >

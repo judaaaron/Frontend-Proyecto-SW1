@@ -43,6 +43,13 @@ const CartScreen = ({ navigation }) => {
   const [centavo, setCentavo] = useState(false);
   const [orderResponse, setOrderResponse] = useState(null);
   
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      setLoading({value: true});
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   React.useEffect(() => {
     if (!response) {
@@ -93,16 +100,11 @@ const CartScreen = ({ navigation }) => {
       return;
     }
     const currentItems = [...dataCart];
-    let found = false;
     currentItems.forEach((element) => {
       if (element.producto.id == productResponse["data"]["producto"]["id"]) {
-        element.cantidad = productResponse["data"]["cantidad"];
-        found = true;
+        element.cantidad = productResponse["data"]["cantidad"]
       }
     });
-    if (!found) {
-//      const newData = [..]
-    }
     setDataCart(currentItems);
   }, [productResponse]);
 
@@ -193,6 +195,7 @@ const CartScreen = ({ navigation }) => {
         cant = element.cantidad + 1;
       }
     });
+    console.log('subiendo...')
     saveCart(token, id, cant, setProductResponse);
   };
 
@@ -205,7 +208,9 @@ const CartScreen = ({ navigation }) => {
         cant = element.cantidad - 1;
       }
     });
-    saveCart(token, id, cant, setProductResponse);
+    if (cant >= 1) {
+      saveCart(token, id, cant, setProductResponse);
+    }
   };
   const items = useSelector((state) => state.cart.value);
 
@@ -393,6 +398,9 @@ const CartScreen = ({ navigation }) => {
                 }}
               >
                 <TouchableOpacity onPress={() => decreaseQuantity(id)}>
+                {/*<TouchableOpacity 
+                activeOpacity={count > 1 ? 1 : 0.7}
+              onPress={decreaseQuantity(id)}*/}
                   <MaterialCommunityIcons
                     name="minus"
                     style={{
@@ -451,7 +459,7 @@ const CartScreen = ({ navigation }) => {
         style={{
           width: "100%",
           height: "100%",
-          backgroundColor: color,
+          backgroundColor: Colors.white,
           position: "relative",
         }}
       >
@@ -779,7 +787,7 @@ const CartScreen = ({ navigation }) => {
       {loading.value && 
       (loading.message ? 
         <Spinner text={loading.message}/> : 
-        <Spinner text={loading.message} color={'white'}/>)}
+        <Spinner text={"Cargando..."} color={'blue'}/>)}
     </>
   );
 };;

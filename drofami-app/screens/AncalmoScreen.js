@@ -285,11 +285,14 @@ const AncalmoScreen = ({ navigation, dato }) => {
         }
       >
              */}
+             {/* <View style={{marginTop:20, backgroundColor:Colors.white}}>
+                 <Text style={{marginTop:-20, backgroundColor:Colors.white}}></Text>
+             </View> */}
 
             <View style={styles.header}>
                 <View>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 35, fontWeight: 'bold', color: Colors.blue, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', top:28 }}>Bienvenido a</Text>
+                    <Text style={{ fontSize: 35, fontWeight: 'bold', color: Colors.blue, alignItems: 'center', top:20 }}>
                         Productos ANCALMO
                     </Text>
 
@@ -302,8 +305,8 @@ const AncalmoScreen = ({ navigation, dato }) => {
                 </View>
             </View>
 
-            <View style={{ marginTop: 30, flexDirection: 'row' }}>
-            <View style={styles.searchContainer} marginTop={10}>
+            <View style={{ marginTop: 30, flexDirection: 'row', top:10 }}>
+            <View style={styles.searchContainer} marginTop={10} >
                 <Icon name="search" size={25} style={{ marginLeft: 20 }} />
                 <TextInput
                     onFocus={(text) => searchFilterFunction()}
@@ -321,6 +324,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
 
             <FlatList
                 //ListHeaderComponent={renderHeader}
+                style={{top:20}}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
@@ -345,7 +349,11 @@ const AncalmoScreen = ({ navigation, dato }) => {
 
 const styles = StyleSheet.create({
     header: {
-        marginTop: 20
+        top:22,
+
+        marginTop: -50,
+        marginRight:-18,
+        backgroundColor: Colors.white
     },
     container: {
         backgroundColor: '#fff',
