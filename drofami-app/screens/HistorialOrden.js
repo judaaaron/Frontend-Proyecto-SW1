@@ -83,7 +83,7 @@ const HistorialOrden = ({ navigation }) => {
 
     function ordenarPorFecha(array) {
         const temp = array.sort((a, b) => new Date(a.fechas).getTime() > new Date(b.fechas).getTime())
-     
+        //const
         return temp;
     }
 
