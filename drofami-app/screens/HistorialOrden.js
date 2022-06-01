@@ -81,8 +81,9 @@ const HistorialOrden = ({ navigation }) => {
     }, [specificResponse]);
 
 
-    function ordenarPorCodigo(array) {
-        const temp = array.sort((a,b)=> parseInt(a.id)-parseInt(b.id))
+    function ordenarPorFecha(array) {
+        const temp = array.sort((a, b) => new Date(a.fechas).getTime() > new Date(b.fechas).getTime())
+     
         return temp;
     }
 
@@ -229,7 +230,7 @@ const HistorialOrden = ({ navigation }) => {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 80 }}
-                data={ordenes ? ordenarPorCodigo(ordenes) : []}
+                data={ordenes ? ordenarPorFecha(ordenes) : []}
                 renderItem={({ item }) => (
                     <List
                         key={item.id + '_Orden'}
