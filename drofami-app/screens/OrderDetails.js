@@ -68,7 +68,7 @@ const OrderDetails = ({route, navigation }) => {
     console.log('caquita', orden);
     console.log('pupu', orden.items)
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds() < 10 ? current.getSeconds() + .0 : current.getSeconds()}`;
-    const List = ({ id, nombre, cantidad, precio }) => {
+    const List = ({ id, nombre, cantidad, precio, fecha }) => {
         return (
 
             <>
@@ -100,7 +100,7 @@ const OrderDetails = ({route, navigation }) => {
                                     maxWidth: "100%",
                                     color: Colors.black,
                                     fontWeight: "bold",
-                                    marginTop:10
+                                    marginTop:12
                                     // letterSpacing: 1,
                                 }}
                             >
@@ -123,6 +123,7 @@ const OrderDetails = ({route, navigation }) => {
                                         fontWeight: "bold",
                                         maxWidth: "85%",
                                         marginRight: 4,
+                                        marginTop:-6
                                     }}
                                 >
 
@@ -146,6 +147,7 @@ const OrderDetails = ({route, navigation }) => {
                                         fontWeight: "bold",
                                         maxWidth: "85%",
                                         marginRight: 4,
+                                        marginTop:-5
                                     }}
                                 >
 
@@ -208,25 +210,25 @@ const OrderDetails = ({route, navigation }) => {
 
                     <View style={{ marginTop: 10, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Nombre de la empresa: {orden.cliente.empresa}
+                            Nombre de la Empresa: {orden.cliente.empresa}
                         </Text>
                     </View>
 
                     <View style={{ marginTop: 10, marginLeft: 10, }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            Nombre del encargado: {orden.cliente.nombre + ' ' + orden.cliente.apellido}
+                            Nombre del Cliente: {orden.cliente.nombre + ' ' + orden.cliente.apellido}
                         </Text>
                     </View>
 
                     <View style={{ marginTop: 5, marginLeft: 10 }}>
                         <Text style={{ color: Colors.black, fontWeight: 'bold', fontSize: 14 }}>
-                            {/* Productos Ordenados */}
+                         
                         </Text>
                     </View>
 
-                    {/* <View style={{ marginTop:-20, top:-10, marginLeft: 10 }}> */}
+                    <View style={{marginLeft: 10 }}>
                         <FlatList
-                        style={{marginLeft:10}}
+                        // style={{marginLeft:10}}
                             showsVerticalScrollIndicator={true}
                             contentContainerStyle={{ paddingBottom: 80 }}
                             data={orden.items}
@@ -242,7 +244,7 @@ const OrderDetails = ({route, navigation }) => {
                             keyExtractor={(item) => item.id}
                             ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
                         />
-                    {/* </View> */}
+                    </View>
 
 
                     <View style={{ top:15, marginLeft: 10 }}>
