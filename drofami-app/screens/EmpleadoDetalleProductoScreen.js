@@ -199,8 +199,8 @@ export default EmpleadoDetalleProductoScreen;
 const style = StyleSheet.create({
     header: {
         paddingHorizontal: 20,
-        marginTop: 40,
-        // flexDirection: 'row',
+        marginTop: 5,
+        flexDirection: 'row',
         justifyContent: 'space-between',
     },
     imageContainer: {
@@ -213,7 +213,7 @@ const style = StyleSheet.create({
         flex: 0.55,
         backgroundColor: Colors.light,
         marginHorizontal: 7,
-        marginBottom: 7,
+        marginBottom: -42,
         borderRadius: 20,
         marginTop: 30,
         paddingTop: 200,
