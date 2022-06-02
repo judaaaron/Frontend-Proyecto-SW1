@@ -200,7 +200,7 @@ const style = StyleSheet.create({
     header: {
         paddingHorizontal: 20,
         marginTop: 40,
-        flexDirection: 'row',
+        // flexDirection: 'row',
         justifyContent: 'space-between',
     },
     imageContainer: {

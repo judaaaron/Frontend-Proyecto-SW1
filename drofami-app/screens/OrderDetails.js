@@ -219,12 +219,7 @@ const OrderDetails = ({route, navigation }) => {
                             navigation.reset({
                                 index: 0,
                                 routes: [{ name: 'Home' }],
-                              }, showMessage({
-                                    // responseLog['message']
-                                    message: "Gracias por preferirnos.",
-                                    description: "Drofami.",
-                                    type: "success",
-                                  }));
+                              });
                         }}
                     >
                         <ButtonTextCart2>Continuar</ButtonTextCart2>

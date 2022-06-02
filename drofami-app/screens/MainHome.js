@@ -45,29 +45,6 @@ export default function MainHome({ navigation }) {
       </ScrollView>
     </View>
 
-
-
-
-
-
-
-    // <ScrollView>
-    // <StyledContainer style={{ top: 23 }}>
-    //   <PageLogOferta
-    //     source={require("../assets/drofamilogo1.jpg")}
-    //     resizeMode="cover"
-    //   />
-    //   <PageTitle>Productos en Oferta</PageTitle>
-
-    //   <InnerContainer>
-    //     <Subtitle style={{ top: 5, fontSize: 30 }}>Ancalmo</Subtitle>
-
-    //     <SafeAreaView style={styles.container}>
-    //       <CarouselCards />
-    //     </SafeAreaView>
-    //   </InnerContainer>
-    // </StyledContainer>
-
   );
 }
 
