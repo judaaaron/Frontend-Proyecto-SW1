@@ -74,7 +74,7 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
                 <View
                     style={{
 
-                        marginTop: 100,
+                        marginTop: 75,
                         flexDirection: "row",
                         justifyContent: 'center',
                         alignItems: "center",
