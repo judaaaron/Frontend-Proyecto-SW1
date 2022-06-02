@@ -47,8 +47,9 @@ const HistorialOrden = ({ navigation }) => {
     }, [specificResponse]);
 
 
-    function ordenarPorCodigo(array) {
-        const temp = array.sort((a,b)=> parseInt(a.id)-parseInt(b.id))
+    function ordenarPorFecha(array) {
+        const temp = array.sort((a, b) => new Date(a.fechas).getTime() > new Date(b.fechas).getTime())
+        //const
         return temp;
     }
 
@@ -190,12 +191,12 @@ const HistorialOrden = ({ navigation }) => {
             
             <View style={{ marginTop: 35, alignContent: 'center', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', fontSize: 18, color: Colors.blue }}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold', color: Colors.black }}>Historial de tus ordenes</Text>
-                <Icon name="arrow-back" size={28} style={{marginRight:300, top:-25}} onPress={() => navigation.goBack()} />
+                <Icon name="arrow-back" size={30} style={{marginRight:350, top:-25}} onPress={() => navigation.goBack()} />
             </View>
             <FlatList
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 80 }}
-                data={ordenes ? ordenarPorCodigo(ordenes) : []}
+                data={ordenes ? ordenarPorFecha(ordenes) : []}
                 renderItem={({ item }) => (
                     <List
                         id={item.id}
