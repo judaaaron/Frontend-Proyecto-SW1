@@ -289,7 +289,6 @@ function SettingsHome({ navigation }) {
             >
               <RightIcon2
                 onPress={() => {
-                  console.log("2", token);
                   getSupportUrl(setLoading, token, setUrl);
                 }}
               >

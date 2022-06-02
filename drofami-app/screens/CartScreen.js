@@ -37,7 +37,6 @@ const CartScreen = ({ navigation }) => {
   const [loading, setLoading] = useState({value: true});
   const [productResponse, setProductResponse] = useState(null);
   const [productResponseDel, setProductResponseDel] = useState(null);
-  console.log("DATA USE carrito ", useSelector((state) => state.cart.value));
   const dispatch = useDispatch();
   const [clearResponse, setClearResponse] = useState(null);
   const [centavo, setCentavo] = useState(false);
@@ -146,7 +145,6 @@ const CartScreen = ({ navigation }) => {
     if (!orderResponse) {
       return;
     }
-    console.log(orderResponse)
     setDataCart([]);
     showMessage({
       message: "Orden.",
@@ -167,7 +165,6 @@ const CartScreen = ({ navigation }) => {
     if (!clearResponse) {
       return;
     }
-    console.log(clearResponse);
     if (!clearResponse['status']) {
       showMessage({
         message: "Error vaciando carrito.",
@@ -195,7 +192,6 @@ const CartScreen = ({ navigation }) => {
         cant = element.cantidad + 1;
       }
     });
-    console.log('subiendo...')
     saveCart(token, id, cant, setProductResponse);
   };
 

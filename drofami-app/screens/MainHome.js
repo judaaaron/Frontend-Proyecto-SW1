@@ -1,20 +1,14 @@
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, Image } from 'react-native';
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { StyleSheet, ScrollView, View, Image } from 'react-native';
 import {
   StyledContainer,
-  InnerContainer,
   PageLogOferta,
-  Subtitle,
   Colors,
-  NotificationText,
-  CounterHome,
   PageTitle
 } from "../components/styles";
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
 
-import { StatusBar } from "expo-status-bar";
 
 export default function MainHome({ navigation }) {
 

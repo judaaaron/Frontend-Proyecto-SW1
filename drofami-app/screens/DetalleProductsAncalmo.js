@@ -62,7 +62,6 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     if (!productResponse || !productResponse['status']) {
       return;
     }
-    console.log(productResponse)
     switch (productResponse["status"]) {
       case "success":
         showMessage({
@@ -81,9 +80,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
     if (!isInCart) {
       setIsInCart(true);
     }
-    console.log(productResponse)
     if (productResponse['data']['cantidad'] == 0) {
-      console.log('pupu', productResponse)
       setCounter(1);
       setIsInCart(false);
     }
@@ -348,7 +345,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
-    marginLeft: -20,
+    marginLeft: 5,
   },
   priceTag: {
     backgroundColor: Colors.blue,

@@ -37,7 +37,6 @@ const Tab = createBottomTabNavigator();
 const HomeTabs = () => {
     // const [notifications, setNotifications] = useState("3");
     const [notifications, setNotifications] = useState([]);
-    console.log("DATA USE root ", useSelector((state) => state.cart.value));
     return (
         <Tab.Navigator
             tabBarOptions={{

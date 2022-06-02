@@ -4,7 +4,6 @@ export async function getSupportUrl(setLoading, token, setResponse) {
     setLoading(true);
     const resp = {};
     let response = {}
-    console.log('75', token)
     try {
         response = await fetch(API_URL, {
                 method: 'GET',
@@ -16,7 +15,6 @@ export async function getSupportUrl(setLoading, token, setResponse) {
             }).then((response) => response.json())
             .then(data => {
                 resp['data'] = data;
-                console.log(data)
                 setResponse(data)
             })
     } catch (e) {

@@ -1,72 +1,23 @@
 import React from 'react'
-import { useState } from "react";
-import { getCart, saveCart, clearCarrito, deleteProduct } from '../src/CartMethods'
 import {
     StyleSheet,
     View,
     Text,
-    Image,
-    TouchableOpacity,
-    Alert,
-    ScrollView
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import {
     Colors,
     StyledButtonCart2,
     ButtonTextCart2,
-    StyledButtonCart,
-    ButtonTextCart,
     PageLogOferta,
-    PageTitle,
     StyledContainer,
 } from "../components/styles";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { showMessage } from 'react-native-flash-message';
-import { useIsFocused } from "@react-navigation/native";
-import { useSelector } from "react-redux";//esta
-import { useDispatch } from "react-redux";
-import { cartItems } from "../src/reducers/cartItems";
-import { FAB } from 'react-native-paper';
 
-const DATA = [
-    {
-        id: 1,
-        nombre: 'Zorritone',
-        cantidad: 25,
-        precio: 250.50
-    },
-    {
-        id: 2,
-        nombre: 'Calamina',
-        cantidad: 20,
-        precio: 350.50
-    },
-    {
-        id: 3,
-        nombre: 'Bacaoliver',
-        cantidad: 10,
-        precio: 720.99
-    },
-    {
-        id: 4,
-        nombre: 'Enteroguanil Adulto',
-        cantidad: 10,
-        precio: 720.99
-    },
-    {
-        id: 5,
-        nombre: 'Enteroguanil Kids',
-        cantidad: 10,
-        precio: 720.99
-    },
-];
 
 const OrderDetails = ({route, navigation }) => {
     const current = new Date();
     const orden = route.params;
-    console.log('caquita', orden);
-    console.log('pupu', orden.items)
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds() < 10 ? current.getSeconds() + .0 : current.getSeconds()}`;
     const List = ({ id, nombre, cantidad, precio }) => {
         return (

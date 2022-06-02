@@ -1,52 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import {
-    StyleSheet,
     View,
     Text,
     Image,
-    TouchableOpacity,
-    Alert
+    TouchableOpacity
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import {
-    Colors,
-    StyledButtonCart2,
-    ButtonTextCart2,
-    StyledButtonCart,
-    ButtonTextCart,
-    PageLogOferta,
+    Colors
 } from "../components/styles";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { showMessage } from 'react-native-flash-message';
-import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";//esta
-import { useDispatch } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { cartItems } from "../src/reducers/cartItems";
-import { FAB } from 'react-native-paper';
 import { getOrdenes, getOrdenDetalle } from "../src/OrderMethods";
 
-const DATA = [
-    {
-        id: 1,
-        codigo: 'bd7acbea-c1b1',
-        fecha: '14/05/2022',
-        total: 1205.50
-    },
-    {
-        id: 2,
-        codigo: 'bd7acbea-c1b2',
-        fecha: '31/12/2022',
-        total: 550.00
-    },
-    {
-        id: 3,
-        codigo: 'bd7acbea-c1b2',
-        fecha: '25/10/2022',
-        total: 785.75
-    },
-];
 
 const HistorialOrden = ({ navigation }) => {
     //const token = useRef(useSelector((state) => state.token.value));
@@ -72,7 +39,6 @@ const HistorialOrden = ({ navigation }) => {
         if(!specificResponse) {
             return;
         }
-        console.log(specificResponse)
         navigation.reset({
             index: 0,
             routes: [{ name: 'OrderDetails' , params: specificResponse['data']}]
@@ -232,7 +198,6 @@ const HistorialOrden = ({ navigation }) => {
                 data={ordenes ? ordenarPorCodigo(ordenes) : []}
                 renderItem={({ item }) => (
                     <List
-                        key={item.id + '_Orden'}
                         id={item.id}
                         codigo={item.id}
                         fecha={item.fecha}
@@ -248,63 +213,6 @@ const HistorialOrden = ({ navigation }) => {
 };
 
 
-const style = StyleSheet.create({
-    header: {
-        paddingVertical: 20,
-        flexDirection: "row",
-        alignItems: "center",
-        marginHorizontal: 20,
-    },
-    cartCard: {
-        height: 100,
-        elevation: 15,
-        borderRadius: 10,
-        backgroundColor: Colors.lightblue,
-        marginVertical: 10,
-        marginHorizontal: 20,
-        paddingHorizontal: 10,
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    actionBtn: {
-        width: 80,
-        height: 30,
-        backgroundColor: Colors.white,
-        borderRadius: 30,
-        paddingHorizontal: 5,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignContent: "center",
-    },
-    buyBtn: {
-        width: 220,
-        height: 50,
-        top: -72,
-        backgroundColor: Colors.blue,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 30,
-        // marginLeft: 130,
-    },
-    fab: {
-        position: 'absolute',
-        margin: 16,
-        // right: 0,
-        marginTop: 400,
-        color: Colors.blue,
-    },
-});
 
-const styleSheet = StyleSheet.create({
-    MainContainer: {
-        flex: 1,
-    },
 
-    itemText: {
-        fontSize: 26,
-        color: 'black',
-        textTransform: 'capitalize'
-    }
-
-});
 export default HistorialOrden

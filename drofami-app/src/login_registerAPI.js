@@ -73,7 +73,6 @@ export async function modification(username, phoneNumber,
     first_name, last_name, address, setLoading, setResponse, token) {
     let response = {};
     setLoading(true);
-    console.log('tk', token)
     try {
         response = await fetch(API_URL + 'auth/modify/', {
                 method: 'PUT',
