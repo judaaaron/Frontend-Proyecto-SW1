@@ -14,7 +14,7 @@ const CarouselCards2 = () => {
   return (
     <View>
       <Carousel
-        layout="stack"
+        // layout="stack"
         layoutCardOffset={19}
         ref={isCarousel}
         data={data}
@@ -23,6 +23,8 @@ const CarouselCards2 = () => {
         itemWidth={ITEM_WIDTH}
         onSnapToItem={(index) => setIndex(index)}
         useScrollView={true}
+        autoplay={true}
+        loop={true}
       />
       <Pagination
         dotsLength={data.length}
@@ -38,6 +40,8 @@ const CarouselCards2 = () => {
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}
         tappableDots={true}
+        autoplay={true}
+        loop={true}
       />
     </View>
 

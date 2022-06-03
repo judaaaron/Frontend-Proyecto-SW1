@@ -1,5 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native"
+import {
+  StyledContainer,
+  PageLogOferta,
+  Colors,
+  PageTitle
+} from "../components/styles";
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 80
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
@@ -13,6 +19,24 @@ const CarouselCardItem = ({ item, index }) => {
       />
       <Text style={styles.header}>{item.title}</Text>
       <Text style={styles.body}>{item.body}</Text>
+
+      <View
+              style={{
+                height: 25,
+                width: 25,
+                backgroundColor: Colors.secondary,
+                borderRadius: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop:5,
+                marginLeft:250
+            
+              }}>
+              <Text
+                style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color:Colors.blue}} >
+                +
+              </Text>
+            </View>
     </View>
   )
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, ScrollView, View, Image } from 'react-native';
+import { StyleSheet, ScrollView, View, Image, Text, TouchableWithoutFeedback, Pressable } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   StyledContainer,
   PageLogOferta,
@@ -8,6 +9,7 @@ import {
 } from "../components/styles";
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
+import { data } from './OfertasAncalmo'
 
 
 export default function MainHome({ navigation }) {
@@ -20,27 +22,29 @@ export default function MainHome({ navigation }) {
         source={require("../assets/drofamilogo1.jpg")}
         resizeMode="cover"
       />
-      <PageTitle style={{marginRight:-180, marginTop:-20, fontWeight: 'bold'}}>Ofertas</PageTitle>
+      <Text style={{ marginLeft: 20, marginTop: 30, top: -20, fontWeight: 'bold', color: Colors.blue, fontSize: 20 }}>Productos recomendados para tí</Text>
       <ScrollView
-      // scrollIndicatorInsets={false}
-      showsVerticalScrollIndicator={false}
+        // scrollIndicatorInsets={false}
+        showsVerticalScrollIndicator={false}
       >
         <Image source={require("./../assets/logoAncalmo.png")}
-        style={{ width: 100, height: 100, top: 3, backgroundColor: Colors.primary, marginLeft:125 }}
+          style={{ width: 100, height: 100, top: 3, backgroundColor: Colors.primary, marginLeft: 125 }}
         />
-        <StyledContainer style={{marginTop:10}}>
-          <View style={styles.viiew}>
+        <StyledContainer style={{ marginTop: 10 }}>
+          <TouchableOpacity onPress={() => console.log('producto')} style={styles.viiew}>
+
             <CarouselCards />
-          </View>
+
+          </TouchableOpacity>
         </StyledContainer>
 
         <Image source={require("./../assets/hesselLogo1.png")}
-        style={{ width: 100, height: 100, top: 3, backgroundColor: Colors.primary, marginLeft:125, marginTop:-60 }}
+          style={{ width: 100, height: 100, top: 3, backgroundColor: Colors.primary, marginLeft: 125, marginTop: -60 }}
         />
-        <StyledContainer style={{marginTop:-10}}>
-          <View style={styles.viiew}>
+        <StyledContainer style={{ marginTop: -2 }}>
+          <TouchableOpacity style={styles.viiew}>
             <CarouselCards2 />
-          </View>
+          </TouchableOpacity>
         </StyledContainer>
       </ScrollView>
     </View>
@@ -63,5 +67,7 @@ const styles = StyleSheet.create({
   viiew: {
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: Colors.blue
+
   }
 });
