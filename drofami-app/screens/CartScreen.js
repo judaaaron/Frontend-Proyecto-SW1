@@ -24,9 +24,10 @@ import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";//esta
 import { useDispatch } from "react-redux";
 import { cartItems } from "../src/reducers/cartItems";
-import {nuevaOrden} from "../src/OrderMethods"
+import { nuevaOrden } from "../src/OrderMethods"
 import { FAB } from 'react-native-paper';
 import Spinner from "../components/Spinner";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const CartScreen = ({ navigation }) => {
   const [total, setTotal] = useState(null);
@@ -34,17 +35,17 @@ const CartScreen = ({ navigation }) => {
   const [dataCart, setDataCart] = useState([]);
   const [token, setToken] = useState(useSelector((state) => state.token.value)); //se agrega
   // const [cantItems, setCantIntems] = useState(useSelector((state) => state.cart.value)); //se agrega
-  const [loading, setLoading] = useState({value: true});
+  const [loading, setLoading] = useState({ value: true });
   const [productResponse, setProductResponse] = useState(null);
   const [productResponseDel, setProductResponseDel] = useState(null);
   const dispatch = useDispatch();
   const [clearResponse, setClearResponse] = useState(null);
   const [centavo, setCentavo] = useState(false);
   const [orderResponse, setOrderResponse] = useState(null);
-  
+
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
-      setLoading({value: true});
+      setLoading({ value: true });
     });
 
     return unsubscribe;
@@ -138,8 +139,8 @@ const CartScreen = ({ navigation }) => {
   }, [total])
 
   React.useEffect(() => {
-    setLoading({value: true});
-  },[])
+    setLoading({ value: true });
+  }, [])
 
   React.useEffect(() => {
     if (!orderResponse) {
@@ -148,16 +149,16 @@ const CartScreen = ({ navigation }) => {
     setDataCart([]);
     showMessage({
       message: "Orden.",
-      description: orderResponse['status'] == 'success' ? "Orden ha sido procesada" : 
-      "Ocurrió un error inesperado. Por favor vuelva a intentar.",
+      description: orderResponse['status'] == 'success' ? "Orden ha sido procesada" :
+        "Ocurrió un error inesperado. Por favor vuelva a intentar.",
       type: orderResponse['status'],
-    }); 
+    });
     if (!orderResponse['data']) {
       return;
     }
     navigation.reset({
       index: 0,
-      routes: [{ name: 'OrderDetails' , params: orderResponse['data']}]
+      routes: [{ name: 'OrderDetails', params: orderResponse['data'] }]
     });
   }, [loading])
 
@@ -272,7 +273,7 @@ const CartScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         // key={id}
-        onPress={() =>{
+        onPress={() => {
           navigation.navigate("DetalleProductsAncalmo", {
             id: id,
             cantidad: count,
@@ -285,21 +286,25 @@ const CartScreen = ({ navigation }) => {
             formula: formula,
             color: color
           })
-          }
+        }
         }
         // aqui debe de llamarse detalle de producto
         style={{
-          width: "100%",
-          height: 100,
-          marginVertical: 7,
+          width: "98%",
+          height: 180,
+          marginVertical: 3,
           flexDirection: "row",
           alignItems: "center",
-          marginLeft: 10,
+          marginLeft: 3.5,
+          backgroundColor: Colors.gray,
+          borderRadius: 10,
+          // marginTop:-20
+
         }}
       >
         <View
           style={{
-            width: "30%",
+            width: "26%",
             height: 100,
             padding: 14,
             justifyContent: "center",
@@ -307,14 +312,17 @@ const CartScreen = ({ navigation }) => {
             backgroundColor: Colors.morado,
             borderRadius: 10,
             marginRight: 30,
+            marginTop: -65,
+
           }}
         >
           <Image
             source={{ uri: productImage }}
             style={{
-              width: "100%",
-              height: "100%",
+              width: "120%",
+              height: "120%",
               resizeMode: "contain",
+
             }}
           />
         </View>
@@ -328,10 +336,11 @@ const CartScreen = ({ navigation }) => {
           <View style={{}}>
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 15,
                 maxWidth: "100%",
                 color: Colors.black,
                 fontWeight: "bold",
+                top:-22
                 // letterSpacing: 1,
               }}
             >
@@ -349,25 +358,44 @@ const CartScreen = ({ navigation }) => {
             >
               <Text
                 style={{
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  maxWidth: "85%",
+                  marginLeft: 1.5,
+                  top:-22
+                }}
+              >
+
+                Precio: L. {precio}
+                {/* Ancalmo */}
+              </Text>
+             
+            </View>
+
+            {/* <View
+              style={{
+                marginTop: -20,
+                flexDirection: "row",
+                alignItems: "center",
+                opacity: 0.6,
+                // marginRight:15
+              }}
+            >
+              <Text
+                style={{
                   fontSize: 14,
                   fontWeight: "bold",
                   maxWidth: "85%",
-                  marginRight: 4,
+                  marginLeft:75,
+                  top:-22
                 }}
               >
-                {/* 
-                (()=>({
-                {
-                   getPrecio(precio)
-                } */}
-                L. {precio}
-                {/* Ancalmo */}
+
+                  Fabricante: {fabricante}
+               
               </Text>
-              <Text>
-                {/* (~&#8377;
-                {data.productPrice + data.productPrice / 20}) */}
-              </Text>
-            </View>
+             
+            </View> */}
           </View>
           <View
             style={{
@@ -390,11 +418,12 @@ const CartScreen = ({ navigation }) => {
                   borderWidth: 0.5,
                   borderColor: Colors.white,
                   backgroundColor: Colors.darkBlue,
+                  marginTop: -130
                   // opacity: 0.5,
                 }}
               >
                 <TouchableOpacity onPress={() => decreaseQuantity(id)}>
-                {/*<TouchableOpacity 
+                  {/*<TouchableOpacity 
                 activeOpacity={count > 1 ? 1 : 0.7}
               onPress={decreaseQuantity(id)}*/}
                   <MaterialCommunityIcons
@@ -406,7 +435,7 @@ const CartScreen = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               </View>
-              <Text>{count}</Text>
+              <Text style={{ top: -65, fontSize:16 }}>{count}</Text>
               <View
                 style={{
                   borderRadius: 100,
@@ -417,6 +446,7 @@ const CartScreen = ({ navigation }) => {
                   //   color: Colors.white,
                   backgroundColor: Colors.darkBlue,
                   // opacity: 0.5,
+                  marginTop: -130
                 }}
               >
                 <TouchableOpacity onPress={() => increaseQuantity(id)}>
@@ -430,6 +460,18 @@ const CartScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
+            <View>
+            <Icon
+                name="check"
+                size={20}
+                color={Colors.green}
+                style={{right:55, top:-17}}
+            
+              />
+              <Text style={{ marginTop: -35, marginLeft: -275, color: Colors.blue }}>
+                Este producto está en descuento
+              </Text>
+            </View>
             <TouchableOpacity onPress={() => deleteSelectedElement(id)}>
               <MaterialCommunityIcons
                 name="delete-outline"
@@ -439,7 +481,8 @@ const CartScreen = ({ navigation }) => {
                   backgroundColor: Colors.white,
                   padding: 8,
                   borderRadius: 100,
-                  marginRight: 25,
+                  marginRight: 5,
+                  marginTop: -85
                 }}
               />
             </TouchableOpacity>
@@ -606,17 +649,17 @@ const CartScreen = ({ navigation }) => {
                   [
                     {
                       text: "Generar orden",
-                      style:"ok",
+                      style: "ok",
                       onPress: () => {
                         nuevaOrden(setLoading, token, setOrderResponse);
                       }
-                      
+
                     },
                     {
                       text: "Regresar",
                       style: "cancel",
-                      onPress: () => {}
-                     ,
+                      onPress: () => { }
+                      ,
                     },
                   ]
                 );
@@ -766,13 +809,13 @@ const CartScreen = ({ navigation }) => {
           big
           icon="plus"
           style={style.fab}
-          onPress={()=>{
+          onPress={() => {
             navigation.navigate('Ancalmo')
           }}
         />
 
         <View marginTop={-177}
-        marginLeft={80}
+          marginLeft={80}
         >
           <Text style={{ fontWeight: 'bold', top: 215, color: Colors.blue }}>
             Agrega productos nuevos
@@ -780,10 +823,10 @@ const CartScreen = ({ navigation }) => {
         </View>
       </View>}
 
-      {loading.value && 
-      (loading.message ? 
-        <Spinner text={loading.message}/> : 
-        <Spinner text={"Cargando..."} color={'blue'}/>)}
+      {loading.value &&
+        (loading.message ?
+          <Spinner text={loading.message} /> :
+          <Spinner text={"Cargando..."} color={'blue'} />)}
     </>
   );
 };;
