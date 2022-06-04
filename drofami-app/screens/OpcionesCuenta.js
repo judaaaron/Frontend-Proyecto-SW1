@@ -99,12 +99,12 @@ export default function OpcionesCuenta({ navigation }) {
     <>
       <View flex={1} backgroundColor={Colors.primary}>
         {/* <StyledContainer marginTop={-14}> */}
-<View style={{ paddingTop: 8, backgroundColor: "white" }} top={7}>
+{/* <View style={{ paddingTop: 8, backgroundColor: "white" }} top={7}>
       <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
-      </View>
+      </View> */}
         <View backgroundColor={Colors.primary} style={{ top: 40 }}>
-          <View style={{ alignItems: "center", fontSize: 20 }}>
-          
+          <View style={{ alignItems: "flex-start", fontSize: 20 }}>
+            <Icon name="arrow-back" size={30} onPress={() => navigation.goBack()} />
           </View>
 
           {/* <ExtraView marginRight={260}> */}
