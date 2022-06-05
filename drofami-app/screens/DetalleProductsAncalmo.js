@@ -130,7 +130,6 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
         }}>
         <View style={style.header}>
           <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
-          {/* <Icon name="shopping-cart" size={28} /> */}
           {
             notifications.length > 0 &&
             <Counter>
@@ -178,28 +177,17 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
           </View>
 
           {precio != '' && <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
-            {/* <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Descripción</Text> */}
 
 
             <View
               style={{
                 marginTop: 10,
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginBottom: 15,
-                marginLeft: isInCart ? 50:-15
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: 15
               }}>
 
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  
-
-                }}>
-
-                <View >
-                
                   <NumericInput
                     
                     totalWidth={isInCart ? (220) : (150)}
@@ -235,44 +223,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                       
                     }}
                   />
-                  {/* <Text style={style.borderBtnText} onPress={handleSubstract}>-</Text> */}
-                  {/* <FAB
-                    theme={{ colors: { accent: Colors.blue } }}
-                    big
-                    icon="minus"
-                    onPress={handleSubstract}
-                  /> */}
-                </View>
-               
-                  
-                
-                <View >
-                  {/* <Text style={style.borderBtnText} onPress={handleAdd}>+</Text> */}
-                  {/* <FAB
-                    // style={style.borderBtnText}
-                    theme={{ colors: { accent: Colors.blue } }}
-                    big
-                    icon="plus"
-                    onPress={handleAdd}
-                  /> */}
-                </View>
-
-              </View>
-              <View >
-                {/* <Text
-                style={{ color: Colors.primary, fontSize: 18, fontWeight: 'bold' }}
-                onPress={() => setNotifications((prev) => [...prev, 1])}>
-               
-              </Text> */}
-
-                {/* <Button
-              style={style.buyBtn} top={3}
-               title=" Añadir al carrito"
-               
-            /> */}
-
-
-                {!isInCart && <StyledButton
+                  {!isInCart && <StyledButton
                   style={style.buyBtn}
                   onPress={() => {
 
@@ -282,8 +233,8 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                     Añadir al carrito
                   </ButtonText>
                 </StyledButton>}
-
-              </View>
+                  
+             
             </View>
           </View>}
         </View>
