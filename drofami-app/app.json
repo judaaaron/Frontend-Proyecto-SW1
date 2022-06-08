@@ -7,7 +7,7 @@
         "icon": "assets/IconoDrofami.png",
         "splash": {
             "image": "assets/DrofamiLogo2.png",
-            "resizeMode": "contain",
+            "resizeMode": "contain" ,
             "backgroundColor": "#072989"
         },
         "updates": {

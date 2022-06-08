@@ -183,8 +183,8 @@ export default function OpcionesCuenta({ navigation }) {
           >
             <RightIcon2
               onPress={() => {
-                navigation.navigate("ChangeEmailScreen", { token: token }),
-                  console.log(token);
+                navigation.navigate("ChangeEmailScreen", { token: token })
+                  // console.log(token);
               }}
             >
               <Icon name="edit" size={20} color={Colors.blue} />
