@@ -139,6 +139,7 @@ const Login = ({ navigation }) => {
 
     return (
         <>
+        <View backgroundColor={Colors.primary} flex={1}>
             <Keyboard2>
                 <View style={estilos.view2} top={-50}>
                     <StyledContainer>
@@ -228,6 +229,7 @@ const Login = ({ navigation }) => {
                     </StyledContainer>
                 </View>
             </Keyboard2>
+            </View>
             {isLoading && <Spinner text='Cargando...'/> }
         </>
 

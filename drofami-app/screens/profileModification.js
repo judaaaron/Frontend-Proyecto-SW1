@@ -89,6 +89,7 @@ const Signup = ({ route, navigation }) => {
 
     return (
       <>
+      <View backgroundColor={Colors.primary} flex={1}>
         <Keyboard2>
           <StyledContainer marginTop={-20} top={25}>
             <StatusBar style="dark" />
@@ -236,6 +237,7 @@ const Signup = ({ route, navigation }) => {
             </InnerContainer>
           </StyledContainer>
         </Keyboard2>
+        </View>
         {isLoading && (
           <View style={[StyleSheet.absoluteFillObject, styles.spinnercontent]}>
             {/* <AnimatedLottieView source={require('../assets/loader.json')} autoPlay />  */}

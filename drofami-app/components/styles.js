@@ -232,9 +232,7 @@ export const StyledButtonCart = styled.TouchableOpacity`
   border-radius: 35px;
   height: 35px;
   font-weight: bold;
-  marginLeft: 193px;
   width: 170px;
-  marginTop: -45px;
   
 `;
 
@@ -247,10 +245,22 @@ export const StyledButtonCart2 = styled.TouchableOpacity`
   border-radius: 30px;
   height: 34px;
   font-weight: bold;
-  marginLeft: 210px;
   width: 140px;
-  marginTop: -45px;
-  top:-3px;
+`;
+
+export const emergency = styled.TouchableOpacity`
+  borderwidth: 0.4px;
+  bordercolor: ${green};
+  background-color: ${blue};
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  height: 34px;
+  font-weight: bold;
+  marginleft: 210px;
+  width: 140px;
+  margintop: -45px;
+  top: -3px;
 `;
 
 

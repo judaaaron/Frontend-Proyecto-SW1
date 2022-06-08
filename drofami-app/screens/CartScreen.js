@@ -284,14 +284,13 @@ const CartScreen = ({ navigation }) => {
             indicaciones: indicaciones,
             dosis: dosis,
             formula: formula,
-            color: color
-          })
-        }
-        }
+            color: color,
+          });
+        }}
         // aqui debe de llamarse detalle de producto
         style={{
           width: "98%",
-          height: 180,
+          height: 150,
           marginVertical: 3,
           flexDirection: "row",
           alignItems: "center",
@@ -299,33 +298,40 @@ const CartScreen = ({ navigation }) => {
           backgroundColor: Colors.gray,
           borderRadius: 10,
           // marginTop:-20
-
         }}
       >
         <View
           style={{
             width: "26%",
-            height: 100,
-            padding: 14,
-            justifyContent: "center",
+            height: 150,
+            marginTop: 20,
+            justifyContent: "flex-start",
             alignItems: "center",
-            backgroundColor: Colors.morado,
-            borderRadius: 10,
             marginRight: 30,
-            marginTop: -65,
-
           }}
         >
-          <Image
-            source={{ uri: productImage }}
+          <View
             style={{
-              width: "120%",
-              height: "120%",
-              resizeMode: "contain",
-
+              width: "100%",
+              height: 100,
+              padding: 14,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: Colors.morado,
+              borderRadius: 10,
             }}
-          />
+          >
+            <Image
+              source={{ uri: productImage }}
+              style={{
+                width: "120%",
+                height: "120%",
+                resizeMode: "contain",
+              }}
+            />
+          </View>
         </View>
+
         <View
           style={{
             flex: 1,
@@ -340,7 +346,7 @@ const CartScreen = ({ navigation }) => {
                 maxWidth: "100%",
                 color: Colors.black,
                 fontWeight: "bold",
-                top:-22
+                // top: -22,
                 // letterSpacing: 1,
               }}
             >
@@ -362,40 +368,13 @@ const CartScreen = ({ navigation }) => {
                   fontWeight: "bold",
                   maxWidth: "85%",
                   marginLeft: 1.5,
-                  top:-22
+                  // top: -22,
                 }}
               >
-
                 Precio: L. {precio}
                 {/* Ancalmo */}
               </Text>
-             
             </View>
-
-            {/* <View
-              style={{
-                marginTop: -20,
-                flexDirection: "row",
-                alignItems: "center",
-                opacity: 0.6,
-                // marginRight:15
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "bold",
-                  maxWidth: "85%",
-                  marginLeft:75,
-                  top:-22
-                }}
-              >
-
-                  Fabricante: {fabricante}
-               
-              </Text>
-             
-            </View> */}
           </View>
           <View
             style={{
@@ -418,14 +397,9 @@ const CartScreen = ({ navigation }) => {
                   borderWidth: 0.5,
                   borderColor: Colors.white,
                   backgroundColor: Colors.darkBlue,
-                  marginTop: -130
-                  // opacity: 0.5,
                 }}
               >
                 <TouchableOpacity onPress={() => decreaseQuantity(id)}>
-                  {/*<TouchableOpacity 
-                activeOpacity={count > 1 ? 1 : 0.7}
-              onPress={decreaseQuantity(id)}*/}
                   <MaterialCommunityIcons
                     name="minus"
                     style={{
@@ -435,7 +409,7 @@ const CartScreen = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               </View>
-              <Text style={{ top: -65, fontSize:16 }}>{count}</Text>
+              <Text style={{ fontSize: 16 }}>{count}</Text>
               <View
                 style={{
                   borderRadius: 100,
@@ -443,10 +417,9 @@ const CartScreen = ({ navigation }) => {
                   padding: 6,
                   borderWidth: 0.5,
                   borderColor: Colors.white,
-                  //   color: Colors.white,
                   backgroundColor: Colors.darkBlue,
                   // opacity: 0.5,
-                  marginTop: -130
+                  // marginTop: -130,
                 }}
               >
                 <TouchableOpacity onPress={() => increaseQuantity(id)}>
@@ -460,373 +433,390 @@ const CartScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
-            <View>
-            <Icon
-                name="check"
-                size={20}
-                color={Colors.green}
-                style={{right:55, top:-17}}
-            
-              />
-              <Text style={{ marginTop: -35, marginLeft: -275, color: Colors.blue }}>
-                Este producto está en descuento
-              </Text>
-            </View>
+
             <TouchableOpacity onPress={() => deleteSelectedElement(id)}>
               <MaterialCommunityIcons
                 name="delete-outline"
                 style={{
                   fontSize: 22,
                   color: Colors.red,
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.gray,
                   padding: 8,
                   borderRadius: 100,
                   marginRight: 5,
-                  marginTop: -85
+                  justifyContent: "center",
+                  // marginTop: -85,
                 }}
               />
             </TouchableOpacity>
           </View>
+          {/* textooooooo */}
+          <View style={{ flexDirection: "row" }}>
+            <Icon name="check" size={20} color={Colors.green} />
+            <Text style={{ color: Colors.blue }}>
+              Este producto está en descuento
+            </Text>
+          </View>
+          {/* tectooooo */}
         </View>
       </TouchableOpacity>
     );
   };
   return (
     <>
-
-      {dataCart.length > 0 ? <View
-        style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: Colors.white,
-          position: "relative",
-        }}
-      >
-        {/* <ScrollView> */}
+      {dataCart.length > 0 ? (
         <View
           style={{
             width: "100%",
-            flexDirection: "row",
-            paddingTop: 15,
-            paddingBottom: 15,
-            paddingHorizontal: 16,
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: 30,
-            backgroundColor: Colors.gray,
+            height: "100%",
+            backgroundColor: Colors.white,
+            position: "relative",
           }}
         >
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-          ></TouchableOpacity>
-
-          <Text
+          {/* <ScrollView> */}
+          <View
             style={{
-              fontSize: 18,
-              color: Colors.blue,
-              fontWeight: "bold",
+              width: "100%",
+              flexDirection: "row",
+              paddingTop: 15,
+              paddingBottom: 15,
+              paddingHorizontal: 16,
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 30,
+              backgroundColor: Colors.gray,
             }}
           >
-            RESUMEN DE TU ORDEN
-          </Text>
-          <View></View>
-        </View>
-        {/* <View> */}
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+            ></TouchableOpacity>
 
-        {/* <Button
+            <Text
+              style={{
+                fontSize: 18,
+                color: Colors.blue,
+                fontWeight: "bold",
+              }}
+            >
+              RESUMEN DE TU ORDEN
+            </Text>
+            <View></View>
+          </View>
+          {/* <View> */}
+
+          {/* <Button
           style={style.buyBtn}
           title="Press me"
           onPress={() => Alert.alert("Simple Button pressed")}
         /> */}
-        <Text
-          style={{
-            fontSize: 20,
-            color: Colors.blue,
-            backgroundColor: Colors.gray,
-            fontWeight: "bold",
-            paddingTop: 10,
-            paddingBottom: 10,
-            paddingLeft: 16,
-            top: -6,
-            // marginBottom: 10,
-          }}
-        >
-          Mi Carrito
-        </Text>
 
-        <StyledButtonCart
-          // style={borderWidth= 0.3}
-          // style={style.buyBtn}
-          onPress={() => {
-            if (dataCart.length == 0) {
-              showMessage({
-                message: "No tiene productos en su carrito.",
-                // description: "Agrega productos Hessel o Ancalmo",
-                type: "danger",
-              });
-              return;
-            }
-
-            Alert.alert(
-              "Cancelando orden",
-              "¿Está seguro de cancelar su orden?",
-              [
-                { text: "Seguir en carrito", onPress: () => { } },
-                {
-                  text: "Cancelar orden",
-                  style: "cancel",
-                  onPress: () =>
-                    clearCarrito(setLoading, token, setClearResponse),
-                },
-              ]
-            );
-          }}
-        >
-          <ButtonTextCart>CANCELAR MI ORDEN</ButtonTextCart>
-        </StyledButtonCart>
-
-        {/* </View> */}
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 80 }}
-          data={dataCart ? dataCart : []}
-          renderItem={({ item }) => (
-            <CartCard
-              key={item.producto.id}
-              id={item.producto.id}
-              name={item.producto.nombre}
-              count={item.cantidad}
-              productImage={item.producto.imagen}
-              precio={item.producto.precio}
-              indicaciones={item.producto.indicaciones}
-              dosis={item.producto.dosis}
-              formula={item.producto.formula}
-              fabricante={item.producto.fabricante}
-              color={item.producto.color}
-            />
-          )}
-          keyExtractor={(item) => item.producto.id}
-          ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
-        />
-        <View
-          style={{
-            paddingHorizontal: 16,
-            paddingTop: 15,
-            paddingBottom: 15,
-            // marginTop: 20,
-            // marginBottom: 10,
-            backgroundColor: Colors.gray,
-            color: Colors.gray,
-
-            // borderWidth: 0.3,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 16,
-              color: Colors.black,
-              fontWeight: "bold",
-              letterSpacing: 0.7,
-              marginBottom: 20,
-            }}
-          >
-            Información de pedido
-          </Text>
-          <StyledButtonCart2
-            // style={borderWidth= 0.3}
-            // style={style.buyBtn}
-
-            style={{
-              backgroundColor: dataCart.length == 0 ? Colors.darkLight : Colors.blue,
-            }}
-            disabled={dataCart.length == 0 ? true : false}
-            onPress={() => {
-              if (dataCart.length != 0) {
-                //navigation.navigate("OrderDetails")//no se si esto va aqui
-                Alert.alert(
-                  "Generando orden",
-                  "¿Estás seguro de efectuar tu orden?",
-                  [
-                    {
-                      text: "Generar orden",
-                      style: "ok",
-                      onPress: () => {
-                        nuevaOrden(setLoading, token, setOrderResponse);
-                      }
-
-                    },
-                    {
-                      text: "Regresar",
-                      style: "cancel",
-                      onPress: () => { }
-                      ,
-                    },
-                  ]
-                );
-              } else {
-                showMessage({
-                  message: "No tiene productos en su carrito.",
-                  description: "Agrega productos Hessel o Ancalmo",
-                  type: "danger",
-                });
-              }
-            }}
-          >
-            <ButtonTextCart2>CONTINUAR</ButtonTextCart2>
-          </StyledButtonCart2>
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: 8,
+              paddingHorizontal: 16,
+              backgroundColor: Colors.gray,
             }}
           >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "bold",
-                maxWidth: "80%",
-                color: Colors.black,
-                opacity: 0.5,
-              }}
-            >
-              Subtotal
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                fontWeight: "bold",
-                color: Colors.black,
-                opacity: 0.8,
-              }}
-            >
-              L. {total}.00
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: 22,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "bold",
-                maxWidth: "80%",
-                color: Colors.black,
-                opacity: 0.5,
-              }}
-            >
-              ISV
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                fontWeight: "bold",
-                color: Colors.black,
-                opacity: 0.8,
-              }}
-            >
-              %{15}
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "bold",
-                maxWidth: "80%",
-                color: Colors.black,
-                opacity: 0.7,
-              }}
-            >
-              Total
-            </Text>
             <Text
               style={{
                 fontSize: 20,
+                color: Colors.blue,
+                backgroundColor: Colors.gray,
                 fontWeight: "bold",
-                color: Colors.black,
               }}
             >
-              L. {(total + total * 0.15) % 1 == 0 ? (total + total * 0.15).toFixed(2) : (total + total * 0.15)}
-
+              Mi Carrito
             </Text>
+
+            <StyledButtonCart
+              onPress={() => {
+                if (dataCart.length == 0) {
+                  showMessage({
+                    message: "No tiene productos en su carrito.",
+                    // description: "Agrega productos Hessel o Ancalmo",
+                    type: "danger",
+                  });
+                  return;
+                }
+
+                Alert.alert(
+                  "Cancelando orden",
+                  "¿Está seguro de cancelar su orden?",
+                  [
+                    { text: "Seguir en carrito", onPress: () => {} },
+                    {
+                      text: "Cancelar orden",
+                      style: "cancel",
+                      onPress: () =>
+                        clearCarrito(setLoading, token, setClearResponse),
+                    },
+                  ]
+                );
+              }}
+            >
+              <ButtonTextCart>CANCELAR MI ORDEN</ButtonTextCart>
+            </StyledButtonCart>
           </View>
-        </View>
 
-        {/* </ScrollView> */}
-      </View> : <View
-        style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: Colors.white,
-          position: "relative",
-        }}
-      >
-        {/* <ScrollView> */}
+          {/* </View> */}
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 80 }}
+            data={dataCart ? dataCart : []}
+            renderItem={({ item }) => (
+              <CartCard
+                key={item.producto.id}
+                id={item.producto.id}
+                name={item.producto.nombre}
+                count={item.cantidad}
+                productImage={item.producto.imagen}
+                precio={item.producto.precio}
+                indicaciones={item.producto.indicaciones}
+                dosis={item.producto.dosis}
+                formula={item.producto.formula}
+                fabricante={item.producto.fabricante}
+                color={item.producto.color}
+              />
+            )}
+            keyExtractor={(item) => item.producto.id}
+            ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
+          />
+          <View
+            style={{
+              paddingHorizontal: 16,
+              height: "22%",
+              backgroundColor: Colors.gray,
+              color: Colors.gray,
 
-        <View marginLeft={30}
-          top={20}
-        >
-          <Text style={{ fontWeight: 'bold', top: 200, color: Colors.blue }}>
-            Actualmente no tienes productos en carrito.
-          </Text>
+              // borderWidth: 0.3,
+            }}
+          >
+            <View
+              style={{
+                marginTop: 10,
+                marginBottom: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: "bold",
+                  letterSpacing: 0.7,
+                  // marginBottom: 20,
+                }}
+              >
+                Información de pedido
+              </Text>
+              <StyledButtonCart2
+                // style={borderWidth= 0.3}
+                // style={style.buyBtn}
+
+                style={{
+                  backgroundColor:
+                    dataCart.length == 0 ? Colors.darkLight : Colors.blue,
+                }}
+                disabled={dataCart.length == 0 ? true : false}
+                onPress={() => {
+                  if (dataCart.length != 0) {
+                    //navigation.navigate("OrderDetails")//no se si esto va aqui
+                    Alert.alert(
+                      "Generando orden",
+                      "¿Estás seguro de efectuar tu orden?",
+                      [
+                        {
+                          text: "Generar orden",
+                          style: "ok",
+                          onPress: () => {
+                            nuevaOrden(setLoading, token, setOrderResponse);
+                          },
+                        },
+                        {
+                          text: "Regresar",
+                          style: "cancel",
+                          onPress: () => {},
+                        },
+                      ]
+                    );
+                  } else {
+                    showMessage({
+                      message: "No tiene productos en su carrito.",
+                      description: "Agrega productos Hessel o Ancalmo",
+                      type: "danger",
+                    });
+                  }
+                }}
+              >
+                <ButtonTextCart2>CONTINUAR</ButtonTextCart2>
+              </StyledButtonCart2>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "nowrap",
+                // justifyContent: "space-between",
+                height: "65%",
+                alignItems: "stretch",
+              }}
+            >
+              <View
+                style={{
+                  width: "50%",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                  marginBottom: 8,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    maxWidth: "80%",
+                    color: Colors.black,
+                    opacity: 0.5,
+                  }}
+                >
+                  Subtotal
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    maxWidth: "80%",
+                    color: Colors.black,
+                    opacity: 0.5,
+                  }}
+                >
+                  ISV
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    maxWidth: "80%",
+                    color: Colors.black,
+                    opacity: 0.7,
+                  }}
+                >
+                  Total
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: "50%",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  justifyContent: "space-between",
+                  marginBottom: 8,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: Colors.black,
+                    opacity: 0.8,
+                  }}
+                >
+                  L. {total}.00
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: Colors.black,
+                    opacity: 0.8,
+                  }}
+                >
+                  %{15}
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: Colors.black,
+                  }}
+                >
+                  L.{" "}
+                  {(total + total * 0.15) % 1 == 0
+                    ? (total + total * 0.15).toFixed(2)
+                    : total + total * 0.15}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          {/* </ScrollView> */}
         </View>
+      ) : (
         <View
           style={{
             width: "100%",
-            flexDirection: "row",
-            paddingTop: 15,
-            paddingBottom: 15,
-            paddingHorizontal: 16,
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: 230,
+            height: "100%",
             backgroundColor: Colors.white,
+            position: "relative",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        ></View>
-
-
-        <PageLogOferta
-          source={require("../assets/emptycart.png")}
-          resizeMode="cover"
-        />
-
-
-        <FAB
-          theme={{ colors: { accent: Colors.blue } }}
-          big
-          icon="plus"
-          style={style.fab}
-          onPress={() => {
-            navigation.navigate('Ancalmo')
-          }}
-        />
-
-        <View marginTop={-177}
-          marginLeft={80}
         >
-          <Text style={{ fontWeight: 'bold', top: 215, color: Colors.blue }}>
-            Agrega productos nuevos
-          </Text>
+          {/* <ScrollView> */}
+
+          
+            <Text style={{ fontWeight: "bold", color: Colors.blue, marginBottom: 40 }}>
+              Actualmente no tienes productos en carrito.
+            </Text>
+          <PageLogOferta
+            source={require("../assets/emptycart.png")}
+            resizeMode="cover"
+          />
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              // paddingTop: 15,
+              // paddingBottom: 15,
+              // paddingHorizontal: 16,
+              marginTop: 20,
+              marginLeft: 20,
+              justifyContent: "flex-start",
+              alignItems: "center",
+              // marginTop: 230,
+              backgroundColor: Colors.white,
+            }}
+          >
+            <FAB
+              theme={{ colors: { accent: Colors.blue } }}
+              big
+              icon="plus"
+              style={style.fab}
+              onPress={() => {
+                navigation.navigate("Ancalmo");
+              }}
+            />
+            <Text style={{ fontWeight: "bold", color: Colors.blue, marginLeft: 10 }}>
+              Agrega productos nuevos
+            </Text>
+          </View>
         </View>
-      </View>}
+      )}
 
       {loading.value &&
-        (loading.message ?
-          <Spinner text={loading.message} /> :
-          <Spinner text={"Cargando..."} color={'blue'} />)}
+        (loading.message ? (
+          <Spinner text={loading.message} />
+        ) : (
+          <Spinner text={"Cargando..."} color={"blue"} />
+        ))}
     </>
   );
 };;
@@ -870,10 +860,10 @@ const style = StyleSheet.create({
     // marginLeft: 130,
   },
   fab: {
-    position: 'absolute',
-    margin: 16,
+    // position: 'absolute',
+    // margin: 16,
     // right: 0,
-    marginTop: 400,
+    // marginTop: 400,
     color: Colors.blue,
   },
 });
