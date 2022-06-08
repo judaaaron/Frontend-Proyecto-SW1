@@ -1,14 +1,14 @@
 {
     "expo": {
-        "name": "prueba-android",
-        "slug": "prueba-android",
+        "name": "drofami-app",
+        "slug": "drofamiApp",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/icon.png",
+        "icon": "assets/IconoDrofami.png",
         "splash": {
-            "image": "./assets/splash.png",
+            "image": "assets/DrofamiLogo2.png",
             "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+            "backgroundColor": "#072989"
         },
         "updates": {
             "fallbackToCacheTimeout": 0
