@@ -238,24 +238,7 @@ const CartScreen = ({ navigation }) => {
 
   };
 
-  // const vaciarCarrito = (id) => {
 
-  //   showMessage({
-  //     message: (
-  //       '¿Estás seguro de cancelar pedido?',
-  //       'Seleccione:',
-  //       [
-  //         { text: 'Cancel', onPress: () => { }, style: 'cancel' },
-  //         {
-  //           text: 'OK', onPress: () => {
-
-  //           }
-  //         },
-  //       ]),
-  //     description: "Su orden ha sido cancelada",
-  //     type: "danger",
-  //   });
-  // }
 
   const CartCard = ({
     id,
@@ -268,7 +251,8 @@ const CartScreen = ({ navigation }) => {
     formula,
     indicaciones,
     fabricante,
-    color
+    color,
+    oferta
   }) => {
     return (
       <TouchableOpacity
@@ -285,6 +269,7 @@ const CartScreen = ({ navigation }) => {
             dosis: dosis,
             formula: formula,
             color: color,
+            oferta: oferta,
           });
         }}
         // aqui debe de llamarse detalle de producto
@@ -451,12 +436,26 @@ const CartScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           {/* textooooooo */}
-          <View style={{ flexDirection: "row" }}>
-            <Icon name="check" size={20} color={Colors.green} />
-            <Text style={{ color: Colors.blue }}>
-              Este producto está en descuento
-            </Text>
-          </View>
+          {
+            oferta &&
+
+
+            <View style={{ flexDirection: "row" }}>
+              <Icon name="check" size={20} color={Colors.green} />
+              {oferta.canal == "FAR" ? <Text style={{ color: Colors.blue }}>
+                En oferta: {oferta.beneficio}
+
+              </Text>
+                :
+                <Text style={{ color: Colors.blue }}>
+                  Descuento: {oferta.beneficio}
+
+                </Text>
+
+              }
+            </View>
+
+          }
           {/* tectooooo */}
         </View>
       </TouchableOpacity>
@@ -545,7 +544,7 @@ const CartScreen = ({ navigation }) => {
                   "Cancelando orden",
                   "¿Está seguro de cancelar su orden?",
                   [
-                    { text: "Seguir en carrito", onPress: () => {} },
+                    { text: "Seguir en carrito", onPress: () => { } },
                     {
                       text: "Cancelar orden",
                       style: "cancel",
@@ -578,6 +577,7 @@ const CartScreen = ({ navigation }) => {
                 formula={item.producto.formula}
                 fabricante={item.producto.fabricante}
                 color={item.producto.color}
+                oferta={item.producto.oferta ? item.producto.oferta : null}
               />
             )}
             keyExtractor={(item) => item.producto.id}
@@ -639,7 +639,7 @@ const CartScreen = ({ navigation }) => {
                         {
                           text: "Regresar",
                           style: "cancel",
-                          onPress: () => {},
+                          onPress: () => { },
                         },
                       ]
                     );
@@ -772,10 +772,10 @@ const CartScreen = ({ navigation }) => {
         >
           {/* <ScrollView> */}
 
-          
-            <Text style={{ fontWeight: "bold", color: Colors.blue, marginBottom: 40 }}>
-              Actualmente no tienes productos en carrito.
-            </Text>
+
+          <Text style={{ fontWeight: "bold", color: Colors.blue, marginBottom: 40 }}>
+            Actualmente no tienes productos en carrito.
+          </Text>
           <PageLogOferta
             source={require("../assets/emptycart.png")}
             resizeMode="cover"

@@ -230,8 +230,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
 
                         
                       {dato.producto.precio != '' && <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
-                            {'L. '}{dato.producto.precio}
-
+                            {'L. '}{dato.producto.precio}.00
                         </Text>}
                         <View
                             style={{
