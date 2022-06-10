@@ -26,17 +26,9 @@ function infiniteScroll(dataList) {
   }, 3000)
 }
 
-const CarouselCards = () => {
+const CarouselCards = (props) => {
   const [index, setIndex] = React.useState(0)
   const isCarousel = React.useRef(null)
-
-  const scrollX = new Animated.Value(0)
-  let position = Animated.divide(scrollX, width)
-  const [dataList, setDataList] = useState(data)
-
-  
-
-
 
 
   return (
@@ -45,7 +37,7 @@ const CarouselCards = () => {
         // layout="stack"
         layoutCardOffset={19}
         ref={isCarousel}
-        data={data}
+        data={props.data}
         renderItem={CarouselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}

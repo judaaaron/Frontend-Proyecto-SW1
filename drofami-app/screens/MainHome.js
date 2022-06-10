@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View, Image, Text, TouchableWithoutFeedback, Pressable } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -13,16 +14,47 @@ import {
   getRecomendacion,
 } from "../src/RecomendacionMethods";
 import { data } from './OfertasAncalmo'
+import { useSelector } from "react-redux";//este se agrega
+import { useIsFocused } from "@react-navigation/native";
 
 
 export default function MainHome({ navigation }) {
+  const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [productResponse, setProductResponse] = useState();
+  const [recomendacion, setRecomendacion] = useState([]);
+
+
+const isFocused = useIsFocused();
 React.useEffect(() => {
-  if (!token) {
-    return;
-  }
-  getRecomendacion(setLoading, token, setResponse);
-  console.log("fist?");
-}, [token]);
+    if (!token) {
+        return;
+    }
+    if (isFocused) {
+        getRecomendacion(setLoading, token, setResponse);
+    }
+}, [token])
+
+// este dataRecomendaciones ya tiene los nombres de los campos que el json de recomendaciones retorna (nombre, url, precio)
+const dataRecomendaciones = [ 
+    {
+      nombre: "Aciclovirax",
+      imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
+      precio: 50.50.toFixed(2)
+
+    },
+    {
+      nombre: "Aciclovirax",
+      imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
+      precio: 50.50.toFixed(2)
+    },
+    {
+      nombre: "Aciclovirax",
+      imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
+      precio: 50.50.toFixed(2)
+    },
+  ]
   return (
 
 
@@ -42,7 +74,7 @@ React.useEffect(() => {
         <StyledContainer style={{ marginTop: 10 }}>
           <TouchableOpacity onPress={() => console.log('producto')} style={styles.viiew}>
 
-            <CarouselCards />
+            <CarouselCards data={dataRecomendaciones} />
 
           </TouchableOpacity>
         </StyledContainer>

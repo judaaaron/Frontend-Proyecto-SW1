@@ -17,8 +17,8 @@ const CarouselCardItem = ({ item, index }) => {
         source={{ uri: item.imgUrl }}
         style={styles.image}
       />
-      <Text style={styles.header}>{item.title}</Text>
-      <Text style={styles.body}>{item.body}</Text>
+      <Text style={styles.header}>{item.nombre}</Text>
+      <Text style={styles.body}>L. {item.precio} </Text>
 
       <View
               style={{
