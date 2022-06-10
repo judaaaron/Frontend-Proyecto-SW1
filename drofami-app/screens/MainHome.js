@@ -31,12 +31,10 @@ export default function MainHome({ navigation }) {
   const isFocused = useIsFocused();
   React.useEffect(() => {
     if (!token.current) {
-      // console.log("CACA")
       return;
     }
     if (isFocused) {
       getRecomendacion(setLoading, token.current, setResponse);
-      // console.log(token.current)
     }
   }, [])
 
@@ -46,8 +44,7 @@ export default function MainHome({ navigation }) {
         return;
     }
     setRecomendacionANC((response['data']['ANC']))
-    // console.log("RESPONSE")
-    //  console.log(response)
+   
 }, [response]);
 
 React.useEffect(() => {

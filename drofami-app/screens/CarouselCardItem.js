@@ -18,7 +18,7 @@ const CarouselCardItem = ({ item, index }) => {
         style={styles.image}
       />
       <Text style={styles.header}>{item.nombre}</Text>
-      <Text style={styles.body}>L. {item.precio} </Text>
+      <Text style={styles.body}>L. {item.precio}.00 </Text>
 
       <View
               style={{
@@ -42,11 +42,11 @@ const CarouselCardItem = ({ item, index }) => {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.gray,
     borderRadius: 8,
     width: ITEM_WIDTH,
     paddingBottom: 40,
-    shadowColor: "#000",
+    shadowColor: Colors.blue,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -56,8 +56,9 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   image: {
-    width: ITEM_WIDTH,
-    height: 200,
+    width: 150,
+    height: 150,
+    left:85
   },
   header: {
     color: "#222",
