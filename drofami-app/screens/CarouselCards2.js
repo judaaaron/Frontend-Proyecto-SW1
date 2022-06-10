@@ -6,7 +6,7 @@ import data from './OfertasHessel'
 
 
 
-const CarouselCards2 = () => {
+const CarouselCards2 = (props) => {
   const [index, setIndex] = React.useState(0)
   const isCarousel = React.useRef(null)
 
@@ -17,7 +17,7 @@ const CarouselCards2 = () => {
         // layout="stack"
         layoutCardOffset={19}
         ref={isCarousel}
-        data={data}
+        data={props.data}
         renderItem={CarouselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}

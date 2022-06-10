@@ -45,16 +45,17 @@ export default function MainHome({ navigation }) {
     if (!response) {
         return;
     }
-    setRecomendacionANC(...(response['data']['ANC']))
-    // console.log(response)
+    setRecomendacionANC((response['data']['ANC']))
+    // console.log("RESPONSE")
+    //  console.log(response)
 }, [response]);
 
 React.useEffect(() => {
   if (!response) {
       return;
   }
-  setRecomendacionHES(...(response['data']['HES']))
-  // console.log(response)
+  setRecomendacionHES((response['data']['HES']))
+  console.log(response)
 }, [response]);
 
 React.useEffect(() => {
@@ -71,25 +72,6 @@ React.useEffect(() => {
   console.log(recomendacionHES)
 }, [recomendacionHES]);
 
-  // este dataRecomendaciones ya tiene los nombres de los campos que el json de recomendaciones retorna (nombre, url, precio)
-  const dataRecomendaciones = [
-    {
-      nombre: "Aciclovirax",
-      imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
-      precio: 50.50.toFixed(2)
-
-    },
-    {
-      nombre: "Aciclovirax",
-      imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
-      precio: 50.50.toFixed(2)
-    },
-    {
-      nombre: "Aciclovirax",
-      imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
-      precio: 50.50.toFixed(2)
-    },
-  ]
   return (
 
 
@@ -109,7 +91,7 @@ React.useEffect(() => {
         <StyledContainer style={{ marginTop: 10 }}>
           <TouchableOpacity onPress={() => console.log('producto')} style={styles.viiew}>
 
-            <CarouselCards data={dataRecomendaciones} />
+            <CarouselCards data={recomendacionANC} />
 
           </TouchableOpacity>
         </StyledContainer>
@@ -119,7 +101,7 @@ React.useEffect(() => {
         />
         <StyledContainer style={{ marginTop: -2 }}>
           <TouchableOpacity style={styles.viiew}>
-            <CarouselCards2 />
+            <CarouselCards2  data={recomendacionHES}/>
           </TouchableOpacity>
         </StyledContainer>
       </ScrollView>
