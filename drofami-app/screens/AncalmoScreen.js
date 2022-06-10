@@ -64,6 +64,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             tempCatalog.push(element);
         })
         setCatalog(tempCatalog)
+        // console.log(catalog)
     }, [response]);
 
     React.useEffect(() => {

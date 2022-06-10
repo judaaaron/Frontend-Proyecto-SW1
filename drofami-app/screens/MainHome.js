@@ -19,25 +19,60 @@ import { useIsFocused } from "@react-navigation/native";
 
 
 export default function MainHome({ navigation }) {
-  const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
+  //const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
+  const token = React.useRef(useSelector((state) => state.token.value))
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [productResponse, setProductResponse] = useState();
-  const [recomendacion, setRecomendacion] = useState([]);
+  const [recomendacionANC, setRecomendacionANC] = useState([]);
+  const [recomendacionHES, setRecomendacionHES] = useState([]);
 
 
-const isFocused = useIsFocused();
-React.useEffect(() => {
-    if (!token) {
-        return;
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    if (!token.current) {
+      // console.log("CACA")
+      return;
     }
     if (isFocused) {
-        getRecomendacion(setLoading, token, setResponse);
+      getRecomendacion(setLoading, token.current, setResponse);
+      // console.log(token.current)
     }
-}, [token])
+  }, [])
 
-// este dataRecomendaciones ya tiene los nombres de los campos que el json de recomendaciones retorna (nombre, url, precio)
-const dataRecomendaciones = [ 
+
+  React.useEffect(() => {
+    if (!response) {
+        return;
+    }
+    setRecomendacionANC(...(response['data']['ANC']))
+    // console.log(response)
+}, [response]);
+
+React.useEffect(() => {
+  if (!response) {
+      return;
+  }
+  setRecomendacionHES(...(response['data']['HES']))
+  // console.log(response)
+}, [response]);
+
+React.useEffect(() => {
+  if (!recomendacionANC) {
+      return;
+  }
+  console.log(recomendacionANC)
+}, [recomendacionANC]);
+
+React.useEffect(() => {
+  if (!recomendacionHES) {
+      return;
+  }
+  console.log(recomendacionHES)
+}, [recomendacionHES]);
+
+  // este dataRecomendaciones ya tiene los nombres de los campos que el json de recomendaciones retorna (nombre, url, precio)
+  const dataRecomendaciones = [
     {
       nombre: "Aciclovirax",
       imgUrl: "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
