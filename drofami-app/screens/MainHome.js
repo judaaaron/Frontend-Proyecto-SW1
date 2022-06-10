@@ -9,11 +9,20 @@ import {
 } from "../components/styles";
 import CarouselCards from './CarouselCards'
 import CarouselCards2 from './CarouselCards2'
+import {
+  getRecomendacion,
+} from "../src/RecomendacionMethods";
 import { data } from './OfertasAncalmo'
 
 
 export default function MainHome({ navigation }) {
-
+React.useEffect(() => {
+  if (!token) {
+    return;
+  }
+  getRecomendacion(setLoading, token, setResponse);
+  console.log("fist?");
+}, [token]);
   return (
 
 
