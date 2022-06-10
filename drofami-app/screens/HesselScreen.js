@@ -249,7 +249,7 @@ export default function HesselScreen({ navigation }) {
                 }}
               >
                 {"L. "}
-                {dato.producto.precio}
+                {dato.producto.precio %1==0 ? dato.producto.precio.toFixed(2) : dato.producto.precio}
               </Text>
             )}
             <View

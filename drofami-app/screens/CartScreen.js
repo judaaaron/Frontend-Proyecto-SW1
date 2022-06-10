@@ -356,7 +356,7 @@ const CartScreen = ({ navigation }) => {
                   // top: -22,
                 }}
               >
-                Precio: L. {precio}
+                Precio: L. {precio %1==0 ? precio.toFixed(2): precio}
                 {/* Ancalmo */}
               </Text>
             </View>
@@ -727,7 +727,7 @@ const CartScreen = ({ navigation }) => {
                     opacity: 0.8,
                   }}
                 >
-                  L. {total}.00
+                  L. {total%1==0 ? total.toFixed(2): total}
                 </Text>
 
                 <Text

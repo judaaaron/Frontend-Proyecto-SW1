@@ -80,7 +80,7 @@ const OrderDetails = ({ route, navigation }) => {
                   }}
                 >
 
-                  Precio x Unidad: L.{precio}
+                  Precio x Unidad: L.{precio%1==0 ? precio.toFixed(2) : precio}
 
                 </Text>
 

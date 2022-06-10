@@ -168,7 +168,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
                   fontWeight: 'bold',
                   fontSize: 16,
                 }}>
-                L. {precio}
+                L. {precio %1== 0 ? precio.toFixed(2) : precio}
               </Text>
             </View>}
           </View>

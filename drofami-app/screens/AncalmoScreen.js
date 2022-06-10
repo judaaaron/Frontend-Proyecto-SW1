@@ -231,7 +231,8 @@ const AncalmoScreen = ({ navigation, dato }) => {
 
                         
                       {dato.producto.precio != '' && <Text style={{ fontSize: 19, fontWeight: 'bold', color: dato['cantidad'] == 0 ? Colors.secondary : Colors.black, }}>
-                            {'L. '}{dato.producto.precio}.00
+                            {'L. '}{dato.producto.precio %1 ==0 ? dato.producto.precio.toFixed(2): dato.producto.precio}
+                            {/* (total + total * 0.15) % 1 == 0 ? setCentavo(true) : setCentavo(false) */}
                         </Text>}
                         <View
                             style={{
