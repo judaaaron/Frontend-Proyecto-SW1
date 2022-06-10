@@ -443,7 +443,7 @@ const CartScreen = ({ navigation }) => {
             <View style={{ flexDirection: "row" }}>
               <Icon name="check" size={20} color={Colors.green} />
               {oferta.canal == "FAR" ? <Text style={{ color: Colors.blue }}>
-                En oferta: {oferta.beneficio}
+                Bono: {oferta.beneficio}
 
               </Text>
                 :
