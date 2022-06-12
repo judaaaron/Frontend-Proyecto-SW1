@@ -66,7 +66,7 @@ const CartScreen = ({ navigation }) => {
     const currentItems = dataCart;
     var totalAcum = 0;
     currentItems.forEach((element) => {
-      totalAcum += element.producto.precio * element.cantidad;
+      totalAcum += element.subtotal;
     });
     setTotal(totalAcum);
   }, [dataCart]);
@@ -126,14 +126,14 @@ const CartScreen = ({ navigation }) => {
   }, [productResponseDel]);
 
   React.useEffect(() => {
-    (total + total * 0.15) % 1 == 0 ? setCentavo(true) : setCentavo(false)
+    (total) % 1 == 0 ? setCentavo(true) : setCentavo(false)
     if (setCentavo === true) {
       <Text>
-        {total + total * 0.15}.00
+        {total}.00
       </Text>
     } else {
       <Text>
-        {total + total * 0.15}
+        {total}
       </Text>
     }
   }, [total])
@@ -727,7 +727,7 @@ const CartScreen = ({ navigation }) => {
                     opacity: 0.8,
                   }}
                 >
-                  L. {total%1==0 ? total.toFixed(2): total}
+                  L. {(total - (total*0.15))%1==0 ? total.toFixed(2): (total - (total*0.15))}
                 </Text>
 
                 <Text
@@ -738,7 +738,7 @@ const CartScreen = ({ navigation }) => {
                     opacity: 0.8,
                   }}
                 >
-                  %{15}
+                  {15}%
                 </Text>
 
                 <Text
@@ -749,9 +749,9 @@ const CartScreen = ({ navigation }) => {
                   }}
                 >
                   L.{" "}
-                  {(total + total * 0.15) % 1 == 0
-                    ? (total + total * 0.15).toFixed(2)
-                    : total + total * 0.15}
+                  {(total) % 1 == 0
+                    ? (total).toFixed(2)
+                    : total}
                 </Text>
               </View>
             </View>
