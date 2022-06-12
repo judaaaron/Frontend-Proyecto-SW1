@@ -252,7 +252,8 @@ const CartScreen = ({ navigation }) => {
     indicaciones,
     fabricante,
     color,
-    oferta
+    oferta,
+    recomendado,
   }) => {
     return (
       <TouchableOpacity
@@ -456,6 +457,35 @@ const CartScreen = ({ navigation }) => {
             </View>
 
           }
+           {
+            recomendado &&
+            <View style={{ flexDirection: "row" }}>
+              <Icon name="check" size={20} color={Colors.green} />
+              <TouchableOpacity 
+              style={{borderRadius: 10, borderColor: recomendado.color, backgroundColor: Colors.white}}
+              onPress={() => {
+                navigation.navigate("DetalleProductsAncalmo", {
+                  id: recomendado.id,
+                  cantidad: recomendado.count,
+                  imagen: recomendado.productImage,
+                  nombre: recomendado.name,
+                  precio: recomendado.precio,
+                  fabricante: recomendado.fabricante,
+                  indicaciones: recomendado.indicaciones,
+                  dosis: recomendado.dosis,
+                  formula: recomendado.formula,
+                  color: recomendado.color,
+                  oferta: recomendado.oferta,
+                });
+              }}
+              >
+                <Text style={{ color: Colors.blue }}>
+                  Los usuario también llevan: {recomendado.nombre}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+          }
           {/* tectooooo */}
         </View>
       </TouchableOpacity>
@@ -578,6 +608,7 @@ const CartScreen = ({ navigation }) => {
                 fabricante={item.producto.fabricante}
                 color={item.producto.color}
                 oferta={item.producto.oferta ? item.producto.oferta : null}
+                recomendado={item.producto.recomendado ? item.producto.recomendado : null}
               />
             )}
             keyExtractor={(item) => item.producto.id}
