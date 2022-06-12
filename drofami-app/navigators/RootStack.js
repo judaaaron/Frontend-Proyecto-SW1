@@ -46,7 +46,7 @@ const HomeTabs = () => {
                 style: { padding: 10, height: 70, top: 10 }
             }}>
             <Tab.Screen name={homeName} component={MainHome} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/homeAzul3.png")} style={{ width: 35, height: 35, top: 2 }} />), name: () => null }} />
-            <Tab.Screen name={Ancalmo} component={AncalmoScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/ancalmoAzul.png")} style={{ width: 25, height: 25, top: 5 }} />), name: () => null }} />
+            <Tab.Screen name={Ancalmo} component={AncalmoScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/ancalmoAzul.jpg")} style={{ width: 25, height: 25, top: 5 }} />), name: () => null }} />
             <Tab.Screen name={Hessel} component={HesselScreen} options={{ header: () => null, tabBarIcon: () => (<Image source={require("./../assets/heseelAzul.png")} style={{ width: 30, height: 30, top: 3 }} />), name: () => null }} />
             {useSelector((state) => state.staff.value) === false ? 
             notifications.length != "0" ? 
