@@ -17,6 +17,10 @@ import {
   StyledButtonCart,
   ButtonTextCart,
   PageLogOferta,
+  ExtraView,
+  ExtraText,
+  TextLink,
+  TextLinkContent
 } from "../components/styles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { showMessage } from 'react-native-flash-message';
@@ -357,7 +361,7 @@ const CartScreen = ({ navigation }) => {
                   // top: -22,
                 }}
               >
-                Precio: L. {precio %1==0 ? precio.toFixed(2): precio}
+                Precio: L. {precio % 1 == 0 ? precio.toFixed(2) : precio}
                 {/* Ancalmo */}
               </Text>
             </View>
@@ -457,35 +461,39 @@ const CartScreen = ({ navigation }) => {
             </View>
 
           }
-           {
+          {
             recomendado &&
-            <View style={{ flexDirection: "row" }}>
-              <Icon name="check" size={20} color={Colors.green} />
-              <TouchableOpacity 
-              style={{borderRadius: 10, borderColor: recomendado.color, backgroundColor: Colors.white}}
-              onPress={() => {
-                navigation.navigate("DetalleProductsAncalmo", {
-                  id: recomendado.id,
-                  cantidad: recomendado.count,
-                  imagen: recomendado.productImage,
-                  nombre: recomendado.name,
-                  precio: recomendado.precio,
-                  fabricante: recomendado.fabricante,
-                  indicaciones: recomendado.indicaciones,
-                  dosis: recomendado.dosis,
-                  formula: recomendado.formula,
-                  color: recomendado.color,
-                  oferta: recomendado.oferta,
-                });
-              }}
-              >
-                <Text style={{ color: Colors.blue }}>
-                  Los usuario también llevan: {recomendado.nombre}
-                </Text>
-              </TouchableOpacity>
-            </View>
+           
+              <ExtraView style={{right:85, backgroundColor: Colors.gray}}>
+                <ExtraText style={{backgroundColor: Colors.gray}}>Los usuarios también llevan:</ExtraText>
+                <TextLink style={{ borderRadius: 10, borderColor: recomendado.color, backgroundColor: Colors.gray }}
+                 onPress={() => {
+                  navigation.navigate("DetalleProductsAncalmo", {
+                    id: recomendado.id,
+                    cantidad: recomendado.count,
+                    imagen: recomendado.imagen,
+                    nombre: recomendado.nombre,
+                    precio: recomendado.precio,
+                    fabricante: recomendado.fabricante,
+                    indicaciones: recomendado.indicaciones,
+                    dosis: recomendado.dosis,
+                    formula: recomendado.formula,
+                    color: recomendado.color,
+                    oferta: recomendado.oferta,
+                  });
+                }
+                }
+                >
+                  <TextLinkContent style={{backgroundColor: Colors.gray}}> {recomendado.nombre}</TextLinkContent>
+                </TextLink>
+              </ExtraView>
+          
+                
+               }
+            
+         
 
-          }
+          
           {/* tectooooo */}
         </View>
       </TouchableOpacity>
@@ -758,7 +766,7 @@ const CartScreen = ({ navigation }) => {
                     opacity: 0.8,
                   }}
                 >
-                  L. {total%1==0 ? total.toFixed(2): total}
+                  L. {total % 1 == 0 ? total.toFixed(2) : total.toFixed(2)}
                 </Text>
 
                 <Text
@@ -780,9 +788,7 @@ const CartScreen = ({ navigation }) => {
                   }}
                 >
                   L.{" "}
-                  {(total + total * 0.15) % 1 == 0
-                    ? (total + total * 0.15).toFixed(2)
-                    : total + total * 0.15}
+                  {(total + total * 0.15).toFixed(2)}
                 </Text>
               </View>
             </View>
