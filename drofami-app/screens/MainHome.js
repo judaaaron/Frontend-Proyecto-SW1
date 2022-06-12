@@ -41,7 +41,7 @@ export default function MainHome({ navigation }) {
     if (!token.current) {
       return;
     }
-    if (isFocused) {
+    if (isFocused ) {
       getRecomendacion(setLoading, token.current, setResponse);
     }
   }, [])
