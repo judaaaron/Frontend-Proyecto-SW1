@@ -127,8 +127,8 @@ export default function MainHome({ navigation }) {
     if (!token.current) {
       return;
     }
-    
-      getRecomendacion(setLoading, token.current, setResponse);
+
+    getRecomendacion(setLoading, token.current, setResponse);
     
   }, [])
 
