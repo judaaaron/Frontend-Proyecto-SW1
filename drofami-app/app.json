@@ -1,7 +1,7 @@
 {
     "expo": {
-        "name": "Drofami App",
-        "slug": "DrofamiApp",
+        "name": "drofami-app",
+        "slug": "drofamiApp",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "assets/IconoDrofami.png",
@@ -20,11 +20,9 @@
             "supportsTablet": true
         },
         "android": {
-            "package": "com.drofamiapp",
-            "versionCode":1,
             "adaptiveIcon": {
-                "foregroundImage": "assets/DrofamiLogo2.png",
-                "backgroundColor": "#072989"
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#FFFFFF"
             }
         },
         "web": {

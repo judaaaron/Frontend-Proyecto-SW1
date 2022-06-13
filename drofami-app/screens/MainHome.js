@@ -20,7 +20,93 @@ import Carousel, { Pagination } from "react-native-snap-carousel";
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import { getProduct } from "../src/ProductMethods";
 import { showMessage } from "react-native-flash-message";
+import Spinner from '../components/Spinner';
 
+
+function RecommendedCards(props) {
+  const [index, setIndex] = React.useState(0);
+  const isCarousel = React.useRef(null);
+
+  const CarouselCardItem = ({ item, index }) => {
+    return (
+      <View style={styles.container} key={index}>
+        <TouchableOpacity
+          onPress={() => {getProduct(props.setLoading, props.token,  item.id, props.setProductResponse)}}
+        >
+          <Image
+            source={{ uri: item.imagen }}
+            style={styles.image}
+          />
+          <Text style={styles.header}>{item.nombre}</Text>
+          <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text>
+
+          <View
+            style={{
+              height: 25,
+              width: 25,
+              backgroundColor: Colors.secondary,
+              borderRadius: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 5,
+              marginLeft: 250
+
+            }}>
+            <Text
+              style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: Colors.blue }} >
+              +
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+    return (
+      <StyledContainer style={{ marginTop: 10 }}>
+          <TouchableOpacity
+            onPress={() => console.log("producto")}
+            style={styles.viiew}
+          >
+            {/* <CarouselCards data={recomendacionANC} /> */}
+              <View>
+                <Carousel
+                  // layout="stack"
+                  layoutCardOffset={19}
+                  ref={isCarousel}
+                  data={props.array}
+                  renderItem={CarouselCardItem}
+                  sliderWidth={SLIDER_WIDTH}
+                  itemWidth={ITEM_WIDTH}
+                  onSnapToItem={(index) => setIndex(index)}
+                  useScrollView={true}
+                  autoplay={true}
+                  enableSnap={true}
+                  snapToAlignment={'center'}
+                  loop={true}
+                />
+                <Pagination
+                  dotsLength={props.array.length}
+                  activeDotIndex={index}
+                  carouselRef={isCarousel}
+                  dotStyle={{
+                    width: 10,
+                    height: 1,
+                    borderRadius: 5,
+                    marginHorizontal: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.92)",
+                  }}
+                  inactiveDotOpacity={0.4}
+                  inactiveDotScale={0.6}
+                  tappableDots={true}
+                  autoplay={true}
+                  loop={true}
+                />
+              </View>
+          </TouchableOpacity>
+        </StyledContainer>
+    );
+}
 
 export default function MainHome({ navigation }) {
   //const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
@@ -30,25 +116,25 @@ export default function MainHome({ navigation }) {
   const [productResponse, setProductResponse] = useState();
   const [recomendacionANC, setRecomendacionANC] = useState([]);
   const [recomendacionHES, setRecomendacionHES] = useState([]);
-  const [index, setIndex] = React.useState(0);
-  const isCarousel = React.useRef(null);
   const isEmpleado = React.useRef(useSelector((state) => state.staff.value));
+  const isCarousel = React.useRef(null);
+  const [index, setIndex] = useState(0);
   // console.log("fish ", recomendacionANC[0]['id']);
 
 
-  const isFocused = useIsFocused();
+  
   React.useEffect(() => {
     if (!token.current) {
       return;
     }
-    if (isFocused ) {
-      getRecomendacion(setLoading, token.current, setResponse);
-    }
+
+    getRecomendacion(setLoading, token.current, setResponse);
+    
   }, [])
 
 
   React.useEffect(() => {
-    if (!response) {
+    if (!response || !response['data'] || !response['data']['ANC']) {
         return;
     }
     setRecomendacionANC((response['data']['ANC']))
@@ -56,7 +142,7 @@ export default function MainHome({ navigation }) {
 }, [response]);
 
 React.useEffect(() => {
-  if (!response) {
+  if (!response || !response['data'] || !response['data']['HES']) {
       return;
   }
   setRecomendacionHES((response['data']['HES']))
@@ -159,51 +245,12 @@ React.useEffect(() => {
             marginLeft: 125,
           }}
         />
-        <StyledContainer style={{ marginTop: 10 }}>
-          <TouchableOpacity
-            onPress={() => console.log("producto")}
-            style={styles.viiew}
-          >
-            {/* <CarouselCards data={recomendacionANC} /> */}
-            <Pressable
-              onPress={() => {getProduct(setLoading, token.current,  recomendacionANC[index]['id'], setProductResponse)}}
-            > 
-              <View>
-                <Carousel
-                  // layout="stack"
-                  layoutCardOffset={19}
-                  ref={isCarousel}
-                  data={recomendacionANC}
-                  renderItem={CarouselCardItem}
-                  sliderWidth={SLIDER_WIDTH}
-                  itemWidth={ITEM_WIDTH}
-                  onSnapToItem={(index) => setIndex(index)}
-                  useScrollView={true}
-                  autoplay={true}
-                  loop={true}
-                />
-                <Pagination
-                  dotsLength={recomendacionANC.length}
-                  activeDotIndex={index}
-                  carouselRef={isCarousel}
-                  dotStyle={{
-                    width: 10,
-                    height: 1,
-                    borderRadius: 5,
-                    marginHorizontal: 0,
-                    backgroundColor: "rgba(0, 0, 0, 0.92)",
-                  }}
-                  inactiveDotOpacity={0.4}
-                  inactiveDotScale={0.6}
-                  tappableDots={true}
-                  autoplay={true}
-                  loop={true}
-                />
-              </View>
-            </Pressable>
-          </TouchableOpacity>
-        </StyledContainer>
-
+        <RecommendedCards
+          token={token.current}
+          array={recomendacionANC}
+          setProductResponse={setProductResponse}
+          setLoading={setLoading}
+        />
         <Image
           source={require("./../assets/hesselLogo1.png")}
           style={{
@@ -215,50 +262,15 @@ React.useEffect(() => {
             marginTop: -60,
           }}
         />
-        <StyledContainer style={{ marginTop: -2 }}>
-          <TouchableOpacity style={styles.viiew}>
-            {/* <CarouselCards2 data={recomendacionHES} /> */}
-
-            <Pressable
-              onPress={() => {getProduct(setLoading, token.current,  recomendacionHES[index]['id'], setProductResponse)}}
-            > 
-              <View>
-                <Carousel
-                  // layout="stack"
-                  layoutCardOffset={19}
-                  ref={isCarousel}
-                  data={recomendacionHES}
-                  renderItem={CarouselCardItem}
-                  sliderWidth={SLIDER_WIDTH}
-                  itemWidth={ITEM_WIDTH}
-                  onSnapToItem={(index) => setIndex(index)}
-                  useScrollView={true}
-                  autoplay={true}
-                  loop={true}
-                />
-                <Pagination
-                  dotsLength={recomendacionHES.length}
-                  activeDotIndex={index}
-                  carouselRef={isCarousel}
-                  dotStyle={{
-                    width: 10,
-                    height: 1,
-                    borderRadius: 5,
-                    marginHorizontal: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.92)'
-                  }}
-                  inactiveDotOpacity={0.4}
-                  inactiveDotScale={0.6}
-                  tappableDots={true}
-                  autoplay={true}
-                  loop={true}
-                />
-              </View>
-            </Pressable>
-          </TouchableOpacity>
-        </StyledContainer>
+        <RecommendedCards
+          token={token.current}
+          array={recomendacionHES}
+          setProductResponse={setProductResponse}
+          setLoading={setLoading}
+        />
       </ScrollView>
-    </View>
+      {loading && <Spinner text={"Cargando..."} />}
+    </View>   
   );
 }
 
@@ -279,5 +291,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     shadowColor: Colors.blue
 
+  },
+
+  image: {
+    width: 150,
+    height: 150,
+    left:85
+  },
+  header: {
+    color: "#222",
+    fontSize: 28,
+    fontWeight: "bold",
+    paddingLeft: 20,
+    paddingTop: 20
+  },
+  body: {
+    color: "#222",
+    fontSize: 18,
+    paddingLeft: 20,
+    paddingLeft: 20,
+    paddingRight: 20
   }
 });
