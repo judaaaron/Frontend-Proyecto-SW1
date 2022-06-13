@@ -19,7 +19,7 @@ const OrderDetails = ({ route, navigation }) => {
   const current = new Date();
   const orden = route.params;
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds() < 10 ? current.getSeconds() + .0 : current.getSeconds()}`;
-  const List = ({ id, nombre, cantidad, precio, fecha, oferta }) => {
+  const List = ({ id, nombre, cantidad, precio, fecha, beneficio }) => {
     return (
 
       <>
@@ -110,7 +110,7 @@ const OrderDetails = ({ route, navigation }) => {
                 </Text>
 
               </View>
-              { oferta && <View
+              { beneficio && <View
                 style={{
                   marginTop: 4,
                   flexDirection: "row",
@@ -119,7 +119,7 @@ const OrderDetails = ({ route, navigation }) => {
                   marginRight: -10
                 }}
               >
-                { oferta.canal == "FAR" ?
+                { orden.canal == "FAR" ?
                 <Text
                   style={{
                     fontSize: 13,
@@ -130,13 +130,9 @@ const OrderDetails = ({ route, navigation }) => {
                     top: 10
                   }}
                 >
-
-                  En Oferta: {oferta.beneficio}
-
+                  En Oferta: {beneficio}
                 </Text>
-
                 :
-
                 <Text
                 style={{
                   fontSize: 13,
@@ -147,9 +143,7 @@ const OrderDetails = ({ route, navigation }) => {
                   top: 10
                 }}
               >
-
-                Descuento: {oferta.beneficio}
-
+                Descuento: {beneficio}%
               </Text>
   }
               </View>
@@ -272,7 +266,7 @@ const OrderDetails = ({ route, navigation }) => {
               nombre={item.producto.nombre}
               cantidad={item.cantidad}
               precio={item.producto.precio}
-              oferta={item.producto.oferta ? item.producto.oferta : null}
+              beneficio={item.beneficio ? item.beneficio : null}
             />
           )}
           keyExtractor={(item) => item.id}

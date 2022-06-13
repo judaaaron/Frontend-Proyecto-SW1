@@ -17,6 +17,10 @@ import {
   StyledButtonCart,
   ButtonTextCart,
   PageLogOferta,
+  ExtraView,
+  ExtraText,
+  TextLink,
+  TextLinkContent
 } from "../components/styles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { showMessage } from 'react-native-flash-message';
@@ -252,7 +256,8 @@ const CartScreen = ({ navigation }) => {
     indicaciones,
     fabricante,
     color,
-    oferta
+    oferta,
+    recomendado,
   }) => {
     return (
       <TouchableOpacity
@@ -356,7 +361,7 @@ const CartScreen = ({ navigation }) => {
                   // top: -22,
                 }}
               >
-                Precio: L. {precio %1==0 ? precio.toFixed(2): precio}
+                Precio: L. {precio % 1 == 0 ? precio.toFixed(2) : precio}
                 {/* Ancalmo */}
               </Text>
             </View>
@@ -456,6 +461,37 @@ const CartScreen = ({ navigation }) => {
             </View>
 
           }
+          {
+            recomendado &&
+           
+              <ExtraView style={{right:85, backgroundColor: Colors.gray}}>
+                <ExtraText style={{backgroundColor: Colors.gray}}>Los usuarios también llevan:</ExtraText>
+                <TextLink style={{ borderRadius: 10, borderColor: recomendado.color, backgroundColor: Colors.gray }}
+                 onPress={() => {
+                  navigation.navigate("DetalleProductsAncalmo", {
+                    id: recomendado.id,
+                    cantidad: recomendado.count,
+                    imagen: recomendado.imagen,
+                    nombre: recomendado.nombre,
+                    precio: recomendado.precio,
+                    fabricante: recomendado.fabricante,
+                    indicaciones: recomendado.indicaciones,
+                    dosis: recomendado.dosis,
+                    formula: recomendado.formula,
+                    color: recomendado.color,
+                    oferta: recomendado.oferta,
+                  });
+                }
+                }
+                >
+                  <TextLinkContent style={{backgroundColor: Colors.gray}}> {recomendado.nombre}</TextLinkContent>
+                </TextLink>
+              </ExtraView>
+               }
+            
+         
+
+          
           {/* tectooooo */}
         </View>
       </TouchableOpacity>
@@ -578,6 +614,7 @@ const CartScreen = ({ navigation }) => {
                 fabricante={item.producto.fabricante}
                 color={item.producto.color}
                 oferta={item.producto.oferta ? item.producto.oferta : null}
+                recomendado={item.producto.recomendado ? item.producto.recomendado : null}
               />
             )}
             keyExtractor={(item) => item.producto.id}
