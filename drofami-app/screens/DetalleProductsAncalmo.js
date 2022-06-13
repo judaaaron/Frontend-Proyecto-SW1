@@ -9,7 +9,38 @@ import { getCart, saveCart, isItemInCart } from '../src/CartMethods';
 import NumericInput from 'react-native-numeric-input'
 import { useSelector } from "react-redux";//este se agrega
 import { useIsFocused } from "@react-navigation/native";
+import { Banner } from 'react-native-paper';
 
+
+function BannerNextOffer (props) {
+  const timeout = React.useRef(null);
+  clearTimeout(timeout.current)
+  timeout.current = setTimeout(() => {
+    props.setVisible(false);
+  }, 5000)
+  return (
+    <Banner
+      visible={props.visible}
+      actions={[
+        
+       ]}
+      
+      // {icon={({size}) => (
+      //   <Image
+      //     source={{
+      //       uri: 'https://avatars3.githubusercontent.com/u/17571969?s=400&v=4',
+      //     }}
+      //     style={{
+      //       width: size,
+      //       height: size,
+      //     }}
+      //   />
+      //   )}*/}
+    >
+        {props.message}
+    </Banner>
+  );
+}
 
 const DetalleProductsAncalmo = ({ navigation, route }) => {
   const producto = route.params;
@@ -23,6 +54,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const [isInCart, setIsInCart] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const timeout = React.useRef(null);
+  const [bannerVisible, setBannerVisible] = useState(false);
 
   const isFocused = useIsFocused();
   React.useEffect(() => {
@@ -84,6 +116,12 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       setCounter(1);
       setIsInCart(false);
     }
+    
+    //Aqui esta
+    if (productResponse['data']['producto']['sig_oferta']) {
+      setBannerVisible(true);
+    }
+
     setCounter(productResponse['data']['cantidad']);
   }, [productResponse])
 
@@ -122,7 +160,11 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   ]
 
   return (
-  
+      <>
+      <BannerNextOffer message={productResponse ? (productResponse['data']['producto']['sig_oferta'] ? productResponse['data']['producto']['sig_oferta']['msg']: '') : ''}
+        setVisible={setBannerVisible}
+        visible={bannerVisible}
+      />
       <SafeAreaView
         style={{
           flex: 1,
@@ -241,7 +283,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
         </ScrollView>
 
       </SafeAreaView>
-   
+      </>
   );
 
 
