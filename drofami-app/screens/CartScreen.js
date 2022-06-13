@@ -487,8 +487,6 @@ const CartScreen = ({ navigation }) => {
                   <TextLinkContent style={{backgroundColor: Colors.gray}}> {recomendado.nombre}</TextLinkContent>
                 </TextLink>
               </ExtraView>
-          
-                
                }
             
          
