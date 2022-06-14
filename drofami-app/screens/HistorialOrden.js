@@ -68,7 +68,6 @@ const HistorialOrden = ({ navigation }) => {
                         borderColor: Colors.black,
                         
                         borderRadius: 10,
-                        marginLeft: 13,
                         marginTop: 10
                     }}
                     onPress={() => {getOrdenDetalle(setLoading, token.current, id, setSpecificResponse)}}
@@ -179,37 +178,56 @@ const HistorialOrden = ({ navigation }) => {
     };
 
     return (
+      <View
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: Colors.white,
+          position: "relative",
+        }}
+      >
         <View
-            style={{
-                width: "100%",
-                height: "100%",
-                backgroundColor: Colors.white,
-                position: "relative",
-            }}
-
+          style={{
+            marginTop: 35,
+            alignContent: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            fontWeight: "bold",
+            fontSize: 18,
+            color: Colors.blue,
+          }}
         >
-            
-            <View style={{ marginTop: 35, alignContent: 'center', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', fontSize: 18, color: Colors.blue }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: Colors.black }}>Historial de tus ordenes</Text>
-                <Icon name="arrow-back" size={30} style={{marginRight:350, top:-25}} onPress={() => navigation.goBack()} />
-            </View>
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 80 }}
-                data={ordenes ? ordenarPorFecha(ordenes) : []}
-                renderItem={({ item }) => (
-                    <List
-                        id={item.id}
-                        codigo={item.id}
-                        fecha={item.fecha}
-                        total={item.total}
-                    />
-                )}
-                keyExtractor={(item) => item.id}
-                ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
-            />
+          <Text
+            style={{ fontSize: 20, fontWeight: "bold", color: Colors.black }}
+          >
+            Historial de tus ordenes
+          </Text>
+          <Icon
+            name="arrow-back"
+            size={30}
+            style={{ marginRight: 350, top: -25 }}
+            onPress={() => navigation.goBack()}
+          />
         </View>
-    )
+        <View style={{ alignItems: "center" }}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 80 }}
+            data={ordenes ? ordenarPorFecha(ordenes) : []}
+            renderItem={({ item }) => (
+              <List
+                id={item.id}
+                codigo={item.id}
+                fecha={item.fecha}
+                total={item.total}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
+          />
+        </View>
+      </View>
+    );
 
 };
 

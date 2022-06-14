@@ -291,9 +291,9 @@ const OrderDetails = ({ route, navigation }) => {
             }}
           >
             Total: L.{" "}
-            {(orden.total + orden.total * 0.15) % 1 == 0
-              ? (orden.total + orden.total * 0.15).toFixed(2)
-              : orden.total + orden.total * 0.15}
+            {(orden.total ) % 1 == 0
+              ? (orden.total).toFixed(2)
+              : orden.total}
           </Text>
           <StyledButtonCart2
             style={{
