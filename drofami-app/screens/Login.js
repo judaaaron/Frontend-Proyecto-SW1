@@ -51,7 +51,7 @@ const Login = ({ navigation }) => {
     const dispatch = useDispatch();
 
     React.useEffect(()=>{
-        if (loginResponse['token']) {
+        if (loginResponse['status'] == 'success') {
             navigation.replace('Home')
             showMessage({
                 message: "Sesión iniciada",
@@ -68,8 +68,11 @@ const Login = ({ navigation }) => {
         if (loginResponse.status == "success") {
             if (loginResponse['token']) {
                 storeCredentials(loginResponse['user'], loginResponse['token']);
+            } else {
+                setCargo(!cargo)    
             }
             // navigation.replace('Home');
+            
           
              
         } else if (loginResponse.status && loginResponse.message) {
@@ -104,7 +107,7 @@ const Login = ({ navigation }) => {
             dispatch(setToken(sToken));
             dispatch(isStaff(usuario.is_staff));
             console.log("Se almaceno");
-            setCargo(true)
+             setCargo(!cargo)
         } catch (error) {
             showMessage({
                 message: "Hubo un error en el almacenamiento de las credenciales.",
@@ -140,6 +143,7 @@ const Login = ({ navigation }) => {
             }
         }
         getCredentials();
+        // setCargo(true)
     }, []);
 
 
