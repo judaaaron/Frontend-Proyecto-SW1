@@ -46,10 +46,20 @@ const Login = ({ navigation }) => {
     const [loginResponse, setLoginResponse] = useState('');
     const [loginInput, setLoginInput] = useState("");
     const [rememberMe, setRememberMe] = useState(true);
-
+    const [cargo, setCargo] = useState(false);
     //redux
     const dispatch = useDispatch();
 
+    React.useEffect(()=>{
+        if (loginResponse['token']) {
+            navigation.replace('Home')
+            showMessage({
+                message: "Sesión iniciada",
+                description: 'Has iniciado sesión exitosamente.',
+                type: "success",
+            });
+        }
+    }, [cargo])
 
     React.useEffect(() => {
         if (!loginResponse) {
@@ -61,12 +71,7 @@ const Login = ({ navigation }) => {
             }
             // navigation.replace('Home');
           
-              navigation.replace('Home')
-            showMessage({
-                message: "Sesión iniciada",
-                description: 'Has iniciado sesión exitosamente.',
-                type: "success",
-            });
+             
         } else if (loginResponse.status && loginResponse.message) {
             showMessage({
                 message: loginResponse.message,
@@ -99,6 +104,7 @@ const Login = ({ navigation }) => {
             dispatch(setToken(sToken));
             dispatch(isStaff(usuario.is_staff));
             console.log("Se almaceno");
+            setCargo(true)
         } catch (error) {
             showMessage({
                 message: "Hubo un error en el almacenamiento de las credenciales.",
