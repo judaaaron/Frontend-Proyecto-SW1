@@ -764,7 +764,7 @@ const CartScreen = ({ navigation }) => {
                     opacity: 0.8,
                   }}
                 >
-                  L. {(total - (total*0.15))%1==0 ? total.toFixed(2): (total - (total*0.15))}
+                  L. {(total - (total*0.15)).toFixed(2)}
                 </Text>
 
                 <Text
@@ -786,9 +786,7 @@ const CartScreen = ({ navigation }) => {
                   }}
                 >
                   L.{" "}
-                  {(total) % 1 == 0
-                    ? (total).toFixed(2)
-                    : total}
+                  {(total).toFixed(2)}
                 </Text>
               </View>
             </View>
