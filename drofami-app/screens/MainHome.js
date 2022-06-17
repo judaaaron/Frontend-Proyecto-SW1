@@ -1,23 +1,18 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Image, Text, TouchableWithoutFeedback, Pressable } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, ScrollView, View, Image, Text} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   StyledContainer,
   PageLogOferta,
   Colors,
-  PageTitle
 } from "../components/styles";
-import CarouselCards from './CarouselCards'
-import CarouselCards2 from './CarouselCards2'
 import {
   getRecomendacion,
 } from "../src/RecomendacionMethods";
-import { data } from './OfertasAncalmo'
 import { useSelector } from "react-redux";//este se agrega
-import { useIsFocused } from "@react-navigation/native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
+import { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import { getProduct } from "../src/ProductMethods";
 import { showMessage } from "react-native-flash-message";
 import Spinner from '../components/Spinner';
@@ -29,17 +24,29 @@ function RecommendedCards(props) {
 
   const CarouselCardItem = ({ item, index }) => {
     return (
-      <View style={styles.container} key={index}>
-        <TouchableOpacity
+      <TouchableOpacity
+          style={{ backgroundColor: Colors.secondary}}
           onPress={() => {getProduct(props.setLoading, props.token,  item.id, props.setProductResponse)}}
         >
+      <View style={{alignItems: "center"}} key={index}>
           <Image
             source={{ uri: item.imagen }}
-            style={styles.image}
+            style={{
+              width: 150,
+              height: 150,
+            }}
           />
-          <Text style={styles.header}>{item.nombre}</Text>
-          <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text>
+      </View>
+          <View style={{ alignItems: 'flex-start'}} >
+            <Text style={styles.header}>{item.nombre}</Text>
+            <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text>
+          </View>
 
+          <View
+          style={{
+            alignItems: 'flex-end',
+            marginRight: 15
+          }}>
           <View
             style={{
               height: 25,
@@ -48,8 +55,6 @@ function RecommendedCards(props) {
               borderRadius: 5,
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: 5,
-              marginLeft: 250
 
             }}>
             <Text
@@ -57,8 +62,8 @@ function RecommendedCards(props) {
               +
             </Text>
           </View>
+          </View>
         </TouchableOpacity>
-      </View>
     )
   }
 
@@ -214,54 +219,75 @@ React.useEffect(() => {
 }, [productResponse]);
 
   return (
-    <View style={styles.container}>
-      <PageLogOferta
-        source={require("../assets/drofamilogo1.jpg")}
-        resizeMode="cover"
-      />
-      <Text
+    <View
+      style={{
+        backgroundColor: Colors.white,
+        paddingTop: 40,
+        justifyContent: "center",
+        marginBottom: 55
+      }}
+    >
+      <View
         style={{
-          marginLeft: 20,
-          marginTop: 30,
-          top: -20,
-          fontWeight: "bold",
-          color: Colors.blue,
-          fontSize: 20,
+          alignItems: "center",
         }}
       >
-        Productos recomendados para tí
-      </Text>
+        <PageLogOferta
+          source={require("../assets/drofamilogo1.jpg")}
+          resizeMode="cover"
+        />
+        <Text
+          style={{
+            marginVertical: 10,
+            fontWeight: "bold",
+            color: Colors.blue,
+            fontSize: 20,
+          }}
+        >
+          Productos recomendados para tí
+        </Text>
+      </View>
       <ScrollView
         // scrollIndicatorInsets={false}
         showsVerticalScrollIndicator={false}
       >
-        <Image
-          source={require("./../assets/logoAncalmo.png")}
+        <View
           style={{
-            width: 100,
-            height: 100,
-            top: 3,
-            backgroundColor: Colors.primary,
-            marginLeft: 125,
+            alignItems: "center",
           }}
-        />
+        >
+          <Image
+            source={require("./../assets/logoAncalmo.png")}
+            style={{
+              width: 100,
+              height: 100,
+              top: 3,
+              backgroundColor: Colors.primary,
+            }}
+          />
+        </View>
         <RecommendedCards
           token={token.current}
           array={recomendacionANC}
           setProductResponse={setProductResponse}
           setLoading={setLoading}
         />
-        <Image
-          source={require("./../assets/hesselLogo1.png")}
+
+        <View
           style={{
-            width: 100,
-            height: 100,
-            top: 3,
-            backgroundColor: Colors.primary,
-            marginLeft: 125,
-            marginTop: -60,
+            alignItems: "center",
           }}
-        />
+        >
+          <Image
+            source={require("./../assets/hesselLogo1.png")}
+            style={{
+              width: 100,
+              height: 100,
+              top: 3,
+              backgroundColor: Colors.primary,
+            }}
+          />
+        </View>
         <RecommendedCards
           token={token.current}
           array={recomendacionHES}
@@ -270,16 +296,15 @@ React.useEffect(() => {
         />
       </ScrollView>
       {loading && <Spinner text={"Cargando..."} />}
-    </View>   
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: Colors.white,
     paddingTop: 40,
-    paddingHorizontal: 20
+    justifyContent: "center"
   },
   header: {
     marginTop: 20,
@@ -296,7 +321,6 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
-    left:85
   },
   header: {
     color: "#222",

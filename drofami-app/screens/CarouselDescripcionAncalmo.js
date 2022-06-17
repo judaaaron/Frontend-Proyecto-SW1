@@ -23,7 +23,7 @@ const CarouselCards = (props) => {
         useScrollView={true}
       />
       <Pagination
-        dotsLength={data.length}
+        dotsLength={props.data.length}
         activeDotIndex={index}
         carouselRef={isCarousel}
         dotStyle={{
@@ -31,15 +31,14 @@ const CarouselCards = (props) => {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.92)'
+          backgroundColor: "rgba(0, 0, 0, 0.92)",
         }}
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}
         tappableDots={true}
       />
     </View>
-
-  )
+  );
 }
 
 
