@@ -464,7 +464,7 @@ const CartScreen = ({ navigation }) => {
           {
             recomendado &&
            
-              <ExtraView style={{right:85, backgroundColor: Colors.gray}}>
+              <ExtraView style={{right:85, backgroundColor: Colors.gray, top:5}} >
                 <ExtraText style={{backgroundColor: Colors.gray}}>Los usuarios también llevan:</ExtraText>
                 <TextLink style={{ borderRadius: 10, borderColor: recomendado.color, backgroundColor: Colors.gray }}
                  onPress={() => {
