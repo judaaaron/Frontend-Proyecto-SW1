@@ -304,14 +304,15 @@ export default function HesselScreen({ navigation }) {
     >
       <View style={styles.header}>
         <View>
-          <Text style={{ fontSize: 25, fontWeight: "bold", top:28 }}>Bienvenido a</Text>
+          <Text style={{ fontSize: 25, fontWeight: "bold", top:28, left:15 }}>Bienvenido a</Text>
           <Text
             style={{
               fontSize: 35,
               fontWeight: "bold",
               color: Colors.blue,
               alignItems: "center",
-              top:20
+              top:20,
+              left:15
             }}
           >
             Productos HESSEL
@@ -371,13 +372,15 @@ export default function HesselScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    header: {
-      top:22,
+  header: {
+    top:22,
 
-      marginTop: -50,
-      marginRight:-18,
-      backgroundColor: Colors.white
-    },
+    marginTop: -50,
+    marginRight:-35,
+    right:18,
+    
+    backgroundColor: Colors.white
+},
     container: {
         backgroundColor: '#fff',
         alignItems: 'center',

@@ -13,7 +13,7 @@ import {
 import { useSelector } from "react-redux";//esta
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getOrdenes, getOrdenDetalle } from "../src/OrderMethods";
-
+import Spinner from "../components/Spinner";
 
 const HistorialOrden = ({ navigation }) => {
     //const token = useRef(useSelector((state) => state.token.value));
@@ -21,13 +21,15 @@ const HistorialOrden = ({ navigation }) => {
     const [specificResponse, setSpecificResponse] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [ordenes, setOrdenes] = useState(null);
+    const [button, setButton]= useState(false);
+
     const token = React.useRef(useSelector((state) => state.token.value))
     React.useEffect(() => {
         getOrdenes(setLoading, token.current, setResponse);
     }, []);
 
     React.useEffect(() => {
-        if(!response) {
+        if (!response) {
             return;
         }
         if (response['data']) {
@@ -36,13 +38,13 @@ const HistorialOrden = ({ navigation }) => {
     }, [response]);
 
     React.useEffect(() => {
-        if(!specificResponse) {
+        if (!specificResponse) {
             return;
         }
         navigation.reset({
             index: 0,
-            routes: [{ name: 'OrderDetails' , params: specificResponse['data']}]
-          })
+            routes: [{ name: 'OrderDetails', params: specificResponse['data'] }]
+        })
 
     }, [specificResponse]);
 
@@ -56,7 +58,7 @@ const HistorialOrden = ({ navigation }) => {
     const List = ({ id, codigo, fecha, total }) => {
         return (
             <>
-                <TouchableOpacity
+                {!button ? <TouchableOpacity
                     style={{
                         width: 350,
                         height: 100,
@@ -66,14 +68,18 @@ const HistorialOrden = ({ navigation }) => {
                         backgroundColor: Colors.white,
                         borderWidth: 1,
                         borderColor: Colors.black,
-                        
+
                         borderRadius: 10,
                         marginTop: 10
                     }}
-                    onPress={() => {getOrdenDetalle(setLoading, token.current, id, setSpecificResponse)}}
-                    /*onPress={
-                        
-                    }*/
+                    onPress={() => {
+                        getOrdenDetalle(setLoading, token.current, id, setSpecificResponse)
+                        setButton(true)
+
+                    }}
+                /*onPress={
+                    
+                }*/
                 >
 
 
@@ -95,7 +101,7 @@ const HistorialOrden = ({ navigation }) => {
                             justifyContent: "space-around",
                         }}
                     >
-                        <View style={{ marginTop: -90, marginLeft:25 }}>
+                        <View style={{ marginTop: -90, marginLeft: 25 }}>
                             <Text
                                 style={{
                                     fontSize: 14,
@@ -150,7 +156,7 @@ const HistorialOrden = ({ navigation }) => {
                                     }}
                                 >
 
-                                    Total: L.{(total + (total*0.15)) %1==0 ? (total + (total*0.15)).toFixed(2) : total + (total*0.15)}
+                                    Total: L.{(total + (total * 0.15)).toFixed(2)}
 
                                 </Text>
 
@@ -168,7 +174,27 @@ const HistorialOrden = ({ navigation }) => {
                         </View>
                     </View>
 
+
+
                 </TouchableOpacity>
+                :
+
+                null
+
+                }
+
+                {isLoading &&
+
+                    <View
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: Colors.white,
+                            position: "relative",
+                        }}
+                    >
+
+                    </View>}
 
 
             </>
@@ -178,55 +204,58 @@ const HistorialOrden = ({ navigation }) => {
     };
 
     return (
-      <View
-        style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: Colors.white,
-          position: "relative",
-        }}
-      >
         <View
-          style={{
-            marginTop: 35,
-            alignContent: "center",
-            justifyContent: "center",
-            alignItems: "center",
-            fontWeight: "bold",
-            fontSize: 18,
-            color: Colors.blue,
-          }}
+            style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: Colors.white,
+                position: "relative",
+            }}
         >
-          <Text
-            style={{ fontSize: 20, fontWeight: "bold", color: Colors.black }}
-          >
-            Historial de tus ordenes
-          </Text>
-          <Icon
-            name="arrow-back"
-            size={30}
-            style={{ marginRight: 350, top: -25 }}
-            onPress={() => navigation.goBack()}
-          />
+            <View
+                style={{
+                    marginTop: 35,
+                    alignContent: "center",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    color: Colors.blue,
+                }}
+            >
+                <Text
+                    style={{ fontSize: 20, fontWeight: "bold", color: Colors.black }}
+                >
+                    Historial de tus ordenes
+                </Text>
+                <Icon
+                    name="arrow-back"
+                    size={30}
+                    style={{ marginRight: 350, top: -25 }}
+                    onPress={() => navigation.goBack()}
+                />
+            </View>
+            {!isLoading && <View style={{ alignItems: "center" }}>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 80 }}
+                    data={ordenes ? ordenarPorFecha(ordenes) : []}
+                    renderItem={({ item }) => (
+                        <List
+                            id={item.id}
+                            codigo={item.id}
+                            fecha={item.fecha}
+                            total={item.total}
+                        />
+                    )}
+                    keyExtractor={(item) => item.id}
+                    ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
+                />
+            </View>}
+            {isLoading && <Spinner text='Cargando...' />}
         </View>
-        <View style={{ alignItems: "center" }}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 80 }}
-            data={ordenes ? ordenarPorFecha(ordenes) : []}
-            renderItem={({ item }) => (
-              <List
-                id={item.id}
-                codigo={item.id}
-                fecha={item.fecha}
-                total={item.total}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            ListFooterComponentStyle={{ paddingHorizontal: 20, marginTop: 20 }}
-          />
-        </View>
-      </View>
+
+
     );
 
 };

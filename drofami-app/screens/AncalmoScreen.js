@@ -65,6 +65,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
         })
         setCatalog(tempCatalog)
         // console.log(catalog)
+        console.log(response)
     }, [response]);
 
     React.useEffect(() => {
@@ -277,23 +278,11 @@ const AncalmoScreen = ({ navigation, dato }) => {
                 backgroundColor: Colors.primary,
 
             }}>
-            {/* <ScrollView contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-      >
-             */}
-             {/* <View style={{marginTop:20, backgroundColor:Colors.white}}>
-                 <Text style={{marginTop:-20, backgroundColor:Colors.white}}></Text>
-             </View> */}
-
+               
             <View style={styles.header}>
                 <View>
-                    <Text style={{ fontSize: 25, fontWeight: 'bold', top:28 }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 35, fontWeight: 'bold', color: Colors.blue, alignItems: 'center', top:20 }}>
+                    <Text style={{ fontSize: 25, fontWeight: 'bold', top:28, left:15 }}>Bienvenido a</Text>
+                    <Text style={{ fontSize: 35, fontWeight: 'bold', color: Colors.blue, alignItems: 'center', top:20, left:15 }}>
                         Productos ANCALMO
                     </Text>
 
@@ -307,7 +296,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             </View>
 
             <View style={{ marginTop: 30, flexDirection: 'row', top:10 }}>
-            <View style={styles.searchContainer} marginTop={10} >
+            <View style={styles.searchContainer} top={10} >
                 <Icon name="search" size={25} style={{ marginLeft: 20 }} />
                 <TextInput
                     onFocus={(text) => searchFilterFunction()}
@@ -353,7 +342,9 @@ const styles = StyleSheet.create({
         top:22,
 
         marginTop: -50,
-        marginRight:-18,
+        marginRight:-35,
+        right:18,
+        
         backgroundColor: Colors.white
     },
     container: {
