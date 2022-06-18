@@ -180,26 +180,6 @@ export default function HesselScreen({ navigation }) {
         {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
 
         <View style={styles.card}>
-          <View style={{ alignItems: "flex-end" }}>
-            {/* <View
-                            style={{
-                                width: 30,
-                                height: 30,
-                                borderRadius: 20,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: dato.like
-                                    ? 'rgba(245, 42, 42,0.2)'
-                                    : 'rgba(0,0,0,0.2) ',
-                            }}> */}
-            {/* <Icon
-                                name="favorite"
-                                size={18}
-                                color={dato.like ? Colors.red : Colors.primary}
-                            /> */}
-            {/* </View> */}
-          </View>
-
           <View
             style={{
               height: 100,
@@ -234,11 +214,6 @@ export default function HesselScreen({ navigation }) {
               marginTop: 5,
             }}
           >
-            {/* estimado necesita algo? */}
-
-            {/* <Text style={{ fontSize: 19, fontWeight: 'bold' }}>
-                            {dato.price}
-                        </Text> */}
             {dato.producto.precio != "" && (
               <Text
                 style={{
@@ -280,121 +255,77 @@ export default function HesselScreen({ navigation }) {
     );
   };
 
-  function renderHeader() {
-    return (
-      <View style={styles.searchContainer} marginTop={10}>
-        <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => searchFilterFunction(text)}
-          value={search}
-          placeholder="Buscar"
-        />
-      </View>
-    );
-  }
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        top: 25,
         paddingHorizontal: 19,
         backgroundColor: Colors.primary,
       }}
     >
-      <View style={styles.header}>
+      <View style={{ marginHorizontal: 20 }}>
         <View>
-          <Text style={{ fontSize: 25, fontWeight: "bold", top:28, left:15 }}>Bienvenido a</Text>
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>Bienvenido a</Text>
           <Text
             style={{
               fontSize: 35,
               fontWeight: "bold",
               color: Colors.blue,
-              alignItems: "center",
-              top:20,
-              left:15
             }}
           >
             Productos HESSEL
           </Text>
-
-          {/* <PageLog
-                            source={require("../assets/logoAncalmo.png")}
-                            style={{width: 100, height: 100}}
-                            resizeMode="cover"
-                        /> */}
         </View>
-        {/* <Icon name="shopping-cart" size={30} color={Colors.blue} /> */}
-      </View>
-      <View style={{ marginTop: 30, flexDirection: "row", top:20 }}>
-        <View style={styles.searchContainer} marginTop={10}>
-          <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-          <TextInput
-            onFocus={(text) => searchFilterFunction()}
-            style={styles.input}
-            onChangeText={(text) => searchFilterFunction(text)}
-            value={search}
-            placeholder="Buscar"
-          />
+        <View style={{ marginTop: 20, flexDirection: "row" }}>
+          <View style={styles.searchContainer}>
+            <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+            <TextInput
+              onFocus={(text) => searchFilterFunction()}
+              style={styles.input}
+              onChangeText={(text) => searchFilterFunction(text)}
+              value={search}
+              placeholder="Buscar"
+            />
+          </View>
         </View>
-        {/* <View style={styles.sortBtn}>
-                    <Icon name="sort" size={30} color={Colors.primary} />
-                </View> */}
+        <FlatList
+          //  ListHeaderComponent={renderHeader}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            marginTop: 10,
+            paddingBottom: 50,
+          }}
+          numColumns={2}
+          data={
+            filteredDataSource
+              ? emptyToBack(filteredDataSource)
+              : catalog
+              ? emptyToBack(catalog)
+              : []
+          }
+          renderItem={({ item }) => {
+            return <Card dato={item} />;
+          }}
+          keyExtractor={(item) => item.producto.id}
+          //   ItemSeparatorComponent={ItemSeparatorView}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
       </View>
-      <FlatList
-        //  ListHeaderComponent={renderHeader}
-        style={{top:20}}
-        columnWrapperStyle={{ justifyContent: "space-between" }}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          marginTop: 10,
-          paddingBottom: 50,
-        }}
-        numColumns={2}
-        data={
-          filteredDataSource
-            ? emptyToBack(filteredDataSource)
-            : catalog
-            ? emptyToBack(catalog)
-            : []
-        }
-        renderItem={({ item }) => {
-          return <Card dato={item} />;
-        }}
-        keyExtractor={(item) => item.producto.id}
-        //   ItemSeparatorComponent={ItemSeparatorView}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    top:22,
-
-    marginTop: -50,
-    marginRight:-35,
-    right:18,
-    
-    backgroundColor: Colors.white
-},
-    container: {
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 50
-    },
-    searchContainer: {
+  searchContainer: {
         height: 50,
         backgroundColor: Colors.secondary,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 30,
-        top:-10
     },
 
     input: {
@@ -402,16 +333,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.tertiary,
         flex: 1,
-    },
-    sortBtn: {
-        marginLeft: 10,
-        height: 50,
-        width: 50,
-        borderRadius: 10,
-        backgroundColor: Colors.blue,
-        justifyContent: 'center',
-        alignItems: 'center',
-        top:-10
     },
     card: {
         height: 225,

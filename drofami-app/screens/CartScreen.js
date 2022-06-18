@@ -7,7 +7,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Alert
+  Alert,
+  SafeAreaView,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import {
@@ -500,7 +501,7 @@ const CartScreen = ({ navigation }) => {
   return (
     <>
       {dataCart.length > 0 ? (
-        <View
+        <SafeAreaView
           style={{
             width: "100%",
             height: "100%",
@@ -518,7 +519,6 @@ const CartScreen = ({ navigation }) => {
               paddingHorizontal: 16,
               justifyContent: "space-between",
               alignItems: "center",
-              marginTop: 30,
               backgroundColor: Colors.gray,
             }}
           >
@@ -537,13 +537,6 @@ const CartScreen = ({ navigation }) => {
             </Text>
             <View></View>
           </View>
-          {/* <View> */}
-
-          {/* <Button
-          style={style.buyBtn}
-          title="Press me"
-          onPress={() => Alert.alert("Simple Button pressed")}
-        /> */}
 
           <View
             style={{
@@ -558,7 +551,6 @@ const CartScreen = ({ navigation }) => {
               style={{
                 fontSize: 20,
                 color: Colors.blue,
-                backgroundColor: Colors.gray,
                 fontWeight: "bold",
               }}
             >
@@ -580,7 +572,7 @@ const CartScreen = ({ navigation }) => {
                   "Cancelando orden",
                   "¿Está seguro de cancelar su orden?",
                   [
-                    { text: "Seguir en carrito", onPress: () => { } },
+                    { text: "Seguir en carrito", onPress: () => {} },
                     {
                       text: "Cancelar orden",
                       style: "cancel",
@@ -598,7 +590,10 @@ const CartScreen = ({ navigation }) => {
           {/* </View> */}
           <FlatList
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 80 }}
+            contentContainerStyle={{
+              // paddingBottom: 1000,
+              backgroundColor: Colors.white,
+            }}
             data={dataCart ? dataCart : []}
             renderItem={({ item }) => (
               <CartCard
@@ -614,7 +609,9 @@ const CartScreen = ({ navigation }) => {
                 fabricante={item.producto.fabricante}
                 color={item.producto.color}
                 oferta={item.producto.oferta ? item.producto.oferta : null}
-                recomendado={item.producto.recomendado ? item.producto.recomendado : null}
+                recomendado={
+                  item.producto.recomendado ? item.producto.recomendado : null
+                }
               />
             )}
             keyExtractor={(item) => item.producto.id}
@@ -676,7 +673,7 @@ const CartScreen = ({ navigation }) => {
                         {
                           text: "Regresar",
                           style: "cancel",
-                          onPress: () => { },
+                          onPress: () => {},
                         },
                       ]
                     );
@@ -764,7 +761,7 @@ const CartScreen = ({ navigation }) => {
                     opacity: 0.8,
                   }}
                 >
-                  L. {(total - (total*0.15)).toFixed(2)}
+                  L. {(total - total * 0.15).toFixed(2)}
                 </Text>
 
                 <Text
@@ -785,15 +782,14 @@ const CartScreen = ({ navigation }) => {
                     color: Colors.black,
                   }}
                 >
-                  L.{" "}
-                  {(total).toFixed(2)}
+                  L. {total.toFixed(2)}
                 </Text>
               </View>
             </View>
           </View>
 
           {/* </ScrollView> */}
-        </View>
+        </SafeAreaView>
       ) : (
         <View
           style={{
@@ -807,8 +803,9 @@ const CartScreen = ({ navigation }) => {
         >
           {/* <ScrollView> */}
 
-
-          <Text style={{ fontWeight: "bold", color: Colors.blue, marginBottom: 40 }}>
+          <Text
+            style={{ fontWeight: "bold", color: Colors.blue, marginBottom: 40 }}
+          >
             Actualmente no tienes productos en carrito.
           </Text>
           <PageLogOferta
@@ -839,7 +836,9 @@ const CartScreen = ({ navigation }) => {
                 navigation.navigate("Ancalmo");
               }}
             />
-            <Text style={{ fontWeight: "bold", color: Colors.blue, marginLeft: 10 }}>
+            <Text
+              style={{ fontWeight: "bold", color: Colors.blue, marginLeft: 10 }}
+            >
               Agrega productos nuevos
             </Text>
           </View>
