@@ -25,7 +25,7 @@ function RecommendedCards(props) {
   const CarouselCardItem = ({ item, index }) => {
     return (
       <TouchableOpacity
-          style={{ backgroundColor: Colors.secondary}}
+          style={{ backgroundColor: Colors.gray}}
           onPress={() => {getProduct(props.setLoading, props.token,  item.id, props.setProductResponse)}}
         >
       <View style={{alignItems: "center"}} key={index}>
@@ -51,7 +51,7 @@ function RecommendedCards(props) {
             style={{
               height: 25,
               width: 25,
-              backgroundColor: Colors.secondary,
+              backgroundColor: Colors.white,
               borderRadius: 5,
               justifyContent: 'center',
               alignItems: 'center',
