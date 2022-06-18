@@ -64,7 +64,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
             tempCatalog.push(element);
         })
         setCatalog(tempCatalog)
-        console.log(response)
+
     }, [response]);
 
     React.useEffect(() => {
@@ -154,7 +154,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
                 if(!element.producto.etiqueta)
                     return false;
                 element.producto.etiqueta.forEach((tag) =>{
-                    console.log(tag);
+                   
                     if(tag.toLowerCase().includes(text.toLowerCase())){
                         hasTag = true;
                         return;
