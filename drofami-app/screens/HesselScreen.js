@@ -297,76 +297,72 @@ export default function HesselScreen({ navigation }) {
     <SafeAreaView
       style={{
         flex: 1,
-        top: 25,
-        paddingHorizontal: 19,
+
         backgroundColor: Colors.primary,
       }}
     >
-      <View style={styles.header}>
-        <View>
-        <Text style={{ fontSize: 25, fontWeight: "bold", top:28, left:15 }}>Bienvenido a</Text>
-          <Text
-            style={{
-              fontSize: 35,
-              fontWeight: "bold",
-              color: Colors.blue,
-              alignItems: "center",
-              top:20,
-              left:15
-            }}
-          >
-            Productos HESSEL
-          </Text>
-
-          {/* <PageLog
-                            source={require("../assets/logoAncalmo.png")}
-                            style={{width: 100, height: 100}}
-                            resizeMode="cover"
-                        /> */}
-        </View>
-        {/* <Icon name="shopping-cart" size={30} color={Colors.blue} /> */}
+      <View style={{ marginLeft: 16, marginTop: 25 }}>
+        <Text
+          style={{ fontSize: 25, fontWeight: "bold", alignItems: "flex-end" }}
+        >
+          Bienvenido a
+        </Text>
+        <Text
+          style={{
+            // marginTop: 8,
+            fontSize: 35,
+            fontWeight: "bold",
+            top: -8,
+            color: Colors.blue,
+          }}
+        >
+          Productos HESSEL
+        </Text>
       </View>
-      <View style={{ marginTop: 30, flexDirection: "row", top:10 }}>
-        <View style={styles.searchContainer} top={10}>
-          <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-          <TextInput
-            onFocus={(text) => searchFilterFunction()}
-            style={styles.input}
-            onChangeText={(text) => searchFilterFunction(text)}
-            value={search}
-            placeholder="Buscar"
-          />
+      <View style={{ paddingHorizontal: 19, marginHorizontal: 0 }}>
+        <View style={{ flexDirection: "row", marginTop: 10 }}>
+          <View style={styles.searchContainer}>
+            <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+            <TextInput
+              onFocus={(text) => searchFilterFunction()}
+              style={styles.input}
+              onChangeText={(text) => searchFilterFunction(text)}
+              value={search}
+              placeholder="Buscar"
+            />
+          </View>
         </View>
-        {/* <View style={styles.sortBtn}>
-                    <Icon name="sort" size={30} color={Colors.primary} />
-                </View> */}
+        <View
+          style={{
+            marginBottom: 170
+          }}>
+        <FlatList
+          //  ListHeaderComponent={renderHeader}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            marginTop: 0,
+            paddingBottom: 50,
+          }}
+          numColumns={2}
+          data={
+            filteredDataSource
+              ? emptyToBack(filteredDataSource)
+              : catalog
+              ? emptyToBack(catalog)
+              : []
+          }
+          renderItem={({ item }) => {
+            return <Card dato={item} />;
+          }}
+          keyExtractor={(item) => item.producto.id}
+          //   ItemSeparatorComponent={ItemSeparatorView}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
       </View>
-      <FlatList
-        //  ListHeaderComponent={renderHeader}
-        style={{top:20}}
-        columnWrapperStyle={{ justifyContent: "space-between" }}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          marginTop: 10,
-          paddingBottom: 50,
-        }}
-        numColumns={2}
-        data={
-          filteredDataSource
-            ? emptyToBack(filteredDataSource)
-            : catalog
-            ? emptyToBack(catalog)
-            : []
-        }
-        renderItem={({ item }) => {
-          return <Card dato={item} />;
-        }}
-        keyExtractor={(item) => item.producto.id}
-        //   ItemSeparatorComponent={ItemSeparatorView}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
+      </View>
     </SafeAreaView>
   );
 }

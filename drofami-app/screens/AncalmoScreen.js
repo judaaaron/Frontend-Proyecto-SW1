@@ -200,21 +200,7 @@ const AncalmoScreen = ({ navigation, dato }) => {
                 {/* {//hacer el segundo fetch aqui -> mandar datos del response como navigator} */}
 
                 <View style={styles.card}>
-                    <View style={{ alignItems: 'flex-end' }}>
-                        {/* <View
-                            style={{
-                                width: 30,
-                                height: 30,
-                                borderRadius: 20,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                backgroundColor: dato.like
-                                    ? 'rgba(245, 42, 42,0.2)'
-                                    : 'rgba(0,0,0,0.2) ',
-                            }}> */}
-                        
-                        {/* </View> */}
-                    </View>
+                    
 
                     <View
                         style={{
@@ -278,82 +264,73 @@ const AncalmoScreen = ({ navigation, dato }) => {
         );
     }
     return (
-        <SafeAreaView
-            style={{
-                flex: 1,
-                top: 25,
-                paddingHorizontal: 19,
-                backgroundColor: Colors.primary,
-
-            }}>
-            {/* <ScrollView contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
+      <SafeAreaView
+        style={{
+          flex: 1,
+          
+          backgroundColor: Colors.primary,
+        }}
       >
-             */}
-             {/* <View style={{marginTop:20, backgroundColor:Colors.white}}>
-                 <Text style={{marginTop:-20, backgroundColor:Colors.white}}></Text>
-             </View> */}
+        <View style={{ marginLeft:16, marginTop: 25 }}>
+            <Text style={{ fontSize: 25, fontWeight: "bold", alignItems: 'flex-end' }}>
+                Bienvenido a
+            </Text>
+            <Text
+                style={{
+                    // marginTop: 8,
+                    fontSize: 35,
+                    fontWeight: "bold",
+                    top: -8,
+                    color: Colors.blue,
+                }}
+            >
+                Productos ANCALMO
+            </Text>
+        </View>
+        <View style={{ paddingHorizontal: 19,marginHorizontal: 0}}>
 
-            <View style={styles.header}>
-                <View>
-                <Text style={{ fontSize: 25, fontWeight: 'bold', top:28, left:15 }}>Bienvenido a</Text>
-                    <Text style={{ fontSize: 35, fontWeight: 'bold', color: Colors.blue, alignItems: 'center', top:20, left:15 }}>
-                        Productos ANCALMO
-                    </Text>
-
-                    {/* <PageLog
-                            source={require("../assets/logoAncalmo.png")}
-                            style={{width: 100, height: 100}}
-                            resizeMode="cover"
-                        /> */}
-
-                </View>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <View style={styles.searchContainer}>
+              <Icon name="search" size={25} style={{ marginLeft: 20 }} />
+              <TextInput
+                onFocus={(text) => searchFilterFunction()}
+                style={styles.input}
+                onChangeText={(text) => searchFilterFunction(text)}
+                value={search}
+                placeholder="Buscar"
+              />
             </View>
-
-            <View style={{ marginTop: 30, flexDirection: 'row', top:10 }}>
-            <View style={styles.searchContainer} top={10} >
-                <Icon name="search" size={25} style={{ marginLeft: 20 }} />
-                <TextInput
-                    onFocus={(text) => searchFilterFunction()}
-                    style={styles.input}
-                    onChangeText={(text) => searchFilterFunction(text)}
-                    value={search}
-                    placeholder="Buscar"
-
-                />
-            </View>
-                {/* <View style={styles.sortBtn}>
-                    <Icon name="sort" size={30} color={Colors.primary} />
-                </View> */}
-            </View>
-
+          </View>
+          <View
+          style={{
+            marginBottom: 170
+          }}>
             <FlatList
-                //ListHeaderComponent={renderHeader}
-                style={{top:20}}
-                columnWrapperStyle={{ justifyContent: 'space-between' }}
+                columnWrapperStyle={{ justifyContent: "space-between" }}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
-                    marginTop: 10,
-                    paddingBottom: 50,
+                marginBottom: 0,
+                paddingBottom: 50,
                 }}
                 numColumns={2}
-                data={filteredDataSource ? emptyToBack(filteredDataSource) : catalog ? emptyToBack(catalog) : []}
+                data={
+                filteredDataSource
+                    ? emptyToBack(filteredDataSource)
+                    : catalog
+                    ? emptyToBack(catalog)
+                    : []
+                }
                 renderItem={({ item }) => {
-                    return <Card dato={item} />;
+                return <Card dato={item} />;
                 }}
                 keyExtractor={(item) => item.producto.id}
-              //  ItemSeparatorComponent={ItemSeparatorView}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-
-            />
-            {/* </ScrollView> */}
-        </SafeAreaView>
-
+                refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+          />
+          </View>
+        </View>
+      </SafeAreaView>
     );
 }
 
@@ -405,7 +382,7 @@ const styles = StyleSheet.create({
         width,
         marginHorizontal: 2,
         borderRadius: 10,
-        marginBottom: 20,
+        marginBottom: 15,
         padding: 15,
     },
     scrollView: {
