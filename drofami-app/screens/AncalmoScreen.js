@@ -301,29 +301,34 @@ const AncalmoScreen = ({ navigation, dato }) => {
               />
             </View>
           </View>
-          <FlatList
-            columnWrapperStyle={{ justifyContent: "space-between" }}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              marginTop: 0,
-              paddingBottom: 50,
-            }}
-            numColumns={2}
-            data={
-              filteredDataSource
-                ? emptyToBack(filteredDataSource)
-                : catalog
-                ? emptyToBack(catalog)
-                : []
-            }
-            renderItem={({ item }) => {
-              return <Card dato={item} />;
-            }}
-            keyExtractor={(item) => item.producto.id}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
+          <View
+          style={{
+            marginBottom: 170
+          }}>
+            <FlatList
+                columnWrapperStyle={{ justifyContent: "space-between" }}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                marginBottom: 0,
+                paddingBottom: 50,
+                }}
+                numColumns={2}
+                data={
+                filteredDataSource
+                    ? emptyToBack(filteredDataSource)
+                    : catalog
+                    ? emptyToBack(catalog)
+                    : []
+                }
+                renderItem={({ item }) => {
+                return <Card dato={item} />;
+                }}
+                keyExtractor={(item) => item.producto.id}
+                refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
           />
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -377,7 +382,7 @@ const styles = StyleSheet.create({
         width,
         marginHorizontal: 2,
         borderRadius: 10,
-        marginBottom: 20,
+        marginBottom: 15,
         padding: 15,
     },
     scrollView: {

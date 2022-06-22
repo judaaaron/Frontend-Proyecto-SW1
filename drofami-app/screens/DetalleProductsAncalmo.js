@@ -161,15 +161,15 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
 
   return (
       <>
-      <BannerNextOffer message={productResponse ? (productResponse['data']['producto']['sig_oferta'] ? productResponse['data']['producto']['sig_oferta']['msg']: '') : ''}
-        setVisible={setBannerVisible}
-        visible={bannerVisible}
-      />
       <SafeAreaView
         style={{
           flex: 1,
           backgroundColor: producto.color,
         }}>
+          <BannerNextOffer message={productResponse ? (productResponse['data']['producto']['sig_oferta'] ? productResponse['data']['producto']['sig_oferta']['msg']: '') : ''}
+            setVisible={setBannerVisible}
+            visible={bannerVisible}
+          />
         <View style={style.header}>
           <Icon name="arrow-back" size={28} onPress={() => navigation.goBack()} />
           {

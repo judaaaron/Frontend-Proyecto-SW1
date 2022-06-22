@@ -332,6 +332,10 @@ export default function HesselScreen({ navigation }) {
             />
           </View>
         </View>
+        <View
+          style={{
+            marginBottom: 170
+          }}>
         <FlatList
           //  ListHeaderComponent={renderHeader}
           columnWrapperStyle={{ justifyContent: "space-between" }}
@@ -357,6 +361,7 @@ export default function HesselScreen({ navigation }) {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         />
+      </View>
       </View>
     </SafeAreaView>
   );
