@@ -16,11 +16,13 @@ import { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import { getProduct } from "../src/ProductMethods";
 import { showMessage } from "react-native-flash-message";
 import Spinner from '../components/Spinner';
-
+import CarouselCards from "./CarouselCards";
+import CarouselCards2 from "./CarouselCards2";
 
 function RecommendedCards(props) {
   const [index, setIndex] = React.useState(0);
   const isCarousel = React.useRef(null);
+  const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
 
   const CarouselCardItem = ({ item, index }) => {
     return (
@@ -39,7 +41,14 @@ function RecommendedCards(props) {
       </View>
           <View style={{ alignItems: 'flex-start'}} >
             <Text style={styles.header}>{item.nombre}</Text>
+
             <Text style={styles.body}>L. {Number(item.precio).toFixed(2)} </Text>
+
+            {staff === false ? (
+            <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text>
+            ):(
+              null
+            )}
           </View>
 
           <View
@@ -57,10 +66,12 @@ function RecommendedCards(props) {
               alignItems: 'center',
 
             }}>
+              {staff === false ? (
             <Text
               style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: Colors.blue }} >
               +
             </Text>
+              ):(null)}
           </View>
           </View>
         </TouchableOpacity>
@@ -126,8 +137,39 @@ export default function MainHome({ navigation }) {
   const [index, setIndex] = useState(0);
   // console.log("fish ", recomendacionANC[0]['id']);
 
+  const dataHessel = [
+    {
+      nombre: "Aciclovirax",
+      imagen:
+        "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
+    },
+    {
+      nombre: "Aciclovirax 200 mg",
+      imagen:
+        "https://www.ancalmo.com/wp-content/uploads/2020/08/Aciclovirax-200mg-2020.png",
+    },
+    {
+      nombre: "Aciclovirax 400mg",
+      imagen:
+        "https://www.ancalmo.com/wp-content/uploads/2020/08/Aciclovirax-400mg-2020-2.png",
+    },
+  ];
 
-  
+  const dataAncalmo = [
+  {
+    nombre: "Calamina Antialérgica",
+    imagen: "https://www.ancalmo.com/wp-content/uploads/2017/04/calamina-antialergica-1.jpg"
+  },
+  {
+    nombre: "GINKROL",
+    imagen: "https://www.ancalmo.com/wp-content/uploads/2017/05/ginkrol-ancalmo-1.jpg"
+  },
+  {
+    nombre: "ZORRITONE BALSÁMICO UNGÜENTO TARRO",
+    imagen: "https://www.ancalmo.com/wp-content/uploads/2017/04/z-unguento.jpg"
+  }
+]
+
   React.useEffect(() => {
     if (!token.current) {
       return;
@@ -217,14 +259,13 @@ React.useEffect(() => {
     });
   }
 }, [productResponse]);
-
   return (
     <View
       style={{
         backgroundColor: Colors.white,
         paddingTop: 40,
         justifyContent: "center",
-        marginBottom: 55
+        marginBottom: 55,
       }}
     >
       <View
@@ -266,12 +307,19 @@ React.useEffect(() => {
             }}
           />
         </View>
-        <RecommendedCards
-          token={token.current}
-          array={recomendacionANC}
-          setProductResponse={setProductResponse}
-          setLoading={setLoading}
-        />
+        {useSelector((state) => state.staff.value) === false ? (
+          <RecommendedCards
+            token={token.current}
+            array={recomendacionANC}
+            setProductResponse={setProductResponse}
+            setLoading={setLoading}
+          />
+        ) : (
+          <RecommendedCards
+            token={token.current}
+            array={dataAncalmo}
+          />
+        )}
 
         <View
           style={{
@@ -288,12 +336,20 @@ React.useEffect(() => {
             }}
           />
         </View>
-        <RecommendedCards
-          token={token.current}
-          array={recomendacionHES}
-          setProductResponse={setProductResponse}
-          setLoading={setLoading}
-        />
+
+        {useSelector((state) => state.staff.value) === false ? (
+          <RecommendedCards
+            token={token.current}
+            array={recomendacionHES}
+            setProductResponse={setProductResponse}
+            setLoading={setLoading}
+          />
+        ) : (
+          <RecommendedCards
+            token={token.current}
+            array={dataHessel}
+          />
+        )}
       </ScrollView>
       {loading && <Spinner text={"Cargando..."} />}
     </View>
