@@ -6,11 +6,22 @@ import {
 } from "../components/styles"
 import CarouselDescripcionHessel from './CarouselDescripcionHessel'
 import { useSelector } from "react-redux";//este se agrega
+import { Banner } from 'react-native-paper';
 
 const DetalleProductsHessel = ({navigation, route}) =>{
     const producto = route.params;
+    const [bannerVisible, setBannerVisible] = useState(false);
+
+
     return(
+      
       <ScrollView>
+         <BannerNextOffer message={productResponse ? (productResponse['data']['producto']['sig_oferta'] ? productResponse['data']['producto']['sig_oferta']['msg']: '') : ''}
+        setVisible={setBannerVisible}
+        visible={bannerVisible}
+
+      />
+
         <SafeAreaView
         style={{
           flex: 1,

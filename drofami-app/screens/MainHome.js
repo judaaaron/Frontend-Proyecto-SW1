@@ -16,8 +16,36 @@ import { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import { getProduct } from "../src/ProductMethods";
 import { showMessage } from "react-native-flash-message";
 import Spinner from '../components/Spinner';
+
 import CarouselCards from "./CarouselCards";
 import CarouselCards2 from "./CarouselCards2";
+
+import { Banner } from 'react-native-paper';
+
+
+
+function BannerNextOffer (props) {
+  const timeout = React.useRef(null);
+  clearTimeout(timeout.current)
+  timeout.current = setTimeout(() => {
+    props.setVisible(false);
+  }, 5000)
+  return (
+    <Banner
+      visible={props.visible}
+      actions={[
+        {
+          label: 'Okay',
+          onPress: () => props.setVisible(false),
+          color: 'red'
+        },
+       ]}
+       color='red'
+    >
+        {props.message}
+    </Banner>
+  );
+}
 
 function RecommendedCards(props) {
   const [index, setIndex] = React.useState(0);
@@ -135,6 +163,9 @@ export default function MainHome({ navigation }) {
   const isEmpleado = React.useRef(useSelector((state) => state.staff.value));
   const isCarousel = React.useRef(null);
   const [index, setIndex] = useState(0);
+  //
+  const [bannerVisible, setBannerVisible] = useState(false);
+
   // console.log("fish ", recomendacionANC[0]['id']);
 
   const dataHessel = [
@@ -258,8 +289,21 @@ React.useEffect(() => {
       color: product["producto"]["color"],
     });
   }
+    
+
 }, [productResponse]);
+
+React.useEffect(() => {
+       //Aqui esta🦊
+     zelda=true;
+     if (zelda) {
+       setBannerVisible(true);
+     }
+
+  }, [])
+
   return (
+    
     <View
       style={{
         backgroundColor: Colors.white,
@@ -268,11 +312,21 @@ React.useEffect(() => {
         marginBottom: 55,
       }}
     >
+        {/*//Aqui esta🦊*/}
+        <BannerNextOffer message={'Hay creditos apunto de expirar!'}
+            setVisible={setBannerVisible}
+            visible={bannerVisible}
+          />
+      
       <View
         style={{
           alignItems: "center",
         }}
       >
+      
+          
+         
+
         <PageLogOferta
           source={require("../assets/drofamilogo1.jpg")}
           resizeMode="cover"
