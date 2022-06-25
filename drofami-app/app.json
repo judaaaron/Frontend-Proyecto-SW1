@@ -1,32 +1,33 @@
 {
-    "expo": {
-        "name": "drofami-app",
-        "slug": "drofamiApp",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "assets/IconoDrofami.png",
-        "splash": {
-            "image": "assets/DrofamiLogo2.png",
-            "resizeMode": "contain" ,
-            "backgroundColor": "#072989"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0
-        },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#FFFFFF"
-            }
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        }
+  "expo": {
+    "name": "drofami-app",
+    "slug": "drofamiApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "assets/IconoDrofami.png",
+    "splash": {
+      "image": "assets/DrofamiLogo2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#072989"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.judaaaron.drofamiApp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     }
+  }
 }
