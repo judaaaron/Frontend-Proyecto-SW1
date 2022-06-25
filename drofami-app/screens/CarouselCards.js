@@ -5,28 +5,28 @@ import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from './CarouselCardItem'
 
 
 const { width, heigth } = Dimensions.get('window')
-let flatList
+const data = [
+  {
+    title: "Calamina Antialérgica",
+    body: "Antihistamínica y antipuriginosa (Antialérgica)",
+    imgUrl:
+      "https://www.ancalmo.com/wp-content/uploads/2017/04/calamina-antialergica-1.jpg",
+  },
+  {
+    title: "Calamina Mentolada",
+    body: "Refrescante del mentol (Mentolada)",
+    imgUrl:
+      "https://www.ancalmo.com/wp-content/uploads/2017/04/calamina-mentolada.jpg",
+  },
+  {
+    title: "Calamina Rosada",
+    body: "Antiséptica y suavizante",
+    imgUrl:
+      "https://www.ancalmo.com/wp-content/uploads/2017/04/calamina-rosada-1.jpg",
+  },
+];
 
-function infiniteScroll(dataList) {
-  const numberOfData = dataList.length
-  let scrollValue = 0, scrolled = 0
-
-  setInterval(function () {
-    scrolled++
-    if (scrolled < numberOfData)
-      scrollValue = scrollValue + width
-
-    else {
-      scrollValue = 0
-      scrolled = 0
-    }
-
-    this.flatList.scrollToOffset({ animated: true, offset: scrollValue })
-
-  }, 3000)
-}
-
-const CarouselCards = (props) => {
+const CarouselCards = () => {
   const [index, setIndex] = React.useState(0)
   const isCarousel = React.useRef(null)
 
@@ -37,7 +37,7 @@ const CarouselCards = (props) => {
         // layout="stack"
         layoutCardOffset={19}
         ref={isCarousel}
-        data={props.data}
+        data={data}
         renderItem={CarouselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
