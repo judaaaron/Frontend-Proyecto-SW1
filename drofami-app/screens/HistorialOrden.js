@@ -156,7 +156,7 @@ const HistorialOrden = ({ navigation }) => {
                                     }}
                                 >
 
-                                    Total: L.{(total + (total * 0.15)).toFixed(2)}
+                                    Total: L.{(total).toFixed(2)}
 
                                 </Text>
 
