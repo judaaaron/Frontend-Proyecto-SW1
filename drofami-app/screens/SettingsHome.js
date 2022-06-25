@@ -199,7 +199,6 @@ function SettingsHome({ navigation }) {
               />
             </Avatar>
 
-
             <View style={{ alignItems: "center" }}>
               <Text style={{ alignContent: "center" }}>
                 {state ? state.first_name + " " + state.last_name : ""}
@@ -221,10 +220,9 @@ function SettingsHome({ navigation }) {
               navigation.navigate("OpcionesCuenta");
             }}
           >
-
             <RightIcon2
               onPress={() => {
-                navigation.navigate("OpcionesCuenta")
+                navigation.navigate("OpcionesCuenta");
               }}
             >
               <Icon
@@ -243,18 +241,15 @@ function SettingsHome({ navigation }) {
           {/* </ExtraView> */}
           {/* <ExtraView marginRight={160}> */}
 
-         
-
-      
-          {useSelector((state) => state.staff.value) === false ?
+          {useSelector((state) => state.staff.value) === false ? (
             <StyledButton2
               onPress={() => {
-                navigation.navigate("SelectEmpresa", { token: token })
+                navigation.navigate("SelectEmpresa", { token: token });
               }}
             >
               <RightIcon2
                 onPress={() => {
-                  navigation.navigate("SelectEmpresa", { token: token })
+                  navigation.navigate("SelectEmpresa", { token: token });
                 }}
               >
                 <Icon name="business" size={20} color={Colors.blue} />
@@ -262,30 +257,31 @@ function SettingsHome({ navigation }) {
               </RightIcon2>
               <ButtonText2>Selección de Empresa</ButtonText2>
             </StyledButton2>
-            :
-            null}
-          <StyledButton2
-            onPress={() => {
-              navigation.navigate("HistorialOrden")
+          ) : null}
 
-            }}
-          >
-            <RightIcon2
+          {useSelector((state) => state.staff.value) === false ? (
+            <StyledButton2
               onPress={() => {
-                navigation.navigate("HistorialOrden")
-
+                navigation.navigate("HistorialOrden");
               }}
             >
-              <Icon name="history" size={20} color={Colors.blue} />
-            </RightIcon2>
+              <RightIcon2
+                onPress={() => {
+                  navigation.navigate("HistorialOrden");
+                }}
+              >
+                <Icon name="history" size={20} color={Colors.blue} />
+              </RightIcon2>
 
-            <ButtonText2>Historial de Órdenes</ButtonText2>
-          </StyledButton2>
-          {useSelector((state) => state.staff.value) === false ?
+              <ButtonText2>Historial de Órdenes</ButtonText2>
+            </StyledButton2>
+          ) : null}
+          
+          {useSelector((state) => state.staff.value) === false ? (
             <StyledButton2
-            onPress={() => {
-              getSupportUrl(setLoading, token, setUrl);
-            }}
+              onPress={() => {
+                getSupportUrl(setLoading, token, setUrl);
+              }}
             >
               <RightIcon2
                 onPress={() => {
@@ -296,13 +292,14 @@ function SettingsHome({ navigation }) {
                 {/* <Image source={require("./../assets/empresa3.png")} style={{width:30, height:30}}/> */}
               </RightIcon2>
               <ButtonText2
-                // onPress={() => {
-                //   followURL(getSupportUrl(setLoading, token, setUrl));
-                // }}
-              >Servicio al Cliente</ButtonText2>
+              // onPress={() => {
+              //   followURL(getSupportUrl(setLoading, token, setUrl));
+              // }}
+              >
+                Servicio al Cliente
+              </ButtonText2>
             </StyledButton2>
-            :
-            null}
+          ) : null}
 
           {/* {
             useSelector((state) => state.staff.value) === false ?
@@ -315,22 +312,18 @@ function SettingsHome({ navigation }) {
           } */}
 
           {/* </ExtraView> */}
-          <StyledButton2
-            onPress={() => setIsEnabled(true)}
-          >
-            <RightIcon2
-              onPress={() => setIsEnabled(true)}
-            >
+          <StyledButton2 onPress={() => setIsEnabled(true)}>
+            <RightIcon2 onPress={() => setIsEnabled(true)}>
               <Icon name="logout" size={20} color={Colors.red} />
             </RightIcon2>
-            <ButtonText2 style={{ color: Colors.red }}>Cerrar Sesión</ButtonText2>
+            <ButtonText2 style={{ color: Colors.red }}>
+              Cerrar Sesión
+            </ButtonText2>
           </StyledButton2>
         </View>
 
         {/* </StyledContainer> */}
       </View>
-
-
     </>
   );
 }
