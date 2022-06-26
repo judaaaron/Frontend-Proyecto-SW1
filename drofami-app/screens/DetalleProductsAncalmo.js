@@ -54,6 +54,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
   const [isInCart, setIsInCart] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const timeout = React.useRef(null);
+  //
   const [bannerVisible, setBannerVisible] = useState(false);
 
   const isFocused = useIsFocused();
@@ -117,7 +118,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
       setIsInCart(false);
     }
     
-    //Aqui esta
+    //Aqui esta🦊
     if (productResponse['data']['producto']['sig_oferta']) {
       setBannerVisible(true);
     }
@@ -161,6 +162,23 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
 
   return (
       <>
+      <BannerNextOffer message={productResponse ? (productResponse['data']['producto']['sig_oferta'] ? productResponse['data']['producto']['sig_oferta']['msg']: '') : ''}
+        setVisible={setBannerVisible}
+        visible={bannerVisible}
+
+        // icon={({size=20}) => (
+        //   <Image
+        //     source={{
+        //       uri: imagen,
+        //     }}
+        //     style={{
+        //       width: 15,
+        //       height: 15,
+        //     }}
+        //   />
+        // )}
+      />
+
       <SafeAreaView
         style={{
           flex: 1,

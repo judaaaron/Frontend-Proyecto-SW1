@@ -17,6 +17,35 @@ import { getProduct } from "../src/ProductMethods";
 import { showMessage } from "react-native-flash-message";
 import Spinner from '../components/Spinner';
 
+import CarouselCards from "./CarouselCards";
+import CarouselCards2 from "./CarouselCards2";
+
+import { Banner } from 'react-native-paper';
+
+
+
+function BannerNextOffer (props) {
+  const timeout = React.useRef(null);
+  clearTimeout(timeout.current)
+  timeout.current = setTimeout(() => {
+    props.setVisible(false);
+  }, 5000)
+  return (
+    <Banner
+      visible={props.visible}
+      actions={[
+        {
+          label: 'Okay',
+          onPress: () => props.setVisible(false),
+          color: 'red'
+        },
+       ]}
+       color='red'
+    >
+        {props.message}
+    </Banner>
+  );
+}
 
 
 
@@ -117,7 +146,7 @@ function RecommendedCards(props) {
     );
 }
 
-export default function MainHome({ navigation }) {
+export default function MainHome({ navigation, route }) {
   //const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
   const token = React.useRef(useSelector((state) => state.token.value))
   const [loading, setLoading] = useState(false);
@@ -128,6 +157,9 @@ export default function MainHome({ navigation }) {
   const isEmpleado = React.useRef(useSelector((state) => state.staff.value));
   const isCarousel = React.useRef(null);
   const [index, setIndex] = useState(0);
+  //
+  const [bannerVisible, setBannerVisible] = useState(false);
+  const mensaje = route.mensaje;
   // console.log("fish ", recomendacionANC[0]['id']);
 
   const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
@@ -220,22 +252,39 @@ React.useEffect(() => {
       color: product["producto"]["color"],
     });
   }
+    
+
 }, [productResponse]);
 
+React.useEffect(() => {
+     setBannerVisible(true);
+}, [])
+
   return (
+    
     <View
       style={{
         backgroundColor: Colors.white,
         paddingTop: 40,
         justifyContent: "center",
-        marginBottom: 55
+        marginBottom: 55,
       }}
     >
+        {/*//Aqui esta🦊*/}
+        <BannerNextOffer message={'Hay creditos apunto de expirar!'}
+            setVisible={setBannerVisible}
+            visible={bannerVisible}
+          />
+      
       <View
         style={{
           alignItems: "center",
         }}
       >
+      
+          
+         
+
         <PageLogOferta
           source={require("../assets/drofamilogo1.jpg")}
           resizeMode="cover"
