@@ -51,7 +51,7 @@ function RecommendedCards(props) {
   const [index, setIndex] = React.useState(0);
   const isCarousel = React.useRef(null);
   const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
-
+  
   const CarouselCardItem = ({ item, index }) => {
     return (
       <TouchableOpacity
@@ -152,7 +152,7 @@ function RecommendedCards(props) {
     );
 }
 
-export default function MainHome({ navigation }) {
+export default function MainHome({ navigation, route }) {
   //const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
   const token = React.useRef(useSelector((state) => state.token.value))
   const [loading, setLoading] = useState(false);
@@ -165,7 +165,7 @@ export default function MainHome({ navigation }) {
   const [index, setIndex] = useState(0);
   //
   const [bannerVisible, setBannerVisible] = useState(false);
-
+  const mensaje = route.mensaje;
   // console.log("fish ", recomendacionANC[0]['id']);
 
   const dataHessel = [
@@ -294,13 +294,8 @@ React.useEffect(() => {
 }, [productResponse]);
 
 React.useEffect(() => {
-       //Aqui esta🦊
-     zelda=true;
-     if (zelda) {
-       setBannerVisible(true);
-     }
-
-  }, [])
+     setBannerVisible(true);
+}, [])
 
   return (
     
@@ -361,20 +356,12 @@ React.useEffect(() => {
             }}
           />
         </View>
-        {useSelector((state) => state.staff.value) === false ? (
-          <RecommendedCards
+        <RecommendedCards
             token={token.current}
             array={recomendacionANC}
             setProductResponse={setProductResponse}
             setLoading={setLoading}
           />
-        ) : (
-          <RecommendedCards
-            token={token.current}
-            array={dataAncalmo}
-          />
-        )}
-
         <View
           style={{
             alignItems: "center",
@@ -390,20 +377,12 @@ React.useEffect(() => {
             }}
           />
         </View>
-
-        {useSelector((state) => state.staff.value) === false ? (
-          <RecommendedCards
+        <RecommendedCards
             token={token.current}
             array={recomendacionHES}
             setProductResponse={setProductResponse}
             setLoading={setLoading}
           />
-        ) : (
-          <RecommendedCards
-            token={token.current}
-            array={dataHessel}
-          />
-        )}
       </ScrollView>
       {loading && <Spinner text={"Cargando..."} />}
     </View>
