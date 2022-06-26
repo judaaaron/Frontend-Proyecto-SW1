@@ -18,9 +18,12 @@ import { showMessage } from "react-native-flash-message";
 import Spinner from '../components/Spinner';
 
 
+
+
 function RecommendedCards(props) {
   const [index, setIndex] = React.useState(0);
   const isCarousel = React.useRef(null);
+  
 
   const CarouselCardItem = ({ item, index }) => {
     return (
@@ -39,7 +42,8 @@ function RecommendedCards(props) {
       </View>
           <View style={{ alignItems: 'flex-start'}} >
             <Text style={styles.header}>{item.nombre}</Text>
-            <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text>
+            {!props.employee &&
+              <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text>}
           </View>
 
           <View
@@ -126,7 +130,7 @@ export default function MainHome({ navigation }) {
   const [index, setIndex] = useState(0);
   // console.log("fish ", recomendacionANC[0]['id']);
 
-
+  const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
   
   React.useEffect(() => {
     if (!token.current) {
@@ -271,6 +275,7 @@ React.useEffect(() => {
           array={recomendacionANC}
           setProductResponse={setProductResponse}
           setLoading={setLoading}
+          employee={staff}
         />
 
         <View
@@ -293,6 +298,7 @@ React.useEffect(() => {
           array={recomendacionHES}
           setProductResponse={setProductResponse}
           setLoading={setLoading}
+          employee={staff}
         />
       </ScrollView>
       {loading && <Spinner text={"Cargando..."} />}
