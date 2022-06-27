@@ -47,6 +47,7 @@ const CartScreen = ({ navigation }) => {
   const [clearResponse, setClearResponse] = useState(null);
   const [centavo, setCentavo] = useState(false);
   const [orderResponse, setOrderResponse] = useState(null);
+  
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
