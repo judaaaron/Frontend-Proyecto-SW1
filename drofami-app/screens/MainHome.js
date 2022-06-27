@@ -30,6 +30,8 @@ function BannerNextOffer (props) {
   timeout.current = setTimeout(() => {
     props.setVisible(false);
   }, 5000)
+  //remove all instances of the substring '\n'
+  const newStr = props.message.replace(/\\n/g, '');
   return (
     <Banner
       style={{
@@ -51,7 +53,7 @@ function BannerNextOffer (props) {
        ]}
        color='red'
     >
-        {props.message}
+        {newStr}
     </Banner>
   );
 }
@@ -295,8 +297,7 @@ React.useEffect(() => {
         marginBottom: 55,
       }}
     >
-        {/*//Aqui esta🦊*/}
-        <BannerNextOffer message={estadoResponse ? estadoResponse.estados : null}
+        <BannerNextOffer message={estadoResponse ? (estadoResponse.estados) : null}
             setVisible={setBannerVisible}
             visible={bannerVisible}
             navigate={takeMeToOrders}
