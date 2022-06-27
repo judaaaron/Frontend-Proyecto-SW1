@@ -22,7 +22,11 @@ export const Colors = {
   gray2:'#9B9B9B',
   darkBlue:'#000CCC',
   menta:'#CDFFF4',
-  morado:'#8EA0D8'
+  morado:'#8EA0D8',
+  orange: '#FFA500',
+  yellow: '#FFFF00',
+
+
 };
 
 const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightblue, white, gray, gray2, darkBlue } = Colors;

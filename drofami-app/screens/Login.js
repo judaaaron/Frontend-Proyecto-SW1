@@ -36,8 +36,9 @@ const { darkLight } = Colors;
 
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../src/reducers/getToken";
+import { setMensaje } from "../src/reducers/getMensaje";
 import { isStaff } from "../src/reducers/staff";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/Spinner"; 
 
 
 const Login = ({ navigation }) => {
@@ -49,6 +50,7 @@ const Login = ({ navigation }) => {
     const [cargo, setCargo] = useState(false);
     //redux
     const dispatch = useDispatch();
+     
 
     React.useEffect(()=>{
         if (loginResponse['status'] == 'success') {
@@ -72,9 +74,7 @@ const Login = ({ navigation }) => {
                 setCargo(!cargo)    
             }
             // navigation.replace('Home');
-            
-          
-             
+     
         } else if (loginResponse.status && loginResponse.message) {
             showMessage({
                 message: loginResponse.message,
@@ -89,6 +89,9 @@ const Login = ({ navigation }) => {
                 type: "danger",
             });
             // alert('Usuario y/o contraseña incorrectos')
+        }
+        if (loginResponse['estados']) {
+            dispatch(setMensaje(loginResponse["estados"]));
         }
 
     }, [loginResponse])
