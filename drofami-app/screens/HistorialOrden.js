@@ -60,7 +60,12 @@ const HistorialOrden = ({ navigation }) => {
 
     const List = ({ id, codigo, fecha, total, dateExpire, estado }) => {
         function expirando() {
-            return (new Date(dateExpire).getTime() * 1000 * 60 * 60 * 24 + 25 >= new Date().getTime() * 1000 * 60 * 60 * 24);
+            //subtract two dates and return the number of days between them
+            const fechaActual = new Date();
+            const fechaExpiracion = new Date(dateExpire);
+            const diffTime = (fechaExpiracion - fechaActual);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays <= 5;
         }
         return (
             <>
@@ -147,7 +152,7 @@ const HistorialOrden = ({ navigation }) => {
                             </View>
                             <View
                                 style={{
-                                    top: estado == "FAC" || estado=="PEN"? -12:-1,
+                                    top: estado == "FAC" || estado=="PEN"? -10:-1,
                                     flexDirection: "row",
                                     alignItems: "center",
                                     opacity: 0.6,
