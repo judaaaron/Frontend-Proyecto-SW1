@@ -21,7 +21,7 @@ const HistorialOrden = ({ navigation }) => {
     const [specificResponse, setSpecificResponse] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [ordenes, setOrdenes] = useState(null);
-    const [button, setButton]= useState(false);
+    const [button, setButton] = useState(false);
 
     const token = React.useRef(useSelector((state) => state.token.value))
     React.useEffect(() => {
@@ -35,6 +35,7 @@ const HistorialOrden = ({ navigation }) => {
         if (response['data']) {
             setOrdenes(response['data']);
         }
+        console.log(response);
     }, [response]);
 
     React.useEffect(() => {
@@ -51,11 +52,21 @@ const HistorialOrden = ({ navigation }) => {
 
     function ordenarPorFecha(array) {
         const temp = array.sort((a, b) => new Date(a.fechas).getTime() > new Date(b.fechas).getTime())
-        //const
+        temp.forEach(element => {
+            console.log("temp", element.fechaDeFacturado);
+        })
         return temp;
     }
 
-    const List = ({ id, codigo, fecha, total }) => {
+    const List = ({ id, codigo, fecha, total, dateExpire, estado }) => {
+        function expirando() {
+            //subtract two dates and return the number of days between them
+            const fechaActual = new Date();
+            const fechaExpiracion = new Date(dateExpire);
+            const diffTime = (fechaExpiracion - fechaActual);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays <= 5;
+        }
         return (
             <>
                 {!button ? <TouchableOpacity
@@ -141,7 +152,7 @@ const HistorialOrden = ({ navigation }) => {
                             </View>
                             <View
                                 style={{
-                                    marginTop: 4,
+                                    top: estado == "FAC" || estado=="PEN"? -10:-1,
                                     flexDirection: "row",
                                     alignItems: "center",
                                     opacity: 0.6,
@@ -160,6 +171,29 @@ const HistorialOrden = ({ navigation }) => {
 
                                 </Text>
 
+                                <View style={{backgroundColor: (estado == "VEN" || (estado == "FAC" && expirando())) ? Colors.red
+                                                : (estado == "FAC" && !expirando() ? Colors.yellow
+                                                    : (estado == "PEN" ? Colors.lightblue : Colors.green)), borderRadius:10, top: (estado == "FAC" || estado=="PEN")?-2:0, right:-15, width:100}}>
+                                    <Text
+                                        style={{
+                                            fontSize: 14,
+                                            fontWeight: "bold",
+                                            maxWidth: "85%",
+                                            marginRight: 4,
+                                            color: Colors.black,
+                                            textAlign: "center",
+                                            right:-5
+                                        }}
+                                    >
+
+                                        {estado == 'VEN' && 'Vencido'}
+                                        {estado == 'FAC' && expirando() && 'A punto de expirar'}
+                                        {estado == 'FAC' && !expirando() && 'Pendiente de pago'}
+                                        {estado == 'PAG' && 'Pagado'}
+                                        {estado == 'PEN' && 'Pendiente facturación'}
+                                    </Text>
+                                </View>
+
                             </View>
                         </View>
                         <View
@@ -177,9 +211,9 @@ const HistorialOrden = ({ navigation }) => {
 
 
                 </TouchableOpacity>
-                :
+                    :
 
-                null
+                    null
 
                 }
 
@@ -246,6 +280,8 @@ const HistorialOrden = ({ navigation }) => {
                             codigo={item.id}
                             fecha={item.fecha}
                             total={item.total}
+                            dateExpire={item.fechaDeFacturado ? item.fechaDeFacturado : null}
+                            estado={item.estado}
                         />
                     )}
                     keyExtractor={(item) => item.id}

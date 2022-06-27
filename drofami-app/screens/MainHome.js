@@ -163,6 +163,7 @@ export default function MainHome({ navigation, route }) {
   // console.log("fish ", recomendacionANC[0]['id']);
 
   const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
+  //const [mensajes, setMensaje] = useState(useSelector((state) => state.mensaje.value)); //se agrega
   
   React.useEffect(() => {
     if (!token.current) {
