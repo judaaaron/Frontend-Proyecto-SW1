@@ -147,7 +147,7 @@ const HistorialOrden = ({ navigation }) => {
                             </View>
                             <View
                                 style={{
-                                    marginTop: 4,
+                                    top: estado == "FAC" || estado=="PEN"? -12:-1,
                                     flexDirection: "row",
                                     alignItems: "center",
                                     opacity: 0.6,
@@ -167,8 +167,8 @@ const HistorialOrden = ({ navigation }) => {
                                 </Text>
 
                                 <View style={{backgroundColor: (estado == "VEN" || (estado == "FAC" && expirando())) ? Colors.red
-                                                : (estado == "FAC" && !expirando() ? Colors.brand
-                                                    : (estado == "PEN" ? Colors.lightblue : Colors.green)), borderRadius:10, top:-15, right:-15, width:100}}>
+                                                : (estado == "FAC" && !expirando() ? Colors.yellow
+                                                    : (estado == "PEN" ? Colors.lightblue : Colors.green)), borderRadius:10, top: (estado == "FAC" || estado=="PEN")?-2:0, right:-15, width:100}}>
                                     <Text
                                         style={{
                                             fontSize: 14,

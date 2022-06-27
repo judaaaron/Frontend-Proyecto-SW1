@@ -24,7 +24,7 @@ export const Colors = {
   menta:'#CDFFF4',
   morado:'#8EA0D8',
   orange: '#FFA500',
-  yellow: '#FFFF00',
+  yellow: '#FFF380',
 
 
 };
