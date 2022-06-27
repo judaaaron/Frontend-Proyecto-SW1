@@ -31,7 +31,8 @@ function BannerNextOffer (props) {
     props.setVisible(false);
   }, 5000)
   //remove all instances of the substring '\n'
-  const newStr = props.message.replace(/\\n/g, '');
+
+  const newStr = props.message ? props.message.replace(/\\n/g, '') : '';
   return (
     <Banner
       style={{
