@@ -16,13 +16,43 @@ import { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import { getProduct } from "../src/ProductMethods";
 import { showMessage } from "react-native-flash-message";
 import Spinner from '../components/Spinner';
+
 import CarouselCards from "./CarouselCards";
 import CarouselCards2 from "./CarouselCards2";
+
+import { Banner } from 'react-native-paper';
+
+
+
+function BannerNextOffer (props) {
+  const timeout = React.useRef(null);
+  clearTimeout(timeout.current)
+  timeout.current = setTimeout(() => {
+    props.setVisible(false);
+  }, 5000)
+  return (
+    <Banner
+      visible={props.visible}
+      actions={[
+        {
+          label: 'Okay',
+          onPress: () => props.setVisible(false),
+          color: 'red'
+        },
+       ]}
+       color='red'
+    >
+        {props.message}
+    </Banner>
+  );
+}
+
+
 
 function RecommendedCards(props) {
   const [index, setIndex] = React.useState(0);
   const isCarousel = React.useRef(null);
-  const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
+  
 
   const CarouselCardItem = ({ item, index }) => {
     return (
@@ -41,14 +71,8 @@ function RecommendedCards(props) {
       </View>
           <View style={{ alignItems: 'flex-start'}} >
             <Text style={styles.header}>{item.nombre}</Text>
-
-           
-
-            {staff === false ? (
-             <Text style={styles.body}>L. {Number(item.precio).toFixed(2)} </Text>
-            ):(
-              null
-            )}
+            {!props.employee &&
+              <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text>}
           </View>
 
           <View
@@ -66,12 +90,10 @@ function RecommendedCards(props) {
               alignItems: 'center',
 
             }}>
-              {staff === false ? (
             <Text
               style={{ fontSize: 22, color: Colors.blue, fontWeight: 'bold', top: -4, color: Colors.blue }} >
               +
             </Text>
-              ):(null)}
           </View>
           </View>
         </TouchableOpacity>
@@ -124,7 +146,7 @@ function RecommendedCards(props) {
     );
 }
 
-export default function MainHome({ navigation }) {
+export default function MainHome({ navigation, route }) {
   //const [token, setToken] = useState(useSelector((state) => state.token.value));//se agrega
   const token = React.useRef(useSelector((state) => state.token.value))
   const [loading, setLoading] = useState(false);
@@ -135,41 +157,13 @@ export default function MainHome({ navigation }) {
   const isEmpleado = React.useRef(useSelector((state) => state.staff.value));
   const isCarousel = React.useRef(null);
   const [index, setIndex] = useState(0);
+  //
+  const [bannerVisible, setBannerVisible] = useState(false);
+  const mensaje = route.mensaje;
   // console.log("fish ", recomendacionANC[0]['id']);
 
-  const dataHessel = [
-    {
-      nombre: "Aciclovirax",
-      imagen:
-        "https://www.ancalmo.com/wp-content/uploads/2017/04/Aciclo-120ml.jpg",
-    },
-    {
-      nombre: "Aciclovirax 200 mg",
-      imagen:
-        "https://www.ancalmo.com/wp-content/uploads/2020/08/Aciclovirax-200mg-2020.png",
-    },
-    {
-      nombre: "Aciclovirax 400mg",
-      imagen:
-        "https://www.ancalmo.com/wp-content/uploads/2020/08/Aciclovirax-400mg-2020-2.png",
-    },
-  ];
-
-  const dataAncalmo = [
-  {
-    nombre: "Calamina Antialérgica",
-    imagen: "https://www.ancalmo.com/wp-content/uploads/2017/04/calamina-antialergica-1.jpg"
-  },
-  {
-    nombre: "GINKROL",
-    imagen: "https://www.ancalmo.com/wp-content/uploads/2017/05/ginkrol-ancalmo-1.jpg"
-  },
-  {
-    nombre: "ZORRITONE BALSÁMICO UNGÜENTO TARRO",
-    imagen: "https://www.ancalmo.com/wp-content/uploads/2017/04/z-unguento.jpg"
-  }
-]
-
+  const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
+  
   React.useEffect(() => {
     if (!token.current) {
       return;
@@ -258,8 +252,16 @@ React.useEffect(() => {
       color: product["producto"]["color"],
     });
   }
+    
+
 }, [productResponse]);
+
+React.useEffect(() => {
+     setBannerVisible(true);
+}, [])
+
   return (
+    
     <View
       style={{
         backgroundColor: Colors.white,
@@ -268,11 +270,21 @@ React.useEffect(() => {
         marginBottom: 55,
       }}
     >
+        {/*//Aqui esta🦊*/}
+        <BannerNextOffer message={'Hay creditos apunto de expirar!'}
+            setVisible={setBannerVisible}
+            visible={bannerVisible}
+          />
+      
       <View
         style={{
           alignItems: "center",
         }}
       >
+      
+          
+         
+
         <PageLogOferta
           source={require("../assets/drofamilogo1.jpg")}
           resizeMode="cover"
@@ -307,19 +319,13 @@ React.useEffect(() => {
             }}
           />
         </View>
-        {useSelector((state) => state.staff.value) === false ? (
-          <RecommendedCards
-            token={token.current}
-            array={recomendacionANC}
-            setProductResponse={setProductResponse}
-            setLoading={setLoading}
-          />
-        ) : (
-          <RecommendedCards
-            token={token.current}
-            array={dataAncalmo}
-          />
-        )}
+        <RecommendedCards
+          token={token.current}
+          array={recomendacionANC}
+          setProductResponse={setProductResponse}
+          setLoading={setLoading}
+          employee={staff}
+        />
 
         <View
           style={{
@@ -336,20 +342,13 @@ React.useEffect(() => {
             }}
           />
         </View>
-
-        {useSelector((state) => state.staff.value) === false ? (
-          <RecommendedCards
-            token={token.current}
-            array={recomendacionHES}
-            setProductResponse={setProductResponse}
-            setLoading={setLoading}
-          />
-        ) : (
-          <RecommendedCards
-            token={token.current}
-            array={dataHessel}
-          />
-        )}
+        <RecommendedCards
+          token={token.current}
+          array={recomendacionHES}
+          setProductResponse={setProductResponse}
+          setLoading={setLoading}
+          employee={staff}
+        />
       </ScrollView>
       {loading && <Spinner text={"Cargando..."} />}
     </View>
