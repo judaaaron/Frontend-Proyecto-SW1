@@ -28,6 +28,7 @@ export default function HesselScreen({ navigation }) {
   const [search, setSearch] = useState();
   const [filteredDataSource, setFilteredDataSource] = useState();
   const [masterDataSource, setMasterDataSource] = useState(catalog);
+  const timeout = React.useRef();
 
   React.useEffect(() => {
     // console.log("AQUIIII:", filteredDataSource);
@@ -136,24 +137,44 @@ export default function HesselScreen({ navigation }) {
     return temp;
   }
 
-  const searchFilterFunction = (text) => {
-    if (text) {
+  function handleTextInputChange(text) {
+    //use timeout to avoid triggering a search every character typed
+    clearTimeout(timeout.current);
+    setSearch(text);
+    timeout.current = setTimeout(()=>{
+        searchFilterFunction(text);
+    }, 575);
+}
+
+const searchFilterFunction = (text) => {
+  // Check if searched text is not blank
+  if (text) {
       const newData = catalog.filter((element) => {
-        return element.producto.nombre
-          .toLowerCase()
-          .includes(text.toLowerCase())
-          ? true
-          : false;
+          if (element.producto.nombre.toLowerCase().includes(text.toLowerCase())) {
+              console.log(element.producto.nombre, "Por Nombre");
+              return true;
+          }
+          if (!element.producto.etiqueta)
+              return false;
+          let hasTag = false;
+          //Check if the searched text is in the tag array
+          element.producto.etiqueta.forEach((tag) => {
+              if (tag.toLowerCase().includes(text.toLowerCase())) {
+                  hasTag = true;
+                  console.log(element.producto.nombre, "Por Etiqueta", tag);
+                  return;
+              }
+          })
+          return hasTag;
+          // return ((element.producto.etiqueta.toLowerCase().includes(text.toLowerCase()) ) ? true : false);
       });
       setFilteredDataSource(newData);
-      setSearch(text);
-    } else {
+  } else {
       // Inserted text is blank
       // Update FilteredDataSource with masterDataSource
       setFilteredDataSource(catalog);
-      setSearch(text);
-    }
-  };
+  }
+};
 
   const ItemSeparatorView = () => {
     return (
@@ -326,7 +347,7 @@ export default function HesselScreen({ navigation }) {
             <TextInput
               onFocus={(text) => searchFilterFunction()}
               style={styles.input}
-              onChangeText={(text) => searchFilterFunction(text)}
+              onChangeText={(text) => handleTextInputChange(text)}
               value={search}
               placeholder="Buscar"
             />
