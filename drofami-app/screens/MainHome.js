@@ -16,7 +16,7 @@ import { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import { getProduct } from "../src/ProductMethods";
 import { showMessage } from "react-native-flash-message";
 import Spinner from '../components/Spinner';
-
+import { getEstado } from '../src/login_registerAPI';
 import CarouselCards from "./CarouselCards";
 import CarouselCards2 from "./CarouselCards2";
 
@@ -32,11 +32,20 @@ function BannerNextOffer (props) {
   }, 5000)
   return (
     <Banner
+      style={{
+        backgroundColor: '#ffff',
+        borderRadius: 5,
+        shadowColor: '#0000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+      }}
       visible={props.visible}
       actions={[
         {
-          label: 'Okay',
-          onPress: () => props.setVisible(false),
+          label: 'Ver Ordenes',
+          onPress: () => props.navigate(),
           color: 'red'
         },
        ]}
@@ -157,23 +166,41 @@ export default function MainHome({ navigation, route }) {
   const isEmpleado = React.useRef(useSelector((state) => state.staff.value));
   const isCarousel = React.useRef(null);
   const [index, setIndex] = useState(0);
+  const wasFocused = React.useRef(false);
   //
   const [bannerVisible, setBannerVisible] = useState(false);
   const mensaje = route.mensaje;
   // console.log("fish ", recomendacionANC[0]['id']);
-
+  const [estadoResponse, setEstadoResponse] = useState(null);
   const [staff, setStaff] = useState(useSelector((state) => state.staff.value)); //se agrega
   //const [mensajes, setMensaje] = useState(useSelector((state) => state.mensaje.value)); //se agrega
-  
+
+  function takeMeToOrders() {
+    navigation.navigate("HistorialOrden");
+  }
+
   React.useEffect(() => {
     if (!token.current) {
       return;
     }
-
     getRecomendacion(setLoading, token.current, setResponse);
-    
+    if (!wasFocused.current) {
+      getEstado(setLoading, token.current, setEstadoResponse);
+      wasFocused.current = true;
+    }
   }, [])
 
+  React.useEffect(() => {
+    if (!estadoResponse) {
+      return;
+    }
+    console.log("estadoResponse ", estadoResponse);
+    if (estadoResponse.estados) {
+      console.log("estadoResponse.estados", estadoResponse.estados);
+      setBannerVisible(true);
+    }
+  }, [estadoResponse]);
+  
 
   React.useEffect(() => {
     if (!response || !response['data'] || !response['data']['ANC']) {
@@ -257,9 +284,6 @@ React.useEffect(() => {
 
 }, [productResponse]);
 
-React.useEffect(() => {
-     setBannerVisible(true);
-}, [])
 
   return (
     
@@ -272,9 +296,10 @@ React.useEffect(() => {
       }}
     >
         {/*//Aqui esta🦊*/}
-        <BannerNextOffer message={'Hay creditos apunto de expirar!'}
+        <BannerNextOffer message={estadoResponse ? estadoResponse.estados : null}
             setVisible={setBannerVisible}
             visible={bannerVisible}
+            navigate={takeMeToOrders}
           />
       
       <View

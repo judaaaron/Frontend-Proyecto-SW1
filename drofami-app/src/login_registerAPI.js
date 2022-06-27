@@ -229,3 +229,27 @@ export async function logout(setLoading, token, setResponse) {
         setLoading(false)
     }
 }
+
+//fetch to get estado 
+export async function getEstado(setLoading, token, setResponse) {
+    setLoading(true);
+    let response = {};
+    try {
+        response = await fetch(API_URL + 'orden/peligro/', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Token ' + token,
+                },
+            }).then((response) =>
+                response.json())
+            .then(data => {
+                setResponse(data)
+            })
+    } catch (e) {
+        console.log("Error en getEstado", e)
+    } finally {
+        setLoading(false)
+    }
+}
