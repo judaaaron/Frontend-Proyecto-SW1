@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "assets/IconoDrofami.png",
+        "backgroundColor": "#072989"
       },
       "package": "com.judaaaron.drofamiApp",
       "versionCode":2
