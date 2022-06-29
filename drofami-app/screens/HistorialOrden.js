@@ -63,9 +63,15 @@ const HistorialOrden = ({ navigation }) => {
             //subtract two dates and return the number of days between them
             const fechaActual = new Date();
             const fechaExpiracion = new Date(dateExpire);
-            const diffTime = (fechaExpiracion - fechaActual);
+            const diffTime = (fechaActual - fechaExpiracion  );
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays <= 5;
+          
+            console.log(fechaActual,"actual")
+            console.log(fechaExpiracion, "expiracion")
+
+            console.log(diffTime, "time")
+            console.log(diffDays,"days")
+            return diffDays >= 25;
         }
         return (
             <>
