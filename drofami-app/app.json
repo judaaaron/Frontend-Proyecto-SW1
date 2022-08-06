@@ -2,7 +2,7 @@
   "expo": {
     "name": "drofami-app",
     "slug": "drofamiApp",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "assets/IconoDrofami.png",
     "splash": {
@@ -25,7 +25,7 @@
         "backgroundColor": "#072989"
       },
       "package": "com.judaaaron.drofamiApp",
-      "versionCode":2
+      "versionCode":3
     },
     "web": {
       "favicon": "./assets/favicon.png"
