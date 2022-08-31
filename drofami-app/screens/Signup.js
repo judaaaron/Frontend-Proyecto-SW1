@@ -31,7 +31,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { darkLight } = Colors;
 const regularNameLastName = /^[A-Za-záéíóúñ]+$/  //solo acepta letras si se acepta espacios en un futuro, solo colocar \s
-const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}-[0-9]{4}$/ // solo acepta numeros y guion en el centro
+const regularPhone = /^([2]||[3]||[8]||[9]{1})[0-9]{3}[0-9]{4}$/
 const regularPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@_#\$%\^&\*])(?=.{8,})/ // acepta basicamente todo tipo de caracter y minimo 8 caracteres
 const regularUsername = /(^(\S))+(\s*[aA-zZ0-9!-@_#\$%\^&\*])+$/ // acepta basicamente todo tipo de caracter
 
@@ -52,7 +52,7 @@ let SingUpValidationSchema = yup.object().shape({
         .required('Contraseña es obligatoria').matches(regularPassword,
             "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial"
         ),
-    phone: yup.string().min(9, ({ min }) => `Número teléfonico debe tener 8 números y un guión`).max(9, ({ max }) => `Número teléfonico debe tener 8 números y un guión`)
+    phone: yup.string().min(9, ({ min }) => `Número teléfonico debe tener 8 digitos`).max(9, ({ max }) => `Número teléfonico debe tener 8 digitos`)
         .required('Número teléfonico es obligatorio').matches(regularPhone,
             "Número teléfonico inválido",
         ),
@@ -221,11 +221,12 @@ const Signup = ({ navigation }) => {
                       <MyTextInput
                         label={"Teléfono"}
                         icon={"device-mobile"}
-                        placeholder={"9999-9999"}
+                        placeholder={"99999999"}
                         placeholderTextColor={darkLight}
                         onChangeText={handleChange("phone")}
                         onBlur={handleBlur("phone")}
                         values={values.phone}
+
                       />
 
                       {errors.phone && touched.phone && (
