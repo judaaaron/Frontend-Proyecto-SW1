@@ -52,7 +52,7 @@ let SingUpValidationSchema = yup.object().shape({
         .required('Contraseña es obligatoria').matches(regularPassword,
             "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial"
         ),
-    phone: yup.string().min(9, ({ min }) => `Número teléfonico debe tener 8 números y un guión`).max(9, ({ max }) => `Número teléfonico debe tener 8 números y un guión`)
+    phone: yup.string().min(9, ({ min }) => `Número teléfonico debe tener 8 digitos`).max(9, ({ max }) => `Número teléfonico debe tener 8 digitos`)
         .required('Número teléfonico es obligatorio').matches(regularPhone,
             "Número teléfonico inválido",
         ),
@@ -227,7 +227,7 @@ const Signup = ({ navigation }) => {
                         onChangeText={handleChange("phone")}
                         onBlur={handleBlur("phone")}
                         values={values.phone}
-                        
+
                       />
 
                       {errors.phone && touched.phone && (
