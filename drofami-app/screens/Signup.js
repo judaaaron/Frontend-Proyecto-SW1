@@ -227,6 +227,7 @@ const Signup = ({ navigation }) => {
                         onChangeText={handleChange("phone")}
                         onBlur={handleBlur("phone")}
                         values={values.phone}
+                        
                       />
 
                       {errors.phone && touched.phone && (
