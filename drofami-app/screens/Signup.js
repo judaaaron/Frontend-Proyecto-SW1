@@ -104,27 +104,26 @@ const Signup = ({ navigation }) => {
 
     return (
       <>
-        <View style={styles.header} top={7}>
-          <Icon
-            name="arrow-back"
-            size={30}
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-        <InnerContainer marginTop={0}>
-          <StatusBar style="dark" backgroundColor="white" />
-
-          <PageLog
-            source={require("../assets/drofamilogo1.jpg")}
-            resizeMode="cover"
-          />
-          <Subtitle>Registro</Subtitle>
-          <ScrollView
-            // scrollIndicatorInsets={false}
-            showsVerticalScrollIndicator={false}
-          >
-            <Keyboard2>
-              <StyledContainer>
+        <ScrollView
+          // scrollIndicatorInsets={false}
+          showsVerticalScrollIndicator={false}
+        >
+          <Keyboard2>
+            <StyledContainer marginTop={5}>
+              <StatusBar style="dark" backgroundColor="white" />
+              <View style={styles.header} top={7}>
+                <Icon
+                  name="arrow-back"
+                  size={30}
+                  onPress={() => navigation.goBack()}
+                />
+              </View>
+              <InnerContainer marginTop={0}>
+                <PageLog
+                  source={require("../assets/drofamilogo1.jpg")}
+                  resizeMode="cover"
+                />
+                <Subtitle>Registro</Subtitle>
                 <Formik
                   initialValues={{
                     usuario: "",
@@ -313,10 +312,10 @@ const Signup = ({ navigation }) => {
                     </StyledFormArea>
                   )}
                 </Formik>
-              </StyledContainer>
-            </Keyboard2>
-          </ScrollView>
-        </InnerContainer>
+              </InnerContainer>
+            </StyledContainer>
+          </Keyboard2>
+        </ScrollView>
         {isLoading && <Spinner text="Creando cuenta..." />}
       </>
     );

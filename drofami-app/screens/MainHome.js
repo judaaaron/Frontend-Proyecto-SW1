@@ -83,8 +83,9 @@ function RecommendedCards(props) {
       </View>
           <View style={{ alignItems: 'flex-start'}} >
             <Text style={styles.header}>{item.nombre}</Text>
-            {console.log("WUUUUUUUUU", item)}
-            {(!props.employee && item.precio) ?  <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text> : null}
+            {(!props.employee && item.precio) ?  
+            <Text style={styles.body}>L. {item.precio % 1 == 0 ? item.precio.toFixed(2) : item.precio} </Text> 
+            : null}
           </View>
 
           <View

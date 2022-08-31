@@ -33,7 +33,7 @@ const { primary, secondary, tertiary, darkLight, brand, green, red, blue, lightb
 export const StyledContainer = styled.View`
   flex: 1;
   padding: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 150px;
   background-color: ${primary};
 `;
 
@@ -170,7 +170,7 @@ export const StyledFormArea2 = styled.View`
 export const StyledTextInput = styled.TextInput`
   background: ${secondary};
   padding: 15px;
-  padding-left: 55px;
+  padding-left: 50px;
   padding-right: 55px;
   border-radius: 35px;
   font-size: 16px;
