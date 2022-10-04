@@ -94,14 +94,19 @@ export default function HesselScreen({ navigation }) {
 
     const product = productResponse["data"];
     if (isEmpleado.current) {
+      
       navigation.navigate("EmpleadoDetalleProductoScreen", {
         id: product["producto"]["id"],
         cantidad: product["cantidad"],
         imagen: product["producto"]["imagen"],
         nombre: product["producto"]["nombre"],
         precio: product["producto"]["precio"],
+        indicaciones: product["producto"]["indicaciones"],
+        dosis: product["producto"]["dosis"],
+        formula: product["producto"]["formula"],
         fabricante: product["producto"]["fabricante"],
         color: product["producto"]["color"],
+
       });
     } else {
       navigation.navigate("DetalleProductsAncalmo", {

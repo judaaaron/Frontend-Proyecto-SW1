@@ -104,6 +104,9 @@ const AncalmoScreen = ({ navigation, dato }) => {
                 precio: product['producto']["precio"],
                 fabricante: product['producto']["fabricante"],
                 color: product["producto"]["color"],
+                indicaciones: product['producto']["indicaciones"],
+                dosis: product['producto']["dosis"],
+                formula: product['producto']['formula'],
                 etiqueta: product["producto"]["etiqueta"]
             });
         } else {
