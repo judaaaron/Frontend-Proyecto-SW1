@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
+import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../components/styles";
-import CarouselCards from './CarouselDescripcionAncalmo';
+import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 
 import { Picker } from "@react-native-picker/picker";
 
@@ -27,6 +27,14 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
           body: producto.dosis,
         },
       ]
+      React.useEffect(() => {
+        StatusBar.setBackgroundColor(producto.color)
+     
+        }, [])
+
+        React.useEffect(() => {
+            return () => {StatusBar.setBackgroundColor(Colors.white)}
+          }, [])
     
 
 
@@ -48,6 +56,7 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
 
 
     return (
+        <ScrollView>
         <SafeAreaView
             style={{
                 flex: 1,
@@ -203,10 +212,13 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
                         </View>
                     </View>
                 </View>
-                <CarouselDescripcionAncalmo data={carouselData} />
+                <View style={{ marginLeft: -50 }}>
+                <CarouselDescripcionAncalmo data={carouselData}/>
+                </View>
             </View>
             {/* </ScrollView> */}
         </SafeAreaView>
+        </ScrollView>
     );
 
 
