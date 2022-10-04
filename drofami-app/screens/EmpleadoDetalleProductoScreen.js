@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
+import { View, SafeAreaView, Image, Text, StyleSheet, ScrollView, TextInput, Button, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { NotificationText, Counter, Colors, StyledButton, ButtonText } from "../components/styles";
+import CarouselDescripcionAncalmo from './CarouselDescripcionAncalmo'
 
 import { Picker } from "@react-native-picker/picker";
 
@@ -10,6 +11,32 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
     const producto = route.params;
     const { id, cantidad, imagen, nombre, precio, fabricante, color } = route.params
     const [selected, setSelected] = React.useState(null);
+
+    const carouselData = [
+        {
+          name: "Indicaciones",
+          body: producto.indicaciones,
+    
+        },
+        {
+          name: "Fórmula",
+          body: producto.formula,
+        },
+        {
+          name: "Dósis",
+          body: producto.dosis,
+        },
+      ]
+      React.useEffect(() => {
+        StatusBar.setBackgroundColor(producto.color)
+     
+        }, [])
+
+        React.useEffect(() => {
+            return () => {StatusBar.setBackgroundColor(Colors.white)}
+          }, [])
+    
+
 
     React.useEffect(() => {
         Object.entries(producto.precio).map((element, i) => {
@@ -29,6 +56,7 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
 
 
     return (
+        <ScrollView>
         <SafeAreaView
             style={{
                 flex: 1,
@@ -184,9 +212,13 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
                         </View>
                     </View>
                 </View>
+                <View style={{ marginLeft: -50 }}>
+                <CarouselDescripcionAncalmo data={carouselData}/>
+                </View>
             </View>
             {/* </ScrollView> */}
         </SafeAreaView>
+        </ScrollView>
     );
 
 

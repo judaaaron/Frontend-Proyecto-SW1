@@ -144,7 +144,7 @@ const DetalleProductsAncalmo = ({ navigation, route }) => {
    }, 1000);
   }
 
-  const carouselData = [
+const carouselData = [
     {
       name: "Indicaciones",
       body: indicaciones,
