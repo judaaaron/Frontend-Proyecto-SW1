@@ -158,7 +158,15 @@ const EmpleadoDetalleProductoScreen = ({ navigation, route }) => {
                 {selected &&
                     <View style={style.priceTag}>
                         <Text style={{ color: Colors.white }}>
-                            Precio L. {producto.precio[selected]}
+                            Precio L. {producto.precio[selected].noTax}
+                        </Text>
+                    </View>
+                }
+
+                {selected && producto.precio[selected].tax &&
+                    <View style={style.priceTag} top={5}>
+                        <Text style={{ color: Colors.white }}>
+                            + ISV L. {producto.precio[selected].tax.toFixed(2)}
                         </Text>
                     </View>
                 }
